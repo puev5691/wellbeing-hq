@@ -1,0 +1,32 @@
+name: exchange-gate
+
+on:
+  push:
+    paths:
+      - 'routes/**'
+      - 'registry/**'
+      - 'entities/**/inbox/**'
+      - 'entities/**/outbox/**'
+      - 'entities/**/receipts/**'
+      - 'ops/validate_exchange.py'
+      - 'EXCHANGE-GATE.md'
+  pull_request:
+    paths:
+      - 'routes/**'
+      - 'registry/**'
+      - 'entities/**/inbox/**'
+      - 'entities/**/outbox/**'
+      - 'entities/**/receipts/**'
+      - 'ops/validate_exchange.py'
+      - 'EXCHANGE-GATE.md'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate inter-entity exchange
+        run: python ops/validate_exchange.py

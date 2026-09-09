@@ -1,0 +1,1 @@
+{"record_id":"<id>","sender":"<sender>","recipient":"<recipient>","artifact":"entities/<sender>/outbox/<file>","artifact_commit":"<sha>","artifact_blob":"<sha-or-null>","purpose":"<purpose>","dispatch":"routes/dispatch/<dispatch>.md","status":"dispatched","receipt":null}
