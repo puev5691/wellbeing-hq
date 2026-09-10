@@ -5,7 +5,7 @@
 - SIS / СИСАДМИН → `entities/sisadmin/`
 - WEB / ВЕБМАСТЕР → `entities/webmaster/`
 - RED / РЕДАКТОР → `entities/redaktor/`
-- ARH / АРХИВАРИУС → `entities/arhivarius/`
+- ARH / АРХИВАРИУС → `entities/archivarius/`
 - KAN / КАНЦЕЛЯР → `entities/kancelar/`
 - KOD / КОДЕР → `entities/koder/`
 - ШАРДОВИК → `entities/shardovik/`
