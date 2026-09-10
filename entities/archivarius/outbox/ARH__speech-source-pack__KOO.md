@@ -1,7 +1,7 @@
 # АРХИВАРИУС → КООРДИНАТОР
 ## Проверяемый source-pack для публичного выступления ОПЕРАТОРА
 
-status: prepared_for_dispatch
+status: revised_after_VOL_evidence
 entity: ARH / АРХИВАРИУС
 project_time: omitted; trusted project-time source not used
 
@@ -22,7 +22,7 @@ project_time: omitted; trusted project-time source not used
    - blob: `aafd9b8e125c3382177ca36fc1ec337c2d6f8bc4`
    - status: current operational gate
 
-4. Уже реализован GitHub-контур, автоматически обнаруживающий адресное событие в inbox и формирующий activation request. При этом подтверждённый тест НЕ доказывает автоматическое возобновление конкретного существующего ChatGPT-чата.
+4. Уже реализован GitHub-контур, автоматически обнаруживающий адресное событие в inbox и формирующий activation request. Подтверждённый тест НЕ доказывает автоматическое возобновление конкретного существующего ChatGPT-чата.
    - evidence card: `entities/koder/outbox/KOD__speech-tech-status__ARH.md`
    - immutable commit: `a83cbbceb29579b54d2a183ac9f646deb4db3a55`
    - blob: `be48983702d8289bba7c03f2d993db027615c75a`
@@ -42,47 +42,68 @@ project_time: omitted; trusted project-time source not used
    - blob: `cd9a0761969f0e41a7a6c7a19d4303c6198e2d99`
    - status: active concept / not full runtime
 
-7. В COOP уже создан evidence-first seed corpus. Он содержит source registry, claim queue, dedupe, priority map и manifest. Финальная речь там не создавалась, а весь пакет имеет статус `candidate_for_KOO_review`.
-   - locator: `entities/volonter/current/coop-meeting/seed/MANIFEST.md`
-   - status: candidate_for_KOO_review
+7. COOP имеет реально существующую evidence-инфраструктуру: source registry, claim queue, dedupe/variant map, meeting-priority map, research brief и отдельные research leads. Пакет остаётся candidate и не повышается до утверждённого Project Source по факту присутствия в GitHub.
+   - `entities/volonter/current/coop-meeting/seed/SOURCE-REGISTRY-v0_1.md`, blob `2a12bac568bd7eaed7d3d67c80e8ad1bfaf5d947`
+   - `entities/volonter/current/coop-meeting/analysis/MEETING-SOURCE-PRIORITY-v0_1.md`, blob `cbe426a2023e69ed043c242daff9fbffbe808f6b`
+   - `entities/volonter/current/coop-meeting/analysis/DEDUP-VARIANTS-v0_1.md`, blob `d14fdaf6ff2edc5622ac0dbe4c53417c88467c1e`
+   - status: candidate evidence infrastructure
 
-8. Наиболее сильный проверяемый организационный мост COOP к проекту сейчас даёт корпус Бобровского: организационная технология понимается как повторяемый порядок коллективных действий, а структура проектируется от функций, задач, полномочий, ответственности, совещаний, обратной связи и пилота. Это позиция/модель автора, а не универсально доказанный закон.
-   - source registry: `entities/volonter/current/coop-meeting/seed/SOURCE-REGISTRY-v0_1.md`
-   - ключевые source IDs: `COOP-BBR-001`, `COOP-BBR-002`, `COOP-BBR-003`
-   - status: primary/interpretation sources with verification boundaries
+8. Корпус Бобровского сейчас является отдельной открытой исследовательской линией. Ранее количественный blocker 34/34 снят прямым решением ОПЕРАТОРА; исследуется фактически доступный корпус с logical dedupe, provenance, source cards, claims, chronology и rights state. Полнота conversion в Markdown пока не подтверждена.
+   - locator: `entities/volonter/current/coop-meeting/analysis/VOL__BOBROVSKY-source-gate-override__KOO.md`
+   - blob: `003741c1f9d0676e80a2e67be94faca0caadda3a`
+   - status: open / source gate reopened by explicit OPERATOR override
 
-9. Исторический корпус Чартаева представлен сборником `Третий путь. Российский вариант` 1995 года. Он полезен для реконструкции ранних формулировок о собственности, совладении и общественном капитале, но неоднороден по авторству и требует посекционной атрибуции. Экономические показатели «Шукты» нельзя выдавать за доказанные без независимой проверки.
-   - source ID: `COOP-HIST-001`
-   - locator: `file_library:file_00000000a8e8822fa7a0732431f55f3c`
-   - status: historical_collection
+9. Внешний COOP-разведконтур уже содержит первую волну из 16 субъектов/кейсов и построен по принципу `механизм → субъект/кейс → primary locator → evidence boundary → criticism/failure → COOP relevance`. Это candidate-разведка, не accepted evidence всего списка.
+   - locator: `entities/volonter/current/coop-meeting/external/README.md`
+   - blob: `b733ac9622a224ec6e0cc45aa26810f85ad04e43`
+   - public-rights locator: `entities/volonter/current/coop-meeting/external/PUBLIC-MANIFEST.md`
+   - blob: `aae1194b818b3727b0b7c8da5ee26966d58b444f`
+   - status: candidate / external_scout_wave1
 
-10. Внешний COOP-поиск уже дал как минимум две проверяемые исследовательские линии: Local Agenda 21 как модель многостороннего локального участия и Макаренко как источник организационных механизмов коллектива. Обе линии пока являются `candidate_research_lead`, а не готовыми доказательствами эффективности или прямого переноса в проект.
-   - `entities/volonter/current/coop-meeting/analysis/VOL__COOP-agenda21-scout__KOO.md`
-   - `entities/volonter/current/coop-meeting/analysis/VOL__COOP-makarenko-scout-v0_1__KOO.md`
+10. Две дополнительные проверяемые исследовательские линии: Local Agenda 21 и Макаренко. По Agenda 21 подтверждена документированная архитектура локального многостороннего участия, но не доказанная эффективность. По Макаренко подтверждается японская педагогическая рецепция и исследуются организационные механизмы коллектива; прямой causal link к японскому corporate management остаётся непроверенным.
+   - Agenda 21: `entities/volonter/current/coop-meeting/analysis/VOL__COOP-agenda21-scout__KOO.md`, blob `934930cd07e843236d1fd8612129df0844decb00`
+   - Макаренко: `entities/volonter/current/coop-meeting/analysis/VOL__COOP-makarenko-scout-v0_1__KOO.md`, blob `66da440578cae4a3b55069f016afcbe282afa648`
    - status: candidate_research_lead
 
 ## COOP: что уже можно использовать
 
-`MEETING-SOURCE-PRIORITY-v0_1.md` выделяет как наиболее полезные перед встречей `COOP-BBR-001`, `COOP-BBR-002`, `COOP-HIST-001`, `COOP-BBR-003`, `COOP-BBR-004`. Они дают материал для разговора о выращивании организации из работающих единиц, организационной технологии как процессе, коллективном субъекте, пилоте и инженерной проверке организационных решений.
+Проверяемый отчёт ВОЛОНТЁРА доставлен через canonical inbox pointer:
+- pointer: `entities/archivarius/inbox/VOL__speech-coop-evidence__ARH.md`
+- artifact: `entities/volonter/outbox/VOL__speech-coop-evidence__ARH.md`
+- immutable commit: `31e2a069589e8149801bc68fc5f0f700fa7160aa`
+- immutable blob: `b97084f999ab1aa90b16e88c46510d3f2c62ff71`
+- pointer status: `dispatched_pointer`
+- artifact status: `prepared_for_dispatch`
 
-`CLAIM-QUEUE-v0_1.md` правильно сохраняет все выводы как `candidate`. Особенно релевантны для речи CLM-003, CLM-004, CLM-005, CLM-006, CLM-007 и CLM-014. Их можно подавать как исследуемые организационные принципы и наблюдаемое пересечение с практикой «Благополучия», но не как доказанные универсальные законы.
+Без повышения статуса из этого evidence-pack безопасно использовать следующие distinctions:
+- Бобровский разводит организационный процесс и IT-инструмент;
+- в корпусе зафиксированы темы совместной задачи, результата, функций, полномочий, ответственности, организационной памяти и пилота;
+- исторический сборник 1995 года выделен отдельно от поздних интерпретаций и требует посекционной авторской индексации;
+- External Scout построен вокруг механизмов и failure cases, а не списка «правильных учений»;
+- по Макаренко допустима формулировка о подтверждённой японской педагогической рецепции и функциональных параллелях; прямая корпоративная причинность недопустима;
+- по Agenda 21 допустимо говорить о документированной архитектуре Local Agenda 21; нормативный дизайн нельзя выдавать за доказанную эффективность.
 
 ## Три исследовательские линии и текущий статус
 
-1. COOP research conveyor.
-   - locator: `entities/shtabist/outbox/SHT__COOP-launch-blocked-source-conflict__KOO.md`
-   - status: `BLOCKED_SOURCE_CONFLICT`
-   - профильное проектирование не начато из-за конфликта approved-источников по правилам доставки.
+1. Полная нормализация корпуса Бобровского.
+   - locator: `entities/volonter/current/coop-meeting/analysis/VOL__BOBROVSKY-source-gate-override__KOO.md`
+   - blob: `003741c1f9d0676e80a2e67be94faca0caadda3a`
+   - status: `open / source gate reopened by explicit OPERATOR override`
+   - полнота conversion всего доступного корпуса в Markdown ещё не подтверждена.
 
-2. Local Agenda 21 / participatory governance.
+2. Внешний COOP scout: мыслители, практики и институты.
+   - locator: `entities/volonter/current/coop-meeting/external/README.md`
+   - blob: `b733ac9622a224ec6e0cc45aa26810f85ad04e43`
+   - status: `candidate / external_scout_wave1`
+   - 16 subjects/cases в первой волне; содержательный acceptance всего scout КООРДИНАТОРОМ не установлен.
+
+3. Local Agenda 21 / participatory governance.
    - locator: `entities/volonter/current/coop-meeting/analysis/VOL__COOP-agenda21-scout__KOO.md`
-   - status: `candidate_research_lead`
-   - подтверждает наличие исторически масштабного контура локального многостороннего участия; эффективность конкретных моделей требует case-study проверки.
+   - blob: `934930cd07e843236d1fd8612129df0844decb00`
+   - status: `candidate_research_lead / next full pass not yet executed`
+   - для вывода об эффективности нужен отдельный case-study/outcome layer.
 
-3. Макаренко / японская линия коллективной организации.
-   - locator: `entities/volonter/current/coop-meeting/analysis/VOL__COOP-makarenko-scout-v0_1__KOO.md`
-   - status: `candidate_research_lead`
-   - влияние Макаренко на японскую педагогику подтверждено в найденных материалах; прямая причинная связь с японским корпоративным менеджментом имеет статус `UNVERIFIED_DIRECT_CAUSAL_LINK`.
+Дополнительный открытый lead: Макаренко / японская линия, blob `66da440578cae4a3b55069f016afcbe282afa648`; прямой causal link к corporate management остаётся `UNVERIFIED_DIRECT_CAUSAL_LINK`.
 
 ## WBN / WBNP и экономические стимулы
 
@@ -92,11 +113,21 @@ project_time: omitted; trusted project-time source not used
 - `entities/kancelyariya/inbox/ARH__speech-claims-boundary-request__KAN.md`
 - `entities/koordinator/outbox/KOO__speech-legal-semantic-review__KAN.md`
 
-Следовательно, до появления проверяемого профильного результата безопасная публичная формулировка только такая: проект рассматривает экономические стимулы, WBN/WBNP и механизмы вознаграждения/обмена как проектируемое направление; текущая степень реализации и правовой/экономический статус требуют отдельного подтверждения.
+До появления проверяемого профильного результата безопасная публичная формулировка: проект рассматривает экономические стимулы, WBN/WBNP и механизмы вознаграждения/обмена как проектируемое направление; текущая степень реализации и правовой/экономический статус требуют отдельного подтверждения.
 
 ## Существующий каркас речи
 
 В проверенном GitHub-контуре самостоятельный утверждённый каркас/текст выступления в этом проходе не подтверждён. Это `unknown`, а не основание сочинить содержание от имени РЕДАКТОРА.
+
+## Дополнительные пробелы, подтверждённые VOL
+
+- KOO acceptance/review seed-пакета и external scout wave1 не установлен;
+- `COOP-MEET-001` в meeting-priority карте не имеет самостоятельного устойчивого file locator;
+- даты публикации ряда поздних текстов Бобровского не подтверждены;
+- происхождение/авторство ряда case-materials требует отдельной проверки;
+- исторические причинные claims о «разрушении/уничтожении» проектов не прошли независимый evidence-pass;
+- независимая конвергенция `Благополучие ↔ Бобровский/Чартаев` требует отдельного chronology/evidence audit;
+- rights basis для части внешних/исходных материалов остаётся unknown/claimed, не verified.
 
 ## Что нельзя утверждать со сцены по имеющимся источникам
 
@@ -109,14 +140,19 @@ project_time: omitted; trusted project-time source not used
 - что система Чартаева универсально доказана или что заявленные экономические результаты «Шукты» независимо подтверждены;
 - что прямое влияние Макаренко на японский корпоративный менеджмент доказано;
 - что Agenda 21 доказывает эффективность конкретной модели самоорганизации;
-- что candidate/draft/research lead является утверждённым проектным каноном или завершённой технологией.
+- что candidate/draft/research lead является утверждённым проектным каноном или завершённой технологией;
+- что весь COOP seed/external scout уже содержательно принят КООРДИНАТОРОМ;
+- что проект независимо пришёл к моделям Бобровского/Чартаева без отдельного chronology/evidence audit.
 
 ## Неполнота и открытые зависимости
 
-Для окончательной версии source-pack ещё полезны, если поступят до закрытия подготовки:
-- `VOL__speech-coop-evidence__ARH.md` от ВОЛОНТЁРА;
-- `KAN__speech-claims-boundary__ARH.md` от КАНЦЕЛЯРИИ;
+После интеграции VOL остаются полезны:
+- `KAN__speech-claims-boundary__ARH.md` от КАНЦЕЛЯРИИ, если поступит;
 - свежий SIS/KOO runtime evidence по серверной программе;
 - утверждённый или рабочий каркас речи РЕДАКТОРА/КООРДИНАТОРА.
 
-Текущий файл намеренно не ждёт этих зависимостей: он фиксирует проверяемый минимум, доступный сейчас, и явно показывает пробелы.
+## Provenance ревизии
+
+Эта версия обновлена после проверки immutable VOL artifact `31e2a069589e8149801bc68fc5f0f700fa7160aa` / blob `b97084f999ab1aa90b16e88c46510d3f2c62ff71`.
+
+Обнаруженный параллельный полный отчёт VOL в ошибочном `entities/arhivarius/inbox/` не использован как более высокий источник истины: он классифицирован как дублирующая/поздняя доставка по typo-path. Каноническая evidence-опора взята из уже существующего canonical inbox pointer и указанной им immutable версии VOL outbox artifact.
