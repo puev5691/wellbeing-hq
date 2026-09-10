@@ -6,7 +6,7 @@ on:
       - 'entities/*/inbox/**'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   detect:
@@ -18,6 +18,7 @@ jobs:
           fetch-depth: 2
 
       - name: Detect addressed inbox changes
+        id: detect
         shell: bash
         run: |
           set -euo pipefail
@@ -33,18 +34,68 @@ jobs:
             | tee /tmp/entity-inbox-events.txt || true
 
           if [ ! -s /tmp/entity-inbox-events.txt ]; then
+            echo 'actionable=false' >> "$GITHUB_OUTPUT"
             echo 'No actionable inbox locator changed.'
             exit 0
           fi
 
+          echo 'actionable=true' >> "$GITHUB_OUTPUT"
           echo 'activation_detector=PASS'
           echo 'The event detector fired on addressed inbox changes.'
-          echo 'Activation of an Entity chat is intentionally not claimed here.'
+
+      - name: Record activation boundary
+        if: steps.detect.outputs.actionable == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p routes/activation
+          : > /tmp/activation-records.txt
+
+          while IFS= read -r path; do
+            [ -n "$path" ] || continue
+            recipient="$(printf '%s' "$path" | cut -d/ -f2)"
+            base="$(basename "$path")"
+            safe="${base%.*}"
+            out="routes/activation/${safe}.activation.md"
+
+            cat > "$out" <<EOF
+          # Entity activation record
+
+          detector_status: PASS
+          source_event: github_push
+          source_commit: ${{ github.sha }}
+          inbox_locator: $path
+          recipient: $recipient
+          activation_requested: yes
+          processing_started: no
+          activation_status: activation_failed
+          failure_reason: exact_entity_chat_resume_not_supported_by_current_adapter
+          operator_manual_ping_required: yes
+          retry_policy: explicit_after_adapter_available
+          project_time: omitted; trusted project-time source not used
+
+          Этот файл фиксирует границу текущего прототипа: адресное входящее автоматически обнаружено, но доступного адаптера, который доказанно возобновляет конкретный существующий ChatGPT Entity-chat, в этом workflow нет. Delivery не объявляется activation.
+          EOF
+
+            printf '%s\n' "$out" >> /tmp/activation-records.txt
+          done < /tmp/entity-inbox-events.txt
+
+          git config user.name 'Wellbeing HQ automation'
+          git config user.email '257527241+puev5691@users.noreply.github.com'
+          git add routes/activation/
+          if git diff --cached --quiet; then
+            echo 'No activation state changes to commit.'
+          else
+            git commit -m 'Record entity activation boundary'
+            git push
+          fi
 
       - name: Upload detector evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: entity-activation-detector-${{ github.run_id }}
-          path: /tmp/entity-inbox-events.txt
+          path: |
+            /tmp/entity-inbox-events.txt
+            /tmp/activation-records.txt
           if-no-files-found: ignore
