@@ -1,0 +1,50 @@
+name: Entity activation detector
+
+on:
+  push:
+    paths:
+      - 'entities/*/inbox/**'
+
+permissions:
+  contents: read
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect addressed inbox changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          BEFORE='${{ github.event.before }}'
+          AFTER='${{ github.sha }}'
+          if [ "$BEFORE" = '0000000000000000000000000000000000000000' ]; then
+            git diff-tree --no-commit-id --name-only -r "$AFTER"
+          else
+            git diff --name-only "$BEFORE" "$AFTER"
+          fi \
+            | grep -E '^entities/[^/]+/inbox/' \
+            | grep -v '/\.gitkeep$' \
+            | tee /tmp/entity-inbox-events.txt || true
+
+          if [ ! -s /tmp/entity-inbox-events.txt ]; then
+            echo 'No actionable inbox locator changed.'
+            exit 0
+          fi
+
+          echo 'activation_detector=PASS'
+          echo 'The event detector fired on addressed inbox changes.'
+          echo 'Activation of an Entity chat is intentionally not claimed here.'
+
+      - name: Upload detector evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: entity-activation-detector-${{ github.run_id }}
+          path: /tmp/entity-inbox-events.txt
+          if-no-files-found: ignore
