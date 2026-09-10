@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: c95a2b995dd9da46dcf4c9b2bf0bb9f1bde74f53
+source_commit: 61b851f531eaa88e30bcea71e8a3911caae1dffc
 inbox_locator: entities/koordinator/inbox/ARH__speech-source-pack__KOO.md
 recipient: koordinator
 activation_requested: yes
