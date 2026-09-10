@@ -43,8 +43,17 @@ class GitProvider:
         return cp.stdout
 
     def commit_exists(self, commit):
-        self._run("cat-file", "-e", f"{commit}^{{commit}}")
-        return True
+        try:
+            cp = subprocess.run(["git", "-C", str(self.repo), "cat-file", "-e", f"{commit}^{{commit}}"], capture_output=True, text=True, check=False)
+        except Exception as e:
+            raise ProviderError("provider_unavailable") from e
+        if cp.returncode == 0:
+            return True
+        err = (cp.stderr or "").lower()
+        missing_markers = ("not a valid object name", "not a valid object", "bad object", "invalid object name")
+        if any(m in err for m in missing_markers):
+            return False
+        raise ProviderError("provider_query_failed")
 
     def blob_for_path(self, commit, path):
         out = self._run("ls-tree", commit, "--", path, text=True).strip()
