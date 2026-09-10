@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: d9fb0a2b99fd3ead49b2d4e3f1382e3d5d05be8c
+source_commit: eec9276a4d6bfcf70d5f205fe23556416f1a9e2e
 inbox_locator: entities/arhivarius/inbox/VOL__speech-coop-evidence__ARH.md
 recipient: arhivarius
 activation_requested: yes
