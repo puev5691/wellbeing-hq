@@ -43,11 +43,8 @@ class GitProvider:
         return cp.stdout
 
     def commit_exists(self, commit):
-        try:
-            self._run("cat-file", "-e", f"{commit}^{{commit}}")
-            return True
-        except ProviderError:
-            return False
+        self._run("cat-file", "-e", f"{commit}^{{commit}}")
+        return True
 
     def blob_for_path(self, commit, path):
         out = self._run("ls-tree", commit, "--", path, text=True).strip()
