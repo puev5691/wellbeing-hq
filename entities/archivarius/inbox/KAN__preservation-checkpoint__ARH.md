@@ -1,0 +1,16 @@
+# Входящий указатель: preservation checkpoint KAN для АРХИВАРИУСА
+
+sender: kancelar
+recipient: archivarius
+artifact: entities/kancelar/outbox/KAN__preservation-checkpoint__ARH.md
+artifact_commit: 219a0af1e7ec72be93995f2bd748f06721912616
+artifact_blob: 95d538230691a44cd3955f388828bc3c97af68ed
+artifact_sha256: 019e460ddcc4ff0fcf7f034740eb7f2fd759aa39016a2798f2f42740ccd3fc6d
+dispatch: routes/dispatch/KAN__preservation-checkpoint__ARH.md
+dispatch_commit: de87f632e058ff9f3b6a350a91ed9e50abb37ca5
+recovery_repository: puev5691/wellbeing-archivist
+recovery_path: docs/entities/kancelyariya/recovery-current
+recovery_commit: 97d12b996f3a68cf757d7d2aa4389f4310dca6ed
+required_action: выполнить независимый preservation-check, учесть checkpoint в recovery-registry и определить необходимость practical initiation test
+status: dispatched_pointer
+project_time: omitted; trusted project-time source not used
