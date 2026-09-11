@@ -57,13 +57,33 @@ Navigation or indexing must not upgrade semantic status. Legacy/error paths must
 This baseline does NOT:
 
 - promote any object to Project Source;
-- establish public/private/restricted classification;
+- establish public/private/restricted classification by itself;
 - grant universal writer, migration or destructive-cleanup authority;
 - select a centralized registry architecture;
 - create a universal candidate-to-approved authority matrix;
-- satisfy or bypass the KAN legal/publication gate.
+- satisfy or bypass the KAN legal/publication gate;
+- treat a dispatched KAN result as KOO acceptance.
 
-Public/private/restricted state remains deferred pending competent KAN/authority result.
+## KAN Stage A public/legal result now available for KOO review
+
+KAN has produced and dispatched a bounded Stage A public/legal boundary matrix:
+
+`entities/kancelar/outbox/KAN__github-info-entry-public-legal-boundary__KOO.md`
+
+artifact_commit: `6545a413dab7cc29e1d8485176402f24c23367f9`
+artifact_blob: `e071667b6b124060a49b9c86f653b7703ad3f9af`
+artifact_sha256: `85e92602e128c6829e67eff701a696fe1252a8a39ea67bc46bdeac98431155d7`
+
+KOO inbox pointer:
+`entities/koordinator/inbox/KAN__github-info-entry-public-legal-boundary__KOO.md`
+
+pointer_commit: `5dc72677404ab9e4a04d48b79a76c93ddea900a7`
+stage_result_claimed_by_KAN: `PASS_WITH_BOUNDED_BLOCKERS`
+acceptance_state: `separate / not inferred here`
+
+This supersedes the earlier ARH knowledge-state that the legal/publication branch was still waiting for actual KAN profile processing/result. The result now exists and is routed. ARH does not convert it into an accepted project decision: KOO must verify, accept, return defects, or route the next authorized stage.
+
+Until that review is evidenced, KAN outcome vocabulary and its proposed public-entry metadata are preserved as a bounded working result, not merged into this accepted ARH baseline as authority.
 
 ## Cleanup boundary
 
@@ -73,12 +93,12 @@ Deletion or destructive legacy cleanup requires separately verified authority pl
 
 Stage A preservation/provenance branch is accepted as a bounded working baseline by KOO.
 
-Stage A legal/publication branch remains unresolved pending actual KAN profile processing/result. Downstream WEB/RED/KOD work must not infer that the public gate has passed from this baseline.
+Stage A legal/publication branch has progressed from `waiting_for_KAN_processing` to `KAN_result_dispatched_for_KOO_review`. Downstream WEB/RED/KOD work must not infer that the public gate has passed until competent review/acceptance is evidenced.
 
 ## ARH handling rule
 
-Use this file as the current ARH operational baseline for Stage A source/status/provenance and archive-lifecycle work until superseded by a later competent decision. Preserve the original candidate proposal and KOO acceptance artifact as immutable provenance rather than rewriting their historical statuses.
+Use this file as the current ARH operational baseline for Stage A source/status/provenance and archive-lifecycle work until superseded by a later competent decision. Preserve the original candidate proposal, KOO acceptance artifact, and KAN bounded result as immutable provenance rather than rewriting their historical statuses.
 
 ---
 WHO: ARH / АРХИВАРИУС
-PURPOSE: preserve KOO's bounded Stage A acceptance as an operational current baseline without promoting it to Project Source or expanding authority.
+PURPOSE: preserve KOO's bounded Stage A acceptance as an operational current baseline and keep its dependency state synchronized with later KAN evidence without promoting KAN's dispatched result to acceptance or Project Source.
