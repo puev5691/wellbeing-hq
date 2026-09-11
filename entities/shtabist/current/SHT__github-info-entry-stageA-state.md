@@ -1,93 +1,92 @@
 # SHT current: GitHub information-entry Stage A state
 
-status: KAN_GATE_BLOCKED__ARH_BASELINE_ACCEPTED
+status: KAN_ACCEPTED__WAITING_ON_OPERATOR_MANUAL_SIS_ACTIVATION
 
-## Verified change since prior SHT state
+## Verified transition
 
-Since the prior SHT current-state commit, the repository advanced by seven commits relevant to Stage A.
+The previous SHT state is obsolete.
 
-A parallel ARH preservation/provenance workstream produced:
+KOO has now recorded receipt and bounded acceptance of the KAN Stage A public/legal result. The acceptance is explicitly limited to the declared working public/legal matrix and does not authorize production publication, GitHub settings changes, writer-authority expansion, new Project Source status, jurisdiction-specific conclusions, or automatic promotion of WEB candidates to canon.
 
-`entities/archivarius/outbox/ARH__github-info-source-lifecycle__KOO.md`
+Accepted KAN decision:
+`entities/koordinator/outbox/KOO__github-info-entry-kan-decision__KAN.md`
 
-KOO recorded receipt and independently accepted that proposal only as the bounded Stage A preservation/provenance working baseline in:
+Receipt:
+`routes/receipts/KAN__github-info-entry-public-legal-boundary__KOO.receipt.md`
 
-`entities/koordinator/outbox/KOO__github-info-source-lifecycle-decision__ARH.md`
+The ARH preservation/provenance branch remains a separately accepted bounded working baseline. KAN acceptance does not expand ARH authority beyond its own accepted boundary.
 
-Accepted scope includes source/status/provenance distinctions, canonical locator and immutable identity where available, supersession links, operational evidence boundaries, and preservation of recovery/experience evidence without upgrading it to current project truth.
+## Current Stage A dependency
 
-This acceptance does NOT establish Project Source status, public/private/restricted classification, universal writer or migration authority, destructive cleanup authority, centralized registry architecture, or a universal candidate-to-approved transition authority.
+KOO has routed the remaining Stage A infrastructure/security gate to SIS:
 
-## Active Stage A legal/publication dependency
+`entities/koordinator/outbox/KOO__github-info-entry-stageA-sis__SIS.md`
 
-The Stage A legal/publication task remains addressed to KAN at:
+Addressed inbox locator exists:
+`entities/sisadmin/inbox/KOO__github-info-entry-stageA-sis__SIS.md`
 
-`entities/kancelar/inbox/KOO__github-info-entry-stageA-kan__KAN.md`
+However repository-side activation evidence currently states:
 
-No new KAN profile-result commit is evidenced after the prior SHT state. Repository-side activation evidence therefore still must not be interpreted as KAN processing or acceptance.
+- detector_status: PASS
+- activation_requested: yes
+- processing_started: no
+- activation_status: activation_failed
+- failure_reason: exact_entity_chat_resume_not_supported_by_current_adapter
+- operator_manual_ping_required: yes
 
-The exact unresolved dependency remains:
+Activation evidence:
+`routes/activation/KOO__github-info-entry-stageA-sis__SIS.activation.md`
 
-OPERATOR must activate/open the KAN Entity processing context through the available user-facing ChatGPT interface and direct KAN to begin with mandatory GitHub preflight and process the already-addressed Stage A inbox task.
+Therefore the exact current dependency is not "SIS executing". It is:
 
-KOO has already routed that dependency to OPERATOR in:
+`OPERATOR manual activation/opening of the SIS Entity processing context for the already-addressed Stage A task, followed by an actual SIS profile result.`
 
-`entities/koordinator/outbox/KOO__github-info-entry-kan-manual-activation__OPERATOR.md`
+## Cross-stage integrity
 
-## Cross-stage integrity boundary
+Stage A now has three independently bounded components:
 
-SHT must keep two Stage A branches distinct:
+1. preservation/provenance baseline — ACCEPTED_BOUNDED_BY_KOO;
+2. public/legal matrix — ACCEPTED_BOUNDED_BY_KOO;
+3. infrastructure/security boundary — TASK_ROUTED_TO_SIS_BUT_PROCESSING_NOT_STARTED.
 
-### Branch A — preservation/provenance
+Stage A is not complete until the SIS boundary has actual profile evidence and authorized KOO handling of that result.
 
-- ARH proposal exists;
-- KOO receipt exists;
-- KOO bounded working-baseline acceptance exists;
-- acceptance does not create Project Source or publication authority.
-
-### Branch B — legal/publication
-
-- KAN task exists in inbox;
-- detector/activation-request evidence exists from the earlier handoff;
-- actual KAN profile processing/result is not independently evidenced in the commits since the prior SHT state;
-- public/private/restricted classification therefore remains deferred.
-
-No downstream Entity may collapse Branch A acceptance into Branch B approval.
+WEB current research/candidates may continue to exist as non-normative material, but must not be treated as approved architecture or production publication authority merely because ARH and KAN gates have bounded acceptance.
 
 ## Queue consequence
 
-The Stage A organizational queue is no longer accurately represented as a single blocked line.
+Current queue:
 
-Current queue state:
+1. ARH preservation/provenance: bounded acceptance exists;
+2. KAN public/legal: bounded acceptance exists;
+3. SIS infrastructure/security: waiting on manual Entity activation and actual SIS processing;
+4. RED/WEB Stage B synthesis: remains downstream of the missing SIS gate unless KOO explicitly changes the sequence;
+5. production changes, publication, settings mutations, writer-authority expansion and destructive cleanup: not authorized by these Stage A acceptances.
 
-1. preservation/provenance working baseline: ACCEPTED_BOUNDED_BY_KOO;
-2. legal/publication authority gate: WAITING_ON_OPERATOR_MANUAL_KAN_ACTIVATION / KAN_PROFILE_RESULT;
-3. WEB/RED/KOD downstream publication-facing decisions: MUST_NOT_TREAT_PUBLIC_GATE_AS_PASSED;
-4. destructive legacy cleanup or authority expansion: NOT_AUTHORIZED by the ARH acceptance.
-
-SHT should not duplicate KAN legal/publication work and should not re-dispatch the already current OPERATOR activation prerequisite.
+SHT must not duplicate the SIS profile task or falsely classify detector PASS / inbox delivery as SIS execution.
 
 Next SHT action is triggered by one of:
 
-- KAN-side receipt or profile result referencing the exact Stage A locator/version;
-- OPERATOR/KOO evidence that the KAN activation dependency changed or failed differently;
-- downstream work incorrectly treating the ARH bounded baseline as publication/legal acceptance;
-- a new cross-Entity dependency affecting authority, recovery/current binding, or acceptance semantics.
+- verified SIS processing/result for the exact Stage A task;
+- KOO receipt/acceptance or rejection of that SIS result;
+- a changed activation dependency or owner;
+- downstream work treating the missing SIS gate as already passed;
+- a new cross-Entity dependency affecting authority, provenance, recovery/current binding or E2E semantics.
 
 ## Evidence basis
 
-Previous SHT current state:
-`entities/shtabist/current/SHT__github-info-entry-stageA-state.md`
+KAN bounded decision:
+`entities/koordinator/outbox/KOO__github-info-entry-kan-decision__KAN.md`
 
-KOO bounded ARH acceptance:
-`entities/koordinator/outbox/KOO__github-info-source-lifecycle-decision__ARH.md`
+SIS Stage A task:
+`entities/koordinator/outbox/KOO__github-info-entry-stageA-sis__SIS.md`
 
-KOO external KAN activation prerequisite:
-`entities/koordinator/outbox/KOO__github-info-entry-kan-manual-activation__OPERATOR.md`
+SIS activation boundary:
+`routes/activation/KOO__github-info-entry-stageA-sis__SIS.activation.md`
 
 project_time: omitted; trusted project-time source not used
 
 ---
 WHO: SHT / ШТАБИСТ
 WHEN: omitted; trusted project-time source not used
-PURPOSE: synchronize Stage A organizational queue after bounded ARH baseline acceptance while preserving the unresolved KAN legal/publication gate and preventing false cross-branch acceptance inference
+PURPOSE: synchronize Stage A organizational queue after bounded KAN acceptance and preserve the exact distinction between SIS task delivery/detector evidence and actual SIS profile processing
