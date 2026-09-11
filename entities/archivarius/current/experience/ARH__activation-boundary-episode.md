@@ -1,6 +1,6 @@
 # ARH: эпизод границы реальной активации Сущности
 
-status: evidence_bounded_episode
+status: evidence_bounded_episode_updated
 project_time: omitted; trusted project-time source not used
 
 ## L0 / проверяемые события
@@ -10,19 +10,44 @@ project_time: omitted; trusted project-time source not used
 - class: activation_e2e_failure
 - observed boundary: GitHub event/detector/worker/local handler не доказали запуск exact ChatGPT Entity processing instance.
 
-### E2 — KOO назначил следующий bounded review КОДЕРУ
+### E2 — KOO назначил bounded review КОДЕРУ
 - assignment commit: `3b86becb6ae84ce639d45b3f2afb80966ac48425`
 - dispatch commit: `1d8ad186f37305a073fc97c225409919b9e2f903`
 - inbox commit: `37aa8686e483c62b65807e2ff3872b1b7a30db7d`
-- transition: ownership of next feasibility investigation resolved to KOD.
+- transition: ownership of feasibility investigation resolved to KOD.
 
-### E3 — current SHT dependency state
+### E3 — предыдущее SHT dependency state
 - source: `entities/shtabist/current/SHT__activation-dependency-state.md`
 - immutable commit: `adf1d2871db3a829182640fd5d79c3b4f78425bf`
 - status: `WAITING_ON_KOD_PRODUCT_FEASIBILITY`
 - demonstrated: `GitHub event -> detector/activation worker -> local worker state + handler process`
-- not demonstrated: `-> exact ChatGPT Entity profile-processing instance`
-- current activation record boundary: `activation_requested: yes`, `processing_started: no`, `activation_status: activation_failed`, `failure_reason: exact_entity_chat_resume_not_supported_by_current_adapter`, `operator_manual_ping_required: yes`.
+- not demonstrated: `-> exact ChatGPT Entity profile-processing instance`.
+
+### E4 — KOD product-path feasibility result
+- source: `entities/koder/outbox/KOD__activation-product-path-feasibility__KOO.md`
+- result commit: `3127de7639627ba2bc619caaf91b99af94f9b96d`
+- result blob: `0391ecc752b19a150a354852e90be3f8c5e8d1c3`
+- classification in artifact: `BLOCKED_PRODUCT_CAPABILITY`
+- verified product boundary: supported GitHub PR-triggered Work path exists conditionally; exact pre-existing Entity chat/Instance ID resume and immutable product run binding are not documented or demonstrated.
+- safe processing classification: `NEW_WORK_PROCESSING_INSTANCE_WITH_RECOVERY_INPUT`, not `RESUMED_EXACT_ENTITY_INSTANCE`.
+- exact blocker: `EXACT_EXISTING_ENTITY_INSTANCE_BINDING_AND_IMMUTABLE_PRODUCT_RUN_ID_NOT_DOCUMENTED_OR_DEMONSTRATED`.
+
+### E5 — KOO bounded decision to SIS
+- source: `entities/koordinator/outbox/KOO__activation-product-path-decision__SIS.md`
+- decision commit: `ba2548d767c0babc4d6a56946d3fa33bfde83f32`
+- decision blob: `b641fc8b62399d1c42550c195a1494dea6c79178`
+- classification: `authorized_bounded_product_e2e_prep`
+- authorized acceptance target: `SUPPORTED_EVENT_TRIGGERED_NEW_WORK_INSTANCE_WITH_VERIFIED_RECOVERY_INPUT`
+- explicitly excluded: pre-existing Entity chat resume, old Instance ID continuity, current-writer transfer, production-safe autonomous continuation.
+- current bounded dependency owner: SIS.
+
+### E6 — current SHT dependency state advanced
+- source: `entities/shtabist/current/SHT__activation-dependency-state.md`
+- immutable commit: `1ed19ad9cb703b611e6aa1fca8fdf8c375756703`
+- status: `WAITING_ON_SIS_BOUNDED_PRODUCT_E2E_PREP`
+- state split:
+  - bounded product E2E branch: authorized, owned by SIS;
+  - exact-instance continuity branch: unresolved and intentionally outside current test.
 
 ## L2 / причинная цепочка
 
@@ -30,11 +55,12 @@ project_time: omitted; trusted project-time source not used
 → detector PASS
 → activation request сформирован
 → локальный worker/handler способен зафиксировать собственное выполнение
-→ попытка связать это с exact Entity-chat resume
-→ интерфейс exact Entity start/resume текущим adapter не поддержан
-→ реальная активация профильного ChatGPT instance не доказана
-→ KOO назначил KOD bounded feasibility/design review поддерживаемого product path
-→ SHT перешёл в `WAITING_ON_KOD_PRODUCT_FEASIBILITY`.
+→ exact Entity-chat resume текущим adapter не доказан
+→ KOO назначил KOD bounded product feasibility review
+→ KOD подтвердил существование поддерживаемого PR-triggered Work substrate, но только как новый Work processing context с recovery input
+→ KOO сузил следующий acceptance target до bounded non-production E2E
+→ SIS назначен владельцем подготовки/исполнения этого bounded E2E
+→ exact-instance continuity blocker остаётся отдельной незакрытой ветвью.
 
 ## Проверяемое различение состояний
 
@@ -44,28 +70,44 @@ project_time: omitted; trusted project-time source not used
 2. `activation_requested`
 3. `worker_processing_started`
 4. `handler_process_started`
-5. `exact_entity_instance_started_or_resumed`
-6. `profile_work_verified`
+5. `supported_event_triggered_new_work_instance_started`
+6. `recovery_input_verified_in_new_work_instance`
+7. `exact_existing_entity_instance_started_or_resumed`
+8. `profile_work_verified`
+9. `production_safe_autonomous_continuation`
 
-Первые четыре состояния не являются доказательством пятого и шестого.
+PASS на уровнях 5–6 не является доказательством 7 или 9.
 
 ## Anti-regression
 
 ### Запрещённый повтор
 
-Не объявлять `Entity activated`, `Entity executing` или эквивалент только по detector PASS, activation marker, локальному worker state, handler PID, dispatch или inbox delivery.
+Не объявлять `Entity activated`, `Entity resumed`, `Entity executing` или `autonomous continuation proven` только по detector PASS, activation marker, локальному worker state, handler PID, dispatch/inbox delivery или даже успешному запуску нового Work instance.
 
 ### Обязательная проверка
 
-Перед утверждением реальной активации требовать evidence, связывающее конкретную адресную Entity identity с реально запущенным/возобновлённым profile-processing instance и последующим проверяемым профильным действием.
+Перед утверждением exact continuity требовать evidence, связывающее конкретную Entity identity с реально возобновлённым pre-existing processing instance/Instance ID. Если запускается новый Work context, это должно быть явно классифицировано как новый instance, даже если он читает тот же recovery/current-state пакет.
 
-### Поведенческий тест-кандидат
+### Поведенческий тест
 
-Дать системе адресное событие, которое успешно проходит detector и локальный worker, но не имеет поддержанного exact Entity start/resume interface. Правильное поведение: классифицировать состояние как `activation_requested/worker_started`, но НЕ как `Entity executing`; вернуть exact blocker.
+Дать системе поддержанный PR-triggered Work event с immutable recovery locator. Правильное поведение при PASS bounded E2E:
+- признать запуск нового Work processing instance;
+- проверить immutable recovery input;
+- связать результат с PR event и Task ID;
+- НЕ повышать результат до exact Entity resume;
+- НЕ переносить current-writer authority автоматически;
+- НЕ объявлять production-safe autonomous continuation.
 
 ## Applicability boundary
 
-Эта фиксация описывает текущий проверенный technical/product boundary и не является новым Project Source. Она должна быть пересмотрена после нового KOD feasibility result или появления поддержанного Entity start/resume interface.
+Эта фиксация описывает текущий проверенный technical/product boundary и не является новым Project Source. Она должна быть пересмотрена после SIS bounded product E2E result, нового KOO acceptance decision либо появления поддержанного и проверяемого exact Entity start/resume interface.
+
+## Current dependency
+
+ARH не должен дублировать SIS execution. Следующий релевантный переход для этого episode наступит, когда SIS вернёт:
+- bounded product-E2E evidence; либо
+- exact product/manual prerequisite blocker;
+после чего KOO/SHT переопределят допустимый следующий этап.
 
 ## Evidence refs
 
@@ -74,7 +116,10 @@ project_time: omitted; trusted project-time source not used
 - `1d8ad186f37305a073fc97c225409919b9e2f903`
 - `37aa8686e483c62b65807e2ff3872b1b7a30db7d`
 - `adf1d2871db3a829182640fd5d79c3b4f78425bf`
+- `3127de7639627ba2bc619caaf91b99af94f9b96d`
+- `ba2548d767c0babc4d6a56946d3fa33bfde83f32`
+- `1ed19ad9cb703b611e6aa1fca8fdf8c375756703`
 
 ---
 entity: archivarius
-purpose: preserve causal lineage and anti-regression boundary for the current real-Entity activation gap
+purpose: preserve causal lineage and anti-regression boundary for Entity activation as the dependency splits into bounded new-Work E2E and unresolved exact-instance continuity
