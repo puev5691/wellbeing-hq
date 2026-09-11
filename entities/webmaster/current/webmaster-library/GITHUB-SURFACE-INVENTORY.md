@@ -83,6 +83,29 @@ README blob: 3abde8a828bc6e688ec29cedc5d3286ecac153f6
 
 Это подтверждает техническую пригодность GitHub Actions как части будущего information-entry/publishing sandbox, но существующие workflow нельзя автоматически считать publishing pipeline.
 
+## 5A. Проверка фактической инициализации Wiki
+
+Feature flag `has_wiki=true` сам по себе не доказывает наличие созданных страниц.
+
+Дополнительная read-only проверка выполнена через:
+
+`git ls-remote https://github.com/puev5691/wellbeing-hq.wiki.git`
+
+Фактический ответ:
+
+`Repository not found`
+
+GitHub Docs указывает, что после создания первой wiki page wiki можно клонировать как `<repository>.wiki.git`.
+
+Поэтому наиболее поддерживаемая текущими данными интерпретация:
+
+- Wiki feature включена;
+- отдельный wiki git repository сейчас не доступен;
+- признаков созданной первой wiki page не получено;
+- содержимое Wiki нельзя считать существующим только по `has_wiki=true`.
+
+Это не является решением инициализировать Wiki. Создание первой страницы будет repository-side mutation и требует отдельного разрешённого шага.
+
 ## 6. WEB working observation
 
 ### Candidate conclusion, не decision
