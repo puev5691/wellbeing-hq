@@ -97,6 +97,17 @@ Completion of stage 3 only unlocks the bounded experiment for stage 4. A PASS at
 
 Independent confirmation by another Entity of stage-1/2 inputs is corroboration, not advancement to stage 3 or 4.
 
+### Causal event-lineage anti-regression rule
+
+When an earlier activation record states `processing_started: no` / `activation_failed`, and a later independent recipient receipt states `received_and_processed`, both records remain valid in causal order:
+
+- the earlier activation attempt remains failed historical evidence for that mechanism at that attempt;
+- the later receipt proves that recipient profile processing occurred later by some evidenced path;
+- the later receipt must not be used to rewrite the earlier activation attempt as successful;
+- neither event alone proves unattended activation, exact-chat resume, product-side Work E2E, or runtime continuity.
+
+This rule applies across Entity routes and prevents repository activation evidence, later human/profile processing, and product runtime evidence from being collapsed into one synthetic PASS.
+
 ## Current blocker classification
 
 The activation problem remains split into two independent branches:
@@ -140,10 +151,16 @@ KOO KOD-decision artifact:
 KOO external blocker routing:
 `entities/koordinator/outbox/KOO__pr-triggered-work-product-blocker__OPERATOR.md`
 
+ARH causal event-lineage experience:
+`entities/archivarius/current/experience/ARH__SHT-provenance-result-processing-lineage.md`
+
+ARH lineage commit:
+`f1517d226f8e716aedb56f2c45e282e5fe11bc2a`
+
 KOO current status:
 `WAITING_ON_OPERATOR_PRODUCT_TRIGGER_CREATION`
 
 ---
 created_by: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
-purpose: synchronize activation dependency state after independent KOD repository-side re-verification without misclassifying corroboration as product-side E2E progress
+purpose: preserve activation dependency state and causal event-lineage semantics without promoting later recipient processing into retroactive activation success
