@@ -79,28 +79,47 @@ Exact existing-chat resume is not required and must not be claimed.
 
 ## Current checkpoint
 
-task_status: ACTIVE
+task_status: ACTIVE/BLOCKED
 current_goal: replace internal alarm dependence with an externally triggered supervisor path
-current_step: create/verify Microsoft Power Automate scheduled flow and GitHub connection
-last_verified_result: GitHub test branch and inert marker prepared
+current_step: establish one reproducibly available authenticated browser-control execution surface and then create/verify the bounded Power Automate flow
+last_verified_result:
+- GitHub test branch and inert marker remain prepared
+- Power Automate portal access in OPERATOR browser was previously evidenced
+- KOD browser-control attempt via current instance/remote host was blocked
+- KOD TinyFish discovery was initially non-reproducible and reconciled as such
+- KOO fresh product-catalog recheck now reproducibly finds TinyFish plugin id `plugin_asdk_app_695325bae7348191b58ae9349a963d22`, installed=false, installation_policy=AVAILABLE, declared capability includes live browser navigation/click/form/page-state/web-app interaction
+- KOO fresh product-catalog recheck also finds Opera Browser Connector id `plugin_asdk_app_69d669e1d5c88191957786fbcd38b411`, installed=false, installation_policy=AVAILABLE, declared capability includes reading open Opera tabs, screenshots and navigation
+- Opera Browser Connector has been suggested to OPERATOR for explicit installation/connection
 in_flight_action: none
-verified_external_evidence:
-- Power Automate portal `make.powerautomate.com` opened successfully for the OPERATOR
-- signed-in home screen is visible and offers flow creation
-- screenshot evidence supplied by OPERATOR in current KOO session
 unknown_postconditions:
-- exact Microsoft tenant ID / environment identity remains unverified
-- exact license/subscription state remains unverified
-- Power Automate flow existence remains unverified
-- ChatGPT Work PR trigger remains unconfigured/unverified
-next_admissible_action: create the bounded scheduled flow from the authenticated Power Automate portal
-failure_mode: keep existing ChatGPT automations enabled and record exact Microsoft/product blocker
-checkpoint_reason: pre-external-side-effect
+- no browser plugin installation/connection is confirmed
+- no authenticated Power Automate control through either adapter is proven
+- no Power Automate flow creation is verified
+- no successful Power Automate run is verified
+- no Microsoft-created GitHub PR is verified
+- ChatGPT Work PR-trigger remains unverified on product side
+next_admissible_action:
+- after explicit OPERATOR installation/connection of a browser-control adapter, perform a bounded no-side-effect capability probe against the already-open Power Automate session
+- if probe proves authenticated navigation/click/form/page-state control, authorize the adapter for this SAME Task ID and create the bounded scheduled flow
+- if probe fails, preserve exact blocker and move to next execution path without changing Task ID
+failure_mode: keep existing ChatGPT automations enabled; do not repeat Microsoft signup; do not claim adapter capability from catalog presence alone
+checkpoint_reason: browser_execution_surface_reconciliation
+
+## KOO decision on browser executor candidates
+
+1. The prior KOD conclusion `CANDIDATE_EXECUTION_SURFACE_NOT_REPRODUCIBLY_VERIFIED` is superseded by this later KOO product-catalog readback for **existence/discoverability only**.
+2. TinyFish is now reproducibly discoverable, but not installed/connected and therefore not yet accepted as an execution adapter.
+3. Opera Browser Connector is also reproducibly discoverable and is the preferred first probe when the OPERATOR's active Power Automate session is in Opera, because it is specifically designed to connect ChatGPT to open Opera tabs.
+4. Catalog discovery does not prove authenticated control, form submission or Power Automate compatibility.
+5. No Power Automate side effect is authorized until a bounded capability probe succeeds.
 
 ## Anti-regression
 
 Do not:
 - disable current ChatGPT alarms before full E2E PASS;
+- count catalog discovery as plugin installation;
+- count plugin installation as authenticated control;
+- count navigation/read access as form-control capability;
 - count a successful Microsoft login as flow creation;
 - count flow creation as a successful run;
 - count a Power Automate run as PR creation without GitHub readback;
@@ -112,6 +131,6 @@ Do not:
 КТО: KOO / КООРДИНАТОР
 ДЛЯ ЧЕГО: bounded E2E checkpoint для Microsoft 365 внешнего supervisor
 СТАТУС: active_test_checkpoint
-source: current Microsoft Learn evidence + verified project Entity Continuity artifacts + prepared GitHub branch
+source: verified GitHub state + current plugin catalog readback + prior KOD reconciliation
 approval_status: not_project_source
 responsibility_boundary: test candidate; existing alarms remain safety fallback until full E2E PASS
