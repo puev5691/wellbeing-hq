@@ -1,12 +1,12 @@
 # SHT: M365 supervisor / recovery / information-entry cross-stage state
 
-status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__PRODUCT_E2E_BLOCKED
+status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__KAN_CHECKPOINT_STRUCTURALLY_ACCEPTED__PRODUCT_E2E_BLOCKED
 entity: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
 
 ## Purpose
 
-Keep cross-stage gates separate and prevent a repository-side, profile-owner or bounded acceptance result from being promoted into product-side E2E or full recoverability.
+Keep cross-stage gates separate and prevent repository-side, profile-owner, preservation, or bounded acceptance results from being promoted into product-side E2E or full recoverability.
 
 ## Line A — emergency recovery preservation
 
@@ -16,7 +16,6 @@ Verified prior evidence:
 - candidate commit: `3b5b1af24340fc683abfc34042f1bdd583d3ac52`;
 - manifest and checksum map present;
 - `sha256sum -c sha256sums.txt`: 10/10 PASS;
-- checksum-map SHA-256: `afab202bbacf0a46a78008a6c34cc9cfbc8cfd084a3a078bc14aa0db15f6bbfe`;
 - canonical current recovery commit: `cbaad4cb94618788f5d50664d08d503a3247f61c`;
 - post-publication checksum readback: 10/10 PASS;
 - KOO receipt and bounded acceptance present.
@@ -29,17 +28,27 @@ Boundary:
 
 ## Line B — Microsoft 365 external supervisor
 
-Task: `task:KOO-M365-SUPERVISOR-E2E-01`.
+Task continuity remains:
+- entity_id: `ent:KOO-M365-E2E-01`;
+- task_id: `task:KOO-M365-SUPERVISOR-E2E-01`.
 
-Verified blocker remains:
-`BLOCKED: no_available_authenticated_browser_control_surface`
+Previous blocker `no_available_authenticated_browser_control_surface` has been refined, not cleared.
 
-KOD routed the blocker to KOO:
-- artifact commit: `9661562cd09d63268c73e0717a696cb37e3b0cdd`;
-- dispatch commit: `129f63b064da7b37ee0035b4d208dc70d9aabe75`;
-- KOO inbox locator exists with required action to reconcile the same Task ID and select/authorize a capable bounded execution path.
+KOD reported a candidate third-party browser execution surface (`TinyFish`) but explicitly did not prove Work/Cloud Browser equivalence, authenticated Power Automate operability, or authorization. KOO independently attempted to reproduce discovery and could not do so.
 
-Activation boundary for that KOO inbox locator:
+Current exact state:
+`CANDIDATE_EXECUTION_SURFACE_NOT_REPRODUCIBLY_VERIFIED`
+
+KOO decision:
+`RETURN_FOR_REPRODUCIBLE_CAPABILITY_EVIDENCE`
+
+Required evidence remains bounded to:
+1. exact plugin identifier;
+2. independently reproducible discoverability/installation reference;
+3. declared live browser navigation/click/form/page-state capability;
+4. only after authorized installation/connection, no-side-effect evidence for authenticated Power Automate UI operability.
+
+The KOO defect has been dispatched and placed in KOD inbox, but activation evidence states:
 - detector_status: PASS;
 - activation_requested: yes;
 - processing_started: no;
@@ -47,9 +56,9 @@ Activation boundary for that KOO inbox locator:
 - failure_reason: `exact_entity_chat_resume_not_supported_by_current_adapter`;
 - operator_manual_ping_required: yes.
 
-Therefore the dependency has been addressed to the capable coordinating Entity, but KOO processing of that addressed blocker is not proven by the activation record.
+Therefore route delivery is proven; KOD processing of the returned defect is not.
 
-No flow creation, successful flow run or Microsoft-created PR is verified.
+No Power Automate flow creation, successful flow run, Microsoft-created PR, or Work-triggered processing is verified.
 
 ## Line C — generic Work PR-trigger E2E
 
@@ -65,63 +74,59 @@ Exact dependency remains:
 
 Repository PR creation and activation records do not prove product-side ChatGPT Work processing.
 
-## Line D — GitHub information-entry Stage A
+## Line D — GitHub information-entry Stage A / editorial queue
 
-SIS produced the bounded infrastructure/security boundary and KOO has now separately receipted and accepted it as:
+KOO has separately receipted and accepted the bounded Stage A result as:
 `ACCEPTED_BOUNDED_STAGE_A_WORKING_RESULT`.
 
-Verified KOO decision:
-- source artifact commit: `6cf520a0aa2cb21c39a3e28348d8a4e488f6aac6`;
-- receipt commit: `685d7d2da30672c845d30dd4ac02d9f57d3a918a`;
-- decision commit: `96f229a161267b8a0d630eb695229f56a6e3cecd`.
+Bounded Stage A is COMPLETE only within that decision boundary. It does not grant production publication, Pages/settings changes, WEB promotion, RED readiness, KOD automation approval, new Project Sources, or writer-authority expansion.
 
-KOO consequence is bounded and explicit:
-- ARH preservation/provenance baseline: accepted in its bounded scope;
-- KAN public/legal matrix: accepted in its bounded scope;
-- SIS infrastructure/security boundary: accepted in its bounded scope;
-- bounded Stage A information-entry gate: COMPLETE.
+RED has now persisted an active current state for the cooperation speech:
+- immutable speech candidate commit: `30214bc36f48d4804ffff9fc60c3a7aedb0438c1`;
+- KOO decision: `ACCEPTED_AS_BOUNDED_PUBLIC_SPEECH_CANDIDATE`;
+- candidate routed to OPERATOR;
+- RED state: `active_waiting_on_operator_speech_review`.
 
-Not granted by this acceptance:
-- production publication;
-- Pages enablement;
-- repository settings changes;
-- WEB candidate promotion;
-- RED readiness;
-- KOD automation approval;
-- new Project Sources;
-- writer-authority expansion.
-
-Next organizational step under KOO's accepted sequence is RED editorial lifecycle/readiness input before WEB Stage B synthesis.
+This is organizational/editorial progression, not production publication or Stage B technical PASS.
 
 ## Line E — KAN preservation checkpoint after bounded acceptances
 
-KAN published a new preservation checkpoint after downstream bounded decisions.
+The previously pending ARH preservation leg is now closed within structural preservation authority.
 
-Checkpoint recovery commit:
+KAN checkpoint recovery commit:
 `e2b861fdf33f87048242043efacf003eec4a91ab`
 
-KAN state:
-- publication_state: confirmed_by_kan;
-- readback_state: verified_by_kan;
-- archive_acceptance_state: pending_arh_for_this_checkpoint;
-- recoverability_state: practical_initiation_test_required_for_full_verification.
+ARH decision:
+`ACCEPTED_STRUCTURALLY_UPDATED_CHECKPOINT`
 
-The checkpoint is routed to ARH for independent verification. Until ARH returns a receipt and preservation decision, KAN's own readback is not promoted to archive acceptance. Even a future ARH preservation PASS would still not prove full practical recoverability without a cold-start/initiation test or equivalent.
+Verified boundary:
+- archive_preservation_state: `accepted_structurally`;
+- immutable_readback_state: `verified_by_arh`;
+- checksum_table_state: `consistent_with_reported_package_and_immutable_files`;
+- bytewise SHA-256 recomputation: not performed in that ARH pass;
+- recoverability_state: `practical_initiation_test_required_for_full_verification`.
 
-## Current priority
+Therefore ARH structural acceptance closes the archive-preservation dependency for this checkpoint, but does NOT establish practical cold-start, exact historical chat resume, runtime continuity, Project Source promotion, production authority, publication authority, or writer expansion.
 
-1. Preserve the closed KOO recovery integrity PASS without promoting it to runtime continuity.
-2. Treat bounded Stage A as complete only within the KOO decision boundary; do not infer production readiness.
-3. Track RED lifecycle/readiness as the next organizational input for information-entry Stage B.
-4. Keep product-side execution as the main E2E bottleneck: M365 still lacks a capable authenticated browser-control execution path and generic Work PR-trigger still lacks observable product-side Work evidence.
-5. Track ARH preservation result for the new KAN checkpoint separately from Stage A acceptance and separately from full recoverability.
-6. Do not duplicate dispatches already addressed by profile owners.
+## Current queue / dependency order
+
+1. Preserve closed recovery and bounded Stage A results without promoting them across runtime or production gates.
+2. Treat the KAN checkpoint structural preservation leg as closed; retain practical initiation as the remaining recoverability gate.
+3. Track RED/OPERATOR speech review as an editorial/organizational line only.
+4. Main runtime bottleneck remains product-side execution:
+   - M365 candidate adapter requires reproducible capability evidence and actual KOD processing;
+   - generic Work PR-trigger still requires observable product-side Work evidence.
+5. Do not duplicate routes already addressed by their profile owners.
 
 ## Latest SHT verification result
 
-Fresh preflight from prior SHT baseline to repository HEAD found 36 commits. The previous `SIS_READY_AWAITING_KOO_ACCEPTANCE` state is obsolete: KOO has receipted and bounded-accepted the SIS Stage A result and explicitly declared the bounded Stage A information-entry gate complete. In parallel, KOD's M365 blocker was routed to KOO, but the corresponding activation record still says `processing_started: no`; delivery is not execution. KAN has also opened a separate preservation checkpoint to ARH whose archive acceptance remains pending and whose full recoverability still requires practical initiation evidence.
+GitHub preflight from SHT baseline `65269d235a24ebce5cf1cd4f08db1f14753e9de1` to observed HEAD `5bc40af7ca57854223feee23a786ed81275de4be` found 20 commits and no SHT inbox change in the compared file set. Material changes were classified as follows:
+- KAN preservation: ARH independently accepted the updated checkpoint structurally and updated its recovery registry; previous `pending_arh` state is obsolete.
+- M365 E2E: a candidate browser adapter was reported, but KOO could not independently reproduce discovery and returned it for reproducible capability evidence; returned task is routed to KOD but activation record still says `processing_started: no`.
+- RED: bounded speech candidate has KOO acceptance and is routed to OPERATOR; RED is waiting for OPERATOR speech review.
+- No evidence observed that converts repository delivery, structural preservation, editorial acceptance, or candidate adapter discovery into product-side Work execution.
 
 ---
 КТО: SHT / ШТАБИСТ
-ДЛЯ ЧЕГО: синхронизировать сквозные границы recovery, bounded Stage A, preservation и product-side E2E без ложного переноса PASS между этапами
+ДЛЯ ЧЕГО: синхронизировать recovery, preservation, editorial и product-side E2E границы без ложного переноса PASS между этапами
 СТАТУС: profile_current_state
