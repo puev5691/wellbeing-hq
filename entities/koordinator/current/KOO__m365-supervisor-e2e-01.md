@@ -91,15 +91,21 @@ last_verified_result:
 - KOO fresh product-catalog recheck also finds Opera Browser Connector id `plugin_asdk_app_69d669e1d5c88191957786fbcd38b411`, installed=false, installation_policy=AVAILABLE, declared capability includes reading open Opera tabs, screenshots and navigation
 - Opera Browser Connector has been suggested to OPERATOR for explicit installation/connection
 in_flight_action: none
+verified_external_evidence:
+- Opera Browser Connector plugin is installed/connected on the ChatGPT side for this request
+- first live `list_tabs` probe reached the connector and returned an explicit browser-side connection error
+exact_blocker:
+- `OPERA_BROWSER_NOT_CONNECTED`: Opera reports `Browser not connected. Make sure to enable "Allow AI connection" in the Browser Connector and sign in with your Opera account.`
 unknown_postconditions:
-- no browser plugin installation/connection is confirmed
-- no authenticated Power Automate control through either adapter is proven
+- browser-side `Allow AI connection` is not yet verified enabled
+- Opera account sign-in for the Browser Connector is not yet verified
+- no authenticated Power Automate control through the adapter is proven
 - no Power Automate flow creation is verified
 - no successful Power Automate run is verified
 - no Microsoft-created GitHub PR is verified
 - ChatGPT Work PR-trigger remains unverified on product side
 next_admissible_action:
-- after explicit OPERATOR installation/connection of a browser-control adapter, perform a bounded no-side-effect capability probe against the already-open Power Automate session
+- OPERATOR enables `Allow AI connection` in Opera Browser Connector and signs into Opera account if required; then KOO immediately repeats `list_tabs` as the bounded no-side-effect capability probe
 - if probe proves authenticated navigation/click/form/page-state control, authorize the adapter for this SAME Task ID and create the bounded scheduled flow
 - if probe fails, preserve exact blocker and move to next execution path without changing Task ID
 failure_mode: keep existing ChatGPT automations enabled; do not repeat Microsoft signup; do not claim adapter capability from catalog presence alone
