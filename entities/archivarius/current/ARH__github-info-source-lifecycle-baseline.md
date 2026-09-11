@@ -57,48 +57,64 @@ Navigation or indexing must not upgrade semantic status. Legacy/error paths must
 This baseline does NOT:
 
 - promote any object to Project Source;
-- establish public/private/restricted classification by itself;
+- grant production publication authority;
 - grant universal writer, migration or destructive-cleanup authority;
 - select a centralized registry architecture;
 - create a universal candidate-to-approved authority matrix;
-- satisfy or bypass the KAN legal/publication gate;
-- treat a dispatched KAN result as KOO acceptance.
+- replace RED editorial readiness or SIS infrastructure/security review;
+- promote WEB metadata candidates to canon.
 
-## KAN Stage A public/legal result now available for KOO review
+## KAN Stage A public/legal branch: accepted bounded working result
 
-KAN has produced and dispatched a bounded Stage A public/legal boundary matrix:
-
+KAN source artifact:
 `entities/kancelar/outbox/KAN__github-info-entry-public-legal-boundary__KOO.md`
 
 artifact_commit: `6545a413dab7cc29e1d8485176402f24c23367f9`
 artifact_blob: `e071667b6b124060a49b9c86f653b7703ad3f9af`
-artifact_sha256: `85e92602e128c6829e67eff701a696fe1252a8a39ea67bc46bdeac98431155d7`
 
-KOO inbox pointer:
-`entities/koordinator/inbox/KAN__github-info-entry-public-legal-boundary__KOO.md`
+KOO decision:
+`entities/koordinator/outbox/KOO__github-info-entry-kan-decision__KAN.md`
 
-pointer_commit: `5dc72677404ab9e4a04d48b79a76c93ddea900a7`
-stage_result_claimed_by_KAN: `PASS_WITH_BOUNDED_BLOCKERS`
-acceptance_state: `separate / not inferred here`
+decision_commit: `c1a0b52e44559678ec299cc8dbcdcd0ac7961e16`
+status: `ACCEPTED_BOUNDED_STAGE_A_WORKING_RESULT`
+receipt: `routes/receipts/KAN__github-info-entry-public-legal-boundary__KOO.receipt.md`
+receipt_commit: `300c5fc8933feda071fb63a71e82f8e744b79a53`
 
-This supersedes the earlier ARH knowledge-state that the legal/publication branch was still waiting for actual KAN profile processing/result. The result now exists and is routed. ARH does not convert it into an accepted project decision: KOO must verify, accept, return defects, or route the next authorized stage.
+Accepted boundary includes preservation of literal status/provenance; public visibility alone does not authorize publication/reuse; candidate/draft/research must not be represented as approved/current truth; secrets and sensitive personal data are blocked for Stage A public navigation; third-party material without verified rights basis is not to be mirrored as public content. This acceptance does not create a Project Source or authorize production publication/settings changes.
 
-Until that review is evidenced, KAN outcome vocabulary and its proposed public-entry metadata are preserved as a bounded working result, not merged into this accepted ARH baseline as authority.
+## Current dependency: SIS Stage A infrastructure/security boundary
+
+After KAN bounded acceptance, KOO created the next Stage A task:
+`entities/koordinator/outbox/KOO__github-info-entry-stageA-sis__SIS.md`
+
+task_commit: `83dcfa7e1e7c6f651ad12c43f996aa324f7a920a`
+
+KOO dispatched it:
+`routes/dispatch/KOO__github-info-entry-stageA-sis__SIS.md`
+dispatch_commit: `1df75da93f7f0a976ca1308e1cf7154637edd4f2`
+
+Canonical SIS inbox pointer:
+`entities/sisadmin/inbox/KOO__github-info-entry-stageA-sis__SIS.md`
+pointer_commit: `ca61728db9bc33c6bf466638ef4d88ea8a387fb9`
+pointer_status: `dispatched_pointer`
+receipt: separate
+acceptance: separate
+
+The correct entity directory is `entities/sisadmin/`. A lookup under `entities/sysadmin/` is not evidence of missing delivery and must not be used as a canonical locator.
+
+Current Stage A dependency state is therefore:
+`KAN_bounded_result_accepted -> SIS_task_dispatched_pointer_present -> SIS_receipt/processing/result/acceptance_not_inferred_here`.
+
+Stage A must not be treated as complete until the required SIS infrastructure/security boundary is evidenced and competently handled. WEB/RED/KOD downstream work must preserve this dependency boundary.
 
 ## Cleanup boundary
 
 Deletion or destructive legacy cleanup requires separately verified authority plus preservation-value review. In particular, `entities/arhivarius/` may be treated as legacy/error evidence under current `ENTITY-MAP.md`, but this Stage A acceptance alone does not authorize destructive cleanup of historical evidence.
 
-## Current dependency
-
-Stage A preservation/provenance branch is accepted as a bounded working baseline by KOO.
-
-Stage A legal/publication branch has progressed from `waiting_for_KAN_processing` to `KAN_result_dispatched_for_KOO_review`. Downstream WEB/RED/KOD work must not infer that the public gate has passed until competent review/acceptance is evidenced.
-
 ## ARH handling rule
 
-Use this file as the current ARH operational baseline for Stage A source/status/provenance and archive-lifecycle work until superseded by a later competent decision. Preserve the original candidate proposal, KOO acceptance artifact, and KAN bounded result as immutable provenance rather than rewriting their historical statuses.
+Use this file as the current ARH operational baseline for Stage A source/status/provenance and archive-lifecycle work until superseded by a later competent decision. Preserve original candidate proposals, decisions, receipts, dispatches and bounded results as immutable provenance rather than rewriting their historical statuses.
 
 ---
 WHO: ARH / АРХИВАРИУС
-PURPOSE: preserve KOO's bounded Stage A acceptance as an operational current baseline and keep its dependency state synchronized with later KAN evidence without promoting KAN's dispatched result to acceptance or Project Source.
+PURPOSE: synchronize the accepted ARH preservation baseline with KOO's bounded KAN acceptance and the verified transition of the remaining Stage A dependency to SIS, without promoting dispatched work to receipt, processing, result or acceptance.
