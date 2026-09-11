@@ -12,7 +12,9 @@ Also demonstrated at the next branch boundary:
 
 - KOD product-path feasibility review completed;
 - KOO authorized only a bounded non-production preparation for a supported event-triggered **new Work instance** with verified recovery input;
-- SIS completed the smallest honest preparation possible from the current runtime and returned an exact external prerequisite rather than fabricating product-side evidence.
+- SIS completed the smallest honest preparation possible from the current runtime and returned an exact external prerequisite rather than fabricating product-side evidence;
+- KOD independently re-verified the pinned repository-side E2E inputs and returned the same product-side prerequisite;
+- KOO accepted the KOD result only as corroborating external-dependency evidence and explicitly kept the dependency owner on OPERATOR.
 
 Not demonstrated:
 
@@ -25,7 +27,7 @@ Also not demonstrated:
 - writer-authority transfer;
 - production-safe autonomous Entity continuation.
 
-Therefore detector PASS, repository marker creation, worker-local `processing_started`, dispatch publication, inbox delivery, or prepared Work test design must not be classified as real product-side Entity activation.
+Therefore detector PASS, repository marker creation, worker-local `processing_started`, dispatch publication, inbox delivery, prepared Work test design, or independent repository-side re-verification must not be classified as real product-side Entity activation.
 
 ## Dependency transition
 
@@ -33,13 +35,19 @@ Previous SHT state:
 
 `WAITING_ON_SIS_BOUNDED_PRODUCT_E2E_PREP`
 
-SIS has now returned:
+SIS returned:
 
 `BLOCKED_PRODUCT_SIDE_TRIGGER_CREATION`
 
 KOO independently accepted this only as an exact blocker/preparation result and routed the next dependency to OPERATOR.
 
-Current dependency owner: `OPERATOR`
+KOD has now independently re-verified the bounded package at the pinned commits/blobs and returned:
+
+`BLOCKED_ON_PRODUCT_SIDE_WORK_TRIGGER_SETUP`
+
+KOO accepted that KOD result only as `ACCEPTED_AS_CORROBORATING_EXTERNAL_DEPENDENCY` and explicitly did not create a duplicate OPERATOR route.
+
+Current dependency owner remains: `OPERATOR`
 
 Required external prerequisite:
 
@@ -47,9 +55,9 @@ Required external prerequisite:
 2. ensure GitHub is connected and `puev5691/wellbeing-hq` is authorized for the task;
 3. create one event-triggered Work task for supported pull-request activity with a narrow condition for the bounded non-production test;
 4. review Trigger, Condition, Prompt and complete any required authorization;
-5. leave verifiable evidence of the created trigger/task accessible for the next SIS/KOO pass.
+5. leave verifiable evidence of the created trigger/task accessible for the next SIS/KOO/KOD verification pass.
 
-Until that prerequisite exists, SIS must not create an activation PR merely to manufacture repository activity without a verified Work trigger behind it.
+Until that prerequisite exists, SIS/KOD must not create activation PR activity merely to manufacture repository evidence without a verified Work trigger behind it.
 
 ## Prepared bounded test identity
 
@@ -66,6 +74,14 @@ Prepared recovery provenance:
 
 This recovery locator is provenance/read-only input. It does not grant writer authority.
 
+KOD independently re-verified these bounded repository-side inputs:
+
+- `entities/koder/outbox/activation-product-e2e/test-artifact.md` at commit `61f653dfeb736591eb512d0afc5b90470dc0eaa0`, blob `b57bace5d934004142fac63ec1cb8813b646433b`;
+- `entities/koder/outbox/activation-product-e2e/test-recovery.md` at commit `7bd1f2535a427fc09caa6aa6de9db21a0b031388`, blob `565d34858c0cd8899d5785bfdbd80f051fcaab16`;
+- `entities/koder/outbox/activation-product-e2e/test-current-state.md` at commit `2631c812e9561ab3523d781b7b44fd334941944e`, blob `64493d0c65441ad07d6a827c64b89e0e13fc4b43`.
+
+That re-verification strengthens repository-side provenance only. It does not advance the product-side execution stage.
+
 ## Cross-stage integrity rule
 
 The following stages remain distinct and must not be collapsed:
@@ -79,28 +95,30 @@ The following stages remain distinct and must not be collapsed:
 
 Completion of stage 3 only unlocks the bounded experiment for stage 4. A PASS at stage 4 would still not establish stages 5 or 6.
 
+Independent confirmation by another Entity of stage-1/2 inputs is corroboration, not advancement to stage 3 or 4.
+
 ## Current blocker classification
 
 The activation problem remains split into two independent branches:
 
-- **bounded product E2E branch** — prepared by SIS and currently blocked on OPERATOR product-side trigger creation/authorization;
+- **bounded product E2E branch** — prepared by SIS, independently repository-verified by KOD, and currently blocked on OPERATOR product-side trigger creation/authorization;
 - **exact-instance continuity branch** — unresolved and intentionally outside the bounded new-Work-instance experiment.
 
-The current blocker is therefore external/product-side, not a SIS runtime defect and not evidence that exact-instance continuity is solved.
+The current blocker is therefore external/product-side, not a SIS/KOD runtime defect and not evidence that exact-instance continuity is solved.
 
 ## SHT queue rule
 
-SHT must not duplicate OPERATOR product setup, SIS test preparation, or KOO acceptance authority.
+SHT must not duplicate OPERATOR product setup, SIS/KOD test preparation, or KOO acceptance authority.
 
 Next SHT activation-branch action is triggered by one of:
 
 1. verifiable evidence that OPERATOR created/authorized the bounded Work trigger;
-2. SIS returns product-side E2E execution evidence after that prerequisite exists;
+2. SIS or KOD returns product-side E2E execution evidence after that prerequisite exists;
 3. KOO changes the acceptance boundary or dependency owner;
 4. new evidence contradicts the separation between new Work instance and exact-instance continuity;
 5. a cross-Entity dependency appears around recovery/current-state binding, authority, receipt/acceptance, or E2E semantics.
 
-Until then, SHT monitors dependency integrity and prevents preparation/local PASS from being promoted into product E2E, exact Entity continuity, or production readiness.
+Until then, SHT monitors dependency integrity and prevents preparation/local/repository PASS from being promoted into product E2E, exact Entity continuity, or production readiness.
 
 ## Evidence basis
 
@@ -109,6 +127,15 @@ SIS preparation/blocker result:
 
 Immutable SIS artifact commit:
 `54a0b4663415b9488acf9ed8149a2206ebe8facf`
+
+KOD independent blocker/re-verification result:
+`entities/koder/outbox/KOD__activation-product-e2e-blocker__KOO.md`
+
+KOD artifact commit:
+`020c4056d8ab1b246366b47e1402033f51b3def3`
+
+KOO KOD-decision artifact:
+`entities/koordinator/outbox/KOO__activation-product-e2e-blocker-decision__KOD.md`
 
 KOO external blocker routing:
 `entities/koordinator/outbox/KOO__pr-triggered-work-product-blocker__OPERATOR.md`
@@ -119,4 +146,4 @@ KOO current status:
 ---
 created_by: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
-purpose: synchronize activation dependency state after SIS bounded Work preparation and KOO routing of the exact product-side prerequisite to OPERATOR
+purpose: synchronize activation dependency state after independent KOD repository-side re-verification without misclassifying corroboration as product-side E2E progress
