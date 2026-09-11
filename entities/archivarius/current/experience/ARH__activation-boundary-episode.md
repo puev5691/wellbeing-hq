@@ -1,6 +1,6 @@
 # ARH: эпизод границы реальной активации Сущности
 
-status: evidence_bounded_episode_updated_with_stageA_recurrence
+status: evidence_bounded_episode_updated_with_operator_manual_activation_dependency
 project_time: omitted; trusted project-time source not used
 
 ## L0 / проверяемые события
@@ -67,6 +67,18 @@ project_time: omitted; trusted project-time source not used
 - SHT classification: `BLOCKED_AT_RECIPIENT_ACTIVATION`
 - consequence: Stage A перешёл к KAN организационно, но не перешёл в фактическое KAN processing; legal/publication matrix остаётся pending; downstream RED/WEB/KOD не должны трактовать KAN gate как пройденный.
 
+### E8 — KOO эскалировал оставшуюся зависимость ОПЕРАТОРУ
+- source: `entities/koordinator/outbox/KOO__github-info-entry-kan-manual-activation__OPERATOR.md`
+- source commit: `7642139c368fb003594ff5742cddcaf3beb31382`
+- dispatch commit: `a071969f58a4d7cee4f14815c545b96edd8ca593`
+- OPERATOR inbox pointer commit: `b4cdf0276f14bcc878b612e892bc7c793b4e4132`
+- KOO classification: `EXTERNAL_BLOCKER_REQUIRES_OWNER_ACTION`
+- required owner action: вручную открыть/активировать KAN Entity chat через доступный пользовательский интерфейс ChatGPT и направить KAN на обязательный GitHub-preflight и уже адресованную Stage A задачу.
+- no re-upload required: task уже находится в canonical KAN inbox и повторный транспорт до owner action не нужен.
+- SHT current state commit: `160698893bb196a75b9de4e38376f4d0a1c8f7be`
+- SHT status: `WAITING_ON_OPERATOR_MANUAL_KAN_ACTIVATION`
+- verified boundary: states task-addressed / detector-observed / activation-requested подтверждены; recipient profile processing / KAN result / acceptance не подтверждены.
+
 ## L2 / причинная цепочка
 
 `адресное GitHub-событие`
@@ -81,7 +93,10 @@ project_time: omitted; trusted project-time source not used
 → exact-instance continuity blocker остаётся отдельной незакрытой ветвью
 → тот же unresolved boundary проявился уже не только в тесте, но и в реальном проектном handoff KOO → KAN
 → KAN task присутствует в inbox, detector PASS есть, но KAN processing не начался
-→ Stage A legal/publication dependency фактически остановлена на recipient activation boundary.
+→ KOO классифицировал remaining Stage A dependency как внешний/manual owner action
+→ prerequisite адресован ОПЕРАТОРУ без повторной транспортировки KAN task
+→ SHT зафиксировал `WAITING_ON_OPERATOR_MANUAL_KAN_ACTIVATION`
+→ Stage A legal/publication dependency остаётся заблокированной до независимого KAN-side evidence.
 
 ## Проверяемое различение состояний
 
@@ -98,20 +113,24 @@ project_time: omitted; trusted project-time source not used
 9. `production_safe_autonomous_continuation`
 10. `organizational_handoff_recorded`
 11. `recipient_profile_processing_started`
+12. `owner_manual_activation_prerequisite_dispatched`
+13. `owner_manual_activation_performed`
 
-PASS на 1, 2 или 10 не является доказательством 11. PASS на уровнях 5–6 не является доказательством 7 или 9.
+PASS на 1, 2, 10 или 12 не является доказательством 11 или 13. PASS на уровнях 5–6 не является доказательством 7 или 9.
 
 ## Anti-regression
 
 ### Запрещённый повтор
 
-Не объявлять `Entity activated`, `Entity resumed`, `Entity executing`, `handoff completed` или `autonomous continuation proven` только по detector PASS, activation marker, локальному worker state, handler PID, dispatch/inbox delivery, organizational queue transition или даже успешному запуску нового Work instance.
+Не объявлять `Entity activated`, `Entity resumed`, `Entity executing`, `handoff completed`, `manual activation completed` или `autonomous continuation proven` только по detector PASS, activation marker, локальному worker state, handler PID, dispatch/inbox delivery, organizational queue transition, owner prerequisite dispatch или даже успешному запуску нового Work instance.
 
 ### Обязательная проверка
 
 Перед утверждением exact continuity требовать evidence, связывающее конкретную Entity identity с реально возобновлённым pre-existing processing instance/Instance ID. Если запускается новый Work context, это должно быть явно классифицировано как новый instance, даже если он читает тот же recovery/current-state пакет.
 
 Перед утверждением межсущностного handoff как исполненного требовать отдельный evidence фактического recipient processing/profile work. Inbox presence и detector PASS доказывают только адресацию/обнаружение в соответствующих границах.
+
+Перед утверждением manual owner activation как выполненного требовать независимое downstream evidence от KAN-side processing, а не только KOO/SHT файл с просьбой ОПЕРАТОРУ выполнить действие.
 
 ### Поведенческий тест
 
@@ -129,11 +148,17 @@ PASS на 1, 2 или 10 не является доказательством 11
 - сохранить exact failure reason;
 - адресовать coordination owner, а не выдавать организационный переход за выполненную профильную работу.
 
+Для manual owner prerequisite правильное поведение:
+- отличать `owner action requested` от `owner action performed`;
+- не плодить новый task transport, если canonical addressed task уже существует;
+- после manual activation ждать KAN-side receipt/profile result на exact locator/version;
+- только затем переводить operational branch из blocked state.
+
 ## Applicability boundary
 
 Эта фиксация описывает текущий проверенный technical/product boundary и его уже наблюдаемое влияние на реальную проектную маршрутизацию. Она не является новым Project Source и не меняет полномочия Сущностей.
 
-Она должна быть пересмотрена после SIS bounded product E2E result, нового KOO acceptance/coordination decision, появления поддержанного exact Entity start/resume interface либо фактического KAN processing результата по Stage A.
+Она должна быть пересмотрена после SIS bounded product E2E result, нового KOO acceptance/coordination decision, появления поддержанного exact Entity start/resume interface, фактического OPERATOR manual activation с KAN-side evidence либо KAN processing результата по Stage A.
 
 ## Current dependencies
 
@@ -141,10 +166,14 @@ PASS на 1, 2 или 10 не является доказательством 11
 ARH не должен дублировать SIS execution. Следующий релевантный переход для technical branch наступит, когда SIS вернёт bounded product-E2E evidence либо exact product/manual prerequisite blocker.
 
 ### Stage A operational branch
-Текущий operational blocker: `KOO -> KAN` recipient activation. До evidence KAN processing:
+Текущий operational blocker: `OPERATOR manual KAN activation`, инициированный после неуспешного repository-side exact Entity resume.
+
+До независимого evidence KAN processing:
 - ARH source-lifecycle model остаётся рабочим/candidate input Stage A;
 - KAN legal/publication gate не считается пройденным;
-- downstream consumers не должны повышать pending dependency до accepted result.
+- owner prerequisite dispatch не считается выполнением owner action;
+- downstream consumers не должны повышать pending dependency до accepted result;
+- повторная доставка уже существующей KAN task не требуется.
 
 ## Evidence refs
 
@@ -160,7 +189,11 @@ ARH не должен дублировать SIS execution. Следующий �
 - `7556df402991f71e2519d1f81526e12cc7dd4ed1`
 - `7a46dab898e22b8701325f884c546f9455e582c9`
 - `093e16dbfb66bc21a1f1bcf8fd01c6ec3b8852ad`
+- `7642139c368fb003594ff5742cddcaf3beb31382`
+- `a071969f58a4d7cee4f14815c545b96edd8ca593`
+- `b4cdf0276f14bcc878b612e892bc7c793b4e4132`
+- `160698893bb196a75b9de4e38376f4d0a1c8f7be`
 
 ---
 entity: archivarius
-purpose: preserve causal lineage and anti-regression boundary for Entity activation, including its first verified recurrence as a blocker of a real inter-Entity Stage A handoff
+purpose: preserve causal lineage and anti-regression boundary for Entity activation, including recurrence on Stage A and escalation to an explicit OPERATOR manual activation prerequisite
