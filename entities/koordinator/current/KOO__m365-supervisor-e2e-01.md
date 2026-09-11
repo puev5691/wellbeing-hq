@@ -84,11 +84,16 @@ current_goal: replace internal alarm dependence with an externally triggered sup
 current_step: create/verify Microsoft Power Automate scheduled flow and GitHub connection
 last_verified_result: GitHub test branch and inert marker prepared
 in_flight_action: none
+verified_external_evidence:
+- Power Automate portal `make.powerautomate.com` opened successfully for the OPERATOR
+- signed-in home screen is visible and offers flow creation
+- screenshot evidence supplied by OPERATOR in current KOO session
 unknown_postconditions:
-- Microsoft 365 tenant/work account existence remains unknown
+- exact Microsoft tenant ID / environment identity remains unverified
+- exact license/subscription state remains unverified
 - Power Automate flow existence remains unverified
 - ChatGPT Work PR trigger remains unconfigured/unverified
-next_admissible_action: authenticate to Power Automate with a verified work/school account and create the bounded scheduled flow above
+next_admissible_action: create the bounded scheduled flow from the authenticated Power Automate portal
 failure_mode: keep existing ChatGPT automations enabled and record exact Microsoft/product blocker
 checkpoint_reason: pre-external-side-effect
 
