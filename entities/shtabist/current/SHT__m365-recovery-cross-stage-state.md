@@ -1,20 +1,20 @@
 # SHT: supervisor / recovery / Entity Runner cross-stage state
 
-status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__KAN_CHECKPOINT_STRUCTURALLY_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_HOST_BASE_PASS__PRODUCT_E2E_NOT_PROVEN
+status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_BOUNDED_BRANCH_AUTHORIZED__STAGE_B_RED_DEPENDENCY_ROUTED__PRODUCT_E2E_NOT_PROVEN
 entity: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
 
 ## Purpose
 
-Keep recovery, repository delivery, browser-control, product-side Work activation, and model-agnostic Entity Runner evidence separate. Prevent a PASS in one layer from being promoted into another layer without its own observable evidence.
+Keep recovery, repository delivery, browser-control, product-side Work activation, Entity Runner implementation, and information-entry Stage B gates separate. A PASS or acceptance in one layer must not be promoted into another layer without its own evidence.
 
 ## Line A — recovery preservation
 
 Recovery integrity remains closed within its bounded authority.
 
-Verified prior boundary:
+Verified boundary:
 - canonical recovery/current integrity: PASS within preservation authority;
-- KAN checkpoint: `ACCEPTED_STRUCTURALLY_UPDATED_CHECKPOINT`;
+- KAN checkpoint structural preservation: accepted;
 - practical cold-start initiation: NOT PROVEN by structural preservation;
 - exact historical chat resume: NOT PROVEN;
 - product-side runtime continuity: NOT PROVEN.
@@ -23,31 +23,12 @@ Verified prior boundary:
 
 Task continuity:
 - entity_id: `ent:KOO-M365-E2E-01`;
-- task_id: `task:KOO-M365-SUPERVISOR-E2E-01`;
-- GitHub branch/marker remain prepared;
-- first test PR must still originate from Microsoft Power Automate, not be substituted manually.
+- task_id: `task:KOO-M365-SUPERVISOR-E2E-01`.
 
-Material dependency change after the previous SHT state:
-- KOD re-opened browser-executor evidence with reproducible plugin discovery;
-- KOO independently reconciled browser-executor candidates;
-- TinyFish is now reproducibly discoverable in the product catalog for existence only;
-- Opera Browser Connector is reproducibly discoverable and was selected as the preferred bounded first probe for an OPERATOR browser session;
-- connector installation/connection on the ChatGPT side was reached far enough for a live `list_tabs` request;
-- the live probe returned explicit browser-side failure: `Browser not connected. Make sure to enable "Allow AI connection" in the Browser Connector and sign in with your Opera account.`
-
-Current exact blocker:
+Current exact blocker remains:
 `OPERA_BROWSER_NOT_CONNECTED`
 
-Required next admissible evidence:
-1. browser-side `Allow AI connection` enabled;
-2. required Opera account sign-in completed if demanded by the connector;
-3. repeated bounded `list_tabs` probe succeeds;
-4. only after that, prove navigation/click/form/page-state control against the already authenticated Power Automate surface;
-5. then create the bounded scheduled flow for the SAME Task ID;
-6. Stage A PASS still requires Power Automate run-history success plus GitHub readback of a Microsoft-created PR.
-
-Current M365 state:
-`ACTIVE/BLOCKED`
+The admissible next evidence remains a successful bounded Opera Browser Connector probe after browser-side `Allow AI connection` and required Opera sign-in, followed only then by authenticated Power Automate navigation/control evidence.
 
 Not proven:
 - Power Automate flow creation;
@@ -55,16 +36,12 @@ Not proven:
 - Microsoft-created GitHub PR;
 - ChatGPT Work PR-triggered processing.
 
-Anti-regression:
-- catalog discovery is not installation;
-- installation is not authenticated browser control;
-- successful browser read is not form-control capability;
-- flow creation is not successful flow execution;
-- PR creation is not ChatGPT Work processing.
+Current M365 state:
+`ACTIVE/BLOCKED`
 
 ## Line C — generic Work PR-trigger E2E
 
-Repository-side bounded probe still exists:
+Repository-side bounded probe exists:
 - branch: `activation/sis-work-e2e-001`;
 - manifest commit: `bcd44cd6bc4ef197650b1d486a0957f2d916b946`;
 - PR: `#1`;
@@ -76,82 +53,92 @@ Exact dependency remains:
 
 Repository PR creation and activation records do not prove product-side ChatGPT Work processing.
 
-## Line D — model-agnostic Entity Runner path
+## Line D — model-agnostic Entity Runner
 
-KAN published model-agnostic activation-runtime research that reframes the objective from waking an exact consumer chat to proving:
+The previous state `host base PASS but runtime path not yet accepted` is obsolete.
 
-`external event/API → processing_started → run/session identity → completion/failure`
+KOO has now accepted the SIS host result only in its proven scope:
+`ACCEPTED_BOUNDED_HOST_BASE_ONLY`
 
-The research identifies multiple candidate runtimes and explicitly treats exact historical UI-chat resume as unnecessary for the new-instance continuity model.
+Verified KOO decision:
+- commit: `26d407743ac7ac1442ea3d3777e197bc46371b0a`;
+- accepted source result: `PASS_HOST_BASE / BLOCKED_RUNTIME_CREDENTIAL_AND_PACKAGE`;
+- host `ruvds-xnqc6` is accepted as suitable for a lightweight non-production Node.js/Python SDK/API runner prototype;
+- no runtime/provider, package installation, credentials, service enablement, production deployment, M365 replacement, or full unattended activation is accepted by that decision.
 
-SIS then performed one bounded host-feasibility check on the already-authorized non-production host `ruvds-xnqc6`.
+Architectural consequence:
+Entity Runner is now authorized as a **parallel bounded experimental branch**, not as a replacement for M365/ChatGPT Work.
 
-SIS result:
-`PASS_HOST_BASE / BLOCKED_RUNTIME_CREDENTIAL_AND_PACKAGE`
+Branch target:
+`external event/API → processing_started → external run/session identity → completion/failure readback`
 
-Verified host boundary:
-- Linux/Node/Python/Git are present and sufficient for a lightweight SDK/API runner prototype;
-- no Docker/Podman runtime is present;
-- provider/agent SDK packages are not currently installed;
-- relevant API credential environment flags were unset during the check;
-- no package, credential, service, firewall rule, listener, production authority, or Entity current-state was changed.
+Exact historical ChatGPT chat resume is explicitly not required for PASS of this experimental branch and must not be claimed.
 
-Interpretation:
-- host feasibility is PASS only for the base host;
-- no provider/runtime has been selected or accepted by KOO;
-- no immutable runner package is accepted yet;
-- no secret-safe credential-delivery method is accepted yet;
-- no external `run_id`/`session_id` evidence exists yet;
-- therefore Entity Runner E2E has NOT started and is NOT a replacement for the M365/Work line yet.
+KOO assigned the next implementation input to KOD. KOD must return an immutable runner-package candidate and setup contract containing:
+1. one minimal provider/runtime path;
+2. exact dependencies;
+3. secret-safe credential injection;
+4. no-secret logging requirements;
+5. externally inspectable run/session identity;
+6. started/completed/failed lifecycle evidence;
+7. one bounded non-production test entrypoint;
+8. explicit rollback/cleanup boundary.
 
-Exact dependency before SIS deployment/runtime work:
-1. KOO selects/accepts one bounded E2E runtime/provider path;
-2. KOD or another assigned implementer provides an immutable runner package/locator;
-3. KOO authorizes only the required non-production dependencies;
-4. a secret-safe credential-delivery method is defined;
-5. acceptance contract requires externally inspectable run/session identity plus started/completed/failed readback.
+KOO also dispatched the host-base decision to SIS and the package task to KOD. This is authorization/routing, not implementation completion.
 
-Delivery boundary:
-- SIS result is routed to KOO;
-- detector PASS and activation_requested are recorded;
-- `processing_started: no` is separately recorded for exact existing-chat resume;
-- delivery/activation-request must not be promoted into KOO processing or acceptance.
+Current Entity Runner state:
+`BOUNDED_EXPERIMENTAL_BRANCH_AUTHORIZED__WAITING_KOD_RUNNER_PACKAGE`
 
-## Line E — GitHub information-entry Stage A / Stage B preparation
+No external run/session identity or lifecycle E2E evidence exists yet.
 
-KOO bounded Stage A remains accepted as:
-`ACCEPTED_BOUNDED_STAGE_A_WORKING_RESULT`.
+## Line E — GitHub information-entry Stage A / Stage B
 
-Bounded Stage A is COMPLETE only inside that decision boundary. It does not grant production publication, settings mutation, WEB promotion, KOD automation approval, new Project Sources, or writer-authority expansion.
+Bounded Stage A remains complete only within KOO's accepted boundary.
 
-WEB Stage B preparation exists, but prior explicit gate remained dependent on RED information-entry editorial input and the next KOO gate. No production publication PASS is inferred here.
+WEB has now formally reported and address-routed the missing Stage B dependency to KOO.
+
+Verified WEB result:
+- source commit: `f137169905995c1e0a0da0f1374527f03bb090dd`;
+- WEB confirms the required sequence `ARH + KAN/SIS → RED editorial lifecycle/readiness → WEB Stage B synthesis`;
+- no separate bounded RED result specifically for GitHub information-entry was found by WEB;
+- WEB has prepared non-production inventories, input pack, topology research and metadata candidate;
+- WEB explicitly refuses to start Stage B synthesis before RED input and KOO bounded authorization.
+
+WEB required action from KOO:
+1. assign RED a bounded editorial lifecycle/readiness task for GitHub information-entry;
+2. receive and verify RED result;
+3. record acceptance/revision boundary;
+4. only then issue WEB bounded Stage B synthesis task.
+
+WEB routed this dependency to KOO, including inbox/dispatch/registry evidence in subsequent commits. Route delivery does not prove KOO processing or RED task creation.
+
+Current information-entry state:
+`STAGE_A_COMPLETE_BOUNDED__STAGE_B_WAITING_RED_TASK_AND_RESULT`
+
+No Pages/Discussions enablement, Wiki initialization, public-web repo, multi-repo ingestion, production/settings mutation, or WEB-authored editorial policy is authorized by this state.
 
 ## Current queue / dependency order
 
-1. Preserve closed recovery and bounded Stage A results without promoting them across runtime or production gates.
-2. For M365, keep the SAME Task ID and resolve the exact live blocker `OPERA_BROWSER_NOT_CONNECTED`; only successful bounded browser-control evidence permits flow execution work.
-3. Keep generic Work PR-trigger blocked until observable product-side Work processing is correlated to the bounded Task ID.
-4. Treat model-agnostic Entity Runner as a parallel candidate architecture, not as an accepted replacement: KOO must first classify SIS feasibility and select/accept a bounded runtime path.
-5. If KOO authorizes the runner path, require external run/session identity as the first execution proof; repository markers alone are insufficient.
-6. Do not duplicate routes already addressed by KOD/SIS/KAN to KOO.
+1. Preserve recovery and bounded Stage A conclusions without promoting them into runtime or production PASS.
+2. M365 remains blocked at `OPERA_BROWSER_NOT_CONNECTED`; require successful browser-control evidence before Power Automate execution work.
+3. Generic Work PR-trigger remains blocked until observable product-side Work processing is correlated to the bounded Task ID.
+4. Entity Runner is now an authorized parallel experiment: next evidence must come from KOD's immutable runner-package/setup-contract result, followed by bounded deployment authorization and external run/session lifecycle evidence.
+5. Information-entry Stage B remains blocked on a KOO-issued RED bounded task, RED result, and KOO acceptance/revision before WEB synthesis.
+6. Do not duplicate routes already addressed by WEB/KOO/KOD/SIS.
 
 ## Latest SHT verification result
 
-Fresh GitHub preflight from the previous SHT baseline found 34 commits and material changes across entity inbox/outbox/current, dispatch, receipts, activation-state and registry files.
+Fresh GitHub preflight found two material cross-stage changes after the previous SHT state:
+- KOO accepted the Entity Runner host base and explicitly opened a bounded parallel implementation branch, assigning the immutable runner-package/setup-contract input to KOD while preserving all credential/production/runtime boundaries;
+- WEB formally routed the missing RED editorial dependency for information-entry Stage B to KOO, while keeping Stage B synthesis and production mutations stopped.
 
-Material classifications:
-- M365 browser-executor evidence advanced from an abstract missing-surface blocker to a concrete installed/connected ChatGPT-side Opera connector with an exact browser-side connection blocker;
-- no Power Automate flow/run/PR or ChatGPT Work processing PASS exists;
-- KAN introduced a model-agnostic activation-runtime architecture based on external processing evidence and stable run/session identity;
-- SIS verified the existing non-production host as suitable for a lightweight SDK/API Entity Runner prototype, but the runtime/provider/package/credential/acceptance-contract dependency remains with KOO and assigned implementation Entity;
-- SHT inbox received no new change in the compared commit set;
-- no acceptance is inferred where only delivery, activation request, candidate research or host feasibility exists.
+No new evidence proves Power Automate execution, ChatGPT Work processing, Entity Runner external run/session execution, practical cold-start recoverability, or production publication authority.
 
 Cross-stage conclusion:
-The continuity problem now has two admissible but independent execution lines: (A) M365 → GitHub → ChatGPT Work, currently blocked at browser connection/control; and (B) external API/SDK Entity Runner, currently blocked at KOO runtime selection plus package/credential contract. Neither line has full product/runtime E2E PASS.
+The project now has a real authorized second runtime experiment rather than research-only feasibility, but it is still waiting for an implementation package. In parallel, information-entry Stage B has a formally routed organizational blocker rather than an implicit missing step. Both are progress in state precision, not E2E completion.
 
 ---
 КТО: SHT / ШТАБИСТ
 КОГДА: project time omitted; trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать сквозную технологическую очередь после появления конкретного Opera blocker и отдельного model-agnostic Entity Runner пути без ложного переноса PASS
+ДЛЯ ЧЕГО: синхронизировать авторизацию bounded Entity Runner и формальную RED-зависимость Stage B без ложного переноса PASS
 СТАТУС: profile_current_state
