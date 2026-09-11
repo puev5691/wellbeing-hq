@@ -11,7 +11,7 @@ production_current_state_mutation: forbidden
 
 authorization_artifact: entities/koordinator/outbox/KOO__activation-product-path-decision__SIS.md
 authorization_commit: ba2548d767c0babc4d6a56946d3fa33bfde83f32
-authorization_blob: 9dde9ce572d94343440e48bbe63d3222fc57ed5e
+authorization_blob: b641fc8b62399d1c42550c195a1494dea6c79178
 
 recovery_current_locator: entities/sisadmin/current/EXCHANGE-GATE.md
 recovery_current_commit: 1176d3946586c8928339cc70c41e8423fbacafc6
