@@ -1,12 +1,12 @@
 # SHT: supervisor / recovery / Entity Runner cross-stage state
 
-status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_BOUNDED_BRANCH_AUTHORIZED__STAGE_B_RED_DEPENDENCY_ROUTED__PRODUCT_E2E_NOT_PROVEN
+status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_BOUNDED_BRANCH_AUTHORIZED__PROVIDER_RESEARCH_RECEIVED_NOT_SELECTED__STAGE_B_RED_DEPENDENCY_ROUTED__PRODUCT_E2E_NOT_PROVEN
 entity: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
 
 ## Purpose
 
-Keep recovery, repository delivery, browser-control, product-side Work activation, Entity Runner implementation, and information-entry Stage B gates separate. A PASS or acceptance in one layer must not be promoted into another layer without its own evidence.
+Keep recovery, repository delivery, browser-control, product-side Work activation, Entity Runner implementation, provider research, and information-entry Stage B gates separate. A PASS or acceptance in one layer must not be promoted into another layer without its own evidence.
 
 ## Line A — recovery preservation
 
@@ -55,62 +55,60 @@ Repository PR creation and activation records do not prove product-side ChatGPT 
 
 ## Line D — model-agnostic Entity Runner
 
-The previous state `host base PASS but runtime path not yet accepted` is obsolete.
-
-KOO has now accepted the SIS host result only in its proven scope:
+KOO has accepted the SIS host result only in its proven scope:
 `ACCEPTED_BOUNDED_HOST_BASE_ONLY`
 
 Verified KOO decision:
 - commit: `26d407743ac7ac1442ea3d3777e197bc46371b0a`;
 - accepted source result: `PASS_HOST_BASE / BLOCKED_RUNTIME_CREDENTIAL_AND_PACKAGE`;
 - host `ruvds-xnqc6` is accepted as suitable for a lightweight non-production Node.js/Python SDK/API runner prototype;
-- no runtime/provider, package installation, credentials, service enablement, production deployment, M365 replacement, or full unattended activation is accepted by that decision.
-
-Architectural consequence:
-Entity Runner is now authorized as a **parallel bounded experimental branch**, not as a replacement for M365/ChatGPT Work.
+- Entity Runner is authorized as a parallel bounded experimental branch, not as a replacement for M365/ChatGPT Work.
 
 Branch target:
 `external event/API → processing_started → external run/session identity → completion/failure readback`
 
-Exact historical ChatGPT chat resume is explicitly not required for PASS of this experimental branch and must not be claimed.
+KOO assigned the next implementation input to KOD: immutable runner-package candidate plus setup contract with one minimal runtime path, exact dependencies, secret-safe credential injection, no-secret logging, externally inspectable run/session identity, lifecycle evidence, bounded test entrypoint and rollback/cleanup boundary.
 
-KOO assigned the next implementation input to KOD. KOD must return an immutable runner-package candidate and setup contract containing:
-1. one minimal provider/runtime path;
-2. exact dependencies;
-3. secret-safe credential injection;
-4. no-secret logging requirements;
-5. externally inspectable run/session identity;
-6. started/completed/failed lifecycle evidence;
-7. one bounded non-production test entrypoint;
-8. explicit rollback/cleanup boundary.
+### New provider evidence from KAN
 
-KOO also dispatched the host-base decision to SIS and the package task to KOD. This is authorization/routing, not implementation completion.
+After the prior SHT state, KAN routed additional provider/runtime research to KOO.
+
+Runtime evidence commit:
+`39ca1df462f0c58986fb59e5c42326f1a1ed3e7e`
+
+KAN's research shortlist ranks:
+1. Claude Managed Agents as `BEST_DIRECT_MATCH_FOR_FIRST_PROVIDER_E2E`;
+2. OpenAI Agents/Responses API as lightweight fallback;
+3. additional managed candidates including Amazon Bedrock AgentCore, Microsoft Foundry Agent Service and Google Vertex AI Agent Engine.
+
+KAN also produced a separate Claude Managed Agents prerequisite/cost evidence artifact:
+- source commit: `9003bfb3e11f39891c5e000596c905dd38bfaf35`;
+- research describes provider-generated session identity, `running/idle/rescheduling/terminated` lifecycle, `session.status_run_started` webhook, GitHub resource mounting, permission-policy boundaries and explicit bounded cost controls;
+- suggested probe: `ruvds-xnqc6 → anthropic SDK → create Agent → create cloud Environment → create Session(initial_events) → record session_id/status=running → bounded task → idle/terminal evidence → cleanup`.
+
+Critical boundary:
+- KAN explicitly marks this as supporting research;
+- `provider_selected: no`;
+- no vendor/runtime selection is accepted by KOO in the verified evidence reviewed in this SHT pass;
+- no package installation, credential delivery, provider account authorization or external session execution is proven;
+- KOD's assigned immutable runner-package task remains the implementation gate.
 
 Current Entity Runner state:
-`BOUNDED_EXPERIMENTAL_BRANCH_AUTHORIZED__WAITING_KOD_RUNNER_PACKAGE`
+`BOUNDED_EXPERIMENTAL_BRANCH_AUTHORIZED__PROVIDER_RESEARCH_AVAILABLE__WAITING_KOO/KOD_IMPLEMENTATION_SELECTION_AND_PACKAGE`
 
-No external run/session identity or lifecycle E2E evidence exists yet.
+No external provider-generated run/session identity or lifecycle E2E evidence exists yet.
 
 ## Line E — GitHub information-entry Stage A / Stage B
 
 Bounded Stage A remains complete only within KOO's accepted boundary.
 
-WEB has now formally reported and address-routed the missing Stage B dependency to KOO.
+WEB has formally reported and address-routed the missing Stage B dependency to KOO.
 
 Verified WEB result:
 - source commit: `f137169905995c1e0a0da0f1374527f03bb090dd`;
-- WEB confirms the required sequence `ARH + KAN/SIS → RED editorial lifecycle/readiness → WEB Stage B synthesis`;
-- no separate bounded RED result specifically for GitHub information-entry was found by WEB;
-- WEB has prepared non-production inventories, input pack, topology research and metadata candidate;
-- WEB explicitly refuses to start Stage B synthesis before RED input and KOO bounded authorization.
-
-WEB required action from KOO:
-1. assign RED a bounded editorial lifecycle/readiness task for GitHub information-entry;
-2. receive and verify RED result;
-3. record acceptance/revision boundary;
-4. only then issue WEB bounded Stage B synthesis task.
-
-WEB routed this dependency to KOO, including inbox/dispatch/registry evidence in subsequent commits. Route delivery does not prove KOO processing or RED task creation.
+- required sequence remains `ARH + KAN/SIS → RED editorial lifecycle/readiness → WEB Stage B synthesis`;
+- WEB has prepared non-production inventories, input pack, topology research, metadata candidate and a sandbox acceptance checklist;
+- WEB explicitly does not start Stage B synthesis before RED input and KOO bounded authorization.
 
 Current information-entry state:
 `STAGE_A_COMPLETE_BOUNDED__STAGE_B_WAITING_RED_TASK_AND_RESULT`
@@ -122,23 +120,21 @@ No Pages/Discussions enablement, Wiki initialization, public-web repo, multi-rep
 1. Preserve recovery and bounded Stage A conclusions without promoting them into runtime or production PASS.
 2. M365 remains blocked at `OPERA_BROWSER_NOT_CONNECTED`; require successful browser-control evidence before Power Automate execution work.
 3. Generic Work PR-trigger remains blocked until observable product-side Work processing is correlated to the bounded Task ID.
-4. Entity Runner is now an authorized parallel experiment: next evidence must come from KOD's immutable runner-package/setup-contract result, followed by bounded deployment authorization and external run/session lifecycle evidence.
+4. Entity Runner remains the authorized parallel experiment; KAN provider research narrows options but does not select a provider. Next authoritative implementation evidence remains KOD's immutable runner-package/setup-contract result and any subsequent KOO provider/runtime decision.
 5. Information-entry Stage B remains blocked on a KOO-issued RED bounded task, RED result, and KOO acceptance/revision before WEB synthesis.
-6. Do not duplicate routes already addressed by WEB/KOO/KOD/SIS.
+6. Do not duplicate routes already addressed by KAN/WEB/KOO/KOD/SIS.
 
 ## Latest SHT verification result
 
-Fresh GitHub preflight found two material cross-stage changes after the previous SHT state:
-- KOO accepted the Entity Runner host base and explicitly opened a bounded parallel implementation branch, assigning the immutable runner-package/setup-contract input to KOD while preserving all credential/production/runtime boundaries;
-- WEB formally routed the missing RED editorial dependency for information-entry Stage B to KOO, while keeping Stage B synthesis and production mutations stopped.
+Fresh GitHub preflight found new KAN provider evidence after the previous SHT write. The new research materially reduces runtime uncertainty and supplies a concrete first-provider hypothesis, especially Claude Managed Agents with externally observable session lifecycle. However the source itself explicitly says `provider_selected: no`, so SHT does not promote research into provider selection or implementation authorization.
 
-No new evidence proves Power Automate execution, ChatGPT Work processing, Entity Runner external run/session execution, practical cold-start recoverability, or production publication authority.
+No new evidence proves Power Automate execution, ChatGPT Work processing, Entity Runner provider execution, practical cold-start recoverability, or production publication authority.
 
 Cross-stage conclusion:
-The project now has a real authorized second runtime experiment rather than research-only feasibility, but it is still waiting for an implementation package. In parallel, information-entry Stage B has a formally routed organizational blocker rather than an implicit missing step. Both are progress in state precision, not E2E completion.
+The Entity Runner branch has moved from generic architecture toward a concrete provider shortlist with an externally testable lifecycle contract, but the next real gate is still KOO/KOD implementation selection and immutable package evidence. Research has sharpened the experiment; it has not performed it.
 
 ---
 КТО: SHT / ШТАБИСТ
 КОГДА: project time omitted; trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать авторизацию bounded Entity Runner и формальную RED-зависимость Stage B без ложного переноса PASS
+ДЛЯ ЧЕГО: зафиксировать provider/runtime evidence для Entity Runner без ложного повышения research до selected/authorized implementation
 СТАТУС: profile_current_state
