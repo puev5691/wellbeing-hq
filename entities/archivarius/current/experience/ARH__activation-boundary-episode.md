@@ -1,6 +1,6 @@
 # ARH: эпизод границы реальной активации Сущности
 
-status: evidence_bounded_episode_updated
+status: evidence_bounded_episode_updated_with_stageA_recurrence
 project_time: omitted; trusted project-time source not used
 
 ## L0 / проверяемые события
@@ -49,6 +49,24 @@ project_time: omitted; trusted project-time source not used
   - bounded product E2E branch: authorized, owned by SIS;
   - exact-instance continuity branch: unresolved and intentionally outside current test.
 
+### E7 — activation boundary повторилась на реальном Stage A handoff KOO → KAN
+- organizational task source: `entities/koordinator/outbox/KOO__github-info-entry-stageA-kan__KAN.md`
+- inbox source commit: `299d447b45b0dac2556bd3ea13fb3bf815ddf1ff`
+- activation record: `routes/activation/KOO__github-info-entry-stageA-kan__KAN.activation.md`
+- activation record blob: `7556df402991f71e2519d1f81526e12cc7dd4ed1`
+- observed state:
+  - `detector_status: PASS`
+  - `activation_requested: yes`
+  - `processing_started: no`
+  - `activation_status: activation_failed`
+  - `failure_reason: exact_entity_chat_resume_not_supported_by_current_adapter`
+  - `operator_manual_ping_required: yes`
+- SHT blocker artifact: `entities/shtabist/outbox/SHT__github-info-entry-stageA-handoff-blocker__KOO.md`
+- SHT artifact commit: `7a46dab898e22b8701325f884c546f9455e582c9`
+- SHT artifact blob: `093e16dbfb66bc21a1f1bcf8fd01c6ec3b8852ad`
+- SHT classification: `BLOCKED_AT_RECIPIENT_ACTIVATION`
+- consequence: Stage A перешёл к KAN организационно, но не перешёл в фактическое KAN processing; legal/publication matrix остаётся pending; downstream RED/WEB/KOD не должны трактовать KAN gate как пройденный.
+
 ## L2 / причинная цепочка
 
 `адресное GitHub-событие`
@@ -60,7 +78,10 @@ project_time: omitted; trusted project-time source not used
 → KOD подтвердил существование поддерживаемого PR-triggered Work substrate, но только как новый Work processing context с recovery input
 → KOO сузил следующий acceptance target до bounded non-production E2E
 → SIS назначен владельцем подготовки/исполнения этого bounded E2E
-→ exact-instance continuity blocker остаётся отдельной незакрытой ветвью.
+→ exact-instance continuity blocker остаётся отдельной незакрытой ветвью
+→ тот же unresolved boundary проявился уже не только в тесте, но и в реальном проектном handoff KOO → KAN
+→ KAN task присутствует в inbox, detector PASS есть, но KAN processing не начался
+→ Stage A legal/publication dependency фактически остановлена на recipient activation boundary.
 
 ## Проверяемое различение состояний
 
@@ -75,18 +96,22 @@ project_time: omitted; trusted project-time source not used
 7. `exact_existing_entity_instance_started_or_resumed`
 8. `profile_work_verified`
 9. `production_safe_autonomous_continuation`
+10. `organizational_handoff_recorded`
+11. `recipient_profile_processing_started`
 
-PASS на уровнях 5–6 не является доказательством 7 или 9.
+PASS на 1, 2 или 10 не является доказательством 11. PASS на уровнях 5–6 не является доказательством 7 или 9.
 
 ## Anti-regression
 
 ### Запрещённый повтор
 
-Не объявлять `Entity activated`, `Entity resumed`, `Entity executing` или `autonomous continuation proven` только по detector PASS, activation marker, локальному worker state, handler PID, dispatch/inbox delivery или даже успешному запуску нового Work instance.
+Не объявлять `Entity activated`, `Entity resumed`, `Entity executing`, `handoff completed` или `autonomous continuation proven` только по detector PASS, activation marker, локальному worker state, handler PID, dispatch/inbox delivery, organizational queue transition или даже успешному запуску нового Work instance.
 
 ### Обязательная проверка
 
 Перед утверждением exact continuity требовать evidence, связывающее конкретную Entity identity с реально возобновлённым pre-existing processing instance/Instance ID. Если запускается новый Work context, это должно быть явно классифицировано как новый instance, даже если он читает тот же recovery/current-state пакет.
+
+Перед утверждением межсущностного handoff как исполненного требовать отдельный evidence фактического recipient processing/profile work. Inbox presence и detector PASS доказывают только адресацию/обнаружение в соответствующих границах.
 
 ### Поведенческий тест
 
@@ -98,16 +123,28 @@ PASS на уровнях 5–6 не является доказательств�
 - НЕ переносить current-writer authority автоматически;
 - НЕ объявлять production-safe autonomous continuation.
 
+Для обычного адресного Entity handoff правильное поведение:
+- различить `dispatch/inbox/detector` и `recipient processing`;
+- при `processing_started: no` оставить dependency blocked;
+- сохранить exact failure reason;
+- адресовать coordination owner, а не выдавать организационный переход за выполненную профильную работу.
+
 ## Applicability boundary
 
-Эта фиксация описывает текущий проверенный technical/product boundary и не является новым Project Source. Она должна быть пересмотрена после SIS bounded product E2E result, нового KOO acceptance decision либо появления поддержанного и проверяемого exact Entity start/resume interface.
+Эта фиксация описывает текущий проверенный technical/product boundary и его уже наблюдаемое влияние на реальную проектную маршрутизацию. Она не является новым Project Source и не меняет полномочия Сущностей.
 
-## Current dependency
+Она должна быть пересмотрена после SIS bounded product E2E result, нового KOO acceptance/coordination decision, появления поддержанного exact Entity start/resume interface либо фактического KAN processing результата по Stage A.
 
-ARH не должен дублировать SIS execution. Следующий релевантный переход для этого episode наступит, когда SIS вернёт:
-- bounded product-E2E evidence; либо
-- exact product/manual prerequisite blocker;
-после чего KOO/SHT переопределят допустимый следующий этап.
+## Current dependencies
+
+### Technical/product branch
+ARH не должен дублировать SIS execution. Следующий релевантный переход для technical branch наступит, когда SIS вернёт bounded product-E2E evidence либо exact product/manual prerequisite blocker.
+
+### Stage A operational branch
+Текущий operational blocker: `KOO -> KAN` recipient activation. До evidence KAN processing:
+- ARH source-lifecycle model остаётся рабочим/candidate input Stage A;
+- KAN legal/publication gate не считается пройденным;
+- downstream consumers не должны повышать pending dependency до accepted result.
 
 ## Evidence refs
 
@@ -119,7 +156,11 @@ ARH не должен дублировать SIS execution. Следующий �
 - `3127de7639627ba2bc619caaf91b99af94f9b96d`
 - `ba2548d767c0babc4d6a56946d3fa33bfde83f32`
 - `1ed19ad9cb703b611e6aa1fca8fdf8c375756703`
+- `299d447b45b0dac2556bd3ea13fb3bf815ddf1ff`
+- `7556df402991f71e2519d1f81526e12cc7dd4ed1`
+- `7a46dab898e22b8701325f884c546f9455e582c9`
+- `093e16dbfb66bc21a1f1bcf8fd01c6ec3b8852ad`
 
 ---
 entity: archivarius
-purpose: preserve causal lineage and anti-regression boundary for Entity activation as the dependency splits into bounded new-Work E2E and unresolved exact-instance continuity
+purpose: preserve causal lineage and anti-regression boundary for Entity activation, including its first verified recurrence as a blocker of a real inter-Entity Stage A handoff
