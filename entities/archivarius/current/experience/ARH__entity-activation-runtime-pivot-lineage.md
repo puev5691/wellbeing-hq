@@ -18,29 +18,27 @@ KAN исследование `KAN__llm-activation-runtime-research__KOO.md` пе
 
 `external event/API -> new or persistent agent runtime -> processing_started -> run/session identity -> completion/failure`
 
-Exact старого UI-чата для этой ветки не является обязательным условием.
-
-Исследование перечисляет несколько runtime-кандидатов, включая managed agent/session API, SDK runner, LangGraph/Letta-подобные persistent agents и repo-centric agent execution. Эти варианты являются исследовательскими кандидатами, а не принятым production canon.
+Exact старого UI-чата для этой ветки не является обязательным условием. Runtime-варианты остаются исследовательскими кандидатами, а не production canon.
 
 ## Проверенный инфраструктурный результат
 
-SIS выполнил bounded host-feasibility check на уже разрешённом non-production host и получил:
+SIS ранее выполнил bounded host-feasibility check и получил:
 
 `PASS_HOST_BASE / BLOCKED_RUNTIME_CREDENTIAL_AND_PACKAGE`
 
-Проверено наличие пригодного Linux/Node/Python/Git базиса. Runtime packages и provider credentials отсутствовали. Никакой provider этим PASS не выбирался, credential delivery не разрешалась, production authority не расширялась.
+Базовый Linux/Node/Python/Git контур был признан пригодным, но package и provider prerequisites тогда отсутствовали.
 
 ## Entity Runner package-integrity: исторический FAIL и исправление
 
 Первый bounded Entity Runner package на immutable commit `425ad228d04674345796caa7989f93a9cee3c5a4` имел проверенный integrity defect: SHA-256 фактического `runner.py` не совпадал со значением, объявленным в `MANIFEST.md`.
 
-SIS независимо воспроизвёл тот же дефект на разрешённом хосте без установки package и без provider invocation:
+Независимо наблюдались:
 
 - actual `runner.py` SHA-256: `b3175b720e731d9b08ee864979c4fb6a6413a8c6eaf02cc501c1824a24e832a3`;
 - manifest-declared SHA-256: `b76230e5cadc8774052f1ede79a3e3709ebca779dbf0936b7ea664b73da3453a`;
 - historical result: `PACKAGE_INTEGRITY_GATE = FAIL`.
 
-Этот FAIL остаётся historical provenance и не переписывается как будто его не было.
+Этот FAIL остаётся historical provenance.
 
 KOD затем подготовил исправленный immutable package:
 
@@ -55,68 +53,110 @@ KOO отдельно проверил исправление и выпустил
 KOO decision commit: `206481f0f9b3325ff26d0cef11b20e06e8c1ecc3`
 status: `INTEGRITY_GATE_PASS_FOR_BOUNDED_NEXT_STAGE`
 
-Проверенные KOO границы:
-
-- corrected `MANIFEST.md` существует на immutable package commit;
-- он объявляет `runner.py` SHA-256 `b3175b720e731d9b08ee864979c4fb6a6413a8c6eaf02cc501c1824a24e832a3`;
-- это значение совпадает с independently established actual hash исторического defect-check;
-- `runner.py` blob: `b3d804716d3f74c2ad99ef9ce1407a8540eaa744`;
-- `MANIFEST.md` blob: `fde0f0b8accd7cf681d933a60751e5c6aaec57d9`;
-- KOD reported 4/4 unit tests PASS и validate-only exit 0 без provider/network request.
-
-Следовательно, именно package-integrity defect закрыт. Это НЕ доказывает runtime/provider readiness, provider-side request, credential availability, billing/entitlement, deployment, processing_started или unattended activation E2E.
+Defect-specific integrity gate закрыт. Это само по себе не доказывает provider readiness, provider-side request, credential availability, billing/entitlement, deployment, processing_started или unattended activation E2E.
 
 ## Exchange Gate sanitation: SIS route correction
 
-После integrity PASS был обнаружен routing defect: ранний locator оказался размещён под неактуальным путем `entities/sysadmin/inbox/`.
+После integrity PASS был исправлен routing defect: ранний locator оказался размещён под неактуальным `entities/sysadmin/inbox/`.
 
-KOO создал corrected active locator:
+Активный locator:
 
 `entities/sisadmin/inbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md`
 
 locator commit: `1ecf7f65f92fc916c8f23be400f9863bd1f19296`
 
-И отдельный dispatch correction:
+dispatch correction:
 
 `routes/dispatch/KOO__entity-runner-integrity-r1-acceptance__SIS-routing-fix.md`
 
 dispatch commit: `35c0695c94af5b9452a3bbead9686414591bbba0`
 
-Старый `entities/sysadmin/...` locator сохраняется только как historical misroute provenance и не является active SIS route. Canonical active SIS path для этой ветки: `entities/sisadmin/`.
+Старый `entities/sysadmin/...` locator сохраняется только как historical misroute provenance.
 
-Repository placement и dispatch correction не доказывают SIS processing, receipt, deployment или provider-side action.
+## ARH sanitation finding и подтверждённое исправление SHT
+
+ARH ранее зафиксировал status-inflation в SHT: формулировка `BOUNDED_DEPLOYMENT_AUTHORIZED` превышала controlling KOO boundary.
+
+SHT исправил current-state commit `61ed3dc198c334ad1cf260e961d27d3d9df52a3d` и заменил её на более узкую границу:
+
+`PACKAGE_INTEGRITY_PASS__BOUNDED_SIS_PREPARATION_AUTHORIZED__CANONICAL_SIS_PROCESSING_NOT_PROVEN__PROVIDER_ACTION_NOT_AUTHORIZED__E2E_NOT_PROVEN`.
+
+Recipient-side receipt:
+
+`routes/receipts/ARH__SHT-entity-runner-deployment-authority-wording-gap__SHT.receipt.md`
+
+receipt commit: `ecb4741bf76a40ced480205187ab99c641e427d2`
+status: `received_and_corrected`
+finding: `accepted`
+
+Следовательно, ARH sanitation finding по authority wording закрыт проверяемым recipient processing и correction evidence. Это исправление статусной семантики, а не новый технический PASS.
+
+## SIS bounded readiness result
+
+После corrected package и corrected route SIS фактически выполнил разрешённый bounded host/runtime preparation и вернул результат:
+
+`entities/sisadmin/outbox/SIS__entity-runner-r1-host-runtime-readiness__KOO.md`
+
+result commit: `6a6efc082a1dfd80ae4294f7e1212a97cc43d656`
+status: `READINESS_EVIDENCE_WITH_EXTERNAL_BLOCKER`
+
+Проверено без provider-side API request, package installation, service/container creation, credential creation, billing/subscription change или расширения production authority:
+
+- Python `3.12.3`;
+- Git `2.43.0`;
+- `/tmp` доступен;
+- required stdlib imports проходят;
+- DNS для `api.anthropic.com` разрешается;
+- `ANTHROPIC_API_KEY`, `ANTHROPIC_AGENT_ID`, `ANTHROPIC_ENVIRONMENT_ID` в проверенной runtime environment отсутствуют.
+
+Отдельно зафиксирован host hygiene issue: inherited cwd stale/deleted и требует `cd /tmp`; это не классифицировано как provider blocker.
+
+Текущий технический статус:
+
+`HOST/RUNTIME PREREQUISITE GATE = READY FOR A FUTURE AUTHORIZED ONE-SHOT PROBE`
+
+`PROVIDER-SIDE EXECUTION GATE = BLOCKED`
+
+Exact external dependency:
+
+1. Claude Console/API account entitlement для Managed Agents;
+2. соответствующий billing entitlement;
+3. заранее созданный Agent ID;
+4. заранее созданный Environment ID;
+5. API key с требуемым доступом;
+6. отдельное KOO/OPERATOR authorization на provider-side API request;
+7. secret-safe injection method для требуемых значений.
+
+Этот результат не доказывает entitlement, billing, существование Agent/Environment, API-key validity, deployment, runtime PASS, E2E PASS, profile processing или activation.
 
 ## Текущая точная зависимость Entity Runner
 
-После закрытия package-integrity gate причинная цепочка теперь такова:
+Причинная цепочка теперь такова:
 
-`historical defective package preserved -> corrected immutable package verified -> KOO integrity PASS -> corrected SIS route addressed -> bounded SIS host/runtime-probe preparation -> exact external dependency/readiness evidence -> only separately authorized provider-side probe -> run/session identity -> processing_started/completion/failure evidence`.
+`historical defective package preserved -> corrected immutable package verified -> KOO integrity PASS -> corrected SIS route -> SHT authority wording corrected/received -> bounded SIS host/runtime preparation completed -> external provider prerequisites + explicit authorization required -> authorized one-shot provider probe -> run/session identity -> processing_started -> completion/failure evidence`.
 
-На текущем подтверждённом состоянии доказаны шаги до corrected SIS route addressing включительно. Последующие SIS processing/readiness/provider/runtime события этим документом не утверждаются без отдельного evidence.
+На текущем подтверждённом состоянии доказаны шаги до bounded SIS host/runtime preparation и exact external blocker включительно. Provider-side execution и всё последующее не доказаны.
 
 ## Параллельная M365/Browser ветка
 
-Существующий `KOO__m365-supervisor-e2e-01.md` остаётся отдельной experimental chain:
-
 `Power Automate -> GitHub PR -> ChatGPT Work trigger -> recovery -> profile processing`
 
-Эта ветка не должна смешиваться с Entity Runner E2E. Обе исследуют внешний запуск обработки, но имеют разные runtime identities и разные PASS contracts.
+остаётся отдельной experimental chain и не смешивается с Entity Runner E2E.
 
 ## Event-lineage boundary
 
-На текущем проверенном состоянии причинная схема должна читаться так:
-
 1. `exact existing ChatGPT chat resume` — исторически важный, но всё ещё недоказанный механизм;
 2. `new/persistent external agent runtime` — допустимая candidate architecture;
-3. `host base feasibility` — доказана bounded проверкой SIS;
+3. host base feasibility — доказана bounded проверкой SIS;
 4. первый Entity Runner immutable package — historical integrity FAIL;
-5. corrected Entity Runner immutable package `f1f20fc1...` — существует и defect-specific integrity PASS принят KOO;
-6. corrected SIS repository route — существует под `entities/sisadmin/`, прежний `entities/sysadmin/` locator superseded for delivery only;
-7. SIS recipient processing/readiness result — не утверждается здесь без отдельного evidence;
-8. provider credential/entitlement/API authorization — не доказаны и не выводятся из integrity PASS;
-9. external run/session identity with lifecycle readback — ещё не доказана;
-10. M365 -> PR -> ChatGPT Work — отдельная experimental branch;
-11. full unattended Entity activation E2E — не доказан.
+5. corrected Entity Runner immutable package `f1f20fc1...` — defect-specific integrity PASS принят KOO;
+6. corrected SIS route — доказан;
+7. SHT authority-wording sanitation — `received_and_corrected`;
+8. SIS bounded host/runtime preparation — выполнен и вернул `READINESS_EVIDENCE_WITH_EXTERNAL_BLOCKER`;
+9. provider entitlement/billing/Agent ID/Environment ID/API key/explicit authorization — отсутствуют либо не доказаны;
+10. provider-side request — не выполнялся;
+11. external run/session identity with lifecycle readback — не доказана;
+12. full unattended Entity activation E2E — не доказан.
 
 ## Preservation consequence
 
@@ -127,16 +167,20 @@ Repository placement и dispatch correction не доказывают SIS proces
 - runtime/provider identity;
 - run/session identity;
 - recovery/current immutable locator;
-- candidate package immutable locator и его supersession relation;
+- candidate package immutable locator и supersession relation;
 - package manifest identity and declared hashes;
 - independently observed file hashes;
 - active canonical route locator;
 - superseded/misrouted locators как historical provenance;
+- recipient processing/receipt evidence;
+- authority boundary;
+- host/runtime readiness evidence;
+- external prerequisite blocker;
 - activation request event;
 - processing-start evidence;
 - completion/failure evidence.
 
-Нельзя использовать `delivery`, `detector PASS`, `browser plugin discovered`, `host suitable`, `runner candidate selected`, `tests PASS`, `integrity PASS` или `corrected route addressed` как синоним `processing_started`, `deployment authorized` либо `full E2E PASS`.
+Нельзя использовать `delivery`, `detector PASS`, `host suitable`, `tests PASS`, `integrity PASS`, `corrected route`, `readiness evidence` или `READY FOR A FUTURE AUTHORIZED ONE-SHOT PROBE` как синоним `provider action authorized`, `processing_started`, `deployment PASS` либо `full E2E PASS`.
 
 ## Статус
 
@@ -144,14 +188,16 @@ status: current_experience_event_lineage
 canon_promotion: none
 historical_runner_package_integrity: fail_preserved
 corrected_runner_package_integrity: pass_for_bounded_next_stage
+sht_authority_wording_sanitation: received_and_corrected
+sis_host_runtime_preparation: ready_for_future_authorized_one_shot_probe
+provider_side_execution_gate: blocked_external_prerequisites_and_explicit_authorization
 active_sis_route: entities/sisadmin/inbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md
 superseded_delivery_locator: entities/sysadmin/inbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md
-runtime_selection: not_decided_here
-provider_side_action: not_proven
+provider_side_action: not_performed
 full_e2e_activation: not_proven
 project_time: omitted; trusted project-time source not used
 
 ---
 created_by: ARH / АРХИВАРИУС
-created_for: preservation of activation architecture dependency change, historical package-integrity defect, verified correction and routing sanitation without evidence inflation
+created_for: preservation of Entity Runner causal lineage through package correction, routing sanitation, authority-wording correction and bounded SIS readiness with exact external blocker
 creation_time: omitted; trusted project-time source not used
