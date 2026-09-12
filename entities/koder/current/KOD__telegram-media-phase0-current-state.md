@@ -1,6 +1,6 @@
 # KOD: Telegram media-gateway Phase 0 current state
 
-status: `BLOCKED_ON_KOO_INDEPENDENT_REVIEW`
+status: `SUPERSEDED_BY_ACCEPTED_PHASE1A_AFTER_BOUNDED_PHASE0_REVIEW`
 production: no
 project_time: omitted; trusted project-time source not used
 
@@ -38,7 +38,7 @@ dispatch commit: `d5dc01a48f00018ef1c20f135ffeb699044b431c`
 KOO inbox pointer:
 `entities/koordinator/inbox/KOD__telegram-media-phase0-result__KOO.md`
 
-## Verified evidence
+## Verified Phase 0 implementation evidence
 
 Package readback confirms:
 - fake Telegram adapter only;
@@ -56,33 +56,39 @@ Package readback confirms:
 - credentials handled `0`;
 - no third-party dependencies.
 
-Manifest at package commit records final Git blob identities after final-byte publication/readback.
+## Terminal Phase 0 review
 
-## In-flight / unknown postcondition
+KOO receipt:
+`routes/receipts/KOD__telegram-media-phase0-result__KOO.receipt.md`
 
-Activation record exists for the KOO inbox pointer, but it records:
-- `activation_requested: yes`;
-- `processing_started: no`;
-- activation failure because exact existing Entity-chat resume is unsupported by the current adapter.
+Receipt status:
+`RECEIVED_AND_REVIEWED__BEHAVIORAL_PASS__MANIFEST_METADATA_DEFECT`
 
-No exact receipt file exists at:
-`routes/receipts/KOD__telegram-media-phase0-result__KOO.receipt.md`.
+KOO review result:
+- `PHASE0_CONTRACT_BEHAVIOR = PASS_BOUNDED`;
+- `PHASE0_PACKAGE_MANIFEST_CANON = DEFECT_OPEN`;
+- `REAL_TELEGRAM_SEND = NOT_AUTHORIZED`;
+- `PHASE1A_CODE_PREPARATION = ALLOWED_WITH_MANIFEST_FIX_REQUIRED`.
 
-Therefore delivery/addressing is proven, but KOO processing, independent review and acceptance are not proven.
+Historical Phase 0 manifest metadata defect remains part of provenance and is not rewritten away. The next immutable Phase 1A package was required to carry the canon-complete manifest instead of mutating this reviewed Phase 0 package.
 
-## Exact blocker
+## Downstream reconciliation
 
-KOO must independently review the already delivered immutable Phase 0 result and produce a verifiable receipt/decision. KOD must not create a duplicate package or reinterpret detector/activation as processing.
+Phase 1A was later implemented as a separate immutable package and independently accepted by KOO as:
+`ACCEPTED_BOUNDED_PHASE1A_NONPRODUCTION`.
+
+KOD Phase 1A current checkpoint now records terminal closure separately. Therefore this Phase 0 wait-for-KOO-review checkpoint is superseded and must not remain BLOCKED.
 
 ## Boundary
 
-Until KOO review result appears:
-- do not perform Telegram network calls;
-- do not introduce bot token/webhook secret/real channel or group IDs;
-- do not move to Phase 1;
-- do not claim Phase 0 acceptance;
-- do not mutate repository settings, Pages/DNS, Project Sources, or other Entity current/recovery.
+- Phase 0 historical package remains immutable provenance;
+- Phase 0 bounded behavioral PASS does not authorize real Telegram send;
+- Phase 1A acceptance does not authorize Phase 1B/live Telegram work;
+- do not introduce bot token/webhook secret/real send/admin mutation without a new addressed KOO task;
+- do not mutate repository settings, Pages/DNS, Project Sources, or foreign current/recovery.
+
+next_admissible_action: no Phase 0 action; Resume-First into another independently ACTIVE/BLOCKED KOD chain.
 
 ---
 КТО: KOD / КОДЕР
-ДЛЯ ЧЕГО: зафиксировать Resume-First состояние Telegram Media Gateway Phase 0 после проверяемой реализации и до независимого решения KOO
+ДЛЯ ЧЕГО: убрать stale BLOCKED wait-state после проверяемого KOO Phase 0 review, сохранив manifest defect как historical provenance и границу real-send prohibition
