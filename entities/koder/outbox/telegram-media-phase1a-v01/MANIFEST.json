@@ -1,0 +1,38 @@
+{
+  "package_id": "telegram-media-phase1a-v01",
+  "source_location": "entities/koder/outbox/telegram-media-phase1a-v01/",
+  "generated_files": [
+    "MANIFEST.json",
+    "README.md",
+    "SHA256SUMS.txt",
+    "TEST_RESULTS.txt",
+    "gateway.py",
+    "runtime-config.schema.json",
+    "test_gateway.py"
+  ],
+  "recipients": ["KOO / КООРДИНАТОР"],
+  "copied_to": [
+    "entities/koordinator/inbox/KOD__telegram-media-phase1a-result__KOO.md",
+    "routes/dispatch/KOD__telegram-media-phase1a-result__KOO.md"
+  ],
+  "integrity": {
+    "immutable_identity": "package_commit recorded in routed result after commit",
+    "checksums_file": "SHA256SUMS.txt",
+    "rule": "checksums generated after final bytes; SHA256SUMS self-hash excluded by definition"
+  },
+  "operator_action": "none for Phase 1A; do not perform live Telegram action",
+  "unresolved_questions": [
+    "verified channel numeric chat id",
+    "verified linked discussion state and numeric chat id",
+    "publisher bot identity/rights and SIS secret injection",
+    "webhook endpoint/secret under SIS control",
+    "KAN audience-data retention/privacy decision",
+    "KOO authorization for bounded Phase 1B sandbox send"
+  ],
+  "status": "candidate_nonproduction_zero_live_network",
+  "service_footer": {
+    "created_by": "KOD / КОДЕР",
+    "purpose": "Phase 1A real-adapter/config preparation without live Telegram or credentials",
+    "project_time": "omitted; trusted project-time source not used"
+  }
+}

@@ -1,0 +1,26 @@
+test_correction_no_resend (test_gateway.T.test_correction_no_resend) ... ok
+test_fake_transport_only (test_gateway.T.test_fake_transport_only) ... ok
+test_missing_chat_id (test_gateway.T.test_missing_chat_id) ... ok
+test_multi_target (test_gateway.T.test_multi_target) ... ok
+test_phase0_compatible (test_gateway.T.test_phase0_compatible) ... ok
+test_phase0_id_rejected (test_gateway.T.test_phase0_id_rejected) ... ok
+test_privacy_default (test_gateway.T.test_privacy_default) ... ok
+test_restart (test_gateway.T.test_restart) ... ok
+test_same_mid_two_chats_no_collision (test_gateway.T.test_same_mid_two_chats_no_collision) ... ok
+test_unapproved_privacy_mode (test_gateway.T.test_unapproved_privacy_mode) ... ok
+test_unknown_chat_id (test_gateway.T.test_unknown_chat_id) ... ok
+test_update_dedupe (test_gateway.T.test_update_dedupe) ... ok
+test_verify_composite (test_gateway.T.test_verify_composite) ... ok
+test_wrong_forward_chat (test_gateway.T.test_wrong_forward_chat) ... ok
+test_wrong_forward_message (test_gateway.T.test_wrong_forward_message) ... ok
+test_wrong_send_chat (test_gateway.T.test_wrong_send_chat) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.023s
+
+OK
+
+command: python3 -m unittest -v test_gateway.py
+exit_code: 0
+live_network_calls: 0
+real_credentials_used: 0
