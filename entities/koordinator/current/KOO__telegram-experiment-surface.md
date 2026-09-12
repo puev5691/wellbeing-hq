@@ -40,10 +40,22 @@ KOO attempted public web readback of the supplied Telegram URL.
 
 Result:
 - target URL is operator-supplied and accepted as project experimental target;
-- ordinary web fetch/search did not return reliable channel-state evidence;
-- current public/private status, admin rights, linked discussion presence, subscriber count and existing bot configuration are NOT independently verified by KOO.
+- WEB later performed independent public HTTP verification;
+- channel public state: `PUBLIC_VERIFIED`;
+- public title: `Медиа Благополучие`;
+- public `/s/` preview exposes posts;
+- subscriber count was observed as `5` during that pass, but remains volatile and is not stable project truth;
+- numeric chat id: `UNKNOWN`;
+- admin control: `UNKNOWN`;
+- linked discussion: `UNKNOWN`;
+- publisher bot state: `UNKNOWN`;
+- bot rights/webhook state: `UNKNOWN`.
 
-No assumptions are made for these fields.
+Source:
+`entities/webmaster/outbox/WEB__telegram-experimental-surface-public-readback__KOO.md`
+commit: `93b050d33a70da30ecb7ed00f8d7eb6bc2cac446`.
+
+No unknown Telegram-side field is inferred from public HTML or synthetic Phase 0 IDs.
 
 ## Use in current Telegram media cycle
 
