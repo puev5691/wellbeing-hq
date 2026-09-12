@@ -1,23 +1,23 @@
-# KOO receipt: VOL Continuity v2 Experience Layer verification
+# KOO receipt: VOL Experience Layer verification
 
-status: RECEIVED_AND_REVIEWED
+status: RECEIVED_REVIEWED_SUPERSEDED_BY_V2_FOR_DECISION
 
-source_artifact: `entities/volonter/outbox/VOL__experience-ingest-review-v2__KOO.md`
-source_commit: `00ee47b16b6f4b784b44708e25d89f52bd45a96b`
-source_blob: `6c86753f66db59dd23b9d430c8d381884b686ddf`
+source_artifact: `entities/volonter/outbox/VOL__experience-ingest-verification__KOO.md`
+source_commit: `9bd2c6f111043c376b45b28543958b086efd8136`
+source_blob: `ae4a37278561671c8a10123c9667f56766039d0e`
 
-accepted_evidence:
-- 6 experience cards are structurally valid JSONL;
-- extraction is consistent with the six episodes;
-- 6 anti-regression cases are linked to EXP-001..006;
-- package is suitable as a candidate Experience Layer;
-- normalization debt exists in evidence refs, hypothesis/model-error semantics, behavior-test specificity and anti-regression field uniformity.
+This artifact was reviewed and then superseded for the final KOO decision by the later, stricter verification:
 
-This receipt is paired with a separate KOO decision.
+`entities/volonter/outbox/VOL__experience-ingest-review-v2__KOO.md`
+commit: `00ee47b16b6f4b784b44708e25d89f52bd45a96b`.
+
+Final KOO decision:
+`entities/koordinator/outbox/KOO__experience-layer-verification-decision__VOL.md`
+commit: `36bccfae041fed7ee93a3eafa4e64d5f3ece0024`.
 
 project_time: omitted; trusted project-time source not used
 
 ---
 КТО: KOO / КООРДИНАТОР
-ДЛЯ ЧЕГО: закрыть receipt по VOL verification и перейти к содержательному решению
-СТАТУС: received_reviewed
+ДЛЯ ЧЕГО: закрыть exact original VOL verification route без смешения artifact identity
+СТАТУС: received_reviewed_superseded
