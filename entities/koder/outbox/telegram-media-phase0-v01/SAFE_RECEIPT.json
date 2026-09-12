@@ -1,0 +1,14 @@
+{
+  "publication_id": "tg-sandbox-fixture-001",
+  "environment": "sandbox",
+  "delivery_state": "delivered_verified",
+  "channel_message_id": 1001,
+  "discussion_root_message_id": 2001,
+  "comments_count": 1,
+  "reaction_total": 3,
+  "channel_member_count": 10,
+  "discussion_member_count": 5,
+  "synthetic": true,
+  "personal_data_exported": false,
+  "production_publication": false
+}
