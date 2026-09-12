@@ -1,6 +1,6 @@
 # KOO: интеграция SHD / ШАРДОВИКА в штат ШТАБА
 
-status: PREPARATION_WAITING_SHD_SELF_REPORT
+status: SELF_REPORT_RECEIVED_REVIEW_IN_PROGRESS
 
 ## Решение ОПЕРАТОРА
 
@@ -22,64 +22,62 @@ GitHub repository: `puev5691/wellbeing-hq`.
 - имя: `ШАРДОВИК`;
 - entity path: `entities/shardovik/`;
 - sender registry: `registry/by-sender/shardovik.jsonl`;
-- текущая карта: `ENTITY-MAP.md` уже содержит `ШАРДОВИК → entities/shardovik/`, но не фиксирует код `SHD`;
+- текущая карта `ENTITY-MAP.md` содержит `ШАРДОВИК → entities/shardovik/`, но ещё не фиксирует код `SHD`;
 - существуют реальные outbox/dispatch/inbox обмены SHD с SIS и ARH.
 
-Действующий approved базовый источник ролей `entity-roles-short-v2_2-approved` уже содержит краткую роль:
-`WBN / TERA2, ноды, deploy, health-check, контракты, разделение интернет-кластера и лабораторных VM-нод.`
+## Self-report получен
 
-Следовательно, предстоящая операция является:
-`existing_entity_role_and_org_status_revision`,
-а не `new_entity_creation`.
+artifact: `entities/shardovik/outbox/SHD__staff-functions-repo-focus__KOO.md`
+artifact_commit: `1999e0b45b9e05b6aaf1fb99cab349509c53bc56`
+artifact_blob: `cca580d35d475402ee7ec4f12df18cd15a7bb3d9`
+inbox_pointer_commit: `0c66bc845d16de07163c1140675a618ddb26f6ea`
+receipt_commit: `3c1a65cd5d0fa33451dc2ab66f4f08e171ab5a76`
 
-## Что критично отсутствует
+Self-report содержит:
+- фактически выполняемые функции;
+- предметные области;
+- capabilities и ограничения;
+- файловую/GitHub/маршрутную дисциплину;
+- secret boundary;
+- типовые задачи и взаимодействия;
+- разграничение capability и authority;
+- заявленный repo focus;
+- предложения по registry/experience/recovery.
 
-До нормативного расширения роли требуется self-report ШАРДОВИКА.
+Registration profile принят как достаточный вход для следующей стадии проверки, но НЕ как approved role source и НЕ как автоматическое расширение полномочий.
 
-Доклад должен позволить доказательно определить:
-- фактически выполняемые профильные функции;
-- устойчивые предметные области;
-- используемые технические инструменты и среды;
-- уже доказанные capabilities;
-- типовые входы и результаты;
-- взаимодействие с KOO / KOD / SIS / ARH / SHT и иными Сущностями;
-- задачи, которые SHD способен выполнять самостоятельно как routine;
-- действия, требующие standing delegation или отдельного approval;
-- high-impact действия, которые SHD не должен получать автоматически;
-- текущие незавершённые задачи и зависимости;
-- recovery/state источники, если они уже существуют;
-- опыт, который необходимо сохранить при переводе в штат ШТАБА.
+## Текущий exact dependency
 
-Пока этот доклад не получен, дополнительные полномочия не выводятся по догадке.
+Перед нормативным изменением роли KOO должен независимо сверить self-report с действующими approved Project Sources, прежде всего базовым role source, и отделить:
+1. уже существующие обязанности;
+2. фактически доказанные routine capabilities;
+3. допустимый standing delegation без high-impact authority;
+4. предложения, требующие отдельного решения ОПЕРАТОРА;
+5. пункты, которые должны остаться только experience/operational guidance.
 
-## План интеграции после получения доклада
+До этой сверки:
+- `ENTITY-MAP.md` не изменяется;
+- approved role source не изменяется;
+- отдельный `registry/staff/` не создаётся;
+- новые standing delegation / writer grants не выдаются;
+- high-impact authority не расширяется.
 
-После readback и проверки self-report KOO выполняет один связный integration cycle:
+## Следующий допустимый шаг KOO
 
-1. Проверяет доклад против действующих approved Project Sources и фактического GitHub evidence.
-2. Фиксирует постоянную identity: `SHD / ШАРДОВИК`, без создания дубля.
-3. Обновляет `ENTITY-MAP.md` до явной записи `SHD / ШАРДОВИК → entities/shardovik/`.
-4. Создаёт/обновляет профильный current-документ SHD с назначением, обязанностями, capabilities, authority boundaries, типовыми входами/выходами и межсущностными маршрутами.
-5. Подготавливает новую редакцию базового `entity-roles-short` с расширенным, но коротким нормативным описанием SHD.
-6. Если подробный профиль требует новых high-impact полномочий, выносит только эти пункты ОПЕРАТОРУ на отдельное подтверждение; capability не трактуется как authority.
-7. Проверяет sender registry и иные фактические registry/index объекты; создаёт новые реестровые сущности только при доказанной практической необходимости.
-8. Синхронизирует recovery/initiation SHD с новой ролью, не переписывая исторические результаты.
-9. Передаёт ARH изменение для preservation/provenance проверки, если затронуты recovery/current role sources.
-10. Делает readback всех изменённых GitHub объектов и фиксирует immutable commits/blobs.
+Найти и independently readback действующий approved role source для SHD, сопоставить его с immutable self-report и подготовить bounded role-delta decision. Только после этого допустимы изменения ENTITY-MAP/current role source/recovery и preservation review ARH.
 
-## Нормативная граница
+## Anti-regression
 
-До получения доклада:
-- организационное решение ОПЕРАТОРА о переводе SHD в штат ШТАБА принято;
-- существование SHD и его current path подтверждено;
-- расширенная должностная инструкция ещё не создана;
-- approved role source ещё не изменён;
-- новые high-impact authority не предоставлены;
-- текущие технические результаты SHD сохраняют прежний provenance.
+- receipt != approval;
+- capability != authority;
+- existing entity revision != new entity creation;
+- factual GitHub activity != standing delegation;
+- self-report candidate != Project Source;
+- historical SHD results не переписываются новой ролью.
 
 project_time: omitted; trusted project-time source not used
 
 ---
 КТО: KOO / КООРДИНАТОР
-ДЛЯ ЧЕГО: зафиксировать решение ОПЕРАТОРА о переводе существующего SHD в штат ШТАБА и подготовить проверяемый integration cycle без выдумывания роли до self-report
-СТАТУС: preparation_waiting_shd_self_report
+ДЛЯ ЧЕГО: зафиксировать снятие blocker `waiting_for_shd_self_report` и перейти к независимой нормативной сверке без преждевременного расширения полномочий
+СТАТУС: self_report_received_review_in_progress
