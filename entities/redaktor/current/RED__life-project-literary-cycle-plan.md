@@ -205,6 +205,25 @@ source_sha256: `d5eadbc13d2468fec015e8f3bd90f6344543709285785f186855a537fe4aaa2d
 
 Её выводы отражены в provenance/use card и в настоящем current plan. Локальный standalone-файл записки остаётся рабочим производным материалом; authoritative locator найденного raw source — GitHub path выше.
 
+## 5B. Публикационный производный текст: «Сначала она была выдумана»
+
+На основе сохранённого raw source подготовлена литературно выровненная публикационная версия:
+- `entities/redaktor/outbox/RED__publication-snachala-ona-byla-vydumana__KOO.md`
+- immutable commit: `2f8a89a51f317ddf2860acfe93e4699b05a6acd6`
+- blob: `01a6aebe57bfb23932ef335d26d18b728bfb7a2d`
+
+Она поставлена в текущий media-publication plan:
+- `entities/redaktor/current/media-publication-plan/RED__snachala-ona-byla-vydumana__plan.md`
+- plan commit: `86cf19c75b47ac78f167c64cd3d498077f6a0ef3`
+- plan blob: `2f6ef002414b2e6a2fc5eb3060885e440614b3de`
+
+Статус: `planned_publication_candidate`, внешняя публикация не выполнена.
+
+Функция в большом литературном цикле:
+- самостоятельная публикация после профильных gates;
+- интермедия «Сначала она была выдумана» перед главами о реальном появлении Сущностей и внешнего информационного поля;
+- первый законченный пример оси `мечта → попытка воплощения → столкновение с реальностью → исправление мечты`.
+
 ## 6. Нужны ли другие Сущности сейчас
 
 **На текущем этапе — нет.**
