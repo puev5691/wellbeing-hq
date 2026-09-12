@@ -108,6 +108,17 @@ When an earlier activation record states `processing_started: no` / `activation_
 
 This rule applies across Entity routes and prevents repository activation evidence, later human/profile processing, and product runtime evidence from being collapsed into one synthetic PASS.
 
+### Recovery propagation verification
+
+At observed prewrite repository commit `4faad5c2a4244d3903e8fff98e366ed35773b36a`, ARH refreshed `entities/archivarius/current/ARH__snapshot.md` and explicitly preserved both of the relevant cross-stage boundaries:
+
+- earlier `activation_failed` / `processing_started: no` remains failed historical evidence even when a later receipt proves recipient processing;
+- Entity Runner research/host feasibility must not be promoted to package PASS, deployment authorization, runtime continuity, unattended activation, or product-side Work E2E.
+
+SHT therefore classifies recovery propagation of these boundaries as `CONSISTENCY_PASS` only. This means a replacement ARH is no longer instructed by its current snapshot to collapse the causal events or revive superseded blocker wording.
+
+This consistency result does **not** prove practical cold-start, unattended activation, exact historical chat resume, Entity Runner package integrity, deployment authorization, product-side Work execution, or runtime continuity.
+
 ## Current blocker classification
 
 The activation problem remains split into two independent branches:
@@ -157,10 +168,16 @@ ARH causal event-lineage experience:
 ARH lineage commit:
 `f1517d226f8e716aedb56f2c45e282e5fe11bc2a`
 
+ARH refreshed recovery snapshot:
+`entities/archivarius/current/ARH__snapshot.md`
+
+ARH snapshot commit:
+`4faad5c2a4244d3903e8fff98e366ed35773b36a`
+
 KOO current status:
 `WAITING_ON_OPERATOR_PRODUCT_TRIGGER_CREATION`
 
 ---
 created_by: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
-purpose: preserve activation dependency state and causal event-lineage semantics without promoting later recipient processing into retroactive activation success
+purpose: preserve activation dependency state, causal event-lineage semantics, and verified propagation of those boundaries into current ARH recovery without promoting recovery consistency into technical E2E success
