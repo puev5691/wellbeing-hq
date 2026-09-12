@@ -1,62 +1,79 @@
-# KOO: Telegram Media Gateway Phase 0 / Phase 1A gate
+# KOO: Telegram Media Gateway current state
 
-status: PHASE0_BEHAVIOR_ACCEPTED_BOUNDED__MANIFEST_METADATA_DEFECT_OPEN__PHASE1A_ASSIGNED
+status: PHASE1A_ACCEPTED_BOUNDED__WAITING_KAN_AND_SIS_GATES__LIVE_SEND_NOT_AUTHORIZED
 
-## Phase 0 result
-
-KOD result:
-`entities/koder/outbox/KOD__telegram-media-phase0-result__KOO.md`
-commit: `1679bb6646e4b35b2f8c903bc3859406abaec3e0`
-
-Immutable package:
-`entities/koder/outbox/telegram-media-phase0-v01/`
-commit: `df287f89410adb1b935e5123ec7abd9ddb37795c`
-
-KOO review:
-`entities/koordinator/outbox/KOO__telegram-media-phase0-review__KOD.md`
-commit: `5570c78beb0b304a078c2ea7de20ed104cca319d`
-
-Review receipt:
-`routes/receipts/KOD__telegram-media-phase0-result__KOO.receipt.md`
-commit: `585e77d1abdf989fd5c8e7c9e970e3e6a081085a`
-
-## Verified conclusion
+## Phase 0
 
 Behavioral contract:
 `PASS_BOUNDED`.
 
-Evidence:
-- KOD local `14/14 PASS`;
-- WEB independent exact-package reproduction `14/14 PASS`, exit `0`;
-- immutable package commit/readback;
-- per-file Git blob identity consistency;
-- fake adapter only;
-- zero Telegram network implementation in Phase 0;
-- zero real credentials;
-- safe receipt excludes audience identity.
+KOD Phase 0 package:
+`entities/koder/outbox/telegram-media-phase0-v01/`
+commit:
+`df287f89410adb1b935e5123ec7abd9ddb37795c`.
 
-## Open Phase 0 package defect
+The historical Phase 0 package manifest had a metadata/canon defect.
 
-`PACKAGE_MANIFEST_METADATA_DEFECT`.
+That old immutable package was not rewritten.
 
-The old immutable Phase 0 package remains historical evidence and is not rewritten.
+Forward-chain classification:
+`PHASE0_MANIFEST_DEFECT_CLOSED_BY_CANON_COMPLETE_PHASE1A_PACKAGE`.
 
-The defect is metadata/canon compliance, not ambiguity of reviewed bytes.
+## Phase 1A
 
-It MUST be corrected in the next immutable Phase 1A package before Phase 1A acceptance.
+KOD result:
+`entities/koder/outbox/KOD__telegram-media-phase1a-result__KOO.md`
+commit:
+`f3223860db28b56e435a25523ef500ec032be386`.
 
-## Experimental surface facts
+Immutable package:
+`entities/koder/outbox/telegram-media-phase1a-v01/`
+package_commit:
+`05617ea042613af51d10a78f456a28fe78e2ea0c`.
+
+KOO terminal review:
+`entities/koordinator/outbox/KOO__telegram-media-phase1a-review__KOD.md`
+commit:
+`4581d241b700d4d0f9b45d4e166322ea8687ff64`.
+
+KOD addressed return:
+`entities/koder/inbox/KOO__telegram-media-phase1a-review__KOD.md`
+commit:
+`b80f655080b80785c78990c5486b3283981914fb`.
+
+Dispatch:
+`routes/dispatch/KOO__telegram-media-phase1a-review__KOD.md`
+commit:
+`4cf2c511e389c74fc43bf4b77155ea9444438608`.
+
+Decision:
+`ACCEPTED_BOUNDED_PHASE1A_NONPRODUCTION`.
+
+## Independently verified Phase 1A properties
+
+- explicit runtime config without synthetic defaults;
+- synthetic Phase 0 IDs rejected;
+- composite `(chat_id,message_id)` identity;
+- strict auto-forward origin validation;
+- evidence-based delivery verification;
+- multi-target-safe delivery identity;
+- injected transport boundary;
+- no built-in live HTTP Telegram path in candidate;
+- privacy fail-closed/minimized pending KAN;
+- canon-complete Phase 1A manifest;
+- old Phase 0 package preserved;
+- all six SHA-256 entries recalculated from exact GitHub readback and matched `SHA256SUMS.txt`;
+- recorded test evidence: `16/16 PASS`, exit `0`, zero live network, zero real credentials.
+
+## Experimental Telegram surface
 
 Target:
 `https://t.me/wbnp_pev5691_15042026`
 
-Verified public facts from WEB:
+Verified public facts:
 - `PUBLIC_VERIFIED`;
 - title: `Медиа Благополучие`;
-- public `/s/` preview exposes posts.
-
-Volatile observation:
-- subscriber count observed as `5` during one WEB pass; not stable project truth.
+- public preview exposes posts.
 
 Still UNKNOWN:
 - numeric channel chat id;
@@ -64,55 +81,39 @@ Still UNKNOWN:
 - linked discussion;
 - discussion chat id;
 - publisher bot;
-- bot admin rights;
+- bot rights;
 - webhook configuration.
 
-## Phase 1A
+## Active downstream gates
 
-Task:
-`entities/koordinator/outbox/KOO__telegram-media-phase1a__KOD.md`
-commit: `63ab30af4bc8a84d4b2dc636e44421277338039b`
+KAN privacy gate:
+`entities/koordinator/outbox/KOO__telegram-phase1a-privacy-gate__KAN.md`
+commit:
+`d911c78a60d3bada3ca6afdbc8244aeb473251cc`.
 
-KOD inbox:
-`entities/koder/inbox/KOO__telegram-media-phase1a__KOD.md`
-commit: `095f19cf401522b711c31987f5145d70a829f4c7`
-
-Dispatch:
-`routes/dispatch/KOO__telegram-media-phase1a__KOD.md`
-commit: `b780013d2bd9b220a610d0c58f442d7724688312`
-
-Phase 1A scope:
-- real-adapter/config preparation only;
-- composite `(chat_id,message_id)` identity;
-- strict auto-forward origin validation;
-- evidence-based delivery verification;
-- multi-target-safe schema;
-- injected fake transport;
-- privacy fail-closed defaults;
-- canon-complete new package manifest.
+SIS runtime/secrets/webhook readiness:
+`NOT_YET_OPENED_BY_THIS_CURRENT_STATE`.
 
 ## Not authorized
 
-- real Telegram Bot API call;
-- bot token/webhook secret;
+- live Telegram Bot API call;
+- real bot token/webhook secret;
 - real send;
 - MTProto;
-- production publication;
-- admin/channel mutation;
-- repository settings/Pages/DNS mutation.
+- production/public publication claim;
+- admin/channel mutation.
 
-## Next dependency
+## Next admissible sequence
 
-KOD must return one immutable Phase 1A package or exact blocker.
-
-Only after KOO review of Phase 1A may KOO open the next profile gates for:
-- KAN privacy/comment-retention;
-- SIS runtime/secrets/webhook;
-- controlled real Telegram sandbox bootstrap.
+1. receive KAN privacy/retention decision;
+2. open/receive SIS runtime+secrets+webhook readiness;
+3. verify real Telegram admin/control/numeric mapping;
+4. KOO decides whether one bounded synthetic Phase 1B send may occur;
+5. only then perform real Telegram sandbox E2E.
 
 project_time: omitted; trusted project-time source not used
 
 ---
 КТО: KOO / КООРДИНАТОР
-ДЛЯ ЧЕГО: хранить проверяемое current-state Telegram media cycle после Phase 0 review и выдачи Phase 1A
-СТАТУС: phase0_bounded_pass_phase1a_assigned
+ДЛЯ ЧЕГО: хранить текущий проверяемый Telegram media state после terminal Phase 1A review
+СТАТУС: phase1a_accepted_waiting_profile_gates
