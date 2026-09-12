@@ -210,7 +210,7 @@ Approved external role-source v2.3 publication/readback: `PASS`.
 
 Addressed notification to operational entities: `PASS_WITH_PROVODNIK_ROUTING_CODE_GAP`.
 
-ARH preservation/recovery closure: `PENDING`.
+ARH preservation/recovery closure: `BLOCKED_WAITING_CURRENT_WRITER_SHD_MANUAL_ACTIVATION`.
 
 Physical Project Sources UI migration: `PASS_FOR_CURRENT_PROJECT_SOURCE_LAYER`.
 
@@ -222,3 +222,33 @@ project_time: omitted; trusted project-time source not used
 КТО: KOO / КООРДИНАТОР
 ДЛЯ ЧЕГО: итоговая проверяемая фиксация адаптации SHD как сотрудника ШТАБА
 СТАТУС: operational_adaptation_complete_bounded
+
+
+## Preservation activation blocker
+
+ARH phase-1 result:
+`entities/archivarius/outbox/ARH__shd-role-preservation-phase1__SHD.md`
+
+status:
+`PROVENANCE_PASS__CURRENT_WRITER_CHECKPOINT_REQUIRED`
+
+ARH correctly requested a self-state checkpoint from current-writer SHD and did not author SHD self-state itself.
+
+Existing activation evidence:
+`routes/activation/KOO__shd-staff-role-update__SHD.activation.md`
+
+Verified activation boundary:
+- detector_status: `PASS`;
+- activation_requested: `yes`;
+- processing_started: `no`;
+- activation_status: `activation_failed`;
+- failure_reason: `exact_entity_chat_resume_not_supported_by_current_adapter`;
+- operator_manual_ping_required: `yes`.
+
+No SHD self-state/recovery checkpoint has appeared after ARH phase-1.
+
+Therefore current preservation state is:
+`PRESERVATION_PHASE1_PASS__WAITING_CURRENT_WRITER_SHD_MANUAL_ACTIVATION`.
+
+This blocker is external to ARH's preservation authority. KOO must not fabricate SHD self-state or claim recovery closure.
+
