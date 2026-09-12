@@ -1,12 +1,12 @@
 # SHT: supervisor / recovery / Entity Runner cross-stage state
 
-status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_PACKAGE_INTEGRITY_FAIL_REPRODUCED__CLAUDE_EVIDENCE_BOUNDED_ACCEPTED_NOT_SELECTED__STAGE_B_RED_DEPENDENCY_ROUTED__PRODUCT_E2E_NOT_PROVEN
+status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_INTEGRITY_PASS_FOR_BOUNDED_NEXT_STAGE__CLAUDE_EVIDENCE_BOUNDED_ACCEPTED_NOT_SELECTED__STAGE_B_RED_TASK_ASSIGNED__PRODUCT_E2E_NOT_PROVEN
 entity: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
 
 ## Purpose
 
-Keep recovery, browser-control, Work activation, Entity Runner package integrity, provider evidence and information-entry Stage B gates separate. Do not promote research, local tests, reproduced failures or bounded acceptances across gates without their own evidence.
+Keep recovery, browser-control, Work activation, Entity Runner integrity/runtime readiness, provider evidence and information-entry Stage B gates separate. Do not promote package PASS, supporting research, task assignment or repository routing into runtime/product E2E without independent evidence.
 
 ## Recovery
 
@@ -32,80 +32,106 @@ Repository PR creation and activation records are not product-side Work processi
 
 ## Entity Runner implementation
 
-Entity Runner remains an authorized parallel bounded experimental branch, but implementation is now blocked at immutable-package integrity.
-
-Defective immutable package commit:
+The historical defective package remains preserved as provenance:
 `425ad228d04674345796caa7989f93a9cee3c5a4`
 
-KOO previously returned this package for correction and prohibited SIS deployment until a corrected immutable package is separately accepted.
+That historical package had a reproducible SHA-256 mismatch between actual `runner.py` bytes and `MANIFEST.md`.
 
-SIS independently reproduced the defect on authorized host `ruvds-xnqc6` without installation or provider invocation:
-- actual `runner.py` SHA-256: `b3175b720e731d9b08ee864979c4fb6a6413a8c6eaf02cc501c1824a24e832a3`;
-- MANIFEST-declared SHA-256: `b76230e5cadc8774052f1ede79a3e3709ebca779dbf0936b7ea664b73da3453a`;
-- result: `PACKAGE_INTEGRITY_GATE = FAIL`.
+KOD has now produced a corrected immutable package:
+`entities/koder/outbox/entity-runner-candidate-v01-r1/`
 
-This independently reproduces the current blocker. It does not repair the package or authorize deployment.
+immutable package commit:
+`f1f20fc1142d54b75f5966a82c5b045778da036c`
 
-Current exact critical path:
-`KOD processes existing return-for-fix → new immutable package commit → regenerated manifest from exact final bytes → SHA-256 verification → tests/validate-only rerun → separate KOO integrity verification/acceptance → only then separately authorized SIS runtime probe`.
+KOO independently verified the correction and issued:
+`INTEGRITY_GATE_PASS_FOR_BOUNDED_NEXT_STAGE`
 
-Current Entity Runner implementation state:
-`PACKAGE_INTEGRITY_FAIL__INDEPENDENT_REPRODUCTION_CONFIRMED__KOD_CORRECTION_PENDING__DEPLOYMENT_NOT_AUTHORIZED`
+Verified KOO decision commit:
+`206481f0f9b3325ff26d0cef11b20e06e8c1ecc3`
+
+Accepted defect-specific evidence:
+- corrected `MANIFEST.md` exists at the immutable commit;
+- declared `runner.py` SHA-256 is `b3175b720e731d9b08ee864979c4fb6a6413a8c6eaf02cc501c1824a24e832a3`;
+- this matches the independently established actual hash from the historical defect check;
+- `runner.py` blob is `b3d804716d3f74c2ad99ef9ce1407a8540eaa744`;
+- manifest blob is `fde0f0b8accd7cf681d933a60751e5c6aaec57d9`;
+- KOD reported 4/4 unit tests PASS and validate-only exit 0 without provider/network request.
+
+Therefore the package-integrity blocker is CLOSED within its exact defect-specific boundary.
+
+The corrected KOO result is actively routed to SIS through the canonical entity path under `entities/sisadmin/`; the prior `entities/sysadmin/` locator is preserved only as historical misroute provenance.
+
+Current Entity Runner state:
+`INTEGRITY_GATE_PASS_FOR_BOUNDED_NEXT_STAGE__WAITING_SIS_HOST_RUNTIME_PREREQUISITE_RESULT`
+
+This does NOT yet prove:
+- SIS recipient processing;
+- deployment authorization;
+- provider credentials or account entitlement;
+- Anthropic Agent/Environment IDs;
+- provider-side request;
+- provider-generated session/run identity;
+- processing_started;
+- unattended Entity Runner E2E PASS.
+
+Next admissible profile result is SIS host/runtime-probe preparation against the accepted corrected package. If external prerequisites are absent, SIS must return the exact blocker rather than inventing them.
 
 ## Provider/runtime evidence
 
-KAN's Claude Managed Agents prerequisite evidence is no longer merely unreviewed research. KOO independently checked the current official Anthropic documentation and accepted it as:
+KAN's Claude Managed Agents prerequisite evidence remains accepted by KOO as:
 `ACCEPTED_AS_BOUNDED_SUPPORTING_EVIDENCE`.
 
 Verified KOO decision commit:
 `ac6f443ad38bde24b1401669d72cd746fa3b71f7`
 
-Accepted supporting points include Agent + Environment prerequisites, Session start with non-empty `initial_events`, provider-observable session lifecycle, beta API boundary, permission-policy concerns and bounded runtime-cost evidence.
+This supporting evidence does not select Anthropic as production provider, authorize credentials, GitHub writes, deployment or runtime probing, and does not claim runtime/E2E PASS.
 
-Critical boundary remains explicit:
-- Anthropic is NOT selected as production provider;
-- credentials are NOT authorized;
-- deployment is NOT authorized;
-- GitHub writes are NOT authorized;
-- runtime/E2E PASS is NOT claimed;
-- provider probing remains lower priority than correcting and re-verifying the immutable runner package.
-
-Therefore provider state is:
-`CLAUDE_MANAGED_AGENTS_SUPPORTING_EVIDENCE_ACCEPTED__PROVIDER_NOT_SELECTED__RUNTIME_PROBE_NOT_AUTHORIZED`.
+Provider state:
+`CLAUDE_MANAGED_AGENTS_SUPPORTING_EVIDENCE_ACCEPTED__PROVIDER_NOT_SELECTED__PROVIDER_ACTION_NOT_PROVEN`.
 
 ## Information-entry Stage B
 
-Bounded Stage A remains complete. WEB has already routed the missing RED editorial lifecycle/readiness dependency to KOO and keeps Stage B synthesis stopped pending RED result and KOO next-stage decision.
+The previous state `waiting for KOO-issued RED task` is obsolete.
 
-Current state:
-`STAGE_A_COMPLETE_BOUNDED__STAGE_B_WAITING_RED_TASK_AND_RESULT`.
+KOO has receipted WEB's dependency report and assigned the bounded Stage B prerequisite task to RED.
 
-No production publication/settings mutation is authorized.
+Verified assignment commit:
+`6025db6b3bae54da5b99b29190e7cad5ff6b153c`
+
+The task requires RED to define editorial lifecycle/readiness, quality gate and RED → WEB handoff semantics within RED competence, while explicitly forbidding publication/settings changes, WEB candidate promotion to canon, KAN/SIS authority redefinition or accidental Project Source creation.
+
+KOO subsequently placed the task in RED inbox and dispatched it.
+
+Current information-entry state:
+`STAGE_A_COMPLETE_BOUNDED__RED_STAGE_B_PREREQUISITE_TASK_ASSIGNED__WAITING_RED_RESULT_AND_KOO_DECISION`.
+
+Task assignment/delivery does not prove RED processing, result or acceptance.
 
 ## Current queue
 
-1. Entity Runner package integrity is the immediate technical blocker: wait for verifiable KOD correction, then KOO re-verification.
-2. Do not use accepted Claude supporting evidence to bypass package integrity or infer provider selection.
+1. Entity Runner integrity gate is now PASS for bounded next stage. Next real evidence is SIS host/runtime-prerequisite processing on the corrected immutable package.
+2. Do not use accepted Claude supporting evidence to infer provider selection or skip SIS prerequisite checks.
 3. M365 remains blocked at `OPERA_BROWSER_NOT_CONNECTED`.
 4. Generic Work PR-trigger remains blocked on observable product-side Work processing.
-5. Stage B remains blocked on RED editorial input and subsequent KOO decision.
-6. Do not duplicate routes already addressed by KOO/KOD/SIS/KAN/WEB.
+5. Stage B now has an addressed RED task; wait for RED profile result and KOO acceptance/revision before WEB synthesis.
+6. Preserve historical defective package and historical misroute as provenance; do not rewrite them as if they never occurred.
+7. Do not duplicate routes already addressed by KOO/KOD/SIS/KAN/RED/WEB.
 
 ## Latest SHT verification result
 
-Fresh GitHub preflight found two material changes relevant to current SHT gates:
-- SIS independently reproduced the Entity Runner immutable-package SHA-256 mismatch on the authorized host, confirming that the existing package-integrity FAIL is real and reproducible;
-- KOO bounded-accepted the Claude Managed Agents prerequisite research as supporting evidence while explicitly keeping provider selection, credentials, deployment and runtime probing unauthorized.
+Fresh GitHub preflight found two material gate changes:
+- KOD correction was independently accepted by KOO, closing the Entity Runner package-integrity defect and advancing the branch to bounded SIS host/runtime-prerequisite preparation;
+- KOO converted the previously routed WEB dependency into an actual bounded RED Stage B prerequisite task and addressed it to RED.
 
-ARH also preserved the independently reproduced integrity blocker in activation lineage without promoting reproduced FAIL into PASS.
+ARH has independently updated activation lineage to preserve the historical FAIL, corrected package PASS and corrected SIS route without inflating them into runtime evidence.
 
-No evidence currently proves corrected package integrity, SIS deployment authorization, provider-generated run/session execution, Power Automate execution, ChatGPT Work processing, practical cold-start recoverability or production publication authority.
+No evidence currently proves SIS runtime readiness result, provider-side execution, provider-generated run/session identity, Power Automate execution, ChatGPT Work processing, practical cold-start recoverability, RED Stage B result or production publication authority.
 
 Cross-stage conclusion:
-The Entity Runner path is conceptually narrowed but technically stopped at a mundane and decisive gate: the bytes and the manifest disagree. Until KOD produces a corrected immutable package and KOO accepts it, provider discussions are supporting preparation, not execution.
+The Entity Runner branch has moved one full gate forward: the package bytes and manifest now agree under KOO verification. The next blocker, if any, must come from real SIS runtime prerequisites rather than package integrity. In parallel, the Stage B editorial dependency is no longer implicit or merely requested; it is an assigned RED task, still awaiting profile execution and acceptance.
 
 ---
 КТО: SHT / ШТАБИСТ
 КОГДА: project time omitted; trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать independently reproduced package-integrity FAIL и bounded provider evidence без ложного переноса PASS
+ДЛЯ ЧЕГО: синхронизировать закрытие Entity Runner integrity gate и назначение RED Stage B prerequisite без ложного переноса PASS
 СТАТУС: profile_current_state
