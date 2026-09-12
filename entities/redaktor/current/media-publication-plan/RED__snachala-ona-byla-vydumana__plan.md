@@ -1,6 +1,6 @@
 # Publication plan: «Сначала она была выдумана»
 
-status: revised_candidate_pending_KAN_delta_review
+status: v03_candidate_pending_short_KAN_delta_review
 entity: RED / РЕДАКТОР
 operator_intent: preserve_and_develop_for_media_publication
 external_publication: not_yet_performed
@@ -100,3 +100,28 @@ RED v0.2 closes both at editorial level and has been dispatched for bounded KAN 
 - delta note: `entities/redaktor/outbox/RED__snachala-ona-byla-vydumana-v02-delta__KOO.md`
 - publication remains blocked until KAN/KOO return a release decision.
 
+
+
+## v0.3 update
+
+ОПЕРАТОР уточнил литературную и смысловую цель после v0.2; KOO адресно выдал RED bounded v0.3 task.
+
+Текущий exact candidate:
+- `entities/redaktor/outbox/RED__publication-snachala-ona-byla-vydumana-v03__KOO.md`
+- commit: `1d81c994b212ea8a00e6441136d39dd5364c6b32`
+- blob: `d7faa795602cec3fef40cb8c4fbb7511d55c7057`
+
+В v0.3:
+- восстановлены разрешённые имена/отношения;
+- возвращён ограниченный военный контекст как авторский образ школы выживания и устойчивости;
+- токен раскрыт как развиваемая единица учёта участия/вклада;
+- связь с развиваемой МЕРОЙ объяснена;
+- сохранено: МЕРА и универсальная метрика вклада не завершены; нет обещанной цены, доходности, фиксированной конверсии, гарантированного обмена или гарантированного блага.
+
+Current gate:
+`pending_short_KAN_delta_review`.
+
+Delta note:
+`entities/redaktor/outbox/RED__snachala-ona-byla-vydumana-v03-delta__KOO.md`
+
+Publication remains unauthorized until subsequent competent decision.
