@@ -1,6 +1,6 @@
 # KOO: интеграция SHD / ШАРДОВИКА в штат ШТАБА
 
-status: OPERATIONAL_ADAPTATION_COMPLETE__PRESERVATION_AND_PROJECT_SOURCE_UI_MIGRATION_PENDING
+status: OPERATIONAL_ADAPTATION_COMPLETE__PROJECT_SOURCE_UI_MIGRATION_VERIFIED__PRESERVATION_PENDING
 
 ## Решение ОПЕРАТОРА
 
@@ -185,15 +185,20 @@ ARH обязан не писать self-snapshot за SHD.
 
 ### Physical Project Sources migration
 
-Approved v2.3 опубликована и immutable identity проверена.
+ОПЕРАТОР подтвердил физическую замену активного Project Source на v2.3.
 
-Но текущая интерфейсная загрузка Project Sources в этом чате всё ещё содержит v2.2. Инструмента для физической замены Project Sources attachment у KOO в этом сеансе нет.
+Текущему чату предоставлен exact-файл:
+`entity-roles-short-v2_3-approved.md`
 
-Следовательно:
-`content_approval_and_external_publication = complete`
-`physical_Project_Sources_UI_replacement = pending_external_user_action_or_supported_tool`
+Проверенный SHA-256 загруженного файла:
+`e50df08b5d11765ac5e38197b298ad476333e5f14e717e13a631f9d802dfe10a`
 
-До подтверждения UI replacement новый экземпляр, загрузивший только старый v2.2, может не увидеть новое role-source содержимое без recovery/source-change evidence.
+Он побайтно совпадает с approved source, опубликованным в `puev5691/wellbeing-archivist`.
+
+Следовательно для текущего project/chat source layer:
+`physical_Project_Sources_UI_replacement = verified_by_operator_action_plus_exact_file_hash`.
+
+Это не доказывает автоматически миграцию других старых чатов/экземпляров; их source/recovery state проверяется при инициации.
 
 ## Итоговая классификация
 
@@ -207,7 +212,7 @@ Addressed notification to operational entities: `PASS_WITH_PROVODNIK_ROUTING_COD
 
 ARH preservation/recovery closure: `PENDING`.
 
-Physical Project Sources UI migration: `PENDING`.
+Physical Project Sources UI migration: `PASS_FOR_CURRENT_PROJECT_SOURCE_LAYER`.
 
 Separate software-development project/contour activation: `NOT_STARTED_BY_THIS_DECISION`.
 
