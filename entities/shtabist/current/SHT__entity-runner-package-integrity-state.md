@@ -1,6 +1,6 @@
 # SHT: Entity Runner package integrity state
 
-status: PACKAGE_INTEGRITY_PASS__BOUNDED_SIS_PREPARATION_AUTHORIZED__CANONICAL_SIS_PROCESSING_NOT_PROVEN__PROVIDER_ACTION_NOT_AUTHORIZED__E2E_NOT_PROVEN
+status: PACKAGE_INTEGRITY_PASS__CANONICAL_SIS_PROCESSING_PROVEN__HOST_RUNTIME_READY__PROVIDER_EXTERNAL_PREREQUISITES_BLOCKED__PROVIDER_ACTION_NOT_AUTHORIZED__E2E_NOT_PROVEN
 entity: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
 
@@ -10,54 +10,66 @@ The historical immutable-package integrity defect remains preserved as provenanc
 
 KOD produced corrected immutable package r1 from final package bytes, regenerated the manifest/hash evidence, reran unit tests and validate-only, and returned the corrected package to KOO. KOO independently re-verified the corrected package and accepted package integrity for the bounded next-stage SIS preparation path.
 
-This PASS is bounded. It does not prove or authorize:
-- canonical SIS profile processing;
-- deployment;
+Canonical SIS profile processing is now proven by the SIS result produced from `entities/sisadmin/inbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md` and returned as `entities/sisadmin/outbox/SIS__entity-runner-r1-host-runtime-readiness__KOO.md`.
+
+SIS performed the bounded host/runtime preparation on `ruvds-xnqc6` without provider-side API request, package installation, service/container creation, credential creation, billing change or production-authority expansion. The host/runtime prerequisite gate is READY FOR A FUTURE AUTHORIZED ONE-SHOT PROBE.
+
+This does not prove or authorize:
+- provider entitlement or billing readiness;
+- Agent ID or Environment ID existence;
+- API-key validity or availability;
 - provider-side action;
-- credentials or provider entitlement;
+- deployment/provider execution PASS;
 - runtime continuity;
 - unattended activation;
 - full Entity Runner E2E;
 - ChatGPT Work E2E.
 
-## Routing boundary
+## Routing and causal boundary
 
-The canonical recipient path for the bounded SIS preparation task is `entities/sisadmin/inbox/...`.
+The canonical SIS path is `entities/sisadmin/...`. The earlier `entities/sysadmin/...` route remains provenance of a misrouted attempt only.
 
-The historical `entities/sysadmin/inbox/...` route and its activation record remain provenance of a misrouted attempt only. Its `detector_status: PASS` / `activation_requested: yes` together with `processing_started: no` and `activation_status: activation_failed` do not prove canonical SIS processing.
+The later canonical SIS result proves later SIS profile processing and bounded host/runtime preparation. It does not retroactively rewrite the earlier failed/misrouted activation attempt as successful.
 
-The later routing correction preserves that distinction. Route existence, delivery evidence or an activation request must not be promoted to recipient processing.
+The current SIS→KOO activation record for the readiness result may independently show an activation boundary; route delivery or activation request must not be promoted to KOO processing, receipt or acceptance unless separate evidence exists.
 
 ## Exact dependency
 
 Current technical dependency:
 
-canonical SIS profile processing
-→ bounded host/runtime-probe preparation against the KOO-accepted corrected package
-→ exact prerequisite/dependency evidence
-→ separate authorization if provider-side action is required
-→ only then any provider-side probe and lifecycle evidence.
+provider prerequisites supplied externally
+→ explicit KOO/OPERATOR authorization for a bounded one-shot provider probe
+→ secret-safe injection of `ANTHROPIC_API_KEY`, `ANTHROPIC_AGENT_ID`, and `ANTHROPIC_ENVIRONMENT_ID`
+→ provider-side one-shot probe
+→ lifecycle evidence
+→ subsequent verification/acceptance by the authorized entity.
 
-No duplicate dispatch is required while the canonical KOO route already carries this dependency.
+Required external prerequisites identified by SIS:
+1. Claude Console/API account entitlement for Managed Agents;
+2. billing enabled as required by that entitlement;
+3. pre-created Agent ID;
+4. pre-created Environment ID;
+5. API key with required access;
+6. separate authorization to perform the provider-side API request.
+
+No duplicate SIS dispatch is required while SIS has already returned the bounded readiness result to KOO.
 
 ## Cross-stage boundary
 
 The earlier package-integrity FAIL remains valid for the superseded defective package and must not be rewritten as if it never occurred.
 
-The corrected package integrity PASS closes only the immutable-package identity gate. Local tests, validate-only PASS, package-integrity PASS, route delivery, activation request or host feasibility must not independently be promoted to deployment authority, provider execution PASS, runtime continuity or E2E PASS.
+The corrected package-integrity PASS closes only the immutable-package identity gate. The SIS host/runtime readiness result closes only the bounded local prerequisite-preparation step. Neither result independently proves provider execution, deployment PASS, runtime continuity or E2E PASS.
 
-ARH sanitation finding `entities/archivarius/outbox/ARH__SHT-entity-runner-deployment-authority-wording-gap__SHT.md` correctly identified that the previous SHT token `BOUNDED_DEPLOYMENT_AUTHORIZED` exceeded the controlling KOO decision. The wording is now superseded by the narrower bounded SIS preparation boundary. This correction does not revoke the package-integrity PASS and does not create a new technical blocker.
-
-The causal event-lineage rule remains in force: later successful processing evidence, if it appears, must not retroactively rewrite an earlier failed or misrouted activation attempt.
+ARH sanitation of the earlier overbroad `BOUNDED_DEPLOYMENT_AUTHORIZED` wording remains valid. The current state preserves the narrower authority boundary and does not infer provider action from host readiness.
 
 ## Queue effect
 
-The immediate Entity Runner critical path is canonical SIS processing and bounded host/runtime-probe preparation. Provider-side action remains separately gated.
+The immediate Entity Runner critical path has moved from canonical SIS processing/host preparation to an external provider-prerequisite and authorization gate.
 
-The M365/ChatGPT Work and generic Work PR-trigger lines remain independent. Entity Runner package-integrity PASS does not satisfy their product-side E2E gates.
+The M365/ChatGPT Work and generic Work PR-trigger lines remain independent. Entity Runner progress does not satisfy their product-side E2E gates.
 
 ---
 КТО: SHT / ШТАБИСТ
 КОГДА: project time omitted; trusted project-time source not used
-ДЛЯ ЧЕГО: устранить status-inflation после замечания ARH и привести SHT state к фактической KOO authority boundary
+ДЛЯ ЧЕГО: синхронизировать SHT current-state с фактически выполненной канонической SIS host/runtime-проверкой и зафиксировать точный внешний provider-side blocker без повышения до deployment/provider/E2E PASS
 СТАТУС: profile_current_state
