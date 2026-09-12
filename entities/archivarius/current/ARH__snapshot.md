@@ -1,107 +1,101 @@
 # ARH — аварийный snapshot
 
-status: emergency-snapshot-current
+status: emergency-self-preservation-current
 entity: ARH / АРХИВАРИУС
 project_time: omitted; trusted project-time source not used
 
 ## Назначение
 
-Этот snapshot нужен для Resume-First восстановления ARH. Он фиксирует только проверяемое состояние информационного поля и не заменяет свежий GitHub-preflight.
+Snapshot для Resume-First восстановления ARH при деградации текущего чата. Это current-writer self-state, но не самостоятельный approval и не доказательство practical cold-start нового экземпляра.
 
-## Verified repository state
+## Проверяемая граница
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Latest verified no-delta prewrite boundary before this refresh: `f060d5e979f696f0ac79a540b1ce9a934400e942`
+- Последний ARH-owned recovery-registry write до self-preservation: `4ed963bab6ee86ebd7417764a44a38468eddf3a3`
+- Наблюдаемый последующий VOL result: `e93a6604052ebc4abf4413ae9963746f130e1d68`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
-- Every activation/profile pass must begin with fresh GitHub-preflight and classification before profile work.
 
-## Current recovery state
+Каждый replacement ARH обязан начать с нового GitHub-preflight. Snapshot не заменяет сканирование изменений после этой границы.
+
+## Текущее preservation/recovery состояние
 
 ### KOO
 
-Emergency recovery v04 was independently verified by ARH and published as current canonical recovery.
-
-Candidate verified:
-`puev5691/wellbeing-entity-bootstrap@99ebd990537d3b0405ff0bfcd20fdac91621b077:entities/koo/preservation/pending/emergency-initiation-v04`
-
-Canonical current recovery:
+Current canonical recovery:
 `puev5691/wellbeing-entity-bootstrap@6f857ba10e9976a9ca1c2c88df0c8b8a7995b74a:entities/koo/recovery/current`
 
-ARH result:
+ARH verification result:
 `entities/archivarius/outbox/ARH__emergency-recovery-v04-result__KOO.md`
 commit: `6d92aa174240fc2875d67b2f1a375d332bda999b`
 
-Verified preservation facts:
-- manifest composition: 7/7 objects present;
-- bytewise `sha256sum -c sha256sums.txt`: 6/6 PASS on immutable candidate;
-- post-publication readback: 6/6 PASS;
-- previous canonical `cbaad4cb94618788f5d50664d08d503a3247f61c` retained as historical provenance;
-- practical cold-start/runtime continuity is not proven by preservation PASS.
-
-The ARH→KOO result route is dispatched; sender registry must remain `dispatched` until an exact KOO receipt exists. Automatic activation record for the KOO inbox locator recorded `processing_started: no` / `activation_failed`; this is not receipt, processing or acceptance.
+Preservation/readback: 6/6 SHA-256 PASS. Practical cold-start/runtime continuity не доказывается одним preservation PASS.
 
 ### SHD
 
-The previous dependency `current_writer_checkpoint_required` is resolved.
-
-Verified current checkpoint:
+Verified checkpoint:
 `puev5691/wellbeing-entity-bootstrap@ce9891f63b6123600623e01b8da84131f239c5c7:packages/shd-role-v2_3-current-recovery/`
 
-ARH result:
-`entities/archivarius/outbox/ARH__shd-role-v2_3-recovery-verification__SHD.md`
-commit: `29e0a61e4a79842505a279bd131d25cb64978f5e`
-
-Recovery registry records:
-- preservation checkpoint verified;
-- immutable readback verified by ARH;
-- bytewise SHA-256: 4/4 PASS;
-- prior checkpoint dependency resolved;
-- practical initiation test remains not performed.
-
-Historical targeted activation failures remain failed historical events and are not rewritten into success merely because the later SHD current-writer checkpoint was obtained and verified.
+ARH result commit: `29e0a61e4a79842505a279bd131d25cb64978f5e`.
+Bytewise SHA-256: 4/4 PASS. Practical initiation test не выполнен.
 
 ### KAN
 
 Current recovery remains:
 `puev5691/wellbeing-archivist@f847be7635124dc155d99d8b62c4e105da8c8cb3:docs/entities/kancelyariya/recovery-current`
 
-Status remains structurally accepted after v2.2 → v2.3 role-source transition. Practical initiation/cold-start remains separate; bytewise SHA-256 recomputation was not claimed in that preservation pass.
+Структурный preservation PASS сохранён; bytewise recomputation в том проходе не заявлялся; practical initiation остаётся отдельным требованием.
 
-## Current information-field boundaries
+### VOL
 
-- Raw inbox presence is not proof of unprocessed work; route/receipt/current-state evidence must be checked.
-- Receipt is not semantic acceptance.
-- Detector/activation request is not Entity processing.
-- Later successful processing does not retroactively rewrite an earlier activation failure.
-- Candidate/draft/research does not become canon without the required decision/integrity gate.
-- A stale sender-registry record may move from `dispatched` to `received` only on exact receipt evidence for the same artifact.
-- ARH may preserve/check provenance, status, placement, routing, recovery and lineage, but must not silently take over another Entity's assigned queue/lifecycle work.
+ОПЕРАТОР инициировал аварийную замену VOL из-за аномалий чата.
 
-## Current open work
+Current-writer VOL сформировал candidate:
+`puev5691/wellbeing-entity-bootstrap@f6ff070313caff5d7b5d12779d4bb8d8eb0eec01:entities/vol/recovery/current`
 
-1. Start every run with GitHub-preflight across inbox/outbox/current, dispatch/receipts, handoff, registry and recovery/experience/activation-state.
-2. Preserve new recovery/state/experience/event-lineage changes and keep historical failures causally distinct from later outcomes.
-3. Reconcile one concrete stale route/registry/status issue only when exact evidence exists.
-4. Watch KOO recovery v04 result route for an exact recipient receipt; do not infer it from manual initiation or later KOO activity.
-5. Preserve SHD practical-initiation boundary: preservation PASS is not cold-start PASS.
-6. Preserve KAN practical-initiation boundary and the fact that bytewise recomputation was not performed in its v2.3 preservation pass.
-7. Do not duplicate lifecycle/housekeeping work already assigned by KOO to another Entity.
+ARH независимо проверил active package: 6/6 SHA-256 PASS.
 
-## Recovery priority
+ARH verification result:
+`entities/archivarius/outbox/ARH__VOL-emergency-recovery-verification__VOL.md`
+commit: `25f5f38a8cca0a65be02979089b107e598827944`
 
-A replacement ARH instance must:
+Recovery registry update:
+`4ed963bab6ee86ebd7417764a44a38468eddf3a3`
 
-1. read `ARH__initiation-current.md`;
-2. perform fresh `wellbeing-hq` preflight after the latest verified snapshot boundary;
-3. inspect `entities/archivarius/inbox/`, `outbox/`, `current/`, dispatch/receipts, registries and activation-state;
-4. classify new tasks, results, blockers, approval/acceptance and dependency changes;
-5. select exactly one still-open ARH-owned task;
-6. verify any write by readback and use Exchange Gate when the result is addressed to another Entity.
+После этого replacement VOL успешно прошёл initiation и возобновил прерванную задачу. Репозиторий содержит subsequent VOL result `e93a6604052ebc4abf4413ae9963746f130e1d68`. Это подтверждает практический resume VOL, но не является доказательством общего механизма exact ChatGPT Entity-chat resume.
+
+## Текущие ARH границы
+
+- Raw inbox presence не доказывает unprocessed work.
+- Receipt не равен acceptance.
+- Detector/activation request не равен Entity processing.
+- Candidate/draft/research не становится canon без решения.
+- Исторический failure не переписывается в success из-за позднего успешного результата.
+- Sender registry повышается до `received` только по exact receipt того же artifact identity.
+- ARH не забирает профильные задачи других Сущностей и не выполняет destructive cleanup без authority.
+
+## Текущая оценка собственного состояния
+
+ОПЕРАТОР сообщил о проблемах текущего ARH-чата. Инструментальная проверка выявила реальный preservation debt: до этого прохода `ARH__initiation-current.md` и snapshot отставали от последних значимых recovery-событий, а актуального внешнего ARH recovery package не было; существовал только старый handoff v01.
+
+Решение current-writer ARH: не объявлять немедленный failover только по субъективному симптому, но немедленно сформировать свежий self-preservation checkpoint и внешний recovery candidate для независимой проверки другой Сущностью.
+
+## Resume-First для replacement ARH
+
+1. Проверить внешний ARH recovery candidate и его SHA-256.
+2. Выполнить fresh `wellbeing-hq` preflight после snapshot boundary.
+3. Проверить ARH inbox, outbox, current, dispatch/receipts, registries, recovery/experience/activation-state.
+4. Сверить historical open work с current evidence.
+5. Выбрать ровно одну ARH-owned still-open task.
+6. Не продолжать из памяти старого чата.
+
+## Известная следующая preservation задача
+
+После создания этого snapshot текущий ARH должен вынести initiation/snapshot/experience/SOURCES/manifest/checksums во внешний immutable recovery candidate и адресовать независимую проверку KOO. До независимого PASS этот candidate не считать canonical recovery.
 
 ---
-created_by: ARH / АРХИВАРИУС
-project_time: omitted; trusted project-time source not used
-purpose: synchronize emergency recovery state after KOO recovery v04 canonical publication and SHD recovery-checkpoint closure while preserving exact cold-start, receipt and activation boundaries
+КТО: ARH / АРХИВАРИУС
+ДЛЯ ЧЕГО: сохранить актуальное current-writer state перед возможной аварийной переинициацией ARH
+СТАТУС: emergency-self-preservation-current
