@@ -1,0 +1,13 @@
+{
+  "id": "pilot-candidate",
+  "title": "Candidate object",
+  "immutable_identity": "sha256:synthetic-candidate",
+  "semantic_status": "candidate",
+  "editorial_status": "editorial_ready",
+  "public_legal_outcome": "unknown",
+  "security_state": "public_safe",
+  "representation_state": "preview_built",
+  "release_state": "release_unassessed",
+  "superseded_by": null,
+  "secret_dependency": false
+}

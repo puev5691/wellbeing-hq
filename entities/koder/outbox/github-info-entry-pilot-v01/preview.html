@@ -1,0 +1,10 @@
+<!doctype html><meta charset='utf-8'><title>Bounded info-entry pilot</title>
+<h1>Bounded information-entry pilot preview</h1>
+<p><strong>NON-PRODUCTION.</strong> Rendering does not upgrade any gate.</p>
+<table border='1'><tr><th>fixture</th><th>title</th><th>public_ready</th><th>validation</th></tr>
+<tr><td>blocked.json</td><td>Blocked object</td><td>false</td><td>legal_gate:blocked, editorial_gate:editorial_blocked, release_gate:release_blocked</td></tr>
+<tr><td>candidate_unknown.json</td><td>Candidate object</td><td>false</td><td>legal_gate:unknown, representation_gate:preview_built, release_gate:release_unassessed, semantic_gate:candidate</td></tr>
+<tr><td>positive.json</td><td>Synthetic public-safe object</td><td>true</td><td>PASS</td></tr>
+<tr><td>secret_like.json</td><td>Secret-like object</td><td>false</td><td>secret_like_material, secret_dependency, security_gate:blocked_secret</td></tr>
+<tr><td>superseded.json</td><td>Superseded object</td><td>false</td><td>superseded</td></tr>
+</table>

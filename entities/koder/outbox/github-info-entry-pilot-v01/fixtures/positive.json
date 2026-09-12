@@ -1,0 +1,13 @@
+{
+  "id": "pilot-positive",
+  "title": "Synthetic public-safe object",
+  "immutable_identity": "sha256:synthetic-positive",
+  "semantic_status": "current",
+  "editorial_status": "editorial_ready",
+  "public_legal_outcome": "allowed",
+  "security_state": "public_safe",
+  "representation_state": "representation_ready",
+  "release_state": "release_authorized",
+  "superseded_by": null,
+  "secret_dependency": false
+}
