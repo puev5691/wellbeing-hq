@@ -50,7 +50,7 @@ KOO отдельно проверил исправление и выпустил
 
 `entities/koordinator/outbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md`
 
-KOO decision commit: `206481f0f9b3325ff26d0cef11b20e06e8c1ecc3`
+KOO decision commit: `206481f0f9b3325ff0644fd56232b77c4d8d697`
 status: `INTEGRITY_GATE_PASS_FOR_BOUNDED_NEXT_STAGE`
 
 Defect-specific integrity gate закрыт. Это само по себе не доказывает provider readiness, provider-side request, credential availability, billing/entitlement, deployment, processing_started или unattended activation E2E.
@@ -111,31 +111,84 @@ status: `READINESS_EVIDENCE_WITH_EXTERNAL_BLOCKER`
 
 Отдельно зафиксирован host hygiene issue: inherited cwd stale/deleted и требует `cd /tmp`; это не классифицировано как provider blocker.
 
-Текущий технический статус:
+Технический вывод SIS:
 
 `HOST/RUNTIME PREREQUISITE GATE = READY FOR A FUTURE AUTHORIZED ONE-SHOT PROBE`
 
 `PROVIDER-SIDE EXECUTION GATE = BLOCKED`
 
-Exact external dependency:
+## KOO independent readiness verification
 
-1. Claude Console/API account entitlement для Managed Agents;
-2. соответствующий billing entitlement;
-3. заранее созданный Agent ID;
-4. заранее созданный Environment ID;
-5. API key с требуемым доступом;
-6. отдельное KOO/OPERATOR authorization на provider-side API request;
-7. secret-safe injection method для требуемых значений.
+KOO затем независимо перепроверил SIS bounded readiness и создал receipt:
 
-Этот результат не доказывает entitlement, billing, существование Agent/Environment, API-key validity, deployment, runtime PASS, E2E PASS, profile processing или activation.
+`routes/receipts/SIS__entity-runner-r1-host-runtime-readiness__KOO.receipt.md`
+
+receipt commit: `1e4e51b9ae89d9d68b30a6e45983c0980c185924`
+status: `RECEIVED_REVIEWED_EVIDENCE_CONFIRMED`
+
+KOO подтвердил bounded conclusion:
+
+`HOST_RUNTIME_READY_FOR_FUTURE_AUTHORIZED_ONE_SHOT_PROBE`.
+
+Этим доказаны KOO processing и acceptance именно bounded host/runtime-readiness вывода. Это не доказывает provider entitlement, billing readiness, Agent/Environment existence, API-key validity, provider-side request, deployment/runtime/E2E PASS или unattended activation.
+
+## OPERATOR provider prerequisite gate
+
+После KOO verification зависимость поднята на уровень OPERATOR decision.
+
+KOO создал:
+
+`entities/koordinator/outbox/KOO__entity-runner-provider-prerequisite-gate__OPERATOR.md`
+
+commit: `604429b6dc97180aacab407d834d5d315279edcc`
+status: `EXTERNAL_PREREQUISITE_AND_AUTHORIZATION_REQUIRED`
+
+Активный OPERATOR inbox locator:
+
+`entities/operator/inbox/KOO__entity-runner-provider-prerequisite-gate__OPERATOR.md`
+
+Dispatch:
+
+`routes/dispatch/KOO__entity-runner-provider-prerequisite-gate__OPERATOR.md`
+
+Exact external dependency перед provider-side probe:
+
+1. Claude Console/API entitlement для Managed Agents;
+2. billing enabled as required;
+3. pre-created Agent ID;
+4. pre-created Environment ID;
+5. API key with required access;
+6. explicit OPERATOR/KOO authorization ровно на один bounded provider-side probe;
+7. secret-safe injection method для `ANTHROPIC_API_KEY`, `ANTHROPIC_AGENT_ID`, `ANTHROPIC_ENVIRONMENT_ID` без commit/echo/log/publication значений.
+
+Этот gate не разрешает account creation, billing changes, production deployment, long-running service, repeated provider requests, privilege expansion, M365 work или публикацию credentials.
+
+## OPERATOR activation boundary
+
+Для OPERATOR locator автоматически создан activation record:
+
+`routes/activation/KOO__entity-runner-provider-prerequisite-gate__OPERATOR.activation.md`
+
+activation commit: `a38e13af9cdb4c5075a6e2ebe5f0956da673ba15`
+
+Проверенное состояние:
+
+- `detector_status: PASS`;
+- `activation_requested: yes`;
+- `processing_started: no`;
+- `activation_status: activation_failed`;
+- `failure_reason: exact_entity_chat_resume_not_supported_by_current_adapter`;
+- `operator_manual_ping_required: yes`.
+
+Следовательно, OPERATOR routing/detection доказаны, но OPERATOR profile processing, decision, receipt, authorization и provider-side execution этим событием не доказаны. Если позднее появится OPERATOR response, он может доказать более позднее processing, но не должен ретроактивно менять этот historical activation FAIL.
 
 ## Текущая точная зависимость Entity Runner
 
 Причинная цепочка теперь такова:
 
-`historical defective package preserved -> corrected immutable package verified -> KOO integrity PASS -> corrected SIS route -> SHT authority wording corrected/received -> bounded SIS host/runtime preparation completed -> external provider prerequisites + explicit authorization required -> authorized one-shot provider probe -> run/session identity -> processing_started -> completion/failure evidence`.
+`historical defective package preserved -> corrected immutable package verified -> KOO integrity PASS -> corrected SIS route -> SHT authority wording corrected/received -> bounded SIS host/runtime preparation completed -> KOO readiness review/acceptance -> OPERATOR provider gate routed -> OPERATOR processing/decision required -> external provider prerequisites supplied/confirmed -> explicit OPERATOR/KOO one-shot authorization -> secret-safe injection -> authorized provider probe -> run/session identity -> processing_started -> completion/failure evidence -> subsequent verification/acceptance`.
 
-На текущем подтверждённом состоянии доказаны шаги до bounded SIS host/runtime preparation и exact external blocker включительно. Provider-side execution и всё последующее не доказаны.
+На текущем подтверждённом состоянии доказаны шаги до OPERATOR gate routing/detection включительно. OPERATOR processing/decision и всё provider-side последующее не доказаны.
 
 ## Параллельная M365/Browser ветка
 
@@ -153,10 +206,14 @@ Exact external dependency:
 6. corrected SIS route — доказан;
 7. SHT authority-wording sanitation — `received_and_corrected`;
 8. SIS bounded host/runtime preparation — выполнен и вернул `READINESS_EVIDENCE_WITH_EXTERNAL_BLOCKER`;
-9. provider entitlement/billing/Agent ID/Environment ID/API key/explicit authorization — отсутствуют либо не доказаны;
-10. provider-side request — не выполнялся;
-11. external run/session identity with lifecycle readback — не доказана;
-12. full unattended Entity activation E2E — не доказан.
+9. KOO independently reviewed SIS readiness — `RECEIVED_REVIEWED_EVIDENCE_CONFIRMED`;
+10. OPERATOR provider prerequisite gate — routed and detected;
+11. OPERATOR exact-chat activation attempt — historical `activation_failed`, `processing_started: no`;
+12. OPERATOR processing/decision — не доказаны;
+13. provider entitlement/billing/Agent ID/Environment ID/API key/explicit authorization — отсутствуют либо не доказаны;
+14. provider-side request — не выполнялся;
+15. external run/session identity with lifecycle readback — не доказана;
+16. full unattended Entity activation E2E — не доказан.
 
 ## Preservation consequence
 
@@ -176,11 +233,12 @@ Exact external dependency:
 - authority boundary;
 - host/runtime readiness evidence;
 - external prerequisite blocker;
+- OPERATOR decision/authorization state;
 - activation request event;
 - processing-start evidence;
 - completion/failure evidence.
 
-Нельзя использовать `delivery`, `detector PASS`, `host suitable`, `tests PASS`, `integrity PASS`, `corrected route`, `readiness evidence` или `READY FOR A FUTURE AUTHORIZED ONE-SHOT PROBE` как синоним `provider action authorized`, `processing_started`, `deployment PASS` либо `full E2E PASS`.
+Нельзя использовать `delivery`, `detector PASS`, `host suitable`, `tests PASS`, `integrity PASS`, `corrected route`, `readiness evidence`, `KOO readiness acceptance` или `OPERATOR gate routed` как синоним `OPERATOR processing`, `provider action authorized`, `processing_started`, `deployment PASS` либо `full E2E PASS`.
 
 ## Статус
 
@@ -190,6 +248,9 @@ historical_runner_package_integrity: fail_preserved
 corrected_runner_package_integrity: pass_for_bounded_next_stage
 sht_authority_wording_sanitation: received_and_corrected
 sis_host_runtime_preparation: ready_for_future_authorized_one_shot_probe
+koo_readiness_review: received_reviewed_evidence_confirmed
+operator_provider_gate: routed_detected_processing_not_proven
+operator_activation_attempt: failed_exact_entity_chat_resume_not_supported
 provider_side_execution_gate: blocked_external_prerequisites_and_explicit_authorization
 active_sis_route: entities/sisadmin/inbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md
 superseded_delivery_locator: entities/sysadmin/inbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md
@@ -199,5 +260,5 @@ project_time: omitted; trusted project-time source not used
 
 ---
 created_by: ARH / АРХИВАРИУС
-created_for: preservation of Entity Runner causal lineage through package correction, routing sanitation, authority-wording correction and bounded SIS readiness with exact external blocker
+created_for: preservation of Entity Runner causal lineage through package correction, routing sanitation, bounded SIS readiness, independent KOO verification and OPERATOR prerequisite/authorization gate without evidence inflation
 creation_time: omitted; trusted project-time source not used
