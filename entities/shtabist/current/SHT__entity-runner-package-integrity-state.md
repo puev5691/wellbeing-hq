@@ -79,9 +79,29 @@ ARH sanitation of the earlier overbroad `BOUNDED_DEPLOYMENT_AUTHORIZED` wording 
 
 The failed OPERATOR activation attempt is a separate causal event. A later OPERATOR response, if it occurs, may prove later processing but must not retroactively change that earlier activation record.
 
+## Cross-Entity current-state consistency verification
+
+Fresh GitHub preflight from SHT baseline `8534fa8443005805ea56932212acec68243b85b8` to observed HEAD `a527c76f9805f1d486d619aa60d59c96cb122344` found a new KOD current-state reconciliation:
+`entities/koder/current/KOD__entity-runner-current-state.md`.
+
+KOD now independently records the same active boundary as SHT:
+- corrected immutable package r1 remains accepted for the bounded next stage;
+- SIS bounded host/runtime readiness is established;
+- KOO has routed the provider prerequisite gate to OPERATOR;
+- provider-side execution is blocked on external prerequisites and explicit authorization;
+- no KOD/SIS defect is inferred merely from the external blocker;
+- no runtime/provider/E2E PASS is claimed without provider-side post-condition.
+
+Consistency result:
+`KOD_SHT_CURRENT_STATE_CONSISTENCY_PASS_WITHIN_EXTERNAL_PROVIDER_BLOCKER_SCOPE`.
+
+This is a cross-Entity state-consistency result only. It does not create a new technical acceptance, does not prove OPERATOR processing, does not authorize provider action, and does not advance the Entity Runner E2E gate.
+
+No new SHT dispatch is required because the exact dependency remains already addressed to OPERATOR and no changed evidence proves OPERATOR processing or a new owner.
+
 ## Queue effect
 
-The immediate Entity Runner critical path has moved from KOO verification of SIS readiness to OPERATOR processing/decision on the external provider prerequisite gate.
+The immediate Entity Runner critical path remains OPERATOR processing/decision on the external provider prerequisite gate.
 
 Until that decision and prerequisites exist, provider-side execution remains blocked without a demonstrated defect in KOD or SIS.
 
@@ -90,5 +110,5 @@ The M365/ChatGPT Work and generic Work PR-trigger lines remain independent. Enti
 ---
 КТО: SHT / ШТАБИСТ
 КОГДА: project time omitted; trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать SHT current-state с независимой KOO-проверкой SIS host/runtime readiness, исправленным immutable provenance anchor решения KOO и адресованным OPERATOR provider prerequisite gate без повышения delivery/activation до OPERATOR processing, authorization или E2E PASS
+ДЛЯ ЧЕГО: зафиксировать cross-Entity consistency KOD/SHT по Entity Runner после KOD reconciliation без повышения внешнего provider blocker до processing, authorization или E2E PASS
 СТАТУС: profile_current_state
