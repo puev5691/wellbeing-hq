@@ -12,7 +12,7 @@ Snapshot для Resume-First восстановления ARH при дегра�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Последний наблюдаемый ARH-owned commit перед этим refresh: `bae7556fb09435c06f89fcc43fae21c8d22d5e42`
+- Последний завершённый ARH-owned commit перед этим refresh: `fffbda12e3861a6be57b1ad188620c927b31085d`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -80,6 +80,12 @@ Recovery registry update: `4ed963bab6ee86ebd7417764a44a38468eddf3a3`.
 
 Replacement VOL затем успешно прошёл initiation и продолжил прерванную работу; subsequent VOL result exists. Отдельно сохранена lineage-запись `entities/archivarius/current/experience/ARH__VOL-response-without-receipt-lineage.md`: semantic response/downstream success не дают права выдумать exact route receipt.
 
+## Последняя завершённая санитарная работа
+
+Маршрут `ARH__information-field-stewardship__KOO.md` был восстановлен в sender registry после проверки exact dispatch, exact receipt и отдельного KOO acceptance decision. Registry update commit: `fffbda12e3861a6be57b1ad188620c927b31085d`.
+
+Важно: receipt и acceptance сохранены как разные события; наличие acceptance не используется для выдумывания отсутствующих промежуточных фактов в других маршрутах.
+
 ## Текущие ARH границы
 
 - Raw inbox presence не доказывает unprocessed work.
@@ -117,5 +123,5 @@ Replacement VOL затем успешно прошёл initiation и продо�
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: синхронизировать current-writer snapshot с уже созданным и маршрутизированным emergency recovery candidate и точным pending dependency
+ДЛЯ ЧЕГО: продвинуть recovery boundary после завершённой санитарии sender registry и не заставлять replacement ARH повторно обрабатывать уже закрытую работу
 СТАТУС: emergency-self-preservation-current
