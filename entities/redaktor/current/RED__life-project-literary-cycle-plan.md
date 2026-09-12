@@ -185,9 +185,14 @@ Bootstrap, initiation, recovery, manifests, checksums.
 source_sha256: `d5eadbc13d2468fec015e8f3bd90f6344543709285785f186855a537fe4aaa2d`
 
 Статус:
-- raw source в публичный GitHub не публиковался;
-- дата в имени файла пока не повышается до отдельно подтверждённой даты создания;
-- источник содержит личных персонажей и контексты, поэтому требует отдельного решения перед любой публичной публикацией.
+- ОПЕРАТОР явно решил сохранить найденный фрагмент в информационном поле проекта и использовать его в дальнейшей литературной разработке;
+- raw source сохранён неизменно: `entities/redaktor/current/literary-sources/OPR__garage-system-fantasy__SOURCE.txt`;
+- immutable commit: `e0b7697c5779a03fdbc084676cd0271a487fa11f`;
+- blob: `d2c277d3264e9a8a69a4a794949cffa312182fdd`;
+- исходный SHA-256: `d5eadbc13d2468fec015e8f3bd90f6344543709285785f186855a537fe4aaa2d`;
+- provenance/use card: `entities/redaktor/current/literary-sources/RED__garage-system-fantasy__source-card.md`;
+- дата в имени файла сохраняется как provenance-метка и сама по себе не повышается до отдельно подтверждённой даты создания;
+- отдельная медийная публикация/готовая биографическая версия не утверждены.
 
 Редакционное значение:
 - художественный образ «Системы проекта» функционально предвосхищает позднейшие intake/decomposition/file-review/personnel/economic/orchestration контуры;
@@ -195,9 +200,10 @@ source_sha256: `d5eadbc13d2468fec015e8f3bd90f6344543709285785f186855a537fe4aaa2d
 - ключевое расхождение с поздней архитектурой: ранняя фантазия склонна доверять «более умной и порядочной» Системе управление, тогда как зрелый проект пришёл к `capability != authority`, human decision boundary и verification;
 - новая литературная ось цикла: `мечта → попытка воплощения → столкновение с реальностью → исправление мечты`.
 
-Локальная редакционная записка текущего RED:
+Редакционная записка текущего RED:
 `RED__garage-future-system-editorial-note__OPERATOR.md`
-(не считается внешне сохранённой только по этому locator).
+
+Её выводы отражены в provenance/use card и в настоящем current plan. Локальный standalone-файл записки остаётся рабочим производным материалом; authoritative locator найденного raw source — GitHub path выше.
 
 ## 6. Нужны ли другие Сущности сейчас
 
