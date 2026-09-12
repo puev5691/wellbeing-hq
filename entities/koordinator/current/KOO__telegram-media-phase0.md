@@ -49,6 +49,25 @@ commit:
 Decision:
 `ACCEPTED_BOUNDED_PHASE1A_NONPRODUCTION`.
 
+## Downstream sender-state reconciliation
+
+KOD has now reconciled its stale wait-for-KOO-review checkpoints with already existing KOO terminal decisions.
+
+Phase 1A KOD current closure:
+`entities/koder/current/KOD__telegram-media-phase1a-current-state.md`
+commit:
+`a0f4a33fff878846fead3cff4b56151e732cb3e5`.
+
+Phase 0 KOD current reconciliation:
+`entities/koder/current/KOD__telegram-media-phase0-current-state.md`
+commit:
+`f5eb7c26de158fa665dc04c0a6266f4f18e04b98`.
+
+Classification:
+`SENDER_CURRENT_RECONCILED_WITH_EXISTING_KOO_DECISIONS`.
+
+These commits do not create new authority and do not authorize Phase 1B or live Telegram activity.
+
 ## Independently verified Phase 1A properties
 
 - explicit runtime config without synthetic defaults;
@@ -115,5 +134,5 @@ project_time: omitted; trusted project-time source not used
 
 ---
 КТО: KOO / КООРДИНАТОР
-ДЛЯ ЧЕГО: хранить текущий проверяемый Telegram media state после terminal Phase 1A review
+ДЛЯ ЧЕГО: хранить текущий проверяемый Telegram media state после terminal Phase 1A review и sender-state reconciliation
 СТАТУС: phase1a_accepted_waiting_profile_gates
