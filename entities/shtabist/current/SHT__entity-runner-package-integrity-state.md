@@ -10,6 +10,8 @@ The historical immutable-package integrity defect remains preserved as provenanc
 
 KOD produced corrected immutable package r1 from final package bytes, regenerated the manifest/hash evidence, reran unit tests and validate-only, and returned the corrected package to KOO. KOO independently re-verified the corrected package and accepted package integrity for the bounded next-stage SIS preparation path.
 
+Immutable provenance anchor for that KOO integrity decision: commit `206481f0f9b3325ff26d0cef11b20e06e8c1ecc3`, status `INTEGRITY_GATE_PASS_FOR_BOUNDED_NEXT_STAGE`. This anchor follows the corrected ARH provenance and replaces the previously misrecorded SHA in ARH experience; it does not create a new acceptance event or widen authority.
+
 Canonical SIS profile processing is proven by the SIS result produced from `entities/sisadmin/inbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md` and returned as `entities/sisadmin/outbox/SIS__entity-runner-r1-host-runtime-readiness__KOO.md`.
 
 SIS performed the bounded host/runtime preparation on `ruvds-xnqc6` without provider-side API request, package installation, service/container creation, credential creation, billing change or production-authority expansion.
@@ -88,5 +90,5 @@ The M365/ChatGPT Work and generic Work PR-trigger lines remain independent. Enti
 ---
 КТО: SHT / ШТАБИСТ
 КОГДА: project time omitted; trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать SHT current-state с независимой KOO-проверкой SIS host/runtime readiness и адресованным OPERATOR provider prerequisite gate без повышения delivery/activation до OPERATOR processing, authorization или E2E PASS
+ДЛЯ ЧЕГО: синхронизировать SHT current-state с независимой KOO-проверкой SIS host/runtime readiness, исправленным immutable provenance anchor решения KOO и адресованным OPERATOR provider prerequisite gate без повышения delivery/activation до OPERATOR processing, authorization или E2E PASS
 СТАТУС: profile_current_state
