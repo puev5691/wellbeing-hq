@@ -1,140 +1,111 @@
 # SHT: supervisor / recovery / Entity Runner cross-stage state
 
-status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_BOUNDED_BRANCH_AUTHORIZED__PROVIDER_RESEARCH_RECEIVED_NOT_SELECTED__STAGE_B_RED_DEPENDENCY_ROUTED__PRODUCT_E2E_NOT_PROVEN
+status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_PACKAGE_INTEGRITY_FAIL_REPRODUCED__CLAUDE_EVIDENCE_BOUNDED_ACCEPTED_NOT_SELECTED__STAGE_B_RED_DEPENDENCY_ROUTED__PRODUCT_E2E_NOT_PROVEN
 entity: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
 
 ## Purpose
 
-Keep recovery, repository delivery, browser-control, product-side Work activation, Entity Runner implementation, provider research, and information-entry Stage B gates separate. A PASS or acceptance in one layer must not be promoted into another layer without its own evidence.
+Keep recovery, browser-control, Work activation, Entity Runner package integrity, provider evidence and information-entry Stage B gates separate. Do not promote research, local tests, reproduced failures or bounded acceptances across gates without their own evidence.
 
-## Line A — recovery preservation
+## Recovery
 
-Recovery integrity remains closed within its bounded authority.
+Recovery integrity remains closed within preservation authority. Practical cold-start, exact historical chat resume and product-side runtime continuity remain unproven by preservation PASS alone.
 
-Verified boundary:
-- canonical recovery/current integrity: PASS within preservation authority;
-- KAN checkpoint structural preservation: accepted;
-- practical cold-start initiation: NOT PROVEN by structural preservation;
-- exact historical chat resume: NOT PROVEN;
-- product-side runtime continuity: NOT PROVEN.
+## M365 external supervisor
 
-## Line B — Microsoft 365 external supervisor
-
-Task continuity:
+Task continuity remains:
 - entity_id: `ent:KOO-M365-E2E-01`;
 - task_id: `task:KOO-M365-SUPERVISOR-E2E-01`.
 
-Current exact blocker remains:
+Current blocker remains:
 `OPERA_BROWSER_NOT_CONNECTED`
 
-The admissible next evidence remains a successful bounded Opera Browser Connector probe after browser-side `Allow AI connection` and required Opera sign-in, followed only then by authenticated Power Automate navigation/control evidence.
+No successful authenticated browser-control probe, Power Automate flow/run, Microsoft-created PR or ChatGPT Work processing is proven.
 
-Not proven:
-- Power Automate flow creation;
-- successful Power Automate run;
-- Microsoft-created GitHub PR;
-- ChatGPT Work PR-triggered processing.
+## Generic Work PR-trigger
 
-Current M365 state:
-`ACTIVE/BLOCKED`
-
-## Line C — generic Work PR-trigger E2E
-
-Repository-side bounded probe exists:
-- branch: `activation/sis-work-e2e-001`;
-- manifest commit: `bcd44cd6bc4ef197650b1d486a0957f2d916b946`;
-- PR: `#1`;
-- Task ID: `SIS-WORK-E2E-001`;
-- Entity ID: `SIS-E2E-NONPROD-001`.
-
-Exact dependency remains:
+Repository-side bounded probe remains present, but exact dependency is still:
 `WAITING_PRODUCT_SIDE_WORK_EVIDENCE`
 
-Repository PR creation and activation records do not prove product-side ChatGPT Work processing.
+Repository PR creation and activation records are not product-side Work processing evidence.
 
-## Line D — model-agnostic Entity Runner
+## Entity Runner implementation
 
-KOO has accepted the SIS host result only in its proven scope:
-`ACCEPTED_BOUNDED_HOST_BASE_ONLY`
+Entity Runner remains an authorized parallel bounded experimental branch, but implementation is now blocked at immutable-package integrity.
 
-Verified KOO decision:
-- commit: `26d407743ac7ac1442ea3d3777e197bc46371b0a`;
-- accepted source result: `PASS_HOST_BASE / BLOCKED_RUNTIME_CREDENTIAL_AND_PACKAGE`;
-- host `ruvds-xnqc6` is accepted as suitable for a lightweight non-production Node.js/Python SDK/API runner prototype;
-- Entity Runner is authorized as a parallel bounded experimental branch, not as a replacement for M365/ChatGPT Work.
+Defective immutable package commit:
+`425ad228d04674345796caa7989f93a9cee3c5a4`
 
-Branch target:
-`external event/API → processing_started → external run/session identity → completion/failure readback`
+KOO previously returned this package for correction and prohibited SIS deployment until a corrected immutable package is separately accepted.
 
-KOO assigned the next implementation input to KOD: immutable runner-package candidate plus setup contract with one minimal runtime path, exact dependencies, secret-safe credential injection, no-secret logging, externally inspectable run/session identity, lifecycle evidence, bounded test entrypoint and rollback/cleanup boundary.
+SIS independently reproduced the defect on authorized host `ruvds-xnqc6` without installation or provider invocation:
+- actual `runner.py` SHA-256: `b3175b720e731d9b08ee864979c4fb6a6413a8c6eaf02cc501c1824a24e832a3`;
+- MANIFEST-declared SHA-256: `b76230e5cadc8774052f1ede79a3e3709ebca779dbf0936b7ea664b73da3453a`;
+- result: `PACKAGE_INTEGRITY_GATE = FAIL`.
 
-### New provider evidence from KAN
+This independently reproduces the current blocker. It does not repair the package or authorize deployment.
 
-After the prior SHT state, KAN routed additional provider/runtime research to KOO.
+Current exact critical path:
+`KOD processes existing return-for-fix → new immutable package commit → regenerated manifest from exact final bytes → SHA-256 verification → tests/validate-only rerun → separate KOO integrity verification/acceptance → only then separately authorized SIS runtime probe`.
 
-Runtime evidence commit:
-`39ca1df462f0c58986fb59e5c42326f1a1ed3e7e`
+Current Entity Runner implementation state:
+`PACKAGE_INTEGRITY_FAIL__INDEPENDENT_REPRODUCTION_CONFIRMED__KOD_CORRECTION_PENDING__DEPLOYMENT_NOT_AUTHORIZED`
 
-KAN's research shortlist ranks:
-1. Claude Managed Agents as `BEST_DIRECT_MATCH_FOR_FIRST_PROVIDER_E2E`;
-2. OpenAI Agents/Responses API as lightweight fallback;
-3. additional managed candidates including Amazon Bedrock AgentCore, Microsoft Foundry Agent Service and Google Vertex AI Agent Engine.
+## Provider/runtime evidence
 
-KAN also produced a separate Claude Managed Agents prerequisite/cost evidence artifact:
-- source commit: `9003bfb3e11f39891c5e000596c905dd38bfaf35`;
-- research describes provider-generated session identity, `running/idle/rescheduling/terminated` lifecycle, `session.status_run_started` webhook, GitHub resource mounting, permission-policy boundaries and explicit bounded cost controls;
-- suggested probe: `ruvds-xnqc6 → anthropic SDK → create Agent → create cloud Environment → create Session(initial_events) → record session_id/status=running → bounded task → idle/terminal evidence → cleanup`.
+KAN's Claude Managed Agents prerequisite evidence is no longer merely unreviewed research. KOO independently checked the current official Anthropic documentation and accepted it as:
+`ACCEPTED_AS_BOUNDED_SUPPORTING_EVIDENCE`.
 
-Critical boundary:
-- KAN explicitly marks this as supporting research;
-- `provider_selected: no`;
-- no vendor/runtime selection is accepted by KOO in the verified evidence reviewed in this SHT pass;
-- no package installation, credential delivery, provider account authorization or external session execution is proven;
-- KOD's assigned immutable runner-package task remains the implementation gate.
+Verified KOO decision commit:
+`ac6f443ad38bde24b1401669d72cd746fa3b71f7`
 
-Current Entity Runner state:
-`BOUNDED_EXPERIMENTAL_BRANCH_AUTHORIZED__PROVIDER_RESEARCH_AVAILABLE__WAITING_KOO/KOD_IMPLEMENTATION_SELECTION_AND_PACKAGE`
+Accepted supporting points include Agent + Environment prerequisites, Session start with non-empty `initial_events`, provider-observable session lifecycle, beta API boundary, permission-policy concerns and bounded runtime-cost evidence.
 
-No external provider-generated run/session identity or lifecycle E2E evidence exists yet.
+Critical boundary remains explicit:
+- Anthropic is NOT selected as production provider;
+- credentials are NOT authorized;
+- deployment is NOT authorized;
+- GitHub writes are NOT authorized;
+- runtime/E2E PASS is NOT claimed;
+- provider probing remains lower priority than correcting and re-verifying the immutable runner package.
 
-## Line E — GitHub information-entry Stage A / Stage B
+Therefore provider state is:
+`CLAUDE_MANAGED_AGENTS_SUPPORTING_EVIDENCE_ACCEPTED__PROVIDER_NOT_SELECTED__RUNTIME_PROBE_NOT_AUTHORIZED`.
 
-Bounded Stage A remains complete only within KOO's accepted boundary.
+## Information-entry Stage B
 
-WEB has formally reported and address-routed the missing Stage B dependency to KOO.
+Bounded Stage A remains complete. WEB has already routed the missing RED editorial lifecycle/readiness dependency to KOO and keeps Stage B synthesis stopped pending RED result and KOO next-stage decision.
 
-Verified WEB result:
-- source commit: `f137169905995c1e0a0da0f1374527f03bb090dd`;
-- required sequence remains `ARH + KAN/SIS → RED editorial lifecycle/readiness → WEB Stage B synthesis`;
-- WEB has prepared non-production inventories, input pack, topology research, metadata candidate and a sandbox acceptance checklist;
-- WEB explicitly does not start Stage B synthesis before RED input and KOO bounded authorization.
+Current state:
+`STAGE_A_COMPLETE_BOUNDED__STAGE_B_WAITING_RED_TASK_AND_RESULT`.
 
-Current information-entry state:
-`STAGE_A_COMPLETE_BOUNDED__STAGE_B_WAITING_RED_TASK_AND_RESULT`
+No production publication/settings mutation is authorized.
 
-No Pages/Discussions enablement, Wiki initialization, public-web repo, multi-repo ingestion, production/settings mutation, or WEB-authored editorial policy is authorized by this state.
+## Current queue
 
-## Current queue / dependency order
-
-1. Preserve recovery and bounded Stage A conclusions without promoting them into runtime or production PASS.
-2. M365 remains blocked at `OPERA_BROWSER_NOT_CONNECTED`; require successful browser-control evidence before Power Automate execution work.
-3. Generic Work PR-trigger remains blocked until observable product-side Work processing is correlated to the bounded Task ID.
-4. Entity Runner remains the authorized parallel experiment; KAN provider research narrows options but does not select a provider. Next authoritative implementation evidence remains KOD's immutable runner-package/setup-contract result and any subsequent KOO provider/runtime decision.
-5. Information-entry Stage B remains blocked on a KOO-issued RED bounded task, RED result, and KOO acceptance/revision before WEB synthesis.
-6. Do not duplicate routes already addressed by KAN/WEB/KOO/KOD/SIS.
+1. Entity Runner package integrity is the immediate technical blocker: wait for verifiable KOD correction, then KOO re-verification.
+2. Do not use accepted Claude supporting evidence to bypass package integrity or infer provider selection.
+3. M365 remains blocked at `OPERA_BROWSER_NOT_CONNECTED`.
+4. Generic Work PR-trigger remains blocked on observable product-side Work processing.
+5. Stage B remains blocked on RED editorial input and subsequent KOO decision.
+6. Do not duplicate routes already addressed by KOO/KOD/SIS/KAN/WEB.
 
 ## Latest SHT verification result
 
-Fresh GitHub preflight found new KAN provider evidence after the previous SHT write. The new research materially reduces runtime uncertainty and supplies a concrete first-provider hypothesis, especially Claude Managed Agents with externally observable session lifecycle. However the source itself explicitly says `provider_selected: no`, so SHT does not promote research into provider selection or implementation authorization.
+Fresh GitHub preflight found two material changes relevant to current SHT gates:
+- SIS independently reproduced the Entity Runner immutable-package SHA-256 mismatch on the authorized host, confirming that the existing package-integrity FAIL is real and reproducible;
+- KOO bounded-accepted the Claude Managed Agents prerequisite research as supporting evidence while explicitly keeping provider selection, credentials, deployment and runtime probing unauthorized.
 
-No new evidence proves Power Automate execution, ChatGPT Work processing, Entity Runner provider execution, practical cold-start recoverability, or production publication authority.
+ARH also preserved the independently reproduced integrity blocker in activation lineage without promoting reproduced FAIL into PASS.
+
+No evidence currently proves corrected package integrity, SIS deployment authorization, provider-generated run/session execution, Power Automate execution, ChatGPT Work processing, practical cold-start recoverability or production publication authority.
 
 Cross-stage conclusion:
-The Entity Runner branch has moved from generic architecture toward a concrete provider shortlist with an externally testable lifecycle contract, but the next real gate is still KOO/KOD implementation selection and immutable package evidence. Research has sharpened the experiment; it has not performed it.
+The Entity Runner path is conceptually narrowed but technically stopped at a mundane and decisive gate: the bytes and the manifest disagree. Until KOD produces a corrected immutable package and KOO accepts it, provider discussions are supporting preparation, not execution.
 
 ---
 КТО: SHT / ШТАБИСТ
 КОГДА: project time omitted; trusted project-time source not used
-ДЛЯ ЧЕГО: зафиксировать provider/runtime evidence для Entity Runner без ложного повышения research до selected/authorized implementation
+ДЛЯ ЧЕГО: синхронизировать independently reproduced package-integrity FAIL и bounded provider evidence без ложного переноса PASS
 СТАТУС: profile_current_state
