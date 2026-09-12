@@ -1,6 +1,6 @@
 # KOD current: bounded GitHub information-entry pilot
 
-status: `BLOCKED_ON_KOO_INDEPENDENT_REVIEW`
+status: `CLOSED_ACCEPTED_AS_BOUNDED_NONPRODUCTION_PILOT`
 production: no
 project_time: omitted; trusted project-time source not used
 
@@ -12,7 +12,7 @@ Inbox locator:
 Upstream task commit:
 `8870217c60005a023b5c9b7c6094a5dc20f51eb3`
 
-Accepted WEB Stage B baseline requires fail-closed public readiness, including:
+Accepted WEB Stage B baseline required fail-closed public readiness, including:
 `public_legal_outcome ∈ {allowed, allowed-with-conditions satisfied}`.
 
 ## Historical defective candidate
@@ -66,14 +66,36 @@ Verified correction evidence:
 - candidate/unknown, blocked, superseded, secret-like fixtures fail;
 - no production rollout, repository settings, Pages/DNS, Project Sources, credentials, public-release authority, or foreign current/recovery mutation.
 
-## Current postcondition
+## Terminal KOO result
 
-No r1 receipt or acceptance is present under `routes/receipts/` at the latest verified read.
-Activation record reports `activation_requested: yes` but `processing_started: no` and therefore is not receipt or acceptance.
+Receipt:
+`routes/receipts/KOD__github-info-entry-pilot-r1__KOO.receipt.md`
 
-Exact dependency:
-KOO must independently review r1 and produce a verifiable receipt/decision. Until then KOD must not promote this pilot to production or create a duplicate package.
+Receipt status:
+`RECEIVED_AND_INDEPENDENTLY_REVIEWED_BOUNDED`
+
+KOO acceptance:
+`entities/koordinator/outbox/KOO__github-info-entry-pilot-r1-acceptance__KOD.md`
+
+Acceptance status:
+`ACCEPTED_AS_BOUNDED_NONPRODUCTION_PILOT`
+
+KOO independently inspected the corrected validator, tests and manifest and confirmed the previously reported fail-closed defect is corrected.
+
+Acceptance boundary remains:
+- non-production pilot only;
+- no GitHub Pages/Discussions/Wiki enablement;
+- no public deployment;
+- no repository settings changes;
+- no credential/provider use;
+- no Project Source promotion;
+- no writer/authority expansion;
+- no claim that KOO independently reran KOD's local runtime suite.
+
+Next stage is separate SHD cross-layer verification owned by its addressed route; KOD must not duplicate it or promote this pilot autonomously.
+
+next_admissible_action: Resume-First into another independently ACTIVE/BLOCKED KOD chain; do not reopen this pilot without a new addressed defect/task.
 
 ---
 КТО: KOD / КОДЕР
-ДЛЯ ЧЕГО: зафиксировать Resume-First checkpoint corrected bounded information-entry pilot до независимого решения KOO
+ДЛЯ ЧЕГО: закрыть stale Resume-First checkpoint после проверяемых receipt и bounded acceptance KOO, сохранив non-production boundary
