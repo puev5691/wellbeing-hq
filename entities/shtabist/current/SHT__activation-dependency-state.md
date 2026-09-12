@@ -1,6 +1,6 @@
 # SHT current: activation dependency state
 
-status: WAITING_ON_OPERATOR_PRODUCT_TRIGGER_CREATION
+status: WAITING_ON_OPERATOR_PRODUCT_TRIGGER_CREATION__TARGET_TASK_ACTIVATION_GAP_CONFIRMED
 
 ## Current verified boundary
 
@@ -108,6 +108,29 @@ When an earlier activation record states `processing_started: no` / `activation_
 
 This rule applies across Entity routes and prevents repository activation evidence, later human/profile processing, and product runtime evidence from being collapsed into one synthetic PASS.
 
+### Target-task activation versus global Entity activity
+
+Fresh SHD evidence adds a stricter activation rule.
+
+ARH observed new SHD-authored profile work after earlier SHD activation records had already reported `processing_started: no` / `activation_failed`: `entities/shardovik/outbox/SHD__vpn-client-experience-candidate__SIS.md` exists and proves later SHD-authored activity in the information field.
+
+At the same time:
+- the addressed ARH preservation task remains without proven SHD processing/self-state checkpoint;
+- the newer KOO cross-layer review task also retains activation evidence `processing_started: no` / `activation_failed`;
+- no evidence proves that either specific target task was processed merely because SHD produced unrelated later work.
+
+Therefore SHT classifies the activation defect more precisely:
+
+`ENTITY_ACTIVITY_CAN_EXIST__TARGET_TASK_PROCESSING_STILL_UNPROVEN`
+
+This means:
+- absence of global Entity activity is not a valid blocker once later authored work exists;
+- presence of global Entity activity is not receipt, processing, or acceptance of a specific addressed task;
+- each task requires its own causal evidence chain: address/delivery → processing evidence → result → receipt/acceptance where required;
+- automation must not upgrade unrelated later Entity activity into success of an earlier failed activation attempt.
+
+This rule applies to SHD immediately and should be treated as a generic Entity Runner / activation design constraint.
+
 ### Recovery propagation verification
 
 At observed prewrite repository commit `4faad5c2a4244d3903e8fff98e366ed35773b36a`, ARH refreshed `entities/archivarius/current/ARH__snapshot.md` and explicitly preserved both of the relevant cross-stage boundaries:
@@ -121,16 +144,17 @@ This consistency result does **not** prove practical cold-start, unattended acti
 
 ## Current blocker classification
 
-The activation problem remains split into two independent branches:
+The activation problem remains split into independent branches:
 
 - **bounded product E2E branch** — prepared by SIS, independently repository-verified by KOD, and currently blocked on OPERATOR product-side trigger creation/authorization;
-- **exact-instance continuity branch** — unresolved and intentionally outside the bounded new-Work-instance experiment.
+- **exact-instance continuity branch** — unresolved and intentionally outside the bounded new-Work-instance experiment;
+- **target-task processing branch** — an Entity may be globally active while one addressed task remains unprocessed/unproved; current repository detector/activation evidence cannot bridge that gap automatically.
 
-The current blocker is therefore external/product-side, not a SIS/KOD runtime defect and not evidence that exact-instance continuity is solved.
+The current blockers are therefore product-side/task-activation boundaries, not evidence of a SIS/KOD runtime defect and not evidence that exact-instance continuity is solved.
 
 ## SHT queue rule
 
-SHT must not duplicate OPERATOR product setup, SIS/KOD test preparation, or KOO acceptance authority.
+SHT must not duplicate OPERATOR product setup, SIS/KOD test preparation, KOO acceptance authority, or already-addressed SHD tasks.
 
 Next SHT activation-branch action is triggered by one of:
 
@@ -138,9 +162,10 @@ Next SHT activation-branch action is triggered by one of:
 2. SIS or KOD returns product-side E2E execution evidence after that prerequisite exists;
 3. KOO changes the acceptance boundary or dependency owner;
 4. new evidence contradicts the separation between new Work instance and exact-instance continuity;
-5. a cross-Entity dependency appears around recovery/current-state binding, authority, receipt/acceptance, or E2E semantics.
+5. a cross-Entity dependency appears around recovery/current-state binding, authority, receipt/acceptance, E2E semantics, or target-task processing;
+6. a specific SHD task produces processing/result evidence that allows comparison against its earlier failed activation record.
 
-Until then, SHT monitors dependency integrity and prevents preparation/local/repository PASS from being promoted into product E2E, exact Entity continuity, or production readiness.
+Until then, SHT monitors dependency integrity and prevents preparation/local/repository PASS or unrelated Entity activity from being promoted into target-task processing, product E2E, exact Entity continuity, or production readiness.
 
 ## Evidence basis
 
@@ -174,10 +199,16 @@ ARH refreshed recovery snapshot:
 ARH snapshot commit:
 `4faad5c2a4244d3903e8fff98e366ed35773b36a`
 
-KOO current status:
+Fresh ARH SHD activation-boundary refinement:
+`entities/archivarius/current/experience/ARH__shd-preservation-activation-boundary.md`
+
+Observed repository commit:
+`5348326967e91dc3830695dc3f62095e508b21ae`
+
+KOO current status for bounded product branch:
 `WAITING_ON_OPERATOR_PRODUCT_TRIGGER_CREATION`
 
 ---
 created_by: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
-purpose: preserve activation dependency state, causal event-lineage semantics, and verified propagation of those boundaries into current ARH recovery without promoting recovery consistency into technical E2E success
+purpose: preserve activation dependency state, causal event-lineage semantics, recovery consistency, and the distinction between global Entity activity and processing of a specific addressed task without promoting unrelated activity into activation or E2E success
