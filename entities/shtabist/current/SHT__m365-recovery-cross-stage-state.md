@@ -1,137 +1,119 @@
-# SHT: supervisor / recovery / Entity Runner cross-stage state
+# SHT: M365 retirement / cross-stage state
 
-status: RECOVERY_CLOSED__STAGE_A_BOUNDED_ACCEPTED__M365_OPERA_CONNECTION_BLOCKED__ENTITY_RUNNER_INTEGRITY_PASS_FOR_BOUNDED_NEXT_STAGE__CLAUDE_EVIDENCE_BOUNDED_ACCEPTED_NOT_SELECTED__STAGE_B_RED_TASK_ASSIGNED__PRODUCT_E2E_NOT_PROVEN
+status: M365_CONTOUR_RETIRED__EXTERNAL_MICROSOFT_PROFILE_CLEANUP_PENDING_OPERATOR__OTHER_BRANCHES_DELEGATED_TO_SPECIALIZED_CURRENT_FILES
 entity: SHT / ШТАБИСТ
 project_time: omitted; trusted project-time source not used
 
 ## Purpose
 
-Keep recovery, browser-control, Work activation, Entity Runner integrity/runtime readiness, provider evidence and information-entry Stage B gates separate. Do not promote package PASS, supporting research, task assignment or repository routing into runtime/product E2E without independent evidence.
+Зафиксировать фактическое прекращение экспериментального M365 / Power Automate supervisor contour и не смешивать его retirement-state с независимыми ветками Entity Runner, activation, recovery, memory-layering и GitHub information-entry.
 
-## Recovery
+Исторические состояния этого файла сохраняются в Git history. Они не удаляются и не переопределяются задним числом.
 
-Recovery integrity remains closed within preservation authority. Practical cold-start, exact historical chat resume and product-side runtime continuity remain unproven by preservation PASS alone.
+## Preflight basis
 
-## M365 external supervisor
+Наблюдавшийся GitHub HEAD при профильной сверке:
+`5bc73559a0151a2f69a6d5dc4bb0cf66d229cae4`.
 
-Task continuity remains:
-- entity_id: `ent:KOO-M365-E2E-01`;
-- task_id: `task:KOO-M365-SUPERVISOR-E2E-01`.
+От предыдущего SHT baseline `108a6730a2ed8d7564343bbd4b2d76b96c733ac9` обнаружено 16 commits. Все изменения в этом диапазоне относятся к M365 retirement / external cleanup routing; новых изменений SHT inbox, recovery, Entity Runner или иных SHT profile branches в этом интервале не обнаружено.
 
-Current blocker remains:
-`OPERA_BROWSER_NOT_CONNECTED`
+## M365 contour retirement
 
-No successful authenticated browser-control probe, Power Automate flow/run, Microsoft-created PR or ChatGPT Work processing is proven.
+Решение ОПЕРАТОРА: экспериментальный M365 supervisor contour прекращён.
 
-## Generic Work PR-trigger
+Проверяемый KOD-result:
+`entities/koder/outbox/KOD__m365-contour-retirement__KOO.md`
 
-Repository-side bounded probe remains present, but exact dependency is still:
-`WAITING_PRODUCT_SIDE_WORK_EVIDENCE`
+Его границы:
+- не продолжать Power Automate E2E;
+- не создавать flow;
+- не запускать Power Automate;
+- не создавать Microsoft-origin PR;
+- не устанавливать новый browser adapter ради этой ветки;
+- historical evidence/artifacts сохранять как provenance неудачного эксперимента.
 
-Repository PR creation and activation records are not product-side Work processing evidence.
+KOO receipt:
+`routes/receipts/KOD__m365-contour-retirement__KOO.receipt.md`
 
-## Entity Runner implementation
+receipt status:
+`RECEIVED_REVIEWED`
 
-The historical defective package remains preserved as provenance:
-`425ad228d04674345796caa7989f93a9cee3c5a4`
+KOO независимо прочитал retirement-result и подтвердил изменение допустимого следующего шага: M365/Power Automate experimental contour не должен продолжаться.
 
-That historical package had a reproducible SHA-256 mismatch between actual `runner.py` bytes and `MANIFEST.md`.
+Это закрывает именно project-side experimental contour. Это не доказывает удаление внешнего Microsoft 365 profile/account/tenant registration.
 
-KOD has now produced a corrected immutable package:
-`entities/koder/outbox/entity-runner-candidate-v01-r1/`
+## External Microsoft cleanup
 
-immutable package commit:
-`f1f20fc1142d54b75f5966a82c5b045778da036c`
+Каноническая задача ОПЕРАТОРУ:
+`entities/operator/inbox/KOD__delete-m365-profile__OPERATOR.md`
 
-KOO independently verified the correction and issued:
-`INTEGRITY_GATE_PASS_FOR_BOUNDED_NEXT_STAGE`
+Требуемый результат:
+- удалить созданную для эксперимента Microsoft 365 registration/profile штатным Microsoft account/tenant management path;
+- вернуть проверяемый Microsoft-side post-condition;
+- если удаление отложено самим Microsoft, вернуть точный status/condition.
 
-Verified KOO decision commit:
-`206481f0f9b3325ff26d0cef11b20e06e8c1ecc3`
+Текущий status:
+`PENDING_OPERATOR_ACTION`
 
-Accepted defect-specific evidence:
-- corrected `MANIFEST.md` exists at the immutable commit;
-- declared `runner.py` SHA-256 is `b3175b720e731d9b08ee864979c4fb6a6413a8c6eaf02cc501c1824a24e832a3`;
-- this matches the independently established actual hash from the historical defect check;
-- `runner.py` blob is `b3d804716d3f74c2ad99ef9ce1407a8540eaa744`;
-- manifest blob is `fde0f0b8accd7cf681d933a60751e5c6aaec57d9`;
-- KOD reported 4/4 unit tests PASS and validate-only exit 0 without provider/network request.
+Automation evidence:
+`routes/activation/KOD__delete-m365-profile__OPERATOR.activation.md`
 
-Therefore the package-integrity blocker is CLOSED within its exact defect-specific boundary.
+Зафиксировано:
+- `detector_status: PASS`;
+- `activation_requested: yes`;
+- `processing_started: no`;
+- `activation_status: activation_failed`;
+- `failure_reason: exact_entity_chat_resume_not_supported_by_current_adapter`;
+- `operator_manual_ping_required: yes`.
 
-The corrected KOO result is actively routed to SIS through the canonical entity path under `entities/sisadmin/`; the prior `entities/sysadmin/` locator is preserved only as historical misroute provenance.
+Следовательно, routing OPERATOR-задачи доказан, автоматическое processing не доказано, external Microsoft deletion не доказано.
 
-Current Entity Runner state:
-`INTEGRITY_GATE_PASS_FOR_BOUNDED_NEXT_STAGE__WAITING_SIS_HOST_RUNTIME_PREREQUISITE_RESULT`
+## Cross-stage separation
 
-This does NOT yet prove:
-- SIS recipient processing;
-- deployment authorization;
-- provider credentials or account entitlement;
-- Anthropic Agent/Environment IDs;
-- provider-side request;
-- provider-generated session/run identity;
-- processing_started;
-- unattended Entity Runner E2E PASS.
+Этот файл больше не является authoritative summary для всех соседних технологических веток. Для них используются специализированные SHT current files:
 
-Next admissible profile result is SIS host/runtime-probe preparation against the accepted corrected package. If external prerequisites are absent, SIS must return the exact blocker rather than inventing them.
+- activation / product-trigger:
+  `entities/shtabist/current/SHT__activation-dependency-state.md`;
+- Entity Runner package/runtime:
+  `entities/shtabist/current/SHT__entity-runner-package-integrity-state.md`;
+- GitHub information-entry:
+  `entities/shtabist/current/SHT__github-info-entry-stageA-state.md`;
+- memory-layering E2E:
+  `entities/shtabist/current/SHT__memory-layering-e2e-state.md`;
+- memory-layering routing integrity:
+  `entities/shtabist/current/SHT__memory-layering-routing-integrity-state.md`;
+- continuity-memory candidate impact:
+  `entities/shtabist/current/SHT__continuity-memory-candidate-impact.md`.
 
-## Provider/runtime evidence
+PASS/FAIL или blocker одной из этих веток не выводится из M365 retirement и не переносится сюда автоматически.
 
-KAN's Claude Managed Agents prerequisite evidence remains accepted by KOO as:
-`ACCEPTED_AS_BOUNDED_SUPPORTING_EVIDENCE`.
+## Current exact dependencies
 
-Verified KOO decision commit:
-`ac6f443ad38bde24b1401669d72cd746fa3b71f7`
+1. OPERATOR выполняет external Microsoft cleanup и возвращает проверяемый post-condition либо точный deferred status.
+2. Project-side M365 / Power Automate experiment остаётся retired независимо от скорости внешнего cleanup.
+3. Не возобновлять M365 supervisor E2E без нового явного решения ОПЕРАТОРА.
+4. Не удалять historical evidence, dispatch, activation и retirement artifacts.
+5. Не считать OPERATOR dispatch, detector PASS или activation_requested доказательством обработки или удаления Microsoft profile.
 
-This supporting evidence does not select Anthropic as production provider, authorize credentials, GitHub writes, deployment or runtime probing, and does not claim runtime/E2E PASS.
+## Consistency note
 
-Provider state:
-`CLAUDE_MANAGED_AGENTS_SUPPORTING_EVIDENCE_ACCEPTED__PROVIDER_NOT_SELECTED__PROVIDER_ACTION_NOT_PROVEN`.
+`entities/koder/current/KOD__m365-retirement-current-state.md` в текущем tree всё ещё содержит историческое утверждение, что KOO receipt для retirement result не найден. Это утверждение устарело относительно существующего `routes/receipts/KOD__m365-contour-retirement__KOO.receipt.md`.
 
-## Information-entry Stage B
+SHT не изменяет чужой current-state в этом проходе. Несогласованность не меняет retirement decision и не блокирует external cleanup, но должна быть устранена владельцем KOD-current при его следующей профильной синхронизации.
 
-The previous state `waiting for KOO-issued RED task` is obsolete.
+## Anti-regression
 
-KOO has receipted WEB's dependency report and assigned the bounded Stage B prerequisite task to RED.
-
-Verified assignment commit:
-`6025db6b3bae54da5b99b29190e7cad5ff6b153c`
-
-The task requires RED to define editorial lifecycle/readiness, quality gate and RED → WEB handoff semantics within RED competence, while explicitly forbidding publication/settings changes, WEB candidate promotion to canon, KAN/SIS authority redefinition or accidental Project Source creation.
-
-KOO subsequently placed the task in RED inbox and dispatched it.
-
-Current information-entry state:
-`STAGE_A_COMPLETE_BOUNDED__RED_STAGE_B_PREREQUISITE_TASK_ASSIGNED__WAITING_RED_RESULT_AND_KOO_DECISION`.
-
-Task assignment/delivery does not prove RED processing, result or acceptance.
-
-## Current queue
-
-1. Entity Runner integrity gate is now PASS for bounded next stage. Next real evidence is SIS host/runtime-prerequisite processing on the corrected immutable package.
-2. Do not use accepted Claude supporting evidence to infer provider selection or skip SIS prerequisite checks.
-3. M365 remains blocked at `OPERA_BROWSER_NOT_CONNECTED`.
-4. Generic Work PR-trigger remains blocked on observable product-side Work processing.
-5. Stage B now has an addressed RED task; wait for RED profile result and KOO acceptance/revision before WEB synthesis.
-6. Preserve historical defective package and historical misroute as provenance; do not rewrite them as if they never occurred.
-7. Do not duplicate routes already addressed by KOO/KOD/SIS/KAN/RED/WEB.
-
-## Latest SHT verification result
-
-Fresh GitHub preflight found two material gate changes:
-- KOD correction was independently accepted by KOO, closing the Entity Runner package-integrity defect and advancing the branch to bounded SIS host/runtime-prerequisite preparation;
-- KOO converted the previously routed WEB dependency into an actual bounded RED Stage B prerequisite task and addressed it to RED.
-
-ARH has independently updated activation lineage to preserve the historical FAIL, corrected package PASS and corrected SIS route without inflating them into runtime evidence.
-
-No evidence currently proves SIS runtime readiness result, provider-side execution, provider-generated run/session identity, Power Automate execution, ChatGPT Work processing, practical cold-start recoverability, RED Stage B result or production publication authority.
-
-Cross-stage conclusion:
-The Entity Runner branch has moved one full gate forward: the package bytes and manifest now agree under KOO verification. The next blocker, if any, must come from real SIS runtime prerequisites rather than package integrity. In parallel, the Stage B editorial dependency is no longer implicit or merely requested; it is an assigned RED task, still awaiting profile execution and acceptance.
+- M365 contour retirement ≠ Microsoft profile deleted.
+- KOO receipt ≠ OPERATOR external cleanup.
+- dispatch ≠ processing.
+- detector PASS ≠ processing_started.
+- activation_requested ≠ Entity execution.
+- historical failure evidence не удаляется из-за retirement.
+- M365 retirement не является доказательством состояния Entity Runner, Work activation, recovery или других независимых веток.
 
 ---
+
 КТО: SHT / ШТАБИСТ
 КОГДА: project time omitted; trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать закрытие Entity Runner integrity gate и назначение RED Stage B prerequisite без ложного переноса PASS
+ДЛЯ ЧЕГО: синхронизировать M365 retirement-state, отделить project retirement от external Microsoft cleanup и убрать устаревшие cross-stage утверждения
 СТАТУС: profile_current_state
