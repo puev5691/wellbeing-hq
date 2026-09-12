@@ -1,45 +1,67 @@
 # KOD: текущее состояние M365 retirement
 
-status: `RETIREMENT_PENDING_EXTERNAL_CLEANUP`
+status: `RETIRED_EXTERNAL_CLEANUP_PENDING_OPERATOR`
 task_id: `task:KOO-M365-SUPERVISOR-E2E-01`
 production: `no`
 
-## Решение ОПЕРАТОРА
+## Проверенный project-side result
 
-Экспериментальный M365 supervisor contour прекращён. Не продолжать Power Automate E2E и не устанавливать новый browser adapter ради этой ветки.
+M365 supervisor E2E прекращён по решению ОПЕРАТОРА и принят KOO.
 
-## Проверенное состояние
+- KOD retirement result: `entities/koder/outbox/KOD__m365-contour-retirement__KOO.md`
+- result commit: `ceeb152deec1996aaa0107f388fa1335b1d99ec1`
+- KOO receipt: `routes/receipts/KOD__m365-contour-retirement__KOO.receipt.md`
+- receipt commit: `5bc73559a0151a2f69a6d5dc4bb0cf66d229cae4`
+- KOO acceptance: `entities/koordinator/outbox/KOO__m365-retirement-acceptance__KOD.md`
+- KOO status: `RETIREMENT_ACCEPTED`
+- KOO current checkpoint: `entities/koordinator/current/KOO__m365-supervisor-e2e-01.md`
+- current task status: `RETIRED_BY_OPERATOR_DECISION`
+- experiment status: `STOPPED`
 
-- Opera Browser Connector удалён.
-- Установленного M365 / Power Automate ChatGPT plugin, требующего uninstall, не обнаружено; найденные Microsoft connectors были `installed=false`.
-- KOD retirement result адресован KOO:
-  `entities/koder/outbox/KOD__m365-contour-retirement__KOO.md`
-- KOO inbox locator существует, но activation record показывает:
-  `processing_started: no`, `activation_failed`, `operator_manual_ping_required: yes`.
-- receipt/acceptance KOO для retirement result не найден.
-- canonical задача ОПЕРАТОРУ на удаление внешней Microsoft 365 регистрации маршрутизирована:
-  `entities/koder/outbox/KOD__delete-m365-profile__OPERATOR.md`
-  → `routes/dispatch/KOD__delete-m365-profile__OPERATOR.md`
-  → `entities/operator/inbox/KOD__delete-m365-profile__OPERATOR.md`.
-- OPERATOR activation также показывает `processing_started: no`, `activation_failed`, `operator_manual_ping_required: yes`.
+## Запрещённое продолжение
 
-## Current exact dependencies
+Для этой Task ID KOD не возобновляет:
+- Power Automate flow creation;
+- M365 supervisor E2E;
+- Microsoft-origin PR creation;
+- browser-adapter work;
+- попытки трактовать старые plugin/browser checkpoints как активный план.
 
-1. ОПЕРАТОР вручную выполняет external Microsoft account/tenant cleanup и возвращает проверяемый post-condition либо точный deferred-deletion status.
-2. KOO reconciles/supersedes/closes свой M365 current checkpoint по решению ОПЕРАТОРА.
+Historical evidence сохраняется как provenance.
 
-До этих двух внешних результатов KOD не имеет допустимого самостоятельного M365 side-effect.
+## Единственная незакрытая зависимость
 
-## Anti-regression
+External Microsoft 365 profile deletion остаётся `PENDING_OPERATOR_ACTION`.
+Canonical задача ОПЕРАТОРУ:
+`entities/koder/outbox/KOD__delete-m365-profile__OPERATOR.md`
+→ `routes/dispatch/KOD__delete-m365-profile__OPERATOR.md`
+→ `entities/operator/inbox/KOD__delete-m365-profile__OPERATOR.md`.
 
-Не считать dispatch receipt'ом.
-Не считать activation_requested началом обработки.
-Не возобновлять M365 experiment.
-Не удалять historical provenance.
-Не заявлять удаление Microsoft profile без Microsoft-side post-condition.
+До Microsoft-side post-condition либо точного deferred-deletion status нельзя заявлять, что внешний M365 profile удалён.
+
+## Resume-First
+
+При следующем проходе:
+1. GitHub preflight;
+2. не считать эту Task ID ACTIVE/BLOCKED project work: она RETIRED;
+3. проверить только наличие нового OPERATOR post-condition по external cleanup;
+4. если его нет — не плодить новые M365 artifacts и не возобновлять experiment;
+5. перейти к другим актуальным KOD task/checkpoint по Resume-First.
+
+## ОПЫТ / KOD
+
+Идея: retirement проекта и удаление внешнего аккаунта — разные post-condition.
+
+Проба: M365 experiment был прекращён и маршрутизирован KOO, а external profile cleanup вынесен в отдельную OPERATOR-задачу.
+
+Результат: KOO независимо прочитал retirement result, создал receipt и перевёл исходную Task ID в `RETIRED_BY_OPERATOR_DECISION`.
+
+Итог: project-side retirement закрыт успешно; external cleanup ещё не доказан.
+
+Фиксация: в Resume-First не возвращать retired experiment в ACTIVE только потому, что внешняя cleanup-задача ещё не завершена.
 
 project_time: omitted; trusted project-time source not used
 
 ---
 КТО: KOD / КОДЕР
-ДЛЯ ЧЕГО: сохранить Resume-First checkpoint после решения ОПЕРАТОРА о прекращении M365 и canonical routing внешней cleanup-задачи
+ДЛЯ ЧЕГО: reconciliate KOD Resume-First checkpoint после подтверждённого KOO retirement и отделить его от внешней OPERATOR cleanup-задачи
