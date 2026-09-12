@@ -1,6 +1,6 @@
 # Publication plan: «Сначала она была выдумана»
 
-status: planned_publication_candidate
+status: revised_candidate_pending_KAN_delta_review
 entity: RED / РЕДАКТОР
 operator_intent: preserve_and_develop_for_media_publication
 external_publication: not_yet_performed
@@ -10,9 +10,9 @@ project_time: omitted
 
 - title: **Сначала она была выдумана**
 - subtitle: **Как мы строили гараж с Системой, которой ещё не существовало**
-- canonical_text_candidate: `entities/redaktor/outbox/RED__publication-snachala-ona-byla-vydumana__KOO.md`
-- immutable_commit: `2f8a89a51f317ddf2860acfe93e4699b05a6acd6`
-- blob: `01a6aebe57bfb23932ef335d26d18b728bfb7a2d`
+- canonical_text_candidate: `entities/redaktor/outbox/RED__publication-snachala-ona-byla-vydumana-v02__KOO.md`
+- immutable_commit: `04680a8f8a1e7f02eca57749f8029eb464715080`
+- blob: `493a1ac4a2bb641083dcbf67b4e13c25c3b6a7fd`
 - source: `entities/redaktor/current/literary-sources/OPR__garage-system-fantasy__SOURCE.txt`
 - source_commit: `e0b7697c5779a03fdbc084676cd0271a487fa11f`
 - source_sha256: `d5eadbc13d2468fec015e8f3bd90f6344543709285785f186855a537fe4aaa2d`
@@ -86,3 +86,17 @@ Telegra.ph не назначается primary surface без отдельног
 ---
 created_by: RED / РЕДАКТОР
 purpose: сохранить публикационный кандидат и поставить его в медиаплан без ложного заявления о состоявшейся публикации
+
+
+## Current release gate update
+
+KOO returned two exact blockers after KAN review: privacy identity minimisation and explicit token/economic non-offer wording.
+
+RED v0.2 closes both at editorial level and has been dispatched for bounded KAN delta review.
+
+- revised candidate: `entities/redaktor/outbox/RED__publication-snachala-ona-byla-vydumana-v02__KOO.md`
+- commit: `04680a8f8a1e7f02eca57749f8029eb464715080`
+- blob: `493a1ac4a2bb641083dcbf67b4e13c25c3b6a7fd`
+- delta note: `entities/redaktor/outbox/RED__snachala-ona-byla-vydumana-v02-delta__KOO.md`
+- publication remains blocked until KAN/KOO return a release decision.
+
