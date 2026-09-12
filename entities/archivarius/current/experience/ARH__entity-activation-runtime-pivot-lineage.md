@@ -50,7 +50,7 @@ KOO отдельно проверил исправление и выпустил
 
 `entities/koordinator/outbox/KOO__entity-runner-integrity-r1-acceptance__SIS.md`
 
-KOO decision commit: `206481f0f9b3325ff0644fd56232b77c4d8d697`
+KOO decision commit: `206481f0f9b3325ff26d0cef11b20e06e8c1ecc3`
 status: `INTEGRITY_GATE_PASS_FOR_BOUNDED_NEXT_STAGE`
 
 Defect-specific integrity gate закрыт. Это само по себе не доказывает provider readiness, provider-side request, credential availability, billing/entitlement, deployment, processing_started или unattended activation E2E.
