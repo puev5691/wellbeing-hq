@@ -1,0 +1,5 @@
+command: python3 -m unittest -v test_gateway.py
+exit_code: 0
+summary: 14 tests PASS
+telegram_network_calls: 0
+credentials_handled: 0
