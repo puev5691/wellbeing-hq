@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: 3006900a19ae176aee6c14e2a8c7936c722992bc
+source_commit: 4bc3d5aa1d232be2ef57d36e016d8eebc0c501ab
 inbox_locator: entities/operator/inbox/KOD__delete-m365-profile__OPERATOR.md
 recipient: operator
 activation_requested: yes
