@@ -1,28 +1,16 @@
-# KOD → OPERATOR: удалить профиль Microsoft 365
+# OPERATOR inbox pointer: удалить профиль Microsoft 365
 
-status: `ACTION_REQUIRED`
+artifact: `entities/koder/outbox/KOD__delete-m365-profile__OPERATOR.md`
+artifact_commit: `86f50380a25a223bd78d7d2d08a689f744f61cb9`
+dispatch: `routes/dispatch/KOD__delete-m365-profile__OPERATOR.md`
+dispatch_commit: `3c9a646f087f38aa64bdd69b65ce6da4948e0876`
 source_task: `task:KOO-M365-SUPERVISOR-E2E-01`
+status: addressed
 
-## Задача
-
-Удалить созданную для эксперимента регистрацию / профиль Microsoft 365 на стороне Microsoft.
-
-## Что требуется от ОПЕРАТОРА
-
-1. Войти в тот Microsoft 365 аккаунт/tenant, который создавался для M365 supervisor E2E.
-2. Найти штатное управление аккаунтом/профилем/tenant и запустить именно удаление созданной регистрации, а не просто выход из аккаунта или очистку браузера.
-3. Если Microsoft требует предварительно отменить trial/subscription, удалить tenant resources или пройти период ожидания, выполнить только необходимые штатные шаги удаления.
-4. Не создавать новую регистрацию и не возобновлять M365 experiment.
-5. После завершения вернуть проверяемый результат: что именно удалено и какой post-condition показывает Microsoft. Если удаление отложено Microsoft, вернуть точный статус и условие окончательного удаления.
-
-## Граница
-
-KOD не заявляет, что профиль Microsoft 365 уже удалён: доступного авторизованного Microsoft account-management surface в текущем проходе нет.
-
-M365 supervisor E2E считается прекращённым по распоряжению ОПЕРАТОРА; эта задача нужна только для внешней очистки оставшейся регистрации.
+required_action: удалить созданную для эксперимента регистрацию / профиль Microsoft 365 штатным Microsoft account/tenant management path и вернуть проверяемый post-condition; если удаление отложено Microsoft, вернуть точный status/condition.
 
 project_time: omitted; trusted project-time source not used
 
 ---
 КТО: KOD / КОДЕР
-ДЛЯ ЧЕГО: адресовать ОПЕРАТОРУ ручное удаление созданной M365 регистрации/профиля с обязательной проверкой post-condition
+ДЛЯ ЧЕГО: canonical inbox locator задачи ОПЕРАТОРУ на удаление M365 регистрации
