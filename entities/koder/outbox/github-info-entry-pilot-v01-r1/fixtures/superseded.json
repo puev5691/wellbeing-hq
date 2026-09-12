@@ -1,0 +1,14 @@
+{
+  "id": "superseded",
+  "title": "Superseded object",
+  "immutable_identity": "sha256:synthetic-superseded",
+  "semantic_status": "current",
+  "editorial_status": "editorial_ready",
+  "security_state": "public_safe",
+  "representation_state": "representation_ready",
+  "release_state": "release_authorized",
+  "superseded_by": "sha256:synthetic-new",
+  "secret_dependency": false,
+  "public_legal_outcome": "allowed",
+  "public_legal_conditions_satisfied": false
+}

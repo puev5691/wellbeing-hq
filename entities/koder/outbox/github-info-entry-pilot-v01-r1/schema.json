@@ -1,0 +1,59 @@
+{
+  "schema_version": "pilot-v0.1-r1",
+  "production": false,
+  "required": [
+    "id",
+    "title",
+    "immutable_identity",
+    "semantic_status",
+    "editorial_status",
+    "public_legal_outcome",
+    "public_legal_conditions_satisfied",
+    "security_state",
+    "representation_state",
+    "release_state",
+    "superseded_by",
+    "secret_dependency"
+  ],
+  "enums": {
+    "editorial_status": [
+      "editorial_unassessed",
+      "editorial_draft",
+      "editorial_reviewed",
+      "editorial_ready",
+      "editorial_blocked",
+      "editorial_superseded",
+      "editorial_withdrawn"
+    ],
+    "public_legal_outcome": [
+      "allowed",
+      "allowed-with-conditions",
+      "blocked",
+      "unknown"
+    ],
+    "security_state": [
+      "not_applicable",
+      "public_safe",
+      "requires_SIS_review",
+      "blocked_secret",
+      "unknown"
+    ],
+    "representation_state": [
+      "representation_unassessed",
+      "preview_ready",
+      "preview_built",
+      "representation_ready",
+      "deployed_unverified",
+      "readback_confirmed",
+      "representation_blocked",
+      "representation_superseded",
+      "representation_withdrawn"
+    ],
+    "release_state": [
+      "release_unassessed",
+      "release_authorized",
+      "release_blocked",
+      "release_withdrawn"
+    ]
+  }
+}
