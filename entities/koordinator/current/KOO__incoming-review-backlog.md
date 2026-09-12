@@ -1,105 +1,50 @@
 # KOO incoming review backlog
 
-status: CURRENT_AUDITED_AFTER_CLOSURE_PASS
+status: NO_CURRENT_SUBSTANTIVE_KOO_REVIEW_BLOCKERS
 
-## Current live substantive KOO blockers
+## Current count
 
-### 1. SHT → KOO: COOP source conflict
+Substantive KOO review/decision blockers:
+`0`.
 
-Artifact:
-`entities/shtabist/outbox/SHT__COOP-launch-blocked-source-conflict__KOO.md`
+The previous final blocker, SHT COOP source conflict, was resolved by explicit OPERATOR decision:
+`Вариант 1`.
 
-State:
-`BLOCKED_SOURCE_CONFLICT`.
-
-Conflict:
-- `project-instructions-core-v2.1` + `file-work-canon-universal-v2.3` allow verified locator-based delivery;
-- `source-loading-policy-v2` section 5 still describes terminal delivery as actual file upload to addressed chat or explicit failure.
-
-This requires explicit OPERATOR normative resolution before SHT may continue the P1 COOP research conveyor.
-
-## Closed in the latest KOO cleanup pass
-
-### VOL Experience Layer
-
-Decision:
-`ACCEPTED_BOUNDED_CANDIDATE_WITH_NORMALIZATION_DEBT`.
-
-Decision artifact:
-`entities/koordinator/outbox/KOO__experience-layer-verification-decision__VOL.md`
+Effective decision:
+`entities/koordinator/current/KOO__delivery-rule-operator-decision.md`
 commit:
-`36bccfae041fed7ee93a3eafa4e64d5f3ece0024`.
+`b8b74a7ad58111b58e02f6a82b693d152e09a39b`.
 
-Original and v2 verification routes now have exact receipts.
+SHT has been instructed to resume the same P1 COOP research-conveyor task.
 
-### SIS VPN/Hiddify experience
+KAN has been assigned source-loading-policy harmonization.
 
-Decision:
-`ACCEPTED_FOR_PROFILE_EXPERIENCE_MERGE_AND_RUNBOOK`.
+ARH has been notified to preserve supersede provenance.
 
-Decision artifact:
-`entities/koordinator/outbox/KOO__vpn-client-experience-decision__SIS.md`
-commit:
-`5f8aa5b54c8632afc8ecddf91d03a8b3dde32e99`.
+## Active work elsewhere does not count as KOO review backlog
 
-SIS is authorized to append reviewed experience cards and create the Android VPN diagnostics runbook.
+Current downstream/profile work may still exist, including:
+- SHT COOP research conveyor resumed;
+- SHT inbox-lifecycle design;
+- KAN Telegram privacy gate;
+- KAN source-loading-policy harmonization;
+- SIS VPN experience merge/runbook;
+- KOD/activation product branches;
+- ARH preservation work.
 
-Closed device/client registry:
-`DO_NOT_CREATE_NOW`.
+These are not currently waiting on a KOO content-review decision.
 
-### SIS activation worker / real Entity activation
+## Housekeeping
 
-Isolated E2E had already been accepted earlier.
+Two sender-owned registry service tails remain non-blocking:
+- SHT sender-registry state update for exchange-e2e result;
+- KOD sender-registry state update for entity-activation-gap research.
 
-Fresh real-boundary blocker was reviewed and accepted:
-
-`BLOCKED_REAL_ENTITY_ACTIVATION_BOUNDARY`.
-
-Decision:
-`entities/koordinator/outbox/KOO__real-entity-activation-boundary-decision__SIS.md`
-commit:
-`754b91a719b2badfe25a22b45c08a647595e5cac`.
-
-SIS runtime branch is closed until a concrete accepted adapter/interface exists.
-
-### SHT activation-worker cross-stage integrity gate
-
-Receipt-closed as dependency-resolved:
-`routes/receipts/SHT__activation-worker-v02-integrity-gate__KOO.receipt.md`
-commit:
-`d5e417b0655fc458c4334a274fcd151469218e36`.
-
-## Mechanical service tails
-
-KOO-owned service tails closed:
-1. KOD activation-worker v0.1 direct route;
-2. KOD safe-client-helper v0.2 direct route.
-
-Remaining sender-owned registry housekeeping:
-1. SHT sender-registry state update for exchange-e2e result with existing receipt;
-2. KOD sender-registry state update for entity-activation-gap research with existing receipt.
-
-These two do not block profile work and do not require new KOO substantive review.
-
-## Count
-
-Current substantive KOO review/decision blockers:
-`1`.
-
-By sender:
-- SHT: `1`;
-- SIS: `0`;
-- VOL: `0`;
-- KOD: `0`;
-- WEB: `0`;
-- KAN: `0` currently waiting on KOO review.
-
-Current blocker requires:
-`explicit OPERATOR normative decision`.
+They do not require new KOO substantive review.
 
 project_time: omitted; trusted project-time source not used
 
 ---
 КТО: KOO / КООРДИНАТОР
-ДЛЯ ЧЕГО: зафиксировать фактическую очередь KOO после разбора зависших review и service tails
-СТАТУС: current_audited_after_closure_pass
+ДЛЯ ЧЕГО: хранить фактическое состояние KOO review queue после разбора зависших запросов и решения ОПЕРАТОРА
+СТАТУС: no_current_substantive_koo_review_blockers
