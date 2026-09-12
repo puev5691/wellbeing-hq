@@ -1,6 +1,6 @@
 # KOO: интеграция SHD / ШАРДОВИКА в штат ШТАБА
 
-status: OPERATIONAL_ADAPTATION_COMPLETE__PROJECT_SOURCE_UI_MIGRATION_VERIFIED__PRESERVATION_PENDING
+status: OPERATIONAL_ADAPTATION_COMPLETE__PROJECT_SOURCE_UI_MIGRATION_VERIFIED__PRESERVATION_CHECKPOINT_VERIFIED__PRACTICAL_INITIATION_TEST_NOT_PERFORMED
 
 ## Решение ОПЕРАТОРА
 
@@ -210,7 +210,7 @@ Approved external role-source v2.3 publication/readback: `PASS`.
 
 Addressed notification to operational entities: `PASS_WITH_PROVODNIK_ROUTING_CODE_GAP`.
 
-ARH preservation/recovery closure: `BLOCKED_WAITING_CURRENT_WRITER_SHD_MANUAL_ACTIVATION`.
+ARH preservation/recovery closure: `PASS_PRESERVATION_CHECKPOINT_VERIFIED__PRACTICAL_INITIATION_TEST_NOT_PERFORMED`.
 
 Physical Project Sources UI migration: `PASS_FOR_CURRENT_PROJECT_SOURCE_LAYER`.
 
@@ -252,3 +252,40 @@ Therefore current preservation state is:
 
 This blocker is external to ARH's preservation authority. KOO must not fabricate SHD self-state or claim recovery closure.
 
+
+
+## Preservation closure supersede
+
+The earlier section `Preservation activation blocker` is historical and is superseded for current state by later verified evidence.
+
+Current-writer SHD processed both addressed ARH preservation tasks and published:
+
+`puev5691/wellbeing-entity-bootstrap/packages/shd-role-v2_3-current-recovery/`
+
+immutable ref:
+`ce9891f63b6123600623e01b8da84131f239c5c7`.
+
+ARH verification:
+`entities/archivarius/outbox/ARH__shd-role-v2_3-recovery-verification__SHD.md`
+commit:
+`29e0a61e4a79842505a279bd131d25cb64978f5e`.
+
+Verified:
+- direct current-writer SHD receipts for both preservation tasks;
+- recovery package manifest/composition;
+- Git blob identities;
+- bytewise SHA-256 `4/4 PASS`;
+- recovery-registry entry;
+- previous `CURRENT_WRITER_CHECKPOINT_REQUIRED` dependency resolved.
+
+Current classification:
+`PUBLISHED_CURRENT_PRESERVATION_VERIFIED__PRACTICAL_INITIATION_TEST_NOT_PERFORMED`.
+
+Not proven:
+- practical cold-start of a new SHD instance;
+- exact historical ChatGPT Entity-chat resume;
+- fresh production/server state.
+
+Historical automatic activation failures remain valid provenance.
+
+project_time: omitted; trusted project-time source not used
