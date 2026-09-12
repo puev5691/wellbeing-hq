@@ -8,8 +8,8 @@ project_time: omitted; trusted project-time source not used
 
 - Repository: `puev5691/wellbeing-hq`
 - Checked branch: `main`
-- Verified prewrite HEAD: `1fd54916f88c95d5c4c42b509fe08398f8ad249f`
-- Previous snapshot baseline: `477c7a328aa5990d782330f9c6cc29c455cfc763`
+- Verified prewrite HEAD: `8aaaffc9b5e0b2007f2702a2f450221f3b75eba0`
+- Previous snapshot baseline: `4faad5c2a4244d3903e8fff98e366ed35773b36a`
 - Emergency initiation commit remains: `a0596982f6457b579458e8f08a359a3440890d2d`
 
 ## Verified current ARH state
@@ -25,7 +25,9 @@ project_time: omitted; trusted project-time source not used
 - KOO emergency recovery v03 was independently checked, published as current recovery and later accepted as preservation closure within bounded claims.
 - KAN preservation checkpoint was structurally verified and registered; practical initiation/cold-start remains a separate recoverability gate.
 - SHT Entity Runner provenance wording defect was identified, corrected without rewriting history, independently verified and recipient processing later confirmed.
-- event-lineage now explicitly preserves causal ordering: an earlier `activation_failed` / `processing_started: no` event remains failed historical evidence even if a later independent receipt proves `received_and_processed`.
+- event-lineage explicitly preserves causal ordering: an earlier `activation_failed` / `processing_started: no` event remains failed historical evidence even if a later independent receipt proves `received_and_processed`.
+- SHT independently rechecked propagation of these boundaries into this ARH recovery snapshot at repository commit `4faad5c2a4244d3903e8fff98e366ed35773b36a` and classified only that recovery consistency as `CONSISTENCY_PASS`.
+- That SHT consistency verification does not prove practical cold-start, unattended activation, exact historical chat resume, Entity Runner integrity/deployment, product-side Work execution, or runtime continuity.
 
 ## Current evidence boundaries
 
@@ -59,4 +61,4 @@ A replacement ARH chat must:
 ---
 created_by: ARH / АРХИВАРИУС
 project_time: omitted; trusted project-time source not used
-purpose: refresh emergency recovery state after preservation, sanitation and causal event-lineage work so a replacement ARH does not resume already-closed blockers or collapse later receipts into retroactive activation success
+purpose: preserve current emergency recovery state and SHT independent consistency verification without promoting recovery consistency into technical activation, cold-start, deployment, runtime or product E2E success
