@@ -1,21 +1,8 @@
 # KOO incoming review backlog
 
-status: CURRENT_AUDITED
+status: CURRENT_AUDITED_AFTER_CLOSURE_PASS
 
-## Scope
-
-Repository: `puev5691/wellbeing-hq`.
-
-The KOO inbox currently contains 92 working files plus `.gitkeep`. Most are historical or already resolved. They are not all active review dependencies.
-
-Fresh audit used:
-- current repository tree;
-- receipts;
-- recent commits;
-- SHT corrected routing backlog audit;
-- exact current artifacts for each live candidate.
-
-## Active substantive KOO decisions
+## Current live substantive KOO blockers
 
 ### 1. SHT → KOO: COOP source conflict
 
@@ -25,94 +12,94 @@ Artifact:
 State:
 `BLOCKED_SOURCE_CONFLICT`.
 
-Required KOO/OPERATOR decision:
-resolve conflict between approved locator-based delivery model and the older source-loading-policy wording before SHT can continue the P1 COOP research conveyor.
+Conflict:
+- `project-instructions-core-v2.1` + `file-work-canon-universal-v2.3` allow verified locator-based delivery;
+- `source-loading-policy-v2` section 5 still describes terminal delivery as actual file upload to addressed chat or explicit failure.
 
-Blocking downstream work: yes.
+This requires explicit OPERATOR normative resolution before SHT may continue the P1 COOP research conveyor.
 
-### 2. VOL → KOO: Continuity v2 Experience Layer verification
+## Closed in the latest KOO cleanup pass
 
-Artifact:
-`entities/volonter/outbox/VOL__experience-ingest-verification__KOO.md`
+### VOL Experience Layer
 
-State:
-candidate package verification complete; no KOO receipt/acceptance/rejection yet.
+Decision:
+`ACCEPTED_BOUNDED_CANDIDATE_WITH_NORMALIZATION_DEBT`.
 
-Required KOO decision:
-accept as candidate Experience Layer, request correction, or reject; active Project Source promotion is not requested/proven.
+Decision artifact:
+`entities/koordinator/outbox/KOO__experience-layer-verification-decision__VOL.md`
+commit:
+`36bccfae041fed7ee93a3eafa4e64d5f3ece0024`.
 
-Blocking downstream work: yes, for normalization/promotion path.
+Original and v2 verification routes now have exact receipts.
 
-### 3. SIS → KOO: activation-worker v0.2 isolated runtime/E2E result
+### SIS VPN/Hiddify experience
 
-Artifact:
-`entities/sisadmin/outbox/SIS__activation-worker-v02-e2e-result__KOO.md`
+Decision:
+`ACCEPTED_FOR_PROFILE_EXPERIENCE_MERGE_AND_RUNBOOK`.
 
-Evidence:
-`PASS_ISOLATED_RUNTIME_E2E`, `8/8 PASS`.
+Decision artifact:
+`entities/koordinator/outbox/KOO__vpn-client-experience-decision__SIS.md`
+commit:
+`5f8aa5b54c8632afc8ecddf91d03a8b3dde32e99`.
 
-Receipt exists:
-`routes/receipts/SIS__activation-worker-v02-e2e-result__KOO.receipt.md`
+SIS is authorized to append reviewed experience cards and create the Android VPN diagnostics runbook.
 
-But receipt explicitly says:
-`SEPARATE_DECISION_REQUIRED`.
+Closed device/client registry:
+`DO_NOT_CREATE_NOW`.
 
-Required KOO decision:
-accept/reject isolated-runtime evidence and define the next authorized activation stage. This is not proof of real ChatGPT exact-chat wake/resume.
+### SIS activation worker / real Entity activation
 
-Blocking downstream work: yes.
+Isolated E2E had already been accepted earlier.
 
-### 4. SIS → KOO: VPN client experience review
+Fresh real-boundary blocker was reviewed and accepted:
 
-Artifact:
-`entities/sisadmin/outbox/SIS__vpn-client-experience-review__KOO.md`
+`BLOCKED_REAL_ENTITY_ACTIVATION_BOUNDARY`.
 
-SIS profile verdict:
-`SIS_REVIEW_ACCEPTED_FOR_WORKING_PRACTICE`.
+Decision:
+`entities/koordinator/outbox/KOO__real-entity-activation-boundary-decision__SIS.md`
+commit:
+`754b91a719b2badfe25a22b45c08a647595e5cac`.
 
-Required KOO decisions:
-- merge six candidate cards as EXP-SIS-014..019 or not;
-- authorize Android VPN diagnostics runbook or not;
-- decide whether a closed device/client registry is required and, if yes, define owner/access/minimal fields.
+SIS runtime branch is closed until a concrete accepted adapter/interface exists.
 
-Blocking downstream work: yes, for canonical experience/runbook/registry path.
+### SHT activation-worker cross-stage integrity gate
 
-## Related informational/meta incoming not counted as separate substantive decisions
-
-SHT cross-stage activation-worker integrity gate points to item 3 and is not a separate technical acceptance.
-
-SHT corrected routing backlog audit is now receipt-closed as an audit input:
-`routes/receipts/SHT__routing-backlog-audit-v02-correction__KOO.receipt.md`.
-
-Older KOD Telegram Phase 0/Phase 1A current files may still contain stale waiting language, but KOO terminal review decisions already exist. They are not counted as live KOO review dependencies.
+Receipt-closed as dependency-resolved:
+`routes/receipts/SHT__activation-worker-v02-integrity-gate__KOO.receipt.md`
+commit:
+`d5e417b0655fc458c4334a274fcd151469218e36`.
 
 ## Mechanical service tails
 
-The last corrected SHT audit identified four service tails that do not require new profile research:
-1. direct route closure/receipt for KOD activation-worker v0.1 after existing rejection;
-2. direct route closure/receipt for KOD safe-client-helper v0.2 after downstream acceptance;
-3. SHT sender-registry state update for exchange-e2e result with existing receipt;
-4. KOD sender-registry state update for entity-activation-gap research with existing receipt.
+KOO-owned service tails closed:
+1. KOD activation-worker v0.1 direct route;
+2. KOD safe-client-helper v0.2 direct route.
 
-These are housekeeping, not substantive review blockers.
+Remaining sender-owned registry housekeeping:
+1. SHT sender-registry state update for exchange-e2e result with existing receipt;
+2. KOD sender-registry state update for entity-activation-gap research with existing receipt.
+
+These two do not block profile work and do not require new KOO substantive review.
 
 ## Count
 
-Substantive KOO review/decision blockers: `4`.
+Current substantive KOO review/decision blockers:
+`1`.
 
 By sender:
 - SHT: `1`;
-- VOL: `1`;
-- SIS: `2`;
-- KOD: `0` currently awaiting KOO substantive review after Telegram Phase 1A terminal acceptance.
+- SIS: `0`;
+- VOL: `0`;
+- KOD: `0`;
+- WEB: `0`;
+- KAN: `0` currently waiting on KOO review.
 
-Meta/audit incoming awaiting receipt after this audit: `0`.
-
-Mechanical service tails: `4`.
+Current blocker requires:
+`explicit OPERATOR normative decision`.
 
 project_time: omitted; trusted project-time source not used
 
 ---
 КТО: KOO / КООРДИНАТОР
-ДЛЯ ЧЕГО: хранить проверяемую текущую очередь входящих KOO review/decision вместо подсчёта всего исторического inbox
-СТАТУС: current_audited
+ДЛЯ ЧЕГО: зафиксировать фактическую очередь KOO после разбора зависших review и service tails
+СТАТУС: current_audited_after_closure_pass
