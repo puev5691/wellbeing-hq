@@ -1,6 +1,6 @@
 # Dispatch: VOL → KOO hybrid interaction political economy research update
 
-exchange_gate: `v1`
+exchange_gate: v1
 sender: `volonter`
 recipient: `koordinator`
 status: `dispatched`
