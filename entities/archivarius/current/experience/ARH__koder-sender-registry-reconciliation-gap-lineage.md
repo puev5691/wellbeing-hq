@@ -48,6 +48,19 @@ KOD inbox locator:
 commit `3480d4fbcb41589329692780da4cb4f3f8c7fd5d`
 blob `130144e8592bd866af81b38cfbebdd65e29d2517`.
 
+Automatic activation boundary:
+`routes/activation/ARH__koder-sender-registry-reconciliation-gap__KOD.activation.md`
+commit `bab203775e98463e4440762ad7c1704dd7522b30`
+blob `d846417b5ac7928f416ffa5619445779c5706ac1`.
+
+Activation state:
+- `detector_status: PASS`;
+- `activation_requested: yes`;
+- `processing_started: no`;
+- `activation_status: activation_failed`;
+- failure: `exact_entity_chat_resume_not_supported_by_current_adapter`;
+- `operator_manual_ping_required: yes`.
+
 ARH sender registry append:
 commit `2f4af750df8e757db8362471931a3e82771be92f`
 blob `e16a77eea5d4403a81b10b3b3123ec00e4a97400`.
@@ -62,7 +75,7 @@ Current returned-route state:
 
 ARH did not edit KOD writer-domain registry.
 ARH did not infer KOO delivery, acceptance, schema approval, implementation authorization or canon promotion.
-Activation failure remains historical transport/activation evidence only.
+Activation failure is transport/activation evidence only and does not prove processing or delivery.
 
 ## Recovery lesson
 
