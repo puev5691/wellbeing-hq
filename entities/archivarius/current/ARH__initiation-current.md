@@ -51,15 +51,24 @@ Experience Layer является историческим/обучающим с
 
 ## Текущая Resume-First точка
 
-Последний ARH-owned preservation result до подготовки этого recovery checkpoint: verified emergency recovery VOL.
+Последняя завершённая значимая ARH-owned работа — независимая проверка и canonical publication аварийного recovery КОДЕРа.
 
-VOL candidate: `puev5691/wellbeing-entity-bootstrap@f6ff070313caff5d7b5d12779d4bb8d8eb0eec01:entities/vol/recovery/current`.
+KOD source artifact:
+`entities/koder/outbox/KOD__emergency-recovery-candidate__ARH.md`
+commit: `e39763ab699b17650bc6c1c6e6c04f6364ea5d3e`.
 
-ARH verification result: `entities/archivarius/outbox/ARH__VOL-emergency-recovery-verification__VOL.md`, commit `25f5f38a8cca0a65be02979089b107e598827944`.
+KOD canonical recovery:
+`puev5691/wellbeing-entity-bootstrap@f134dac1a3c64523fe6e74a8c90bfc79bcc86078:entities/kod/recovery/current`.
 
-Recovery registry update: commit `4ed963bab6ee86ebd7417764a44a38468eddf3a3`.
+ARH verification result:
+`entities/archivarius/outbox/ARH__KOD-emergency-recovery-verification__KOD.md`
+commit: `78a8f278e3a332bce05e28352e1316ea18f0a13c`.
 
-После этого новый VOL успешно прошёл инициацию и продолжил прерванную задачу; репозиторий подтверждает новый VOL result commit `e93a6604052ebc4abf4413ae9963746f130e1d68`. Это не переписывает собственный ARH preservation status.
+Independent candidate verification and post-publication readback: `5/5 SHA-256 PASS`.
+
+Practical replacement-KOD initiation остаётся отдельной границей и не должна выводиться из inbox placement, detector PASS или activation_requested.
+
+Собственный ARH recovery v02 остаётся внешним candidate, а не canonical recovery, пока нет independent KOO verification. Поэтому при подготовке replacement ARH необходимо предпочесть более свежий recovery candidate, если он опубликован после этого файла.
 
 ## First report нового ARH
 
