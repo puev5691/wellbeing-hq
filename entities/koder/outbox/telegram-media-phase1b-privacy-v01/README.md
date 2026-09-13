@@ -6,7 +6,7 @@ Purpose: implement KOO-selected `privacy_mode=aggregate_only` on top of accepted
 
 Changes:
 - `safe_receipt()` emits `privacy_mode: aggregate_only` and stable policy marker;
-- stale `fail_closed_pending_KAN` receipt field is removed;
+- the previous pending-KAN receipt marker is removed from public receipt semantics;
 - retained audience-derived state remains publication/distribution aggregate totals only;
 - no user identity, raw comment text, per-user table, identity hash, LLM or embedding path is added;
 - runtime contract identifies sandbox DB as `/var/lib/wellbeing/telegram-phase1b-sandbox/gateway.sqlite3`;
