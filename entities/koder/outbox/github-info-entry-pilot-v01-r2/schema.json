@@ -1,0 +1,88 @@
+{
+  "schema_version": "pilot-v0.1-r2",
+  "production": false,
+  "unknown_properties_policy": "fail_closed",
+  "required": [
+    "id",
+    "title",
+    "immutable_identity",
+    "semantic_status",
+    "editorial_status",
+    "public_legal_outcome",
+    "public_legal_conditions_satisfied",
+    "security_state",
+    "representation_state",
+    "release_state",
+    "superseded_by",
+    "secret_dependency"
+  ],
+  "allowed_properties": [
+    "id",
+    "title",
+    "immutable_identity",
+    "semantic_status",
+    "editorial_status",
+    "public_legal_outcome",
+    "public_legal_conditions_satisfied",
+    "security_state",
+    "representation_state",
+    "release_state",
+    "superseded_by",
+    "secret_dependency"
+  ],
+  "types": {
+    "id": "string",
+    "title": "string",
+    "immutable_identity": "string",
+    "semantic_status": "string",
+    "editorial_status": "string",
+    "public_legal_outcome": "string",
+    "public_legal_conditions_satisfied": "boolean",
+    "security_state": "string",
+    "representation_state": "string",
+    "release_state": "string",
+    "superseded_by": "null|string",
+    "secret_dependency": "boolean"
+  },
+  "enums": {
+    "editorial_status": [
+      "editorial_unassessed",
+      "editorial_draft",
+      "editorial_reviewed",
+      "editorial_ready",
+      "editorial_blocked",
+      "editorial_superseded",
+      "editorial_withdrawn"
+    ],
+    "public_legal_outcome": [
+      "allowed",
+      "allowed-with-conditions",
+      "blocked",
+      "unknown"
+    ],
+    "security_state": [
+      "not_applicable",
+      "public_safe",
+      "requires_SIS_review",
+      "blocked_secret",
+      "unknown"
+    ],
+    "representation_state": [
+      "representation_unassessed",
+      "preview_ready",
+      "preview_built",
+      "representation_ready",
+      "deployed_unverified",
+      "readback_confirmed",
+      "representation_blocked",
+      "representation_superseded",
+      "representation_withdrawn"
+    ],
+    "release_state": [
+      "release_unassessed",
+      "release_authorized",
+      "release_blocked",
+      "release_withdrawn"
+    ]
+  }
+}
