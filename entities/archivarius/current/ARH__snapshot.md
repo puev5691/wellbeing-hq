@@ -41,6 +41,21 @@ Current-writer self-readback exact immutable candidate: 6/6 SHA-256 PASS, сох
 
 Independent KOO verification именно ARH recovery v02 по текущему evidence не найден. Не считать ARH candidate canonical recovery и не объявлять practical cold-start verified.
 
+Fresh successor candidate v03:
+`puev5691/wellbeing-entity-bootstrap@b9b88de32fe9e147b505ae158c898acb06d8762f:packages/arh-emergency-recovery-v03`
+
+Self-check from fresh immutable clone: 7/7 SHA-256 PASS. Candidate включает current initiation, snapshot после KOD recovery, emergency experience resume, chat-degradation diagnostic, stewardship mandate, SOURCES и manifest/checksums.
+
+KOO verification route:
+- artifact commit: `54d2d18aefdf7553438e4e5a1bb0ad7134c07b69`;
+- KOO inbox commit: `1a8a3894c2a93e4313f7b9e467978f6781ea3aa5`;
+- dispatch commit: `463c5413f587c484195f2cb550fc9747f708b548`;
+- sender registry commit: `f8aa00806414297e7373f5700d3e1ae0b3903e9b`;
+- status: `dispatched`;
+- receipt: `null`.
+
+v02 остаётся historical candidate provenance; для будущей replacement-initiation предпочтителен более свежий v03 после independent verification.
+
 ### KOO
 
 Canonical recovery:
