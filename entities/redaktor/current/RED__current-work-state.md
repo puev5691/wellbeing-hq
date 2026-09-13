@@ -1,6 +1,6 @@
 # RED current work state
 
-status: active__literary_v03_dispatched__speech_waiting_operator
+status: active__literary_waiting_operator_release__speech_waiting_operator_review
 entity: RED / РЕДАКТОР
 project_time: omitted; trusted project-time source not used
 
@@ -22,10 +22,25 @@ v0.3 implements the bounded KOO task after OPERATOR clarification:
 - explicit maturity boundary preserved: no finished universal Measure, contribution metric, fixed conversion, guaranteed price/yield/exchange/benefit;
 - authority boundaries preserved.
 
-Current gate:
-`pending_short_KAN_delta_review`.
+KAN delta review:
+- artifact: `entities/kancelar/outbox/KAN__snachala-ona-byla-vydumana-v03-delta-review__KOO.md`
+- commit: `2c858f412576539c5004777d0310e260d388c286`
+- result: `PASS_DELTA`
+- remaining critical defects: `none`
 
-Publication remains unauthorized until subsequent competent decision.
+KOO gate decision:
+- `entities/koordinator/outbox/KOO__snachala-ona-byla-vydumana-v03-gate-decision__RED.md`
+- commit: `d9ce3fd253c258fae70b52533eb805fe5886cb55`
+
+OPERATOR release route:
+- `entities/koordinator/outbox/KOO__snachala-ona-byla-vydumana-v03__OPERATOR.md`
+- `routes/dispatch/KOO__snachala-ona-byla-vydumana-v03__OPERATOR.md`
+- `entities/operator/inbox/KOO__snachala-ona-byla-vydumana-v03__OPERATOR.md`
+
+Current state:
+`WAITING_OPERATOR_RELEASE_DECISION`.
+
+Publication remains unauthorized until explicit OPERATOR release/return/hold decision.
 
 ## 2. Public cooperation speech
 
@@ -41,7 +56,16 @@ KOO routed the exact candidate to OPERATOR:
 - `entities/koordinator/outbox/KOO__wellbeing-cooperation-speech-v02__OPERATOR.md`
 - `entities/operator/inbox/KOO__wellbeing-cooperation-speech-v02__OPERATOR.md`
 
+Current state:
+`WAITING_OPERATOR_REVIEW`.
+
+Verified OPERATOR route:
+- `entities/koordinator/outbox/KOO__wellbeing-cooperation-speech-v02__OPERATOR.md`
+- `routes/dispatch/KOO__wellbeing-cooperation-speech-v02__OPERATOR.md`
+- `entities/operator/inbox/KOO__wellbeing-cooperation-speech-v02__OPERATOR.md`
+
 Current boundary:
+- KOO bounded acceptance exists;
 - no OPERATOR acceptance/revision result has been verified;
 - do not revise by inertia.
 
@@ -55,12 +79,13 @@ RED bounded result:
 KOO status:
 `ACCEPTED_BOUNDED_STAGE_B_PREREQUISITE`.
 
+RED profile status:
+`COMPLETED_ACCEPTED_NO_EDITORIAL_TASK_PENDING`.
+
 Downstream verified state:
 - WEB Stage B synthesis accepted as bounded non-production baseline;
 - KOD corrected info-entry pilot r1 accepted as bounded non-production pilot;
-- SHD cross-layer verification is the next independent gate.
-
-RED has no current action in this branch unless a new exact editorial defect/task is addressed.
+- RED has no current action in this branch unless a new exact editorial task is addressed.
 
 ## 4. SHD / ШАРДОВИК organizational update
 
@@ -107,4 +132,4 @@ not by stale inbox presence or chat memory.
 
 ---
 WHO: RED / РЕДАКТОР
-PURPOSE: compact current-writer state for operational continuity after literary v0.3 and SHD staff integration
+PURPOSE: compact current-writer state reconciled with verified KAN/KOO/OPERATOR routes
