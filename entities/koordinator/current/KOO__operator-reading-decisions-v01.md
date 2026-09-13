@@ -60,9 +60,24 @@ No provider pilot authorization yet.
 State:
 `WAITING_RUSSIAN_OPERATOR_BRIEF`.
 
-Additional operator note:
-- ChatGPT Pro tariff is intended to be purchased by OPERATOR in the next few hours if the product allows it.
-- This note is not proof that purchase or plan change has occurred.
+## 5. ChatGPT Pro
+
+Operator confirmation:
+- subscription purchased;
+- payment completed;
+- subscription activated.
+
+State:
+`OPERATOR_CONFIRMED_ACTIVE`.
+
+Evidence note:
+- explicit OPERATOR statement is authoritative for project-state;
+- screenshot in the current dialog visually corroborates activation;
+- exact newly available capabilities are not inferred from plan status alone and must be verified before use in project workflows.
+
+Reference:
+`entities/koordinator/current/KOO__chatgpt-pro-activation-confirmed.md`
+commit `d2b63ed083423cef63b8a2d0528f66dd0b63501b`.
 
 ---
 КТО: OPERATOR / recorded by KOO
