@@ -1,0 +1,28 @@
+{
+  "package": "multi-model-anthropic-adapter-r01",
+  "status": "PASS_ANTHROPIC_DIRECT_ADAPTER_READY_FOR_D0_LIVE_GATE",
+  "provider": "anthropic",
+  "target_model": "claude-sonnet-5",
+  "target_url": "https://api.anthropic.com/v1/messages",
+  "data_class": "D0_SYNTHETIC",
+  "current_transport": "mock_only",
+  "live_network_implemented": false,
+  "credentials_stored": false,
+  "production": false,
+  "task_commit": "390b1a0274f33fac7a824e68ca387eb28189879a",
+  "kan_basis_commit": "c84565bec9f602f1e0da4808107a0abd52e18a4b",
+  "files": [
+    "policy.py",
+    "anthropic_adapter.py",
+    "test_policy.py",
+    "test_adapter.py",
+    "README.md",
+    "REQUEST-CONTRACT.md",
+    "PROVENANCE-CONTRACT.md",
+    "LIVE-GATE-CHECKLIST.md",
+    "SAMPLE_RESULT.json",
+    "TEST_RESULTS.txt",
+    "MANIFEST.json",
+    "SHA256SUMS.txt"
+  ]
+}

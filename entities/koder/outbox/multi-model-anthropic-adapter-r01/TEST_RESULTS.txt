@@ -1,0 +1,21 @@
+test_429 (test_adapter.AdapterTests.test_429) ... ok
+test_500_401 (test_adapter.AdapterTests.test_500_401) ... ok
+test_auth_missing (test_adapter.AdapterTests.test_auth_missing) ... ok
+test_cost (test_adapter.AdapterTests.test_cost) ... ok
+test_deterministic (test_adapter.AdapterTests.test_deterministic) ... ok
+test_malformed_and_tool (test_adapter.AdapterTests.test_malformed_and_tool) ... ok
+test_no_network_sdk_imports (test_adapter.AdapterTests.test_no_network_sdk_imports) ... ok
+test_nonmock_and_model_mismatch (test_adapter.AdapterTests.test_nonmock_and_model_mismatch) ... ok
+test_request_plan (test_adapter.AdapterTests.test_request_plan) ... ok
+test_success (test_adapter.AdapterTests.test_success) ... ok
+test_credential_field_value (test_policy.PolicyTests.test_credential_field_value) ... ok
+test_forbidden_flags (test_policy.PolicyTests.test_forbidden_flags) ... ok
+test_max_tokens (test_policy.PolicyTests.test_max_tokens) ... ok
+test_non_d0 (test_policy.PolicyTests.test_non_d0) ... ok
+test_private_locator_text (test_policy.PolicyTests.test_private_locator_text) ... ok
+test_unknown_provider_model (test_policy.PolicyTests.test_unknown_provider_model) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.009s
+
+OK
