@@ -12,7 +12,7 @@ Snapshot для Resume-First восстановления ARH при дегра�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Последний завершённый ARH-owned commit перед этим refresh: `fffbda12e3861a6be57b1ad188620c927b31085d`
+- Последний завершённый ARH-owned commit перед этим refresh: `6ee8dead7ff44c6fbd8267467e95d91f57d1fd23`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -82,9 +82,9 @@ Replacement VOL затем успешно прошёл initiation и продо�
 
 ## Последняя завершённая санитарная работа
 
-Маршрут `ARH__information-field-stewardship__KOO.md` был восстановлен в sender registry после проверки exact dispatch, exact receipt и отдельного KOO acceptance decision. Registry update commit: `fffbda12e3861a6be57b1ad188620c927b31085d`.
+Маршрут `ARH__speech-source-pack__KOO.md` был синхронизирован в `registry/by-sender/archivarius.jsonl`: stale immutable identity старой revision заменена на текущую artifact/dispatch identity, при этом provenance superseded revision сохранён. Registry update commit: `6ee8dead7ff44c6fbd8267467e95d91f57d1fd23`.
 
-Важно: receipt и acceptance сохранены как разные события; наличие acceptance не используется для выдумывания отсутствующих промежуточных фактов в других маршрутах.
+Exact receipt для текущей revision не найден, поэтому статус остаётся `dispatched`, `receipt:null`. Предыдущая санитария stewardship-маршрута с exact receipt и отдельным acceptance decision остаётся закрытым историческим событием и не переписывается.
 
 ## Текущие ARH границы
 
@@ -123,5 +123,5 @@ Replacement VOL затем успешно прошёл initiation и продо�
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: продвинуть recovery boundary после завершённой санитарии sender registry и не заставлять replacement ARH повторно обрабатывать уже закрытую работу
+ДЛЯ ЧЕГО: продвинуть recovery boundary после санитарии speech source-pack sender registry и сохранить exact pending recovery dependency
 СТАТУС: emergency-self-preservation-current
