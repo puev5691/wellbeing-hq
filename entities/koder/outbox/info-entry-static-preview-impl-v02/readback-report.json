@@ -1,1 +1,270 @@
-{"deployment":false,"expected_preview_identity":{"git_blob":"ed85ce20409237c1738f847e2ee38f0319cdd618","sha256":"6acfc8a2c5ec9698641ba93a8e3ff36085b02be988bdb2050efb8af8df57f25b"},"failures":[],"fixture_count":6,"fixture_results":[{"fixture":"BLOCKED.md","readback_confirmed":true,"assertion_evidence":[{"assertion_name":"absent_from_public_navigation","assertion_result":"PASS","failure_detail":null},{"assertion_name":"blocked_placeholder_only","assertion_result":"PASS","failure_detail":null},{"assertion_name":"blocking_reason_class_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"blocked_body_absent","assertion_result":"PASS","failure_detail":null},{"assertion_name":"no_canonical_public_url","assertion_result":"PASS","failure_detail":null}],"failures":[]},{"fixture":"CANDIDATE-RESEARCH.md","readback_confirmed":true,"assertion_evidence":[{"assertion_name":"absent_from_current_bucket","assertion_result":"PASS","failure_detail":null},{"assertion_name":"candidate_badge_persistent","assertion_result":"PASS","failure_detail":null},{"assertion_name":"no_public_ready_claim","assertion_result":"PASS","failure_detail":null},{"assertion_name":"release_unassessed_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"reviewer_private_note_absent","assertion_result":"PASS","failure_detail":null}],"failures":[]},{"fixture":"POSITIVE-PUBLIC-READY.md","readback_confirmed":true,"assertion_evidence":[{"assertion_name":"current_bucket_only","assertion_result":"PASS","failure_detail":null},{"assertion_name":"public_ready_badge_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"provenance_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"derivative_parent_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"safe_body_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"internal_test_note_absent","assertion_result":"PASS","failure_detail":null}],"failures":[]},{"fixture":"SECRET-LIKE.md","readback_confirmed":true,"assertion_evidence":[{"assertion_name":"absent_from_public_navigation","assertion_result":"PASS","failure_detail":null},{"assertion_name":"secret_block_badge_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"secret_like_value_absent","assertion_result":"PASS","failure_detail":null},{"assertion_name":"raw_detection_sample_absent","assertion_result":"PASS","failure_detail":null},{"assertion_name":"SIS_review_required_visible","assertion_result":"PASS","failure_detail":null}],"failures":[]},{"fixture":"SUPERSEDED.md","readback_confirmed":true,"assertion_evidence":[{"assertion_name":"absent_from_current_bucket","assertion_result":"PASS","failure_detail":null},{"assertion_name":"superseded_badge_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"successor_locator_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"historical_bucket_only","assertion_result":"PASS","failure_detail":null},{"assertion_name":"stale_warning_visible","assertion_result":"PASS","failure_detail":null}],"failures":[]},{"fixture":"WITHDRAWN.md","readback_confirmed":true,"assertion_evidence":[{"assertion_name":"absent_from_current_bucket","assertion_result":"PASS","failure_detail":null},{"assertion_name":"withdrawn_badge_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"withdrawal_record_visible","assertion_result":"PASS","failure_detail":null},{"assertion_name":"prior_body_not_presented_as_current","assertion_result":"PASS","failure_detail":null},{"assertion_name":"release_withdrawn_visible","assertion_result":"PASS","failure_detail":null}],"failures":[]}],"identity_match":true,"network_dependency":false,"observed_preview_identity":{"git_blob":"ed85ce20409237c1738f847e2ee38f0319cdd618","sha256":"6acfc8a2c5ec9698641ba93a8e3ff36085b02be988bdb2050efb8af8df57f25b","size":4809},"phase":"post_build_readback","publication":false,"readback_confirmed_count":6,"readback_locator":"local-static://preview.html","status":"PASS"}
+{
+  "assertion_fail_count": 0,
+  "assertion_pass_count": 31,
+  "deployment": false,
+  "deterministic_identity": "5fd19753cec3f1dc411a80c1ded151208324e3f1fe3ca8af77eb65cd942abc33",
+  "fixture_count": 6,
+  "fixture_results": [
+    {
+      "assertion_results": [
+        {
+          "failure_detail": null,
+          "name": "absent_from_public_navigation",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "blocked_placeholder_only",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "blocking_reason_class_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "blocked_body_absent",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "no_canonical_public_url",
+          "result": "PASS"
+        }
+      ],
+      "badge": "BLOCKED / NOT PUBLIC",
+      "bucket": "blocked-quarantine-internal-only",
+      "failures": [],
+      "fixture": "BLOCKED.md",
+      "id": "synthetic-blocked-001",
+      "phase": "post_build_readback",
+      "preview_ready": false,
+      "readback_confirmed": true,
+      "readback_locator": "local-static://preview.html",
+      "readback_state": "confirmed",
+      "release_authorized": false
+    },
+    {
+      "assertion_results": [
+        {
+          "failure_detail": null,
+          "name": "absent_from_current_bucket",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "candidate_badge_persistent",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "no_public_ready_claim",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "release_unassessed_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "reviewer_private_note_absent",
+          "result": "PASS"
+        }
+      ],
+      "badge": "CANDIDATE / NOT CURRENT",
+      "bucket": "research-candidate",
+      "failures": [],
+      "fixture": "CANDIDATE-RESEARCH.md",
+      "id": "synthetic-candidate-001",
+      "phase": "post_build_readback",
+      "preview_ready": true,
+      "readback_confirmed": true,
+      "readback_locator": "local-static://preview.html",
+      "readback_state": "confirmed",
+      "release_authorized": false
+    },
+    {
+      "assertion_results": [
+        {
+          "failure_detail": null,
+          "name": "current_bucket_only",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "public_ready_badge_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "provenance_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "derivative_parent_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "safe_body_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "internal_test_note_absent",
+          "result": "PASS"
+        }
+      ],
+      "badge": "PUBLIC-READY / SYNTHETIC",
+      "bucket": "current-public-ready",
+      "failures": [],
+      "fixture": "POSITIVE-PUBLIC-READY.md",
+      "id": "synthetic-public-ready-001",
+      "phase": "post_build_readback",
+      "preview_ready": true,
+      "readback_confirmed": true,
+      "readback_locator": "local-static://preview.html",
+      "readback_state": "confirmed",
+      "release_authorized": true
+    },
+    {
+      "assertion_results": [
+        {
+          "failure_detail": null,
+          "name": "absent_from_public_navigation",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "secret_block_badge_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "secret_like_value_absent",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "raw_detection_sample_absent",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "SIS_review_required_visible",
+          "result": "PASS"
+        }
+      ],
+      "badge": "SECRET-LIKE / BLOCKED",
+      "bucket": "blocked-quarantine-internal-only",
+      "failures": [],
+      "fixture": "SECRET-LIKE.md",
+      "id": "synthetic-secret-like-001",
+      "phase": "post_build_readback",
+      "preview_ready": false,
+      "readback_confirmed": true,
+      "readback_locator": "local-static://preview.html",
+      "readback_state": "confirmed",
+      "release_authorized": false
+    },
+    {
+      "assertion_results": [
+        {
+          "failure_detail": null,
+          "name": "absent_from_current_bucket",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "superseded_badge_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "successor_locator_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "historical_bucket_only",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "stale_warning_visible",
+          "result": "PASS"
+        }
+      ],
+      "badge": "SUPERSEDED",
+      "bucket": "historical-superseded",
+      "failures": [],
+      "fixture": "SUPERSEDED.md",
+      "id": "synthetic-superseded-001",
+      "phase": "post_build_readback",
+      "preview_ready": false,
+      "readback_confirmed": true,
+      "readback_locator": "local-static://preview.html",
+      "readback_state": "confirmed",
+      "release_authorized": false
+    },
+    {
+      "assertion_results": [
+        {
+          "failure_detail": null,
+          "name": "absent_from_current_bucket",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "withdrawn_badge_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "withdrawal_record_visible",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "prior_body_not_presented_as_current",
+          "result": "PASS"
+        },
+        {
+          "failure_detail": null,
+          "name": "release_withdrawn_visible",
+          "result": "PASS"
+        }
+      ],
+      "badge": "WITHDRAWN",
+      "bucket": "withdrawn-historical",
+      "failures": [],
+      "fixture": "WITHDRAWN.md",
+      "id": "synthetic-withdrawn-001",
+      "phase": "post_build_readback",
+      "preview_ready": false,
+      "readback_confirmed": true,
+      "readback_locator": "local-static://preview.html",
+      "readback_state": "confirmed",
+      "release_authorized": false
+    }
+  ],
+  "network_dependency": false,
+  "observed_preview": {
+    "expected_git_blob_sha1": "ed85ce20409237c1738f847e2ee38f0319cdd618",
+    "expected_sha256": "6acfc8a2c5ec9698641ba93a8e3ff36085b02be988bdb2050efb8af8df57f25b",
+    "identity_match": true,
+    "locator": "local-static://preview.html",
+    "observed_git_blob_sha1": "ed85ce20409237c1738f847e2ee38f0319cdd618",
+    "observed_sha256": "6acfc8a2c5ec9698641ba93a8e3ff36085b02be988bdb2050efb8af8df57f25b"
+  },
+  "phase": "post_build_readback",
+  "preview_ready_count": 2,
+  "publication": false,
+  "readback_confirmed_count": 6,
+  "readback_pass": true,
+  "release_authorized_count": 1,
+  "schema_version": "info-entry-static-preview-v0.1"
+}
