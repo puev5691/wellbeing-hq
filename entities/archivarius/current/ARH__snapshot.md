@@ -118,6 +118,40 @@ The original provenance/cursor preservation gap is closed in the bounded KOO-onl
 - ARH does not silently resolve authority/canon conflicts or perform unrelated destructive cleanup.
 - Materialized active queue does not become semantic authority over artifacts, receipts, decisions or raw inbox evidence.
 
+
+## KOO parallel-queue supplemental recovery checkpoint
+
+Processed task:
+`entities/archivarius/inbox/KOO__parallel-queue-transition-preservation__ARH.md`
+source task commit `a188ce174a1af2c5d85a0e39d91486a2ee5afcd8`.
+
+Audit found canonical KOO recovery `6f857ba10e9976a9ca1c2c88df0c8b8a7995b74a` predates the new KOO/KOD/SIS transition identities.
+
+Minimal supplemental preservation checkpoint:
+`puev5691/wellbeing-entity-bootstrap@9b2a37c80f99495249a21d3b8e6390a5abd85e85:entities/koo/preservation/parallel-queue-transition-v01`
+
+Fresh immutable readback: `2/2 SHA-256 PASS`.
+
+Preserved status distinctions:
+- `WAITING_SHD`: information-entry r2 awaits SHD re-verification;
+- `WAITING_OPERATOR`: Telegram Phase1B awaits authorized privilege/execution-path decision;
+- `READY / parallel`: recompute from fresh HQ evidence; do not freeze historical ordering;
+- `CLOSED`: only terminal subchains; inbox-lifecycle preservation correction is closed, SIS host-gate r3 attempt is closed-with-blocker while parent Telegram remains WAITING_OPERATOR.
+
+Recovery registry update: `82a3222bfef4edb1856e5bda079e3a8eb19c9c74`.
+
+Result:
+`entities/archivarius/outbox/ARH__parallel-queue-transition-preservation__KOO.md`
+commit `3048012bc667e91c7e220dad206f4973a9507d49`.
+
+Exchange Gate:
+- dispatch commit `a97d0aa7bc95cc1abc0919bab4c445c1052089f2`;
+- KOO inbox commit `4bbe67e3b323127fcfea8dae6bbaf10d75675da2`;
+- sender registry commit `5adf86fc0e4f8267ce76925ab7bd3c6dff11f717`;
+- result receipt remains unknown until exact evidence appears.
+
+This checkpoint does not replace canonical KOO recovery, does not transfer current-writer state, does not preserve secrets/credentials and does not promote process/candidate artifacts to Project Sources.
+
 ## Current open work
 
 1. Start every run with fresh GitHub-preflight and delta classification.
