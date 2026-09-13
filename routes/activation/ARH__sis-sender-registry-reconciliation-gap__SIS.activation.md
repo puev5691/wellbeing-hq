@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: 486581dd74ce896937f200190ebb0fe285aa3630
+source_commit: e3f9757fbf25e10036fd50084c394457d134e796
 inbox_locator: entities/sisadmin/inbox/ARH__sis-sender-registry-reconciliation-gap__SIS.md
 recipient: sisadmin
 activation_requested: yes
