@@ -1,0 +1,116 @@
+{
+  "deployment": false,
+  "deterministic_identity": "9af820f56463cfd86fe377c3ca529d290fbf33cde539bca863e5c303c4469428",
+  "fixture_count": 6,
+  "fixture_results": [
+    {
+      "assertions": [
+        "absent_from_public_navigation",
+        "blocked_placeholder_only",
+        "blocking_reason_class_visible",
+        "blocked_body_absent",
+        "no_canonical_public_url"
+      ],
+      "badge": "BLOCKED / NOT PUBLIC",
+      "bucket": "blocked-quarantine-internal-only",
+      "failures": [],
+      "fixture": "BLOCKED.md",
+      "id": "synthetic-blocked-001",
+      "preview_ready": false,
+      "readback_confirmed": true,
+      "release_authorized": false
+    },
+    {
+      "assertions": [
+        "absent_from_current_bucket",
+        "candidate_badge_persistent",
+        "no_public_ready_claim",
+        "release_unassessed_visible",
+        "reviewer_private_note_absent"
+      ],
+      "badge": "CANDIDATE / NOT CURRENT",
+      "bucket": "research-candidate",
+      "failures": [],
+      "fixture": "CANDIDATE-RESEARCH.md",
+      "id": "synthetic-candidate-001",
+      "preview_ready": true,
+      "readback_confirmed": true,
+      "release_authorized": false
+    },
+    {
+      "assertions": [
+        "current_bucket_only",
+        "public_ready_badge_visible",
+        "provenance_visible",
+        "derivative_parent_visible",
+        "safe_body_visible",
+        "internal_test_note_absent"
+      ],
+      "badge": "PUBLIC-READY / SYNTHETIC",
+      "bucket": "current-public-ready",
+      "failures": [],
+      "fixture": "POSITIVE-PUBLIC-READY.md",
+      "id": "synthetic-public-ready-001",
+      "preview_ready": true,
+      "readback_confirmed": true,
+      "release_authorized": true
+    },
+    {
+      "assertions": [
+        "absent_from_public_navigation",
+        "secret_block_badge_visible",
+        "secret_like_value_absent",
+        "raw_detection_sample_absent",
+        "SIS_review_required_visible"
+      ],
+      "badge": "SECRET-LIKE / BLOCKED",
+      "bucket": "blocked-quarantine-internal-only",
+      "failures": [],
+      "fixture": "SECRET-LIKE.md",
+      "id": "synthetic-secret-like-001",
+      "preview_ready": false,
+      "readback_confirmed": true,
+      "release_authorized": false
+    },
+    {
+      "assertions": [
+        "absent_from_current_bucket",
+        "superseded_badge_visible",
+        "successor_locator_visible",
+        "historical_bucket_only",
+        "stale_warning_visible"
+      ],
+      "badge": "SUPERSEDED",
+      "bucket": "historical-superseded",
+      "failures": [],
+      "fixture": "SUPERSEDED.md",
+      "id": "synthetic-superseded-001",
+      "preview_ready": false,
+      "readback_confirmed": true,
+      "release_authorized": false
+    },
+    {
+      "assertions": [
+        "absent_from_current_bucket",
+        "withdrawn_badge_visible",
+        "withdrawal_record_visible",
+        "prior_body_not_presented_as_current",
+        "release_withdrawn_visible"
+      ],
+      "badge": "WITHDRAWN",
+      "bucket": "withdrawn-historical",
+      "failures": [],
+      "fixture": "WITHDRAWN.md",
+      "id": "synthetic-withdrawn-001",
+      "preview_ready": false,
+      "readback_confirmed": true,
+      "release_authorized": false
+    }
+  ],
+  "network_dependency": false,
+  "preview_ready_count": 2,
+  "publication": false,
+  "readback_confirmed_count": 6,
+  "release_authorized_count": 1,
+  "schema_version": "info-entry-static-preview-v0.1"
+}
