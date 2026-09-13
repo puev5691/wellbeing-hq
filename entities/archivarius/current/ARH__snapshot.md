@@ -12,7 +12,7 @@ Snapshot для Resume-First восстановления ARH при дегра�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Последний завершённый ARH-owned commit перед этим refresh: `39c96df1d2ca73be723b6d9cd7dd0265cbc7e477`
+- Последний завершённый ARH-owned commit перед этим refresh: `79a45e0c5646f918a14cfa005eb12417f4c1778f`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -25,8 +25,7 @@ Snapshot для Resume-First восстановления ARH при дегра�
 
 После сообщения ОПЕРАТОРА о проблемах текущего ARH-чата current-writer выполнил self-preservation.
 
-Обновлены current initiation/snapshot/experience, затем создан внешний immutable recovery candidate:
-
+Внешний immutable recovery candidate:
 `puev5691/wellbeing-entity-bootstrap@e75b50ae7df5c984d82e8210c6dfdeaa573b9eb6:packages/arh-emergency-recovery-v02`
 
 ARH submission artifact:
@@ -43,7 +42,7 @@ Exchange Gate:
 
 Current-writer повторно проверил exact immutable candidate bytewise: 6/6 SHA-256 PASS. Это сохранено в `entities/archivarius/current/experience/ARH__recovery-v02-self-readback-lineage.md`, commit `2d257a7a63072ec5966e936eb74d85bc0b00ac6d`. Этот self-readback подтверждает целостность candidate, но не является independent preservation PASS, receipt, acceptance или canonical promotion.
 
-Следовательно, candidate сохранён, маршрутизирован и self-readback verified, но independent KOO verification/PASS пока не подтверждены. Не считать candidate canonical recovery и не объявлять practical cold-start verified.
+Independent KOO verification именно ARH recovery v02 по-прежнему не найден. Не считать ARH candidate canonical recovery и не объявлять practical cold-start verified.
 
 ### KOO
 
@@ -54,7 +53,24 @@ ARH verification result:
 `entities/archivarius/outbox/ARH__emergency-recovery-v04-result__KOO.md`
 commit: `6d92aa174240fc2875d67b2f1a375d332bda999b`
 
-Preservation/readback: 6/6 SHA-256 PASS. Practical cold-start/runtime continuity не доказывается одним preservation PASS.
+Preservation/readback: 6/6 SHA-256 PASS.
+
+Replacement KOO затем выполнил prescribed emergency recovery verification и зафиксировал `status: initiation_verified` в `entities/koordinator/current/KOO__initiation-v04-result.md`, commit `2a4284d592e142d373ac942e336095336b6efc67`. Это подтверждает practical replacement initiation для KOO в зафиксированных границах и не является проверкой ARH recovery v02.
+
+KOO также принял preservation-ограничения ARH для bounded inbox-lifecycle pilot: `entities/koordinator/current/KOO__inbox-lifecycle-pilot-decision.md`, commit `d3baabec3fcd33e3aca6b3d1a36679e51938ecd8`, status `ACCEPTED_WITH_PRESERVATION_CONSTRAINTS`, scope `KOO_ONLY_BOUNDED_PILOT`. Raw inbox cleanup не разрешён.
+
+### KOD
+
+После сообщения ОПЕРАТОРА об аномалиях текущего KOD-чата ARH проверил существующий KOD recovery и установил, что он предшествует значимым последующим KOD mutations. Поэтому старый recovery нельзя считать достаточным current-writer checkpoint.
+
+ARH создал адресный recovery request:
+`entities/archivarius/outbox/ARH__KOD-emergency-recovery-request__KOD.md`
+outbox commit: `f600eb040c7945471a0416dc141ab001832661d9`
+KOD inbox commit: `9e3f1fb9de7a21411be96ba416c59197c618d00d`
+dispatch commit: `54c5e31df60e11f2d3d1039f0b5d76915ebdd556`
+sender-registry commit: `79a45e0c5646f918a14cfa005eb12417f4c1778f`
+
+Ожидаемый result: свежий immutable KOD recovery candidate с snapshot, initiation, manifest, checksums, experience/current-state evidence и exact locator. До independent ARH preservation PASS старый KOD recovery остаётся provenance, а новый candidate не повышается до canonical.
 
 ### SHD
 
@@ -84,11 +100,9 @@ Replacement VOL затем успешно прошёл initiation и продо�
 
 ## Последняя завершённая санитарная работа
 
-Для исходного маршрута `ARH__SHT-entity-runner-head-provenance-gap__SHT.md` sender registry ранее показывал только `dispatched / receipt:null`, хотя сама provenance/sanitation проблема уже была закрыта проверенной коррекцией. В `registry/by-sender/archivarius.jsonl` сохранена semantic closure без подделки receipt: `semantic_resolution: sanitation_finding_closed_by_verified_correction`, exact resolution artifact/commit и граница `original_route_exact_receipt_still_absent`. Registry update commit: `39c96df1d2ca73be723b6d9cd7dd0265cbc7e477`.
+Current recovery-state синхронизирован с фактическими событиями после прежней snapshot boundary: verified KOO replacement initiation, KOO acceptance ARH inbox-lifecycle preservation constraints и свежий ARH→KOD emergency recovery route. Это state/recovery sanitation; raw inbox evidence не изменялась.
 
-Это не закрывает отдельную техническую Entity Runner dependency и не превращает отсутствующий receipt исходного маршрута в существующий.
-
-Предыдущая санитария `ARH__speech-source-pack__KOO.md` остаётся закрытым историческим проходом: current artifact/dispatch identity синхронизированы, superseded provenance сохранён, exact receipt текущей revision отсутствует.
+Предыдущая санитария `ARH__SHT-entity-runner-head-provenance-gap__SHT.md` остаётся закрытой в semantic scope без выдуманного receipt. `ARH__speech-source-pack__KOO.md` также остаётся синхронизированным с current revision при отсутствии exact receipt текущей revision.
 
 ## Текущие ARH границы
 
@@ -100,33 +114,33 @@ Replacement VOL затем успешно прошёл initiation и продо�
 - Исторический failure не переписывается в success из-за позднего успешного результата.
 - Sender registry повышается до `received` только по exact receipt того же artifact identity.
 - Semantic resolution может быть сохранён отдельно от transport receipt, если существует exact evidence закрытия проблемы.
+- Verified replacement initiation одной Сущности не является независимой проверкой recovery другой Сущности.
 - ARH не забирает профильные задачи других Сущностей и не выполняет destructive cleanup без authority.
 
 ## Current open work
 
 1. Каждый запуск начинать обязательным GitHub-preflight и классификацией delta до профильной работы.
 2. Ждать independent KOO verification ARH emergency recovery candidate; не выдумывать receipt/PASS.
-3. При exact KOO result обновить recovery state, registry/lineage и определить необходимость actual replacement ARH initiation.
-4. Продолжать санитарию orphaned/stale routes только по exact evidence.
-5. Сохранять recovery/state/experience/event-lineage при каждом значимом изменении.
+3. Ждать KOD current-writer recovery checkpoint; при exact KOD candidate выполнить независимую composition/SHA-256/provenance/readback проверку до любого canonical promotion.
+4. Наблюдать bounded KOO-only inbox-lifecycle pilot только в preservation/sanitation scope; не выполнять KOO implementation за KOO.
+5. Продолжать санитарию orphaned/stale routes только по exact evidence.
+6. Сохранять recovery/state/experience/event-lineage при каждом значимом изменении.
 
 ## Resume-First для replacement ARH
 
 1. Проверить внешний ARH recovery candidate и его SHA-256/verification status.
 2. Выполнить fresh `wellbeing-hq` preflight после snapshot boundary.
 3. Проверить ARH inbox, outbox, current, dispatch/receipts, registries, recovery/experience/activation-state.
-4. Сверить historical open work с current evidence.
+4. Сверить historical open work с current evidence, включая KOD emergency recovery route.
 5. Выбрать ровно одну ARH-owned still-open task.
 6. Не продолжать из памяти старого чата.
 
-## Exact current dependency
+## Exact current dependencies
 
-`ARH recovery canonicalization / confident replacement initiation` зависит от независимого ответа KOO на:
-`entities/koordinator/inbox/ARH__emergency-self-preservation-candidate__KOO.md`.
-
-До exact KOO result статус остаётся `independent_verification_pending`.
+1. `ARH recovery canonicalization / confident replacement initiation` зависит от независимого ответа KOO на `entities/koordinator/inbox/ARH__emergency-self-preservation-candidate__KOO.md`. До exact KOO result статус остаётся `independent_verification_pending`.
+2. `KOD emergency replacement preparation` зависит от current-writer KOD result на `entities/koder/inbox/ARH__KOD-emergency-recovery-request__KOD.md`. До exact immutable candidate ARH не реконструирует KOD current-state самостоятельно и не объявляет candidate/canonical recovery существующим.
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: продвинуть recovery boundary после self-readback recovery v02 и semantic closure SHT provenance-gap, сохранив exact pending KOO dependency
+ДЛЯ ЧЕГО: синхронизировать recovery snapshot с verified KOO replacement initiation, bounded inbox-lifecycle acceptance и свежим KOD emergency recovery route
 СТАТУС: emergency-self-preservation-current
