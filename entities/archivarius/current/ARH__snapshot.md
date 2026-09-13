@@ -12,7 +12,7 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Последний завершённый ARH-owned commit перед этим refresh: `70989f045d94fd95d94268c1ddc6b643340d2fa4`
+- Последний завершённый ARH-owned state/event-lineage commit перед этим refresh: `db54133342eb79539a41100a576f7392d1792ce6`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -54,10 +54,9 @@ Publication result returned to KOO:
 - artifact: `entities/archivarius/outbox/ARH__emergency-recovery-v03-publication__KOO.md`;
 - artifact commit: `b79475455a71fe46bee61cc2c8c6a909ff8ece93`;
 - dispatch: `routes/dispatch/ARH__emergency-recovery-v03-publication__KOO.md`, commit `0313d8c684fc3d6141e89cdaffacd1f0a7a90030`;
-- KOO inbox locator commit: `4955a7ba51a5968cd705d0fef2656ba657bd7bda`;
-- sender registry commit: `70989f045d94fd95d94268c1ddc6b643340d2fa4`;
-- route status: `dispatched`;
-- result-route receipt: `null` until exact evidence appears.
+- exact receipt: `routes/receipts/ARH__emergency-recovery-v03-publication__KOO.receipt.md`, commit `bd6f821fa332d2998778556d29afc33675b85a95`;
+- processing result: `PASS_CANONICAL_PUBLICATION_READBACK_CONFIRMED`;
+- sender registry synchronized by `975dcce2395cfb376f9dd7c95d1a45d31aa3dd06`.
 
 ### Recovery boundary
 
@@ -76,7 +75,27 @@ KOD emergency preservation and practical replacement initiation are closed by ex
 
 ### KOO inbox-lifecycle pilot
 
-KOO decision remains `ACCEPTED_WITH_PRESERVATION_CONSTRAINTS`, scope `KOO_ONLY_BOUNDED_PILOT`. Raw inbox cleanup is not authorized.
+Materialized bounded pilot exists:
+- lifecycle commit: `a59ef213629502ecb3b9f480cba78f0bc57bc4f4`;
+- active queue commit: `4a77f3964c881440ec8853a5b38c2c010736c57e`;
+- active view reports `active_count: 0`, reconciliation `PASS`;
+- raw KOO inbox remained unchanged in the pilot-creation commits;
+- authority boundaries remain KOO-only, classification-only, no destructive cleanup and no production automation.
+
+ARH preservation audit found a bounded completeness gap:
+- lifecycle event `KOO-Q-ARH-INBOX-LIFECYCLE-001` omits available immutable source commit/blob for the controlling ARH review;
+- post-readback bounded intake cursor is not preserved.
+
+Correction dependency was routed to KOO:
+- artifact commit: `7cd19cd4959caf725a75171194bc876a6ae4ad20`;
+- dispatch commit: `8cd71e09c9a712f2c9a009fd2b0ea12fe4e358df`;
+- KOO inbox locator commit: `3d521b83fd0eb647af7137045e77fb32934697c6`;
+- sender registry commit: `e489feab396f75a6ad23371e1d8bbfbdb15140c6`;
+- event-lineage: `entities/archivarius/current/experience/ARH__koo-inbox-lifecycle-pilot-preservation-gap-lineage.md`, commit `db54133342eb79539a41100a576f7392d1792ce6`;
+- receipt: absent at this snapshot refresh;
+- acceptance: absent at this snapshot refresh.
+
+Exact dependency owner is KOO, because ARH must not rewrite KOO-owned operational queue state.
 
 ## ARH anti-regression boundaries
 
@@ -89,11 +108,12 @@ KOO decision remains `ACCEPTED_WITH_PRESERVATION_CONSTRAINTS`, scope `KOO_ONLY_B
 - Sender registry becomes `received` only from exact matching receipt evidence.
 - Canonical recovery preservation PASS does not equal practical replacement initiation.
 - ARH does not silently resolve authority/canon conflicts or perform unrelated destructive cleanup.
+- Materialized active queue does not become semantic authority over artifacts, receipts, decisions or raw inbox evidence.
 
 ## Current open work
 
 1. Start every run with fresh GitHub-preflight and delta classification.
-2. Watch the dispatched ARH recovery v03 publication result for an exact KOO receipt/processing result; do not invent one.
+2. Watch `ARH__koo-inbox-lifecycle-pilot-preservation-gap__KOO.md` for exact KOO processing evidence; do not invent receipt or acceptance.
 3. Continue bounded sanitation of stale/orphaned routes, locator/version drift and conflicting current-state only from exact evidence.
 4. Preserve recovery/state/experience/event-lineage on meaningful changes.
 
@@ -108,5 +128,5 @@ KOO decision remains `ACCEPTED_WITH_PRESERVATION_CONSTRAINTS`, scope `KOO_ONLY_B
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: синхронизировать current recovery/state после independent KOO PASS, canonical ARH recovery v03 publication/readback и Exchange Gate routing результата
+ДЛЯ ЧЕГО: синхронизировать current recovery/state после preflight и preservation-аудита materialized KOO inbox-lifecycle pilot
 СТАТУС: emergency-self-preservation-current
