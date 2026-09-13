@@ -1,0 +1,33 @@
+{
+  "package": "telegram-media-phase1b-privacy-v01",
+  "status": "candidate_final_bytes_before_checksum",
+  "production": false,
+  "live_network": false,
+  "credentials": false,
+  "base_phase1a": {
+    "path": "entities/koder/outbox/telegram-media-phase1a-v01/",
+    "commit": "05617ea042613af51d10a78f456a28fe78e2ea0c"
+  },
+  "task_commit": "267e7f23a8ba89efc8221f95f38a67b23ef0af5c",
+  "kan_privacy_commit": "d201f1cc2a8d151fa0358c2c0db26fd1d217e409",
+  "koo_privacy_decision_commit": "14df7edd91954e92c96e593b4432fd6441f3833a",
+  "privacy_mode": "aggregate_only",
+  "privacy_policy_marker": "KAN:d201f1cc2a8d151fa0358c2c0db26fd1d217e409|KOO:14df7edd91954e92c96e593b4432fd6441f3833a|aggregate_only-v1",
+  "sandbox_db_path": "/var/lib/wellbeing/telegram-phase1b-sandbox/gateway.sqlite3",
+  "cleanup_command": "python3 cleanup_sandbox.py --db /var/lib/wellbeing/telegram-phase1b-sandbox/gateway.sqlite3 --confirm DELETE_PHASE1B_SANDBOX_DB",
+  "test_command": "python3 -m unittest -v",
+  "test_result": "23/23 PASS",
+  "files": [
+    "gateway.py",
+    "test_gateway.py",
+    "cleanup_sandbox.py",
+    "test_cleanup.py",
+    "runtime-config.schema.json",
+    "README.md",
+    "PRIVACY-CLEANUP.md",
+    "TEST_RESULTS.txt",
+    "MANIFEST.json",
+    "SHA256SUMS.txt"
+  ],
+  "checksum_rule": "SHA256SUMS.txt generated after final bytes for every payload file except SHA256SUMS.txt itself"
+}
