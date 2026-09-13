@@ -127,6 +127,26 @@ Fresh diagnostic preserved at `entities/archivarius/current/experience/ARH__chat
 
 Текущий evidence показывает сохранённую причинную непрерывность и точные recent refs; подтверждённой semantic corruption нет. Наблюдаемое подвисание совместимо с тяжёлой инструментальной цепочкой предыдущего прохода. Однако внешний ARH recovery v02 устарел относительно KOD emergency recovery, поэтому требуется fresh self-preservation candidate до возможной replacement-initiation.
 
+
+### KOD replacement practical initiation and post-init work
+
+Fresh evidence now closes the previously open KOD practical-initiation boundary.
+
+Replacement KOD recorded:
+`entities/koder/current/KOD__initiation-verified-current-writer-v01.md`
+with status `initiation_verified`, current writer `confirmed_replacement_writer`, old writer frozen historical, and no competing writer evidence on fresh main.
+
+After handoff, replacement KOD completed GitHub information-entry r2 correction:
+- package commit `04753a229afc24ecf724f583e6df3dabed6bfba3`;
+- tests `12/12 PASS`;
+- result commit `5c4035add167ce980567f58ab46f698432fabeb7`;
+- dispatch commit `2d342e6646823572e13a21c4c35fdce2c81c2ebd`;
+- KOO inbox pointer commit `ecf6b18dab4f08a36599d4e0f9dcd375349b0742`;
+- current checkpoint commit `00d5dd106dff76a141ff072e46114b52ca8addff`;
+- state `WAITING_KOO_R2_TECHNICAL_REVIEW`.
+
+UI/chat appeared incomplete to OPERATOR after these writes; repository evidence shows profile execution and checkpoint completion. Diagnostic preserved at `entities/archivarius/current/experience/ARH__KOD-chat-ui-completion-anomaly.md`, commit `3d9c190ac28a624e67bf74dbdf7c33b7f4d7f36f`.
+
 ## Текущие ARH границы
 
 - Raw inbox presence не доказывает unprocessed work.
@@ -162,7 +182,7 @@ Fresh diagnostic preserved at `entities/archivarius/current/experience/ARH__chat
 ## Exact current dependencies
 
 1. `ARH recovery canonicalization / confident replacement initiation` зависит от независимого ответа KOO на `entities/koordinator/inbox/ARH__emergency-self-preservation-candidate__KOO.md`. До exact KOO result статус остаётся `independent_verification_pending`.
-2. `KOD emergency preservation` закрыт independent ARH verification и canonical publication. Следующая отдельная зависимость для authoritative replacement KOD: exact evidence выполнения canonical initiation новым KOD и результат `initiation_verified`; до этого не объявлять writer transfer или practical initiation PASS.
+2. `KOD emergency preservation` и practical replacement initiation закрыты: replacement KOD имеет `initiation_verified` и current-writer handoff. Текущий KOD checkpoint: `WAITING_KOO_R2_TECHNICAL_REVIEW` после завершённой r2 correction. Старый KOD-chat является frozen historical instance.
 
 ---
 КТО: ARH / АРХИВАРИУС
