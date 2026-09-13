@@ -3,9 +3,10 @@
 Open:
 https://github.com/puev5691/wellbeing-hq/blob/main/entities/koordinator/outbox/KOO__operator-reading-queue__OPERATOR.md
 
-artifact_commit: `d9f21b43282927b233798a2035364d38b4fe1510`
-artifact_blob: `526577d3f95b75bd58c2165fcaf2a84f792339c8`
+artifact_commit: `ebddbfc3e3d4b7819b030f288cb8f44a6b17a806`
+artifact_blob: `335f123545a89f6b2f9a1b274f487646525cce84`
 dispatch: `routes/dispatch/KOO__operator-reading-queue__OPERATOR.md`
-dispatch_commit: `44f2437f138ccb221a617417d4204ae97b1b0b8e`
+dispatch_commit: `e088a5d154b014491ee6853d5554ffb027c41748`
 
+Русские Telegram и multi-model briefs готовы и перечислены в reading queue.
 This inbox pointer is not receipt or acceptance.
