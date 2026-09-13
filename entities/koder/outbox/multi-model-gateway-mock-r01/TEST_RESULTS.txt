@@ -1,0 +1,51 @@
+# TEST RESULTS — multi-model gateway local mock r01
+
+status: PASS_LOCAL_SYNTHETIC_GATEWAY_MOCK
+production: no
+external_provider_calls: 0
+network_calls: 0
+credentials: 0
+project_data: 0
+project_mutation: 0
+external_tools: 0
+cost_usd: 0
+
+Exact task:
+`entities/koordinator/outbox/KOO__multi-model-gateway-mock-r01__KOD.md`
+commit `49cdd1002684b42976820f80d79a2dbf43761080`
+blob `71c4a9d941a8e1c4e670d083818a9c59373cc9fe`.
+
+Exact pilot spec:
+`entities/koordinator/current/KOO__multi-model-worker-gateway-pilot-spec-v01.md`
+commit `77755cfb79b8aaf4196383911f0ea360e3600a98`
+blob `7201fb9137c843e5ffdb6c5903d87add5c550970`.
+
+Accepted KAN boundary:
+`entities/kancelar/outbox/KAN__multi-model-gateway-privacy-authority-boundary__KOO.md`
+commit `05ce3d065e86265de45bc4df17a931bb78ffc29d`
+blob `6b035f7378c25270a2a2a3ec0bf85d4c82b2f843`.
+
+Commands:
+- `python3 -m py_compile gateway_mock.py test_gateway_mock.py`
+- `python3 -m unittest -v`
+
+Results:
+- py_compile: PASS / exit 0
+- unittest: 18/18 PASS / exit 0
+
+Covered gates include valid D0 author→verifier PASS, retained disagreement, fail-closed D2/D5/D6/D7 and all other non-D0 classes, credential-like field/value, unknown provider/model, fallback, external tools/network, project mutation, external/project locator, nonzero cost, deterministic provenance/result identity, no self-accept/current/canon, distinct fake provider identities, and AST proof of no provider SDK/network/MCP imports.
+
+Deterministic sample identities from the in-memory D0 fixture:
+- PASS gateway_run_id: `mmg-r01-db1a97e8f22d023961d7b302`;
+- PASS provenance_hash: `405c88f0ac9ffcafae299d079aebc781eb9b4b2b760ba62a29e9bbad6f19a8bc`;
+- PASS result_identity: `9ae9c99c6ff5d77ec4b04573046edf10df4e08777fd6b20547001cedb1ced394`;
+- disagreement status: `DISAGREEMENT_REQUIRES_KOO`.
+
+No real provider, API, SDK, key, browser, web search, MCP/provider connector, telemetry callback, project artifact or production state was used.
+
+project_time: omitted; trusted project-time source not used
+
+---
+КТО: KOD / КОДЕР
+ДЛЯ ЧЕГО: verify exact local D0 multi-model gateway mock before immutable publication
+СТАТУС: PASS_LOCAL_SYNTHETIC_GATEWAY_MOCK

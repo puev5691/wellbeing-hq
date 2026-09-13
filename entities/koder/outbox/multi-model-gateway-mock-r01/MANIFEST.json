@@ -1,0 +1,42 @@
+{
+  "package": "multi-model-gateway-mock-r01",
+  "status": "PASS_LOCAL_SYNTHETIC_GATEWAY_MOCK",
+  "production": false,
+  "external_provider_calls": false,
+  "network_calls": false,
+  "credentials": false,
+  "project_data": false,
+  "project_mutation": false,
+  "external_tools": false,
+  "task": {
+    "path": "entities/koordinator/outbox/KOO__multi-model-gateway-mock-r01__KOD.md",
+    "commit": "49cdd1002684b42976820f80d79a2dbf43761080",
+    "blob": "71c4a9d941a8e1c4e670d083818a9c59373cc9fe"
+  },
+  "pilot_spec": {
+    "path": "entities/koordinator/current/KOO__multi-model-worker-gateway-pilot-spec-v01.md",
+    "commit": "77755cfb79b8aaf4196383911f0ea360e3600a98",
+    "blob": "7201fb9137c843e5ffdb6c5903d87add5c550970"
+  },
+  "kan_boundary": {
+    "path": "entities/kancelar/outbox/KAN__multi-model-gateway-privacy-authority-boundary__KOO.md",
+    "commit": "05ce3d065e86265de45bc4df17a931bb78ffc29d",
+    "blob": "6b035f7378c25270a2a2a3ec0bf85d4c82b2f843"
+  },
+  "provider_models": {
+    "author": "mock-provider-a/mock-model-author-v1",
+    "verifier": "mock-provider-b/mock-model-verifier-v1"
+  },
+  "data_class": "D0_SYNTHETIC",
+  "cost_usd": 0,
+  "test_result": "18/18 PASS",
+  "files": [
+    "gateway_mock.py",
+    "test_gateway_mock.py",
+    "README.md",
+    "TEST_RESULTS.txt",
+    "MANIFEST.json",
+    "SHA256SUMS.txt"
+  ],
+  "checksum_rule": "SHA256SUMS.txt generated after final bytes for every payload file except SHA256SUMS.txt itself"
+}
