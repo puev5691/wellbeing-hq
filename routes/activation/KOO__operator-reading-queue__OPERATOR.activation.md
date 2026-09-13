@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: e49e6e760d93c00a000953380cb9b0e01fd902e4
+source_commit: 6c25315e7e17be1c1c042dab85cd16f140f6e00f
 inbox_locator: entities/operator/inbox/KOO__operator-reading-queue__OPERATOR.md
 recipient: operator
 activation_requested: yes
