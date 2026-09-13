@@ -2,7 +2,7 @@ import os,tempfile,unittest
 from gateway import *
 CHANNEL=-1007770001111; DISCUSSION=-1007770002222
 def cfg(**o):
- r={'environment':'sandbox','channel_key':'wbnp-experimental','channel_username':'wbnp_pev5691_15042026','channel_chat_id':CHANNEL,'discussion_linked':True,'discussion_chat_id':DISCUSSION,'bot_identity':'publisher-bot-metadata-only','webhook_endpoint':'https://example.invalid/telegram/webhook','privacy_mode':'aggregate_only'}; r.update(o); return RuntimeConfig.from_dict(r)
+ r={'environment':'test','channel_key':'wbnp-experimental','channel_username':'wbnp_pev5691_15042026','channel_chat_id':CHANNEL,'discussion_linked':True,'discussion_chat_id':DISCUSSION,'bot_identity':'publisher-bot-metadata-only','webhook_endpoint':'https://example.invalid/telegram/webhook','privacy_mode':'aggregate_only','sandbox_db_path':'/tmp/phase1b-unit.sqlite3'}; r.update(o); return RuntimeConfig.from_dict(r)
 def pub(pid='p1',target='telegram:wbnp-experimental',text='synthetic phase1a test'): return {'publication_id':pid,'distribution_target':target,'text':text}
 class T(unittest.TestCase):
  def make(self):
@@ -42,6 +42,12 @@ class T(unittest.TestCase):
   with self.assertRaises(ConfigError): cfg(privacy_mode='store_raw_identity')
  def test_selected_mode_is_fixed_aggregate_only(self):
   with self.assertRaises(ConfigError): cfg(privacy_mode='discard_identity')
+ def test_sandbox_db_path_contract(self):
+  c=cfg(environment='sandbox',sandbox_db_path=SANDBOX_DB_PATH); self.assertEqual(c.sandbox_db_path,SANDBOX_DB_PATH)
+  with self.assertRaises(ConfigError): cfg(environment='sandbox',sandbox_db_path='/tmp/not-approved.sqlite3')
+ def test_runtime_sandbox_db_path_mismatch_fails_closed(self):
+  c=cfg(environment='sandbox',sandbox_db_path=SANDBOX_DB_PATH); tr=FakeTransport()
+  with self.assertRaises(ConfigError): Gateway('/tmp/not-approved.sqlite3',c,TelegramBotAdapter(c,tr))
  def test_aggregate_schema_has_no_audience_identity_columns(self):
   gw,_=self.make(); cols=[]
   for table in ['publications','deliveries','discussion_threads','processed_updates','aggregates']:
