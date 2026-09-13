@@ -1,0 +1,85 @@
+{
+  "cost_estimate": {
+    "currency": "USD",
+    "estimate_only": true,
+    "input_cost_usd": "0.00025",
+    "output_cost_usd": "0.00007",
+    "pricing_basis": {
+      "input_usd_per_mtok": "2",
+      "model": "claude-sonnet-5",
+      "output_usd_per_mtok": "10",
+      "source": "accepted_KOO_task_and_KAN_readiness_basis"
+    },
+    "total_cost_usd": "0.00032"
+  },
+  "parsed_response": {
+    "message_id": "msg_synthetic_001",
+    "model": "claude-sonnet-5",
+    "stop_reason": "end_turn",
+    "text": "SYNTHETIC",
+    "usage": {
+      "input_tokens": 125,
+      "output_tokens": 7
+    }
+  },
+  "provenance": {
+    "adapter_version": "anthropic-direct-adapter-r01",
+    "anthropic_version": "2023-06-01",
+    "caching_used": false,
+    "code_execution_used": false,
+    "data_class": "D0_SYNTHETIC",
+    "external_network_used": false,
+    "fallback_used": false,
+    "files_used": false,
+    "input_locator": "fixture://anthropic-d0-r01",
+    "input_tokens": 125,
+    "managed_agents_used": false,
+    "mcp_used": false,
+    "model": "claude-sonnet-5",
+    "output_tokens": 7,
+    "policy_decision": "PASS_D0_SYNTHETIC_MOCK_ONLY",
+    "production": false,
+    "project_mutation_performed": false,
+    "provider": "anthropic",
+    "request_hash": "772899d96e1f4a2a0ba74dca0a47bcc18a39ea9018baf2c7853272f99e3a9462",
+    "response_hash": "9936fd8a12f5c53ac6d4204b6deceb0ab8a5cd34da1c4305412bf0bc1d532da5",
+    "search_used": false,
+    "synthetic_text_sha256": "1d4d31ce8fbbfc167b302ec0e6cb99984972dacd7af8d79e58d72887cf9dbd91",
+    "tools_used": false
+  },
+  "provenance_hash": "14a88a9ca178dc64a3f4d9f03d1881b5dd417f01b06718a4b891f80c84345cd8",
+  "request_plan": {
+    "body": {
+      "max_tokens": 64,
+      "messages": [
+        {
+          "content": [
+            {
+              "text": "Return exactly the word SYNTHETIC.",
+              "type": "text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "model": "claude-sonnet-5"
+    },
+    "credential_ref": {
+      "environment_variable": "ANTHROPIC_API_KEY",
+      "kind": "environment_secret_injection",
+      "secret_value_in_provenance": false,
+      "secret_value_logged": false,
+      "secret_value_stored": false
+    },
+    "headers": {
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "network_execution_enabled": false,
+    "request_hash": "772899d96e1f4a2a0ba74dca0a47bcc18a39ea9018baf2c7853272f99e3a9462",
+    "transport_mode": "mock_only",
+    "url": "https://api.anthropic.com/v1/messages"
+  },
+  "result_identity": "6d70d0876632755b17616491ec389659d50251ff8187575d68f8520d0e74300a"
+}
