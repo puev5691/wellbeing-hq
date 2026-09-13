@@ -12,7 +12,7 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Последний завершённый ARH-owned state/event-lineage commit перед этим refresh: `38650d809bdc5f7894bade4f636d4d8ae0eecd7b`
+- Последний завершённый ARH-owned state/event-lineage commit перед этим refresh: `82d450eb934eced1b603b2358d7e85228ff72ba5`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -105,20 +105,6 @@ ARH independent re-check result:
 
 The original provenance/cursor preservation gap is closed in the bounded KOO-only pilot. Returned ARH verdict remains `dispatched` until exact KOO receipt/processing evidence appears. No canon promotion, production automation, destructive inbox cleanup or authority expansion is inferred.
 
-## ARH anti-regression boundaries
-
-- Raw inbox presence does not prove unprocessed work.
-- Receipt does not equal acceptance.
-- Semantic response does not equal route receipt.
-- Detector/activation request does not equal Entity processing.
-- Candidate/draft/research does not become canon without authority.
-- Historical failure is not rewritten by later success.
-- Sender registry becomes `received` only from exact matching receipt evidence.
-- Canonical recovery preservation PASS does not equal practical replacement initiation.
-- ARH does not silently resolve authority/canon conflicts or perform unrelated destructive cleanup.
-- Materialized active queue does not become semantic authority over artifacts, receipts, decisions or raw inbox evidence.
-
-
 ## KOO parallel-queue supplemental recovery checkpoint
 
 Processed task:
@@ -147,10 +133,25 @@ commit `3048012bc667e91c7e220dad206f4973a9507d49`.
 Exchange Gate:
 - dispatch commit `a97d0aa7bc95cc1abc0919bab4c445c1052089f2`;
 - KOO inbox commit `4bbe67e3b323127fcfea8dae6bbaf10d75675da2`;
-- sender registry commit `5adf86fc0e4f8267ce76925ab7bd3c6dff11f717`;
-- result receipt remains unknown until exact evidence appears.
+- exact result receipt: `routes/receipts/ARH__parallel-queue-transition-preservation__KOO.receipt.md`, commit `2a0010303e7fc61d1f4cdd5cdf9f74350a3095d2`;
+- KOO processing result: `PASS_SUPPLEMENTAL_RECOVERY_CHECKPOINT_ACCEPTED`;
+- sender registry reconciled by ARH commit `fd933596dc3bd3df6cd0b1c76d832a3138028760`;
+- event-lineage receipt closure commit `82d450eb934eced1b603b2358d7e85228ff72ba5`.
 
-This checkpoint does not replace canonical KOO recovery, does not transfer current-writer state, does not preserve secrets/credentials and does not promote process/candidate artifacts to Project Sources.
+This checkpoint remains supplemental: canonical KOO recovery was not replaced, current-writer state was not transferred, secrets/credentials were not preserved, and process/candidate artifacts were not promoted to Project Sources.
+
+## ARH anti-regression boundaries
+
+- Raw inbox presence does not prove unprocessed work.
+- Receipt does not equal broader approval beyond its exact recorded result.
+- Semantic response does not equal route receipt.
+- Detector/activation request does not equal Entity processing.
+- Candidate/draft/research does not become canon without authority.
+- Historical failure is not rewritten by later success.
+- Sender registry becomes `received` or `received_and_processed` only from exact matching receipt evidence.
+- Canonical recovery preservation PASS does not equal practical replacement initiation.
+- ARH does not silently resolve authority/canon conflicts or perform unrelated destructive cleanup.
+- Materialized active queue does not become semantic authority over artifacts, receipts, decisions or raw inbox evidence.
 
 ## Current open work
 
@@ -170,5 +171,5 @@ This checkpoint does not replace canonical KOO recovery, does not transfer curre
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: синхронизировать current recovery/state после независимой перепроверки KOO inbox-lifecycle preservation correction
+ДЛЯ ЧЕГО: синхронизировать current recovery/state после exact KOO receipt closure для parallel-queue preservation результата
 СТАТУС: emergency-self-preservation-current
