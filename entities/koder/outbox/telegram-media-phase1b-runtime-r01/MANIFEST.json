@@ -1,0 +1,66 @@
+{
+  "package": "telegram-media-phase1b-runtime-r01",
+  "status": "candidate_final_bytes_before_checksum",
+  "production": false,
+  "live_telegram": false,
+  "real_credentials": false,
+  "host_deployment": false,
+  "task": {
+    "path": "entities/koordinator/outbox/KOO__telegram-phase1b-runtime-privacy-remediation-r1__KOD.md",
+    "commit": "68bcee42b33a1135764eccd7cc46afe58113007f",
+    "blob": "f3a7938426a4a4abd41578bba41e22e2f261e7b0"
+  },
+  "accepted_base": {
+    "path": "entities/koder/outbox/telegram-media-phase1b-privacy-v01/",
+    "commit": "cd81bbd98a4be334388f95ea948427d91fa82a05",
+    "privacy_mode": "aggregate_only",
+    "base_files_preserved_byte_identical": [
+      "gateway.py",
+      "test_gateway.py",
+      "cleanup_sandbox.py",
+      "test_cleanup.py",
+      "runtime-config.schema.json"
+    ]
+  },
+  "service_contract": {
+    "unit": "wellbeing-telegram-phase1b-sandbox.service",
+    "principal": "wellbeing-tg-p1b",
+    "group": "wellbeing-tg-p1b",
+    "working_directory": "/opt/wellbeing/telegram-phase1b-runtime-r01",
+    "config_path": "/etc/wellbeing/telegram-phase1b/runtime.json",
+    "sandbox_db_path": "/var/lib/wellbeing/telegram-phase1b-sandbox/gateway.sqlite3",
+    "listen": "127.0.0.1:8782",
+    "webhook_path": "/telegram/webhook",
+    "transport": "fake_only_r01",
+    "core_limit": 0
+  },
+  "credential_slots": [
+    "telegram_bot_token",
+    "telegram_webhook_secret"
+  ],
+  "test": {
+    "command": "python3 -m unittest -v",
+    "result": "36/36 PASS",
+    "base_tests": "23/23 PASS",
+    "runtime_tests": "13/13 PASS",
+    "systemd_analyze_verify": "PASS",
+    "synthetic_log_markers_absent": "4/4 PASS"
+  },
+  "files": [
+    "gateway.py",
+    "test_gateway.py",
+    "cleanup_sandbox.py",
+    "test_cleanup.py",
+    "runtime-config.schema.json",
+    "runtime_app.py",
+    "test_runtime_app.py",
+    "systemd/wellbeing-telegram-phase1b-sandbox.service",
+    "LOGGING-CONTRACT.md",
+    "RUNTIME-CONTRACT.md",
+    "README.md",
+    "TEST_RESULTS.txt",
+    "MANIFEST.json",
+    "SHA256SUMS.txt"
+  ],
+  "checksum_rule": "SHA256SUMS.txt generated after final bytes for every payload file except SHA256SUMS.txt itself"
+}

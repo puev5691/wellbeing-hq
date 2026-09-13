@@ -1,0 +1,61 @@
+# TEST RESULTS — Telegram Media Gateway Phase 1B runtime/privacy remediation r01
+
+status: PASS
+production: no
+live_telegram: 0
+real_credentials: 0
+host_deployment: 0
+privacy_mode: aggregate_only
+sandbox_db_path: /var/lib/wellbeing/telegram-phase1b-sandbox/gateway.sqlite3
+
+Accepted base package:
+`entities/koder/outbox/telegram-media-phase1b-privacy-v01/`
+commit `cd81bbd98a4be334388f95ea948427d91fa82a05`.
+
+Base byte identity check against accepted `SHA256SUMS.txt`:
+- gateway.py: PASS
+- test_gateway.py: PASS
+- cleanup_sandbox.py: PASS
+- test_cleanup.py: PASS
+- runtime-config.schema.json: PASS
+
+Commands:
+- `python3 -m py_compile gateway.py test_gateway.py cleanup_sandbox.py test_cleanup.py runtime_app.py test_runtime_app.py`
+- `python3 -m unittest -v`
+- `systemd-analyze verify systemd/wellbeing-telegram-phase1b-sandbox.service`
+- explicit grep of captured unittest output for the four synthetic privacy markers
+
+Results:
+- py_compile: PASS / exit 0
+- unittest: 36/36 PASS / exit 0
+  - accepted base privacy suite: 23/23 PASS
+  - runtime/privacy remediation additions: 13/13 PASS
+- systemd candidate verification: PASS / exit 0; no diagnostic output
+- captured unittest output privacy grep: 4/4 forbidden synthetic markers ABSENT
+- synthetic identity/comment absent from `PrivacySafeLogger` success path
+- synthetic identity/comment absent from validation-error and malformed-request log/response paths
+- synthetic identity/comment absent from SQLite file after aggregate comment processing
+- logger rejects non-allowlisted fields and arbitrary status strings
+- production environment fails closed
+- public bind and non-contract port fail closed
+- real transport fails closed without credentials and remains unimplemented even with synthetic credential files
+- fake transport requires no credentials and no outbound Telegram client library is imported by `runtime_app.py`
+- exact sandbox DB constant remains unchanged
+
+Synthetic privacy markers tested:
+- numeric audience identity: `9876543210123`
+- username: `synthetic_private_user_71f2`
+- name: `Synthetic Private Person 71f2`
+- raw comment: `SYNTHETIC_RAW_COMMENT_71f2_DO_NOT_LOG`
+
+Runner note:
+The unchanged accepted `test_gateway.py` emits Python `ResourceWarning` notices for some test-created SQLite connections. They are warnings, not test failures; changing those accepted base bytes was outside this task. The warnings contain no synthetic identity/comment payload. New runtime tests close their test DB connections through cleanup.
+
+No Telegram API call, webhook registration, public endpoint, real credential read, host deployment, service installation or production mutation occurred.
+
+project_time: omitted; trusted project-time source not used
+
+---
+КТО: KOD / КОДЕР
+ДЛЯ ЧЕГО: проверить application/runtime side SIS blocker B2 synthetic/fake-only тестами
+СТАТУС: PASS

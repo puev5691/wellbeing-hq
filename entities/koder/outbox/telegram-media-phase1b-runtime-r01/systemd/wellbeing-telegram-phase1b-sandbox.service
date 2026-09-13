@@ -1,0 +1,37 @@
+[Unit]
+Description=Wellbeing Telegram Phase 1B sandbox webhook candidate
+After=network.target
+ConditionPathExists=/opt/wellbeing/telegram-phase1b-runtime-r01/runtime_app.py
+ConditionPathExists=/etc/wellbeing/telegram-phase1b/runtime.json
+
+[Service]
+Type=simple
+User=wellbeing-tg-p1b
+Group=wellbeing-tg-p1b
+WorkingDirectory=/opt/wellbeing/telegram-phase1b-runtime-r01
+ExecStart=/usr/bin/python3 /opt/wellbeing/telegram-phase1b-runtime-r01/runtime_app.py --config /etc/wellbeing/telegram-phase1b/runtime.json --listen-host 127.0.0.1 --listen-port 8782 --transport fake
+Restart=on-failure
+RestartSec=3s
+UMask=0077
+LimitCORE=0
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+ReadWritePaths=/var/lib/wellbeing/telegram-phase1b-sandbox
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=wellbeing-tg-p1b
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+[Install]
+WantedBy=multi-user.target
