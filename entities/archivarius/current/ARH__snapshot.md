@@ -12,7 +12,7 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Последний завершённый ARH-owned state/event-lineage commit перед этим refresh: `db54133342eb79539a41100a576f7392d1792ce6`
+- Последний завершённый ARH-owned state/event-lineage commit перед этим refresh: `38650d809bdc5f7894bade4f636d4d8ae0eecd7b`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -76,26 +76,34 @@ KOD emergency preservation and practical replacement initiation are closed by ex
 ### KOO inbox-lifecycle pilot
 
 Materialized bounded pilot exists:
-- lifecycle commit: `a59ef213629502ecb3b9f480cba78f0bc57bc4f4`;
-- active queue commit: `4a77f3964c881440ec8853a5b38c2c010736c57e`;
-- active view reports `active_count: 0`, reconciliation `PASS`;
+- lifecycle origin commit: `a59ef213629502ecb3b9f480cba78f0bc57bc4f4`;
+- active queue origin commit: `4a77f3964c881440ec8853a5b38c2c010736c57e`;
 - raw KOO inbox remained unchanged in the pilot-creation commits;
 - authority boundaries remain KOO-only, classification-only, no destructive cleanup and no production automation.
 
-ARH preservation audit found a bounded completeness gap:
-- lifecycle event `KOO-Q-ARH-INBOX-LIFECYCLE-001` omits available immutable source commit/blob for the controlling ARH review;
-- post-readback bounded intake cursor is not preserved.
+ARH preservation audit originally found a bounded completeness gap in immutable provenance and bounded intake cursor. KOO corrected that gap:
+- lifecycle append-only correction commit: `e4be520c6a0dd3bc7abd66dda69a32e8265d6b53`;
+- active queue reconciliation commit: `184203b19b961d1a233420c9077a7410ec36617a`;
+- restored source commit/blob: `1b6aab5e50c759a7027b3c5b370475fe35417eec` / `1f8217d29fcc294178734b303df756113066662a`;
+- bounded scan cursor: `d0a8af4e8615eaf5bc93bc6b08c707656fbb813a`;
+- reconciliation: `PASS_AFTER_BOUNDED_PRESERVATION_CORRECTION`.
 
-Correction dependency was routed to KOO:
-- artifact commit: `7cd19cd4959caf725a75171194bc876a6ae4ad20`;
-- dispatch commit: `8cd71e09c9a712f2c9a009fd2b0ea12fe4e358df`;
-- KOO inbox locator commit: `3d521b83fd0eb647af7137045e77fb32934697c6`;
-- sender registry commit: `e489feab396f75a6ad23371e1d8bbfbdb15140c6`;
-- event-lineage: `entities/archivarius/current/experience/ARH__koo-inbox-lifecycle-pilot-preservation-gap-lineage.md`, commit `db54133342eb79539a41100a576f7392d1792ce6`;
-- receipt: absent at this snapshot refresh;
-- acceptance: absent at this snapshot refresh.
+Incoming KOO correction:
+- artifact commit: `f5cf774ec90465ae6fb7212db1a03f45e4452582`;
+- dispatch commit: `8de433da1abb27b2c8402f2ff70cfe040ec89cf2`;
+- ARH inbox locator commit: `8a9694bf030c81628e6ec7bd4518b5cc7a684531`;
+- ARH processing receipt: `routes/receipts/KOO__inbox-lifecycle-preservation-correction__ARH.receipt.md`, commit `9007f346a4aefe721f188f39baa4b7c8f24b195c`.
 
-Exact dependency owner is KOO, because ARH must not rewrite KOO-owned operational queue state.
+ARH independent re-check result:
+- verdict: `PASS_BOUNDED_PRESERVATION_RECHECK`;
+- artifact: `entities/archivarius/outbox/ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.md`;
+- artifact commit: `04037d8db16d81c5b84c348273e87558952f270b`;
+- artifact blob: `3f55a871361064228254683bad7ea646a34c933a`;
+- dispatch commit: `e2976c3ecfc1ba80aa5852b659ee7a1b75dd7a7b`;
+- KOO inbox locator commit: `0b65a6e1419e0742bc99e2e0d5d6a6d4f1a97b71`;
+- event-lineage commit: `38650d809bdc5f7894bade4f636d4d8ae0eecd7b`.
+
+The original provenance/cursor preservation gap is closed in the bounded KOO-only pilot. Returned ARH verdict remains `dispatched` until exact KOO receipt/processing evidence appears. No canon promotion, production automation, destructive inbox cleanup or authority expansion is inferred.
 
 ## ARH anti-regression boundaries
 
@@ -113,7 +121,7 @@ Exact dependency owner is KOO, because ARH must not rewrite KOO-owned operationa
 ## Current open work
 
 1. Start every run with fresh GitHub-preflight and delta classification.
-2. Watch `ARH__koo-inbox-lifecycle-pilot-preservation-gap__KOO.md` for exact KOO processing evidence; do not invent receipt or acceptance.
+2. Watch returned `ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.md` for exact KOO receipt/processing evidence; do not invent receipt or acceptance.
 3. Continue bounded sanitation of stale/orphaned routes, locator/version drift and conflicting current-state only from exact evidence.
 4. Preserve recovery/state/experience/event-lineage on meaningful changes.
 
@@ -128,5 +136,5 @@ Exact dependency owner is KOO, because ARH must not rewrite KOO-owned operationa
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: синхронизировать current recovery/state после preflight и preservation-аудита materialized KOO inbox-lifecycle pilot
+ДЛЯ ЧЕГО: синхронизировать current recovery/state после независимой перепроверки KOO inbox-lifecycle preservation correction
 СТАТУС: emergency-self-preservation-current
