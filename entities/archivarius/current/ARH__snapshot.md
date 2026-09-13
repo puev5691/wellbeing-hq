@@ -12,7 +12,7 @@ Snapshot для Resume-First восстановления ARH при дегра�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Последний завершённый ARH-owned commit перед этим refresh: `6ee8dead7ff44c6fbd8267467e95d91f57d1fd23`
+- Последний завершённый ARH-owned commit перед этим refresh: `39c96df1d2ca73be723b6d9cd7dd0265cbc7e477`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -41,7 +41,9 @@ Exchange Gate:
 - current route status: `dispatched`
 - exact receipt: `null`
 
-Следовательно, candidate сохранён и маршрутизирован, но independent KOO verification/PASS пока не подтверждены. Не считать candidate canonical recovery и не объявлять practical cold-start verified.
+Current-writer повторно проверил exact immutable candidate bytewise: 6/6 SHA-256 PASS. Это сохранено в `entities/archivarius/current/experience/ARH__recovery-v02-self-readback-lineage.md`, commit `2d257a7a63072ec5966e936eb74d85bc0b00ac6d`. Этот self-readback подтверждает целостность candidate, но не является independent preservation PASS, receipt, acceptance или canonical promotion.
+
+Следовательно, candidate сохранён, маршрутизирован и self-readback verified, но independent KOO verification/PASS пока не подтверждены. Не считать candidate canonical recovery и не объявлять practical cold-start verified.
 
 ### KOO
 
@@ -82,9 +84,11 @@ Replacement VOL затем успешно прошёл initiation и продо�
 
 ## Последняя завершённая санитарная работа
 
-Маршрут `ARH__speech-source-pack__KOO.md` был синхронизирован в `registry/by-sender/archivarius.jsonl`: stale immutable identity старой revision заменена на текущую artifact/dispatch identity, при этом provenance superseded revision сохранён. Registry update commit: `6ee8dead7ff44c6fbd8267467e95d91f57d1fd23`.
+Для исходного маршрута `ARH__SHT-entity-runner-head-provenance-gap__SHT.md` sender registry ранее показывал только `dispatched / receipt:null`, хотя сама provenance/sanitation проблема уже была закрыта проверенной коррекцией. В `registry/by-sender/archivarius.jsonl` сохранена semantic closure без подделки receipt: `semantic_resolution: sanitation_finding_closed_by_verified_correction`, exact resolution artifact/commit и граница `original_route_exact_receipt_still_absent`. Registry update commit: `39c96df1d2ca73be723b6d9cd7dd0265cbc7e477`.
 
-Exact receipt для текущей revision не найден, поэтому статус остаётся `dispatched`, `receipt:null`. Предыдущая санитария stewardship-маршрута с exact receipt и отдельным acceptance decision остаётся закрытым историческим событием и не переписывается.
+Это не закрывает отдельную техническую Entity Runner dependency и не превращает отсутствующий receipt исходного маршрута в существующий.
+
+Предыдущая санитария `ARH__speech-source-pack__KOO.md` остаётся закрытым историческим проходом: current artifact/dispatch identity синхронизированы, superseded provenance сохранён, exact receipt текущей revision отсутствует.
 
 ## Текущие ARH границы
 
@@ -95,6 +99,7 @@ Exact receipt для текущей revision не найден, поэтому �
 - Candidate/draft/research не становится canon без решения.
 - Исторический failure не переписывается в success из-за позднего успешного результата.
 - Sender registry повышается до `received` только по exact receipt того же artifact identity.
+- Semantic resolution может быть сохранён отдельно от transport receipt, если существует exact evidence закрытия проблемы.
 - ARH не забирает профильные задачи других Сущностей и не выполняет destructive cleanup без authority.
 
 ## Current open work
@@ -123,5 +128,5 @@ Exact receipt для текущей revision не найден, поэтому �
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: продвинуть recovery boundary после санитарии speech source-pack sender registry и сохранить exact pending recovery dependency
+ДЛЯ ЧЕГО: продвинуть recovery boundary после self-readback recovery v02 и semantic closure SHT provenance-gap, сохранив exact pending KOO dependency
 СТАТУС: emergency-self-preservation-current
