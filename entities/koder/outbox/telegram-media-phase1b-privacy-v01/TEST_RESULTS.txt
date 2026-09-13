@@ -1,0 +1,41 @@
+# TEST RESULTS — Telegram Media Gateway Phase 1B privacy fix
+
+status: PASS
+production: no
+live_network: 0
+real_credentials: 0
+
+Tested candidate staging commit:
+`7b771739c7c8b79b98c4d3c7f80e968891106bde`
+
+Commands:
+- `python3 -m py_compile gateway.py test_gateway.py cleanup_sandbox.py test_cleanup.py`
+- `python3 -m unittest -v`
+
+Results:
+- py_compile: PASS / exit 0
+- unittest: 23/23 PASS / exit 0
+- stale pending-KAN marker in `gateway.py`: absent
+- public safe receipt test proves `privacy_mode=aggregate_only`, policy marker present, audience identity/raw text absent
+- SQLite schema test proves no audience identity/raw-comment columns
+- sandbox DB runtime path mismatch fails closed
+- cleanup requires exact path and explicit confirmation
+- cleanup refuses a different path
+- all transport tests use injected `FakeTransport`; no live Telegram implementation or credential was used
+
+Exact tested byte identities, matched against GitHub readback at the staging commit:
+- `gateway.py` SHA-256 `5fa18a563820042c22716fe4a84450b8d8434efc9b5f7c62c67403abd4b44f43`
+- `test_gateway.py` SHA-256 `920c46e843aead1a81cbd5bbf3dbb05be4a0195c59d2b5b5faaa0bf303e6d6c4`
+- `cleanup_sandbox.py` SHA-256 `d9810d7c96e700038fbc56cb9884840b12d8b424b1a278ad10cf5f8a763f14a9`
+- `test_cleanup.py` SHA-256 `816f2c26e3522bd443a530822bbddcaec05fdb7bcc86946aa6c1ac175b2f7569`
+
+Runner note: the local Python environment emitted an unrelated artifact_tool spreadsheet warmup warning on stderr before Python startup. The project commands themselves returned exit 0 and all 23 tests passed.
+
+GitHub raw download was unavailable from the local runner, so tested bytes were reconstructed from the exact candidate transformation and independently matched by SHA-256 to GitHub readback before finalization.
+
+project_time: omitted; trusted project-time source not used
+
+---
+КТО: KOD / КОДЕР
+ДЛЯ ЧЕГО: проверка Phase 1B privacy-fix candidate до immutable finalization
+СТАТУС: PASS
