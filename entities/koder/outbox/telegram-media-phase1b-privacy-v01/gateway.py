@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Protocol, Any
 import hashlib, json, sqlite3
 PHASE0_SYNTHETIC_IDS={-1001000000001,-1002000000002}
+SANDBOX_DB_PATH='/var/lib/wellbeing/telegram-phase1b-sandbox/gateway.sqlite3'
 PRIVACY_MODE='aggregate_only'
 PRIVACY_POLICY_MARKER='KAN:d201f1cc2a8d151fa0358c2c0db26fd1d217e409|KOO:14df7edd91954e92c96e593b4432fd6441f3833a|aggregate_only-v1'
 class ConfigError(ValueError): pass
@@ -11,10 +12,10 @@ class Transport(Protocol):
     def call(self, method:str, payload:dict[str,Any])->dict[str,Any]: ...
 @dataclass(frozen=True)
 class RuntimeConfig:
-    environment:str; channel_key:str; channel_username:str|None; channel_chat_id:int; discussion_linked:bool; discussion_chat_id:int|None; bot_identity:str; webhook_endpoint:str|None; privacy_mode:str='aggregate_only'
+    environment:str; channel_key:str; channel_username:str|None; channel_chat_id:int; discussion_linked:bool; discussion_chat_id:int|None; bot_identity:str; webhook_endpoint:str|None; privacy_mode:str='aggregate_only'; sandbox_db_path:str=SANDBOX_DB_PATH
     @staticmethod
     def from_dict(raw):
-        required=['environment','channel_key','channel_chat_id','discussion_linked','bot_identity']
+        required=['environment','channel_key','channel_chat_id','discussion_linked','bot_identity','sandbox_db_path']
         missing=[k for k in required if k not in raw]
         if missing: raise ConfigError('missing_config:'+','.join(missing))
         cid=raw['channel_chat_id']
@@ -27,10 +28,13 @@ class RuntimeConfig:
             if not isinstance(did,int): raise ConfigError('linked_discussion_requires_verified_integer_chat_id')
             if did in PHASE0_SYNTHETIC_IDS: raise ConfigError('synthetic_phase0_id_forbidden')
         elif did is not None: raise ConfigError('discussion_chat_id_requires_linked_true')
-        if raw['environment'] not in {'sandbox','test'}: raise ConfigError('phase1a_nonproduction_environment_required')
+        if raw['environment'] not in {'sandbox','test'}: raise ConfigError('phase1b_nonproduction_environment_required')
+        db_path=raw.get('sandbox_db_path')
+        if not isinstance(db_path,str) or not db_path.strip(): raise ConfigError('sandbox_db_path_required')
+        if raw['environment']=='sandbox' and db_path!=SANDBOX_DB_PATH: raise ConfigError('sandbox_db_path_must_match_contract')
         privacy=raw.get('privacy_mode',PRIVACY_MODE)
         if privacy!=PRIVACY_MODE: raise ConfigError('phase1b_selected_privacy_mode_required')
-        return RuntimeConfig(raw['environment'],str(raw['channel_key']),raw.get('channel_username'),cid,linked,did,str(raw['bot_identity']),raw.get('webhook_endpoint'),privacy)
+        return RuntimeConfig(raw['environment'],str(raw['channel_key']),raw.get('channel_username'),cid,linked,did,str(raw['bot_identity']),raw.get('webhook_endpoint'),privacy,db_path)
 class FakeTransport:
     def __init__(self): self.calls=[]; self.responses={}
     def queue(self,method,response): self.responses.setdefault(method,[]).append(response)
@@ -49,7 +53,9 @@ class TelegramBotAdapter:
         if not isinstance(update.get('update_id'),int): raise ValidationError('missing_update_id')
         return update['update_id']
 class Gateway:
-    def __init__(self,db_path,config,adapter): self.db_path=db_path; self.config=config; self.adapter=adapter; self.db=sqlite3.connect(db_path); self.db.row_factory=sqlite3.Row; self._init()
+    def __init__(self,db_path,config,adapter):
+        if config.environment=='sandbox' and db_path!=config.sandbox_db_path: raise ConfigError('runtime_db_path_mismatch')
+        self.db_path=db_path; self.config=config; self.adapter=adapter; self.db=sqlite3.connect(db_path); self.db.row_factory=sqlite3.Row; self._init()
     def _init(self):
         self.db.executescript('''PRAGMA foreign_keys=ON;
 CREATE TABLE IF NOT EXISTS publications(publication_id TEXT PRIMARY KEY, revision INTEGER NOT NULL DEFAULT 1, content_hash TEXT NOT NULL);
