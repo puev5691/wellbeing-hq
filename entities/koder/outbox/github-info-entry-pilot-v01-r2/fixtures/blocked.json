@@ -1,0 +1,14 @@
+{
+  "id": "blocked",
+  "title": "Blocked object",
+  "immutable_identity": "sha256:synthetic-blocked",
+  "semantic_status": "current",
+  "editorial_status": "editorial_blocked",
+  "security_state": "public_safe",
+  "representation_state": "representation_ready",
+  "release_state": "release_blocked",
+  "superseded_by": null,
+  "secret_dependency": false,
+  "public_legal_outcome": "blocked",
+  "public_legal_conditions_satisfied": false
+}
