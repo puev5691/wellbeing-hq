@@ -1,0 +1,52 @@
+{
+  "cost_estimate": {
+    "currency": "USD",
+    "estimate_only": true,
+    "input_cost_usd": "0.00025",
+    "output_cost_usd": "0.00007",
+    "pricing_basis": {
+      "input_usd_per_mtok": "2",
+      "model": "claude-sonnet-5",
+      "output_usd_per_mtok": "10",
+      "source": "accepted_KOO_task_and_KAN_readiness_basis"
+    },
+    "total_cost_usd": "0.00032"
+  },
+  "parsed_response": {
+    "message_id": "msg_synthetic_001",
+    "model": "claude-sonnet-5",
+    "stop_reason": "end_turn",
+    "text": "SYNTHETIC",
+    "usage": {
+      "input_tokens": 125,
+      "output_tokens": 7
+    }
+  },
+  "provenance": {
+    "anthropic_version": "2023-06-01",
+    "automatic_retry_used": false,
+    "caching_used": false,
+    "code_execution_used": false,
+    "credential_source": "ANTHROPIC_API_KEY",
+    "credential_value_recorded": false,
+    "data_class": "D0_SYNTHETIC",
+    "external_network_used": false,
+    "fallback_used": false,
+    "files_used": false,
+    "input_tokens": 125,
+    "managed_agents_used": false,
+    "mcp_used": false,
+    "model": "claude-sonnet-5",
+    "output_tokens": 7,
+    "production": false,
+    "project_mutation_performed": false,
+    "provider": "anthropic",
+    "request_hash": "772899d96e1f4a2a0ba74dca0a47bcc18a39ea9018baf2c7853272f99e3a9462",
+    "response_hash": "9936fd8a12f5c53ac6d4204b6deceb0ab8a5cd34da1c4305412bf0bc1d532da5",
+    "search_used": false,
+    "tools_used": false,
+    "transport_version": "anthropic-live-transport-r01"
+  },
+  "provenance_hash": "630dc95a994adf6a05a14c83a6089c7268faf572cbef3fd05637e74b28889c97",
+  "result_identity": "bd4157aeffdcfe7f7119c63ec44439eeca2df8aeb594fc341bc2f85a03f8fd9e"
+}

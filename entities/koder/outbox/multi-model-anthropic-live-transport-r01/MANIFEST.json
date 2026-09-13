@@ -1,0 +1,31 @@
+{
+  "package": "multi-model-anthropic-live-transport-r01",
+  "status": "candidate_ready_for_account_gate",
+  "source_task_commit": "00116e5003680fb4a33f18a0d5739bb9c3ac1fd0",
+  "accepted_adapter_result_commit": "1fece27e9a35954a55b8225adbcfa7c38d702dfb",
+  "accepted_adapter_package_commit": "a81b7445b969edd0b4d8ba23a7140978812c9756",
+  "inherited_exact_blobs": {
+    "policy.py": "77ee39f9023b5887dd999deed34594d0d21d72db",
+    "anthropic_adapter.py": "18521f791e02274a220cf5685919a79ea53d0a8f"
+  },
+  "live_api_call_performed": false,
+  "real_credentials_used": false,
+  "credits_purchase_performed": false,
+  "production_deployed": false,
+  "files": [
+    "policy.py",
+    "anthropic_adapter.py",
+    "live_transport.py",
+    "launcher.py",
+    "test_live_transport.py",
+    "test_launcher.py",
+    "D0-LIVE-CONFIG.example.json",
+    "README.md",
+    "TRANSPORT-CONTRACT.md",
+    "PROVENANCE-CONTRACT.md",
+    "LIVE-GATE-CHECKLIST.md",
+    "SAMPLE_RESULT.json",
+    "TEST_RESULTS.txt",
+    "SHA256SUMS.txt"
+  ]
+}

@@ -1,0 +1,43 @@
+test_default_summary_is_network_denied (test_launcher.TestLauncher.test_default_summary_is_network_denied) ... ok
+test_main_without_live_does_not_need_secret_or_switch (test_launcher.TestLauncher.test_main_without_live_does_not_need_secret_or_switch) ... ok
+test_prepare_plan_keeps_accepted_mock_blueprint (test_launcher.TestLauncher.test_prepare_plan_keeps_accepted_mock_blueprint) ... ok
+test_401_fail_closed_no_retry (test_live_transport.TestLiveTransport.test_401_fail_closed_no_retry) ... ok
+test_403_fail_closed_no_retry (test_live_transport.TestLiveTransport.test_403_fail_closed_no_retry) ... ok
+test_429_retriable_but_no_auto_retry (test_live_transport.TestLiveTransport.test_429_retriable_but_no_auto_retry) ... ok
+test_500_retriable_but_no_auto_retry (test_live_transport.TestLiveTransport.test_500_retriable_but_no_auto_retry) ... ok
+test_blueprint_accepts_exact_route (test_live_transport.TestLiveTransport.test_blueprint_accepts_exact_route) ... ok
+test_blueprint_rejects_auth_header_in_blueprint (test_live_transport.TestLiveTransport.test_blueprint_rejects_auth_header_in_blueprint) ... ok
+test_blueprint_rejects_body_tools (test_live_transport.TestLiveTransport.test_blueprint_rejects_body_tools) ... ok
+test_blueprint_rejects_host_change (test_live_transport.TestLiveTransport.test_blueprint_rejects_host_change) ... ok
+test_blueprint_rejects_path_change (test_live_transport.TestLiveTransport.test_blueprint_rejects_path_change) ... ok
+test_cost_estimate (test_live_transport.TestLiveTransport.test_cost_estimate) ... ok
+test_generic_network_error_sanitized (test_live_transport.TestLiveTransport.test_generic_network_error_sanitized) ... ok
+test_injected_auth_not_in_result (test_live_transport.TestLiveTransport.test_injected_auth_not_in_result) ... ok
+test_injected_success_keeps_external_false (test_live_transport.TestLiveTransport.test_injected_success_keeps_external_false) ... ok
+test_invalid_timeout_rejected_before_executor (test_live_transport.TestLiveTransport.test_invalid_timeout_rejected_before_executor) ... ok
+test_live_switch_default_denied (test_live_transport.TestLiveTransport.test_live_switch_default_denied) ... ok
+test_live_switch_wrong_value_denied (test_live_transport.TestLiveTransport.test_live_switch_wrong_value_denied) ... ok
+test_malformed_usage_rejected (test_live_transport.TestLiveTransport.test_malformed_usage_rejected) ... ok
+test_model_mismatch_rejected (test_live_transport.TestLiveTransport.test_model_mismatch_rejected) ... ok
+test_non_d0_still_rejected_by_accepted_guard (test_live_transport.TestLiveTransport.test_non_d0_still_rejected_by_accepted_guard) ... ok
+test_test_path_refuses_network_executor (test_live_transport.TestLiveTransport.test_test_path_refuses_network_executor) ... ok
+test_timeout_no_auto_retry (test_live_transport.TestLiveTransport.test_timeout_no_auto_retry) ... ok
+test_tool_response_rejected (test_live_transport.TestLiveTransport.test_tool_response_rejected) ... ok
+test_tools_still_off_by_accepted_guard (test_live_transport.TestLiveTransport.test_tools_still_off_by_accepted_guard) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.007s
+
+OK
+{"credential_read": false, "credential_source": "ANTHROPIC_API_KEY", "external_network_used": false, "model": "claude-sonnet-5", "provider": "anthropic", "request_hash": "772899d96e1f4a2a0ba74dca0a47bcc18a39ea9018baf2c7853272f99e3a9462", "route": "https://api.anthropic.com/v1/messages", "status": "LIVE_DISABLED_DEFAULT_DENY"}
+
+STATIC CHECKS
+py_compile: PASS
+unit_tests: 26/26 PASS
+accepted policy git blob: 77ee39f9023b5887dd999deed34594d0d21d72db
+accepted adapter git blob: 18521f791e02274a220cf5685919a79ea53d0a8f
+real provider calls: 0
+real credentials used: 0
+credits purchases: 0
+production deployments: 0
+test network guard: urllib.request.urlopen patched to raise in every test case
