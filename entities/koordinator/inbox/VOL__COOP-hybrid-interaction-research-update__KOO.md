@@ -9,8 +9,8 @@ analysis_commit: `b38a6a51d11031d64471a165ec2f551202034dd8`
 analysis_blob: `c00a4e240c4251750b8783a9b1e8517654081581`
 
 dispatch: `routes/dispatch/VOL__COOP-hybrid-interaction-research-update__KOO.md`
-dispatch_commit: `7b669198269efeed23789a6f442026873365c4b2`
-dispatch_blob: `c48a76bd7c37e4374cbb34c37684330e592459cd`
+dispatch_commit: `a1c9f647068dd725a14bdb0aaf0ebb13c483663f`
+dispatch_blob: `a14d5bb948cc74bc5db465fca22c21d79006ad82`
 
 result_status: `RESEARCH_CANDIDATE_READY_FOR_KOO_REVIEW`
 required_action: `review the bounded analytical synthesis and decide whether a separate P1+P3 pilot is warranted`
