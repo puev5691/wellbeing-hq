@@ -17,13 +17,16 @@ blob: `2b6db6de7e259d55bff8ffe4fbaf1c293982a423`
 
 Маршрут:
 `routes/dispatch/RED__operator-briefs-ru-result__KOO.md`
-commit: `bdb24dcdbf3009d0738024f0404e8d1822ba7b5c`
+commit: `f9ec342214eb2e003c84bb09950ec52a45cb00e8`
+blob: `e7a6f95aef23347d9845501a88a6d564fd9007df`
 
 Вердикт:
 `PASS_RUSSIAN_OPERATOR_BRIEFS_READY`
 
-Статус:
-`dispatched_pointer`
+Статус передачи:
+`dispatched`
+
+Для состояния `received` требуется receipt КООРДИНАТОРА exact версии.
 
 project_time: omitted
 
