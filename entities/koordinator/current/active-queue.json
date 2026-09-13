@@ -2,20 +2,26 @@
   "schema": "koo-active-queue-v0.1-bounded-pilot",
   "recipient": "koordinator",
   "materialized_from": "entities/koordinator/current/inbox-lifecycle.jsonl",
+  "materialized_from_commit": "e4be520c6a0dd3bc7abd66dda69a32e8265d6b53",
   "evidence_baseline": "entities/koordinator/current/KOO__incoming-review-backlog.md",
   "evidence_baseline_commit": "0be841a51f7f056824940193339a6c27857aba9d",
+  "last_intake_repo_commit": "d0a8af4e8615eaf5bc93bc6b08c707656fbb813a",
+  "cursor_semantics": "bounded scan cursor from fresh GitHub preflight; not project time, receipt, acceptance, delivery, or proof of complete intake",
   "active_count": 0,
   "items": [],
   "reconciliation": {
     "audited_substantive_koo_review_blockers": 0,
     "materialized_active_items": 0,
-    "status": "PASS"
+    "preservation_gap_queue_id": "KOO-Q-ARH-INBOX-LIFECYCLE-001",
+    "preservation_correction_event": "KOO-Q-ARH-INBOX-LIFECYCLE-001-CORR-001",
+    "status": "PASS_AFTER_BOUNDED_PRESERVATION_CORRECTION"
   },
   "boundaries": [
     "raw entities/koordinator/inbox remains unchanged",
     "waiting/service/superseded/closed items are not promoted to active solely by inbox presence",
     "this view is not authority for receipt, acceptance, delivery, cleanup, or writer-grant changes",
-    "downstream work owned by SHT/KAN/SIS/KOD/ARH/SHD/VOL is not a KOO active item unless exact evidence returns it to KOO"
+    "downstream work owned by SHT/KAN/SIS/KOD/ARH/SHD/VOL is not a KOO active item unless exact evidence returns it to KOO",
+    "last_intake_repo_commit is only a bounded scan cursor"
   ],
   "project_time": null
 }
