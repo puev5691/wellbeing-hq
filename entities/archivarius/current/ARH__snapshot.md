@@ -12,7 +12,7 @@ Resume-First snapshot для восстановления ARH при дегра�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Последний завершённый ARH-owned commit перед этим refresh: `3ed5e531fc95aa4aa18f649d489b8b9972d36639`
+- Последний завершённый ARH-owned commit перед этим refresh: `4c0a77a70efa0dc4f41e0bd33f2f73a0ebc64843`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -105,6 +105,12 @@ Semantic response/downstream success не дают права выдумать �
 KOD emergency recovery candidate получен по Exchange Gate, independently verified ARH, опубликован как canonical recovery с immutable readback PASS, зарегистрирован в recovery registry, source receipt зафиксирован, verification result адресно возвращён KOD и зарегистрирован в sender registry.
 
 Это закрывает прежнюю зависимость `KOD current-writer recovery checkpoint required`. Новая граница: canonical preservation KOD подтверждён; practical replacement-KOD initiation ещё не доказан.
+
+### Диагностика текущего чата
+
+Fresh diagnostic preserved at `entities/archivarius/current/experience/ARH__chat-degradation-diagnostic.md`, commit `4c0a77a70efa0dc4f41e0bd33f2f73a0ebc64843`.
+
+Текущий evidence показывает сохранённую причинную непрерывность и точные recent refs; подтверждённой semantic corruption нет. Наблюдаемое подвисание совместимо с тяжёлой инструментальной цепочкой предыдущего прохода. Однако внешний ARH recovery v02 устарел относительно KOD emergency recovery, поэтому требуется fresh self-preservation candidate до возможной replacement-initiation.
 
 ## Текущие ARH границы
 
