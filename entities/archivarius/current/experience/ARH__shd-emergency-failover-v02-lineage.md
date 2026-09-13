@@ -6,18 +6,30 @@ project_time: omitted; trusted project-time source not used
 
 ## Fresh preflight boundary
 
-Previous reported ARH boundary:
+Previous reported ARH boundary before the failover event:
 `76b669640f858bfddb2dc332e8205a53bf0d11cc`
 
-Pre-profile HQ HEAD:
+Failover pre-profile HQ HEAD:
 `7752c9bef26770b3f8bb367f57357e3173422553`
 
-Compare result:
+Compare result for that event:
 - ahead: 9 commits;
 - behind: 0;
 - merge-base: previous ARH boundary;
 - affected field: `entities/shardovik/current/`, `entities/archivarius/outbox/`, `entities/koordinator/inbox/`, `routes/dispatch/`, `routes/activation/`;
-- no new `routes/receipts/`, `receipts/`, `handoff/` or registry mutation was present in this delta.
+- no new `routes/receipts/`, `receipts/`, `handoff/` or registry mutation was present in that delta.
+
+Current reconciliation-run preflight boundary:
+`cadb24299ba1879f4e18bbf58a22dc2692fe3cb4`
+
+Fresh HQ HEAD before profile work:
+`cadb24299ba1879f4e18bbf58a22dc2692fe3cb4`
+
+Current compare result:
+- ahead: 0 commits;
+- behind: 0;
+- no new task/result/blocker/approval/acceptance/dependency change appeared after the previous ARH boundary;
+- zero delta does not close the pending KOO route.
 
 ## Event chain
 
@@ -63,25 +75,37 @@ Compare result:
    - status: `OPERATOR_RUNBOOK_READY`;
    - the runbook itself does not prove KOO PASS, SHD replacement initiation, delivery, receipt, acceptance or writer handoff.
 
+7. ARH reconciled its own sender-registry gap after a zero-delta preflight:
+   - registry: `registry/by-sender/archivarius.jsonl`;
+   - record id: `ARH-SHD-emergency-failover-v02-KOO-001`;
+   - registry commit: `454fb67e06a20b5847a2e4e708ea55c08a42e831`;
+   - registry blob after append: `e247a93ce55fb82da1be2dec5dbd078e898b4c6d`;
+   - recorded state: `status=dispatched`, `receipt=null`, `acceptance=null`;
+   - no delivery, processing, receipt or acceptance was inferred.
+
 ## Current exact state
 
 - Base independently verified SHD recovery remains the cited immutable v2.3 recovery; it was not rewritten by this event.
 - Emergency failover v02 is a preservation/recovery candidate pending independent KOO verification.
 - KOO processing is not evidenced by activation.
-- No exact KOO receipt for `ARH__SHD-emergency-failover-v02__KOO.md` is present in the observed delta.
+- No exact KOO receipt for `ARH__SHD-emergency-failover-v02__KOO.md` was found in the current pre-profile scan.
+- Sender-registry coverage for the route is now reconciled, but the route remains pending.
 - No replacement SHD practical initiation is evidenced.
 - No current-writer handoff is evidenced.
 - No WBN/TERA2 launch, production mutation, secret handling or destructive cleanup is authorized by this event chain.
 
-## Sanitation finding
+## Sanitation result
 
-At this preflight boundary the exact failover route is absent from the observed `registry/by-sender/archivarius.jsonl` state even though artifact, dispatch and inbox locator exist. This is an ARH-owned sender-registry reconciliation gap. It must not be repaired by inventing receipt or acceptance; when reconciled, the correct initial route state is `dispatched` with `receipt:null` and `acceptance:null` unless later exact evidence exists.
+The previously identified ARH-owned sender-registry reconciliation gap is resolved by the append-only record committed at `454fb67e06a20b5847a2e4e708ea55c08a42e831`.
+
+This sanitation result changes only route observability. It does **not** change the semantic route state: the exact route remains `dispatched` with `receipt:null` and `acceptance:null` until later exact evidence exists.
 
 ## Anti-regression boundary
 
 - package presence != KOO verification;
 - inbox placement != delivery;
 - detector PASS != processing;
+- sender-registry presence != receipt or acceptance;
 - operator runbook != current-writer transfer;
 - candidate != canon;
 - later PASS, if it appears, must be added as a later event rather than rewriting this failed-activation history.
@@ -89,5 +113,5 @@ At this preflight boundary the exact failover route is absent from the observed 
 ---
 КТО: ARH / АРХИВАРИУС
 КОГДА: не указано — trusted project-time source not used
-ДЛЯ ЧЕГО: сохранить причинную цепочку SHD emergency failover v02, точные границы writer/receipt/activation и выявленный sender-registry gap
+ДЛЯ ЧЕГО: сохранить причинную цепочку SHD emergency failover v02, точные границы writer/receipt/activation и append-only reconciliation sender-registry
 СТАТУС: preserved_pending_koo_verification
