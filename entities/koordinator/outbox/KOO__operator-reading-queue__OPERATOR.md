@@ -8,53 +8,50 @@ project_time: omitted; trusted project-time source not used
 
 ### «Сначала она была выдумана» v0.3
 
-Состояние:
-`WAITING_OPERATOR_EDIT_RETURN`
+Состояние: `WAITING_OPERATOR_EDIT_RETURN`.
 
 ОПЕРАТОР забрал текст на собственное редактирование. RED не должен править его параллельно.
 
-### Public cooperation speech v0.2
+### Речь для выступления v0.2
 
-Состояние:
-`ACCEPTED_FOR_DISCUSSION__NO_PUBLICATION_INFERRED`
+Состояние: `ACCEPTED_FOR_DISCUSSION__NO_PUBLICATION_INFERRED`.
 
-ОПЕРАТОР одобрил и принял материал как основу для обсуждения. Это не является внешним publication release. Возможные результаты обсуждения будут отдельными будущими задачами.
+ОПЕРАТОР одобрил и принял материал как основу для обсуждения. Внешняя публикация из этого автоматически не следует.
 
 ---
 
-## Ожидает нового русскоязычного материала
+## Готово к чтению ОПЕРАТОРОМ
 
-### 1. Telegram Phase 1B
+### 1. Telegram, фаза 1B — русская операторская версия
 
-Предыдущее решение:
-`RETURN_FOR_RUSSIAN_OPERATOR_VERSION`
+Прочитать:
+https://github.com/puev5691/wellbeing-hq/blob/main/entities/redaktor/outbox/RED__telegram-phase1b-operator-brief-ru__KOO.md
 
-Текущий технический исходник:
-https://github.com/puev5691/wellbeing-hq/blob/main/entities/koordinator/outbox/KOO__telegram-phase1b-privilege-path-dependency__OPERATOR.md
+Exact version:
+commit `f1006919533f0dde2832c4b3aa65903307342f86`
+blob `23d9d5c076abcfe76444383c020e6037aa06e19c`.
 
-RED получил задачу подготовить русскоязычную human-readable версию:
-`entities/redaktor/inbox/KOO__operator-briefs-ru__RED.md`
+Состояние после чтения должно перейти только по явному решению ОПЕРАТОРА.
 
-До получения этой версии privileged execution path не считается разрешённым.
+Требуется решить, каким разрешённым способом SIS получает privileged execution path на `ruvds-xnqc6` для bounded non-production provisioning/readback.
 
-### 2. Multi-model D0 pilot
+До такого решения никаких серверных изменений, production, live Telegram send, public webhook или публикации секретов не разрешено.
 
-Предыдущее решение:
-`CONTINUE_TOPIC__RETURN_FOR_RUSSIAN_OPERATOR_DESCRIPTION`
+### 2. Многомодельный шлюз — русская операторская версия
 
-Текущий technical decision:
-https://github.com/puev5691/wellbeing-hq/blob/main/entities/koordinator/outbox/KOO__first-real-multimodel-d0-pilot__OPERATOR.md
+Прочитать:
+https://github.com/puev5691/wellbeing-hq/blob/main/entities/redaktor/outbox/RED__multimodel-operator-brief-ru__KOO.md
 
-Provider evidence:
-https://github.com/puev5691/wellbeing-hq/blob/main/entities/kancelar/outbox/KAN__multi-model-first-provider-evidence-matrix__KOO.md
+Exact version:
+commit `6f5f00aa4f55444157cd292bf0456706196a20cd`
+blob `2b6db6de7e259d55bff8ffe4fbaf1c293982a423`.
 
-Local gateway proof:
-https://github.com/puev5691/wellbeing-hq/blob/main/entities/koder/outbox/KOD__multi-model-gateway-mock-r01-result__KOO.md
+После чтения можно отдельно решить:
+- разрешать ли первый реальный `D0_SYNTHETIC` pilot;
+- если разрешать, какой direct provider выбрать первым: Anthropic или Google;
+- либо пока оставить внешний pilot на HOLD.
 
-RED получил задачу подготовить понятное русскоязычное описание:
-`entities/redaktor/inbox/KOO__operator-briefs-ru__RED.md`
-
-До чтения этой версии provider pilot не авторизован.
+Pro уже подтверждён как купленный и активированный, но это не заменяет отдельное решение по provider/API/data path.
 
 ---
 
@@ -63,8 +60,8 @@ RED получил задачу подготовить понятное русс
 Для материалов, которые ОПЕРАТОР должен читать и по которым должен принимать решение:
 - основной текст — русский;
 - латиница только для технически неизбежных имён: переменных, команд, файлов, путей, машинных кодов, моделей/провайдеров, commit/blob, API/URI/locator;
-- английские технические термины по смыслу переводятся или поясняются при первом употреблении;
-- human-readable смысл идёт раньше служебных метаданных.
+- английские технические термины переводятся или поясняются при первом употреблении;
+- человеческий смысл идёт раньше служебных метаданных.
 
 Рабочая директива KOO:
 `entities/koordinator/current/KOO__operator-facing-language-rule-v01.md`
@@ -72,5 +69,5 @@ RED получил задачу подготовить понятное русс
 ---
 
 КТО: KOO / КООРДИНАТОР
-ДЛЯ ЧЕГО: показывать ОПЕРАТОРУ только актуальные хвосты чтения и не заставлять его разбирать англоязычные технические материалы
+ДЛЯ ЧЕГО: показывать ОПЕРАТОРУ актуальные русскоязычные материалы и требуемые решения без поиска по дереву GitHub
 СТАТУС: active_operator_reading_queue
