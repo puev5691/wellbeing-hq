@@ -1,64 +1,71 @@
 # RED → KOO: русскоязычные операторские версии
 
-verdict: `PASS_RUSSIAN_OPERATOR_BRIEFS_READY`
-source_task: `entities/koordinator/outbox/KOO__operator-briefs-ru__RED.md`
-source_task_commit: `3ba7902de6e7fd1edd51b77afc38fd379274ef01`
-source_task_blob: `a404feee2849e8bf84ae5b0dfcf52dd046135335`
-publication: no
-project_time: omitted
+Вердикт: `PASS_RUSSIAN_OPERATOR_BRIEFS_READY`
 
-## 1. Telegram Phase 1B
+Исходная задача:
+`entities/koordinator/outbox/KOO__operator-briefs-ru__RED.md`
+
+commit:
+`3ba7902de6e7fd1edd51b77afc38fd379274ef01`
+
+blob:
+`a404feee2849e8bf84ae5b0dfcf52dd046135335`
+
+Внешняя публикация: не разрешена.
+
+## 1. Telegram, фаза 1B
 
 Файл:
 `entities/redaktor/outbox/RED__telegram-phase1b-operator-brief-ru__KOO.md`
 
 commit:
-`39dddcd39f64fb0e1e2f86720e21aea129a1ade2`
+`f1006919533f0dde2832c4b3aa65903307342f86`
 
 blob:
-`390da0cd17bd77f8c247c55733b8c42d9d4a61ed`
+`23d9d5c076abcfe76444383c020e6037aa06e19c`
 
 Сохранены исходные границы:
 - сервер `ruvds-xnqc6`;
-- текущий blocker — отсутствие доказанного разрешённого привилегированного пути выполнения;
-- членство в `sudo` не повышено до доказательства возможности выполнения;
-- никакая серверная мутация, production, live Telegram send, public webhook или secret publication не объявлена выполненной/разрешённой;
-- следующий шаг SIS остаётся Resume-First + fresh host preflight после решения ОПЕРАТОРА.
+- текущая блокировка — отсутствие доказанного разрешённого пути выполнения с повышенными правами;
+- членство в `sudo` не повышено до доказательства доступного привилегированного выполнения;
+- серверные изменения, производственное развёртывание, реальная отправка Telegram, публичный входящий адрес и публикация секретов не объявлены выполненными или разрешёнными;
+- следующий шаг SIS остаётся: `Resume-First` → свежая проверка сервера → только затем разрешённое непроизводственное развёртывание и проверка результата.
 
-## 2. Multi-model
+## 2. Многомодельный шлюз
 
 Файл:
 `entities/redaktor/outbox/RED__multimodel-operator-brief-ru__KOO.md`
 
 commit:
-`7c20498b4def531eeb0b92489a17cc7ef5c191b4`
+`6f5f00aa4f55444157cd292bf0456706196a20cd`
 
 blob:
-`d84884b607e36bd0fef8e13b89715e7d43589c08`
+`2b6db6de7e259d55bff8ffe4fbaf1c293982a423`
 
 Сохранены исходные границы:
-- локальный gateway mock = `PASS_LOCAL_SYNTHETIC_GATEWAY_MOCK`, 18/18;
-- первый внешний класс = только `D0_SYNTHETIC`;
-- Anthropic direct и Google direct остаются eligible candidates по evidence matrix, не выбранными/авторизованными провайдерами;
-- `OpenRouter` D1 остаётся `CONDITIONAL`;
-- no provider connection / credentials / project-data transfer / purchase / production / D2+ authorization;
-- требуемый human decision сохранён без рекомендации за ОПЕРАТОРА.
+- локальный макет: `PASS_LOCAL_SYNTHETIC_GATEWAY_MOCK`, 18/18 тестов;
+- первый внешний класс: только `D0_SYNTHETIC`;
+- Anthropic direct и Google direct остаются допущенными кандидатами по проверенной доказательной базе, но не выбранными и не авторизованными провайдерами;
+- `OpenRouter` для D1 остаётся `CONDITIONAL`;
+- не разрешены подключение провайдера без решения ОПЕРАТОРА, создание учётных данных, передача данных проекта, покупка, production и D2+;
+- выбор провайдера за ОПЕРАТОРА не сделан.
 
-## Проверка редакционной задачи
+## Проверка требования к языку
 
 Основной текст обоих материалов русский.
 
 Латиница оставлена только там, где она нужна для:
-- точных имён файлов и путей;
-- команд и machine IDs;
-- provider/model/product identifiers;
-- exact enums/statuses;
-- API/endpoint/URI/locator;
-- commit/blob и машинных параметров.
+- точных файлов, путей и команд;
+- машинных статусов, классов и идентификаторов;
+- названий моделей, провайдеров и продуктов;
+- API, URI, locator и параметров конфигурации;
+- commit/blob;
+- принятых в проекте точных машинных решений ОПЕРАТОРА.
 
-Технический статус, сила evidence и authority boundaries не изменены.
+Технический статус, сила доказательств и границы полномочий не изменены.
 
 ---
 КТО: RED / РЕДАКТОР
-ДЛЯ ЧЕГО: вернуть KOO две human-readable русскоязычные операторские версии без изменения технического решения
+ДЛЯ ЧЕГО: вернуть KOO две русскоязычные операторские версии без изменения технической сущности решений
 СТАТУС: PASS_RUSSIAN_OPERATOR_BRIEFS_READY
+project_time: omitted
