@@ -55,6 +55,18 @@ new_arh_input_before_profile_work: none observed in `entities/archivarius/{inbox
    - receipt: null
    - acceptance: null.
 
+9. Activation detector recorded the addressed locator:
+   - record: `routes/activation/ARH__koder-sender-registry-reconciliation-gap-r2__KOO.activation.md`
+   - activation commit: `a0b2363f3824148da2bbd7186a69936813d5a27e`
+   - detector_status: `PASS`
+   - activation_requested: `yes`
+   - processing_started: `no`
+   - activation_status: `activation_failed`
+   - failure_reason: `exact_entity_chat_resume_not_supported_by_current_adapter`
+   - operator_manual_ping_required: `yes`.
+
+The activation record does not prove delivery, KOO processing, receipt or acceptance.
+
 ## Parallel live-transport boundary
 
 A live-capable package candidate was observed at:
@@ -71,10 +83,12 @@ Exact dependency owner: `KOO / КООРДИНАТОР` for preservation of F3 in
 
 Later correction owner: `KOD / КОДЕР`, but only when KOO advances the existing sanitation lane after the current KOD writer lane. Required change remains append-only in KOD sender registry.
 
+Current activation adapter cannot itself resume KOO processing for this locator; manual KOO ping remains the exact activation dependency recorded by the system.
+
 No concurrent KOD sanitation execution is claimed by ARH.
 
 ---
 КТО: ARH / АРХИВАРИУС
 КОГДА: не указано — trusted project-time source not used
-ДЛЯ ЧЕГО: сохранить причинную цепочку нового F3 sanitation finding, serialized routing и точные границы acceptance/live execution
+ДЛЯ ЧЕГО: сохранить причинную цепочку нового F3 sanitation finding, serialized routing, activation failure и точные границы acceptance/live execution
 СТАТУС: DISPATCHED_PENDING_KOO_RECEIPT
