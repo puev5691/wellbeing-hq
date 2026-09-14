@@ -4,37 +4,61 @@
 Это рабочий документ КООРДИНАТОРА, не канон проекта.  
 Проектное время не указывается: доверенный источник проектного времени в этой сверке не использовался.
 
-## Коротко
+## КАК ЭТИМ ПОЛЬЗОВАТЬСЯ ОПЕРАТОРУ
+
+ОПЕРАТОР **не читает inbox Сущности, не сверяет commit вручную и не пересказывает задачу**.
+
+Штатное ручное пробуждение до появления автоматического exact-chat resume:
+
+> открыть чат нужной Сущности → вставить готовый короткий промпт из этой очереди → перейти к следующему чату.
+
+Всё остальное делает сама Сущность по Resume-First: fresh GitHub-preflight, чтение своего exact inbox, проверка актуальности задачи и возврат результата через Exchange Gate.
+
+Отдельная компактная карточка пробуждений:
+`entities/koordinator/current/KOO__operator-wake-card-v01-ru.md`
+
+## Сейчас будить: готовые промпты
+
+### СИСАДМИН
+
+> Продолжай по Resume-First. Сделай fresh GitHub-preflight `puev5691/wellbeing-hq`. Текущий приоритет KOO уже лежит в твоём inbox: `KOO__sis-current-priority-erefia-access__SIS.md`. Обработай только его и верни результат через Exchange Gate. Не возобновляй Telegram Phase1B параллельно.
+
+### КАНЦЕЛЯРИЯ
+
+> Продолжай по Resume-First. Сделай fresh GitHub-preflight `puev5691/wellbeing-hq`. Обработай текущий exact input `KOO__entity-wake-initiation-resume-authority-review__KAN.md` из своего inbox. Только authority/terminology review, без утверждения нормы и без выбора реализации. Верни результат KOO через Exchange Gate.
+
+### КОДЕР
+
+> Продолжай по Resume-First. Сделай fresh GitHub-preflight `puev5691/wellbeing-hq`. Обработай текущий exact input `KOO__info-entry-static-preview-E1-fix-v03__KOD.md` из своего inbox. Выполни только E1 fix, не захватывай следующие KOD lanes. Верни результат KOO через Exchange Gate.
+
+Этого достаточно. Если задача уже адресована в GitHub, длинный операторский промпт является аварийным исключением, а не штатной процедурой.
+
+## Коротко о текущей обстановке
 
 Сейчас безопасно и полезно параллельно разбудить три Сущности:
 
-1. **СИСАДМИН** — восстановление инфраструктурного доступа к эРэФии для продолжения WBN/TERA работ ШАРДОВИКА.
+1. **СИСАДМИН** — инфраструктурный доступ к эРэФии для продолжения WBN/TERA ветки ШАРДОВИКА.
 2. **КАНЦЕЛЯРИЯ** — проверка полномочий и терминологии кандидата общей процедуры Wake → Resume / Initiation → Writer Gate → Exact Task.
 3. **КОДЕР** — исправление оставшегося дефекта воспроизводимости Static Preview E1.
 
-ШАРДОВИКА сейчас отдельно будить не нужно: его текущая WBN/TERA ветка упёрлась в инфраструктурный шаг СИСАДМИНА. АРХИВАРИУС свою reconciliation-задачу по replacement SIS завершил и принят КООРДИНАТОРОМ.
+ШАРДОВИКА сейчас отдельно будить не нужно: его WBN/TERA ветка ждёт инфраструктурный шаг СИСАДМИНА. WEB ждёт KOD. ШТАБИСТ по wake/initiation/resume review уже отработал.
 
-## Основание свежей сверки
+## Основание сверки
 
-Fresh GitHub-preflight выполнен по `puev5691/wellbeing-hq`.
+Fresh GitHub-preflight выполнен по `puev5691/wellbeing-hq` перед формированием этой очереди; после неё информационное поле продолжает изменяться, поэтому каждый пробуждённый экземпляр обязан начинать со своего fresh preflight.
 
-Граница перед публикацией этой очереди:
-`a2dc6337730c7612890da7ab4ca9a35abeec47ab`.
-
-Материальные изменения относительно старой v0.5:
-- replacement SIS уже установлен как verified current-writer;
+Подтверждённые существенные состояния:
+- replacement SIS установлен как verified current-writer;
 - ARH reconciliation replacement SIS завершена и принята KOO;
-- SHD подтвердил живую WBN-ноду на эРэФии и точный SSH endpoint `194.87.107.135:2222`;
-- текущий blocker SHD — инфраструктурный управляемый доступ к эРэФии для локального read-only inventory;
-- KOO поставил этот шаг выше Telegram Phase1B в очереди SIS;
-- SHT завершил review общей wake/initiation/resume процедуры; исправленный candidate r0.2 передан KAN;
-- VOL P5 evidence scout завершён и принят: пригодного закрытого эпизода с измеренным эффектом пока нет.
+- SHD подтвердил живую WBN-ноду на эРэФии и SSH endpoint `194.87.107.135:2222`;
+- текущий блокирующий шаг SHD передан SIS;
+- KOO поставил эРэФию выше Telegram Phase1B в очереди SIS;
+- SHT завершил review общей wake/initiation/resume процедуры; candidate r0.2 передан KAN;
+- VOL P5 evidence scout принят: доказательно пригодного закрытого эпизода с измеренным эффектом пока нет.
 
-## Первая параллельная волна
+## Подробности активных полос
 
-### 1. SIS / СИСАДМИН — текущий приоритет
-
-Состояние: **готов к ручному пробуждению; выполнение не доказано**.
+### SIS / СИСАДМИН
 
 Exact input:
 `entities/sisadmin/inbox/KOO__sis-current-priority-erefia-access__SIS.md`
@@ -45,26 +69,11 @@ Task commit:
 Activation record:
 `a9779f2b6ecb8fb17ddf967a772aca4075f87a3b`
 
-Фактически подтверждено:
-- activation requested: yes;
-- processing started: no;
-- нужен ручной пинг ОПЕРАТОРА.
+Доказано: activation requested = yes, processing started = no. Поэтому до ручного wake задача не считается RUNNING.
 
-Задача:
-- использовать exact host `194.87.107.135`;
-- использовать SSH port `2222`;
-- восстановить/подтвердить управляемый инфраструктурный доступ и Remote Desktop Commander на exact host;
-- TERA/WBN runtime не менять;
-- вернуть KOO и SHD проверяемый readiness result либо точный blocker.
+Задача ограничена инфраструктурным доступом к exact host `194.87.107.135:2222`; TERA/WBN runtime не менять. Telegram Phase1B приостановлен более высоким текущим приоритетом.
 
-Ожидаемый результат:
-`entities/sisadmin/outbox/SIS__erefia-access-readiness__KOO.md`
-
-Telegram Phase1B r0.4 пока остаётся **приостановлен более высоким текущим приоритетом**. Старый Phase1B task не отменён, но параллельно с эРэФией не исполняется.
-
-### 2. KAN / КАНЦЕЛЯРИЯ
-
-Состояние: **готова к ручному пробуждению; выполнение не доказано**.
+### KAN / КАНЦЕЛЯРИЯ
 
 Exact input:
 `entities/kancelar/inbox/KOO__entity-wake-initiation-resume-authority-review__KAN.md`
@@ -79,18 +88,9 @@ commit `bb2e9b9e5e9368a2ae34dc987e37db1fb5a3b9bc`.
 Activation record:
 `f7fb990b635823ea07af452d84f7d1bfe2775dec`.
 
-Фактически подтверждено:
-- activation requested: yes;
-- processing started: no;
-- нужен ручной пинг ОПЕРАТОРА.
+Задача: только authority/terminology review. После PASS маршрут: ARH recovery-operational review → KOO integration → решение ОПЕРАТОРА.
 
-Задача: только authority/terminology review кандидата r0.2. Не утверждать v1.5, не выбирать runtime/adapter/scheduler и не расширять роли.
-
-После KAN при PASS маршрут: ARH recovery-operational compatibility review → KOO integration → решение ОПЕРАТОРА об утверждении или отклонении v1.5.
-
-### 3. KOD / КОДЕР
-
-Состояние: **готов к ручному пробуждению; выполнение не доказано**.
+### KOD / КОДЕР
 
 Exact input:
 `entities/koder/inbox/KOO__info-entry-static-preview-E1-fix-v03__KOD.md`
@@ -98,116 +98,38 @@ Exact input:
 Task commit:
 `ed84c8c379dc1ba450310fd6be46b2fa30e30fad`
 
-Цель: исправить только оставшийся дефект побайтовой воспроизводимости evidence Static Preview E1. Representation semantics заново не открывать.
+Цель: только Static Preview E1 fix. После PASS создаётся новый узкий WEB recheck. Следующие KOD lanes выполняются строго последовательно: activation-lineage F1/F2, затем sender-registry sanitation.
 
-После результата KOD:
-1. fresh KOO preflight;
-2. exact verification результата;
-3. при PASS — новый узкий WEB recheck;
-4. только затем следующий KOD lane.
+## Сейчас не будить
 
-Внутренняя очередь KOD строго последовательна:
-1. текущий E1 fix;
-2. activation-lineage schema F1/F2;
-3. sender-registry sanitation.
+- **SHD / ШАРДОВИК** — ждёт SIS по эРэФии.
+- **WEB / ВЕБМАСТЕР** — ждёт KOD E1 result и новый exact task.
+- **SHT / ШТАБИСТ** — по общей wake/initiation/resume ветке отработал; ждёт KAN → ARH → KOO.
+- **VOL / ВОЛОНТЁР** — P5 evidence scout закрыт bounded-result.
+- **ARH / АРХИВАРИУС** — предыдущая SIS replacement reconciliation закрыта; новые ARH→KOO policy/evidence входящие обрабатывает KOO отдельно, они не превращаются автоматически в wake-задачу ARH.
 
-Одновременно эти три задачи КОДЕРУ не запускать.
-
-## Сущности, которые сейчас ждут зависимость
-
-### SHD / ШАРДОВИК
-
-Состояние: **ждёт SIS**.
-
-Подтверждённое текущее направление: WBN/TERA на трёх хостах.
-
-Текущее состояние эРэФии:
-- host `194.87.107.135`;
-- SSH `2222` открыт и отвечает OpenSSH;
-- WBN P2P `30000` открыт;
-- hosting API `8780` открыт;
-- `NETWORK=WELLBEING`, `SHARD_NAME=WBN`;
-- chain-defining logic `shard.js` семантически совпадает с Буржуинией;
-- административный endpoint известен;
-- для следующего локального read-only inventory нужен управляемый доступ/Commander.
-
-Поэтому отдельный SHD wake сейчас не нужен. После SIS readiness-result SHD делает fresh preflight и продолжает bounded inventory/сравнение опорной пары Буржуиния ↔ эРэФия.
-
-### WEB / ВЕБМАСТЕР
-
-Ждёт исправленного KOD Static Preview E1 package. Старую v0.2 задачу повторно не использовать. После KOO acceptance будет создан новый exact narrow-recheck task.
-
-### SHT / ШТАБИСТ
-
-Review общей wake/initiation/resume процедуры завершён:
-`PASS_WITH_EXACT_PROCESS_FIXES`.
-
-Для этой ветки сейчас ждёт KAN → ARH → KOO integration. Отдельного wake ШТАБИСТУ по этой ветке нет.
-
-Отдельно его прежняя activation-lineage schema ветка ждёт будущий KOD F1/F2 correction.
-
-## Закрытые в текущем проходе результаты
-
-### ARH / АРХИВАРИУС — replacement SIS reconciliation
-
-Результат:
-`PASS_SIS_REPLACEMENT_PRESERVATION_RECONCILED`.
-
-KOO receipt:
-`routes/receipts/ARH__SIS-replacement-current-writer-reconcile__KOO.receipt.md`
-commit `1b89a425767b19a3d2bb155293c09d27fcb01fbf`.
-
-Состояние: **закрыто, отдельный wake не нужен**.
-
-### VOL / ВОЛОНТЁР — P5 evidence scout
-
-Результат принят ограниченно:
-`P5_EVIDENCE_SCOUT_ACCEPTED__NO_ELIGIBLE_CLOSED_EPISODE`.
-
-KOO receipt:
-`routes/receipts/VOL__hybrid-interaction-p5-evidence-scout__KOO.receipt.md`
-commit `a2dc6337730c7612890da7ab4ca9a35abeec47ab`.
-
-Нового VOL wake не требуется. Для будущего P5 нужен закрытый эпизод с реальными измерениями «до/после», единицей измерения и доказанным получателем эффекта.
-
-## Ожидание ОПЕРАТОРА или внешней зависимости
+## Внешние и человеческие ворота
 
 ### Anthropic live D0
 
-Технический adapter/transport готов. Реальный вызов не разрешён.
-
-Ожидается отдельно:
-- account/org;
-- billing/credits;
-- model access;
-- runtime-only API key;
-- явное разрешение одного D0 live call.
-
-До этого никаких live calls и никакого project/private data.
+Технический adapter/transport готов, но real live call не разрешён. Нужны account/org, billing/credits, model access, runtime-only API key и отдельное разрешение одного D0 вызова.
 
 ### Entity Runner
 
-Состояние: внешний blocker.
-
-Подтверждена только host/runtime readiness. Не подтверждены provider entitlement/billing, Agent ID, Environment ID, API-key validity и разрешение provider-side request.
-
-## Отложенная маршрутизация ШКОЛЫ
-
-Вход VOL существует:
-`entities/shkola/inbox/VOL__participant-capability-testing-source__SHK.md`.
-
-Он не включается автоматически в очередь пробуждений ШТАБА. Нужно адресно определить получателя внутри действующего контура ШКОЛЫ, а не создавать Сущность `SHK` из имени папки.
+Остаётся внешний blocker: provider entitlement/billing, Agent ID, Environment ID, API-key validity и provider-side authority не подтверждены.
 
 ## Правила текущей очереди
 
 1. Inbox, dispatch или activation request не означают `RUNNING`.
-2. Если `processing_started: no`, в операторском документе пишется «готов к ручному пробуждению», а не «выполняется».
-3. Одна Сущность-current-writer выполняет одну профильную mutable-полосу за раз.
-4. После каждого результата KOO делает fresh GitHub-preflight и пересобирает конфликтный граф.
-5. Исторические задачи не возобновляются автоматически.
-6. Документы для ОПЕРАТОРА пишутся по-русски. Латиница остаётся только там, где она технически необходима: пути, имена файлов, commits/blobs, статусы протокола, команды, модели и идентификаторы.
+2. `processing_started: no` означает только готовность к wake.
+3. Одна Сущность-current-writer ведёт одну mutable-полосу за раз.
+4. После результата KOO делает fresh preflight и пересобирает очередь.
+5. Исторические задачи не запускаются автоматически.
+6. Операторские документы пишутся по-русски.
+7. **ОПЕРАТОРУ выдаётся готовый короткий wake-промпт. Ручной пересказ already-addressed задачи не является штатной обязанностью ОПЕРАТОРА.**
+8. Длинный операторский prompt допустим только для аварийной инициации/recovery, когда обычной адресной continuity недостаточно.
 
 ---
 КТО: KOO / КООРДИНАТОР  
-ДЛЯ ЧЕГО: дать ОПЕРАТОРУ актуальную и удобную русскоязычную рабочую очередь после свежей сверки информационного поля  
-СТАТУС: актуальная_сверенная_очередь_v0_6
+ДЛЯ ЧЕГО: дать ОПЕРАТОРУ рабочую очередь, которую можно применять без ручного диспетчерского труда  
+СТАТУС: актуальная_операторская_очередь_v0_6
