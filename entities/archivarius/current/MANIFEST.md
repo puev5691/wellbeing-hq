@@ -14,6 +14,10 @@ project_time: omitted; trusted project-time source not used
   - created in commit `7fb43759d39685cf8b95c4764eb2832a5630e005`
   - purpose: emergency snapshot of verified state and open work
 
+- `entities/archivarius/current/ARH__snapshot-delta-current.md`
+  - introduced in commit `96566c269b0451795bb38b4eebc7a8d84b65f458`
+  - purpose: supplemental non-canon current-state delta after the large emergency snapshot; preserves later bounded recovery/routing dependencies without silently rewriting the base snapshot
+
 ## Baseline
 
 Repository baseline before emergency preservation writes:
@@ -21,4 +25,4 @@ Repository baseline before emergency preservation writes:
 
 ## Start rule
 
-Replacement ARH chat reads `ARH__initiation-current.md` first, verifies repository changes after the latest preservation commit, then uses `ARH__snapshot.md` as recovery state. Active Project Sources outrank this emergency package if a conflict is found.
+Replacement ARH chat reads `ARH__initiation-current.md` first, verifies repository changes after the latest preservation commit, then reads `ARH__snapshot.md` and `ARH__snapshot-delta-current.md` as layered recovery state before doing a fresh GitHub-preflight. Active Project Sources outrank this emergency package if a conflict is found. The supplement does not create canon, approval, writer authority, delivery or processing state.
