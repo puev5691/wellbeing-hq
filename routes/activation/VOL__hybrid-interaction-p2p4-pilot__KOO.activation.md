@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: 88b1ec88e193686dab6c12372b91c77b6bf67001
+source_commit: d512e2ca3495090a7ee26b8cb7556f151fa5d852
 inbox_locator: entities/koordinator/inbox/VOL__hybrid-interaction-p2p4-pilot__KOO.md
 recipient: koordinator
 activation_requested: yes
