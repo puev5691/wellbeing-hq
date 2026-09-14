@@ -65,11 +65,34 @@ Dispatch uses `exchange_gate: v1` and names the exact artifact, recipient, inbox
 
 Static readback against `ops/validate_exchange.py` required fields/dependencies: PASS. No CI/workflow PASS is asserted from an empty commit-status response.
 
+## Activation boundary
+
+Automatic activation detector created/updated:
+`routes/activation/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.activation.md`
+
+Observed activation commit:
+`aa24796f3373ba8b7ce76125a6230ec88c5a0509`
+
+Exact boundary:
+- `detector_status: PASS`;
+- `source_commit: 90338eeca5c2fb4e08d98ccebd4b7287c7c403d1`;
+- `activation_requested: yes`;
+- `processing_started: no`;
+- `activation_status: activation_failed`;
+- `failure_reason: exact_entity_chat_resume_not_supported_by_current_adapter`;
+- `operator_manual_ping_required: yes`.
+
+Activation is not delivery and does not prove KOO processing.
+
 ## Current boundary
 
-KOO receipt: not observed at this lineage write boundary.
+Exact receipt path checked:
+`routes/receipts/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.receipt.md`
+
+Result at this lineage update boundary: absent.
+
 KOO semantic decision/acceptance: not observed.
-Delivery/processing: not asserted from file presence, locator or dispatch alone.
+Delivery/processing: not asserted from file presence, locator, dispatch or activation alone.
 
 The SIS recovery record remains in its current path until a competent lifecycle disposition is returned.
 
@@ -83,11 +106,11 @@ The SIS recovery record remains in its current path until a competent lifecycle 
 
 Успех/неудача: success in bounded sanitation and dependency isolation; lifecycle correction itself remains blocked pending KOO decision.
 
-Фиксация: exact outbox artifact, Exchange Gate route, sender-registry append and this lineage.
+Фиксация: exact outbox artifact, Exchange Gate route, sender-registry append, activation boundary and this lineage.
 
 Урок: directory names are part of operational semantics once recovery tooling and humans use them; a completed state inside a `pending` locator needs an explicit lifecycle rule, not an archivist improvising a new canon because the folder name looks silly.
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: сохранить причинную цепочку обнаружения, authority-check, адресной эскалации и границы неисполненного lifecycle decision
+ДЛЯ ЧЕГО: сохранить причинную цепочку обнаружения, authority-check, адресной эскалации, activation boundary и границы неисполненного lifecycle decision
 СТАТУС: routed_pending_koo_receipt_and_decision
