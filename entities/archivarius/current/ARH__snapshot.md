@@ -12,7 +12,7 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Boundary before this snapshot refresh: `5d4e5b7942669b6a20b9c636724970302126d275`
+- Boundary before this snapshot refresh: `8ee3d570b7bc7c819083be75e0f6d8fb1c088d61`
 - Fresh preflight compare from the previous ARH boundary to `main`: `identical`, `0 ahead / 0 behind`, `0 commits`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
@@ -43,7 +43,7 @@ Historical v02/v03 candidate paths remain provenance; future recovery should pre
 
 ## Current project-field classification
 
-Fresh preflight found no commits after `5d4e5b7942669b6a20b9c636724970302126d275`. Therefore there are no newly changed files after the previous ARH run in:
+Fresh preflight found no commits after `8ee3d570b7bc7c819083be75e0f6d8fb1c088d61` before this profile write. Therefore there were no newly changed files after the previous ARH run in:
 - `entities/*/inbox/`;
 - `entities/*/outbox/`;
 - `entities/*/current/`;
@@ -56,13 +56,36 @@ Fresh preflight found no commits after `5d4e5b7942669b6a20b9c636724970302126d275
 
 Zero delta does not close previously open routes and does not convert pending activation into processing.
 
-## KOD serialized queue — current verified working state
+## SHD emergency failover — corrected recovery truth
 
-Source of current queue truth:
+Current ARH recovery registry records the historical SHD base recovery as preserved provenance with a corrected integrity layer independently verified by KOO.
+
+Exact current boundary:
+- historical checksum table: invalid for raw blob bytes;
+- corrected raw hash table: `4/4 PASS`;
+- corrected payload: `4/4 PASS`;
+- original raw Git blobs: `4/4 PASS`;
+- terminal-LF checksum cause: independently reproduced;
+- KOO correction receipt: `routes/receipts/ARH__SHD-base-recovery-integrity-correction__KOO.receipt.md`;
+- receipt commit: `187697503b63b07286e7af20bef910470fdaa61e`;
+- KOO re-verification artifact: `entities/koordinator/outbox/KOO__SHD-emergency-failover-v02-reverification__OPERATOR.md`;
+- re-verification commit: `e34a7a2c6ad0f3f0b54973f67bf042cbcefbf307`;
+- verdict: `PASS_RECOVERY_CORRECTION_VERIFIED__PRACTICAL_COLD_START_PERMITTED`.
+
+This verdict permits practical replacement cold-start but does **not** prove it happened.
+Current exact state:
+- practical replacement initiation: `permitted_not_yet_performed`;
+- current-writer transfer: `not_yet_performed`.
+
+Do not promote the correction candidate to canon and do not rewrite the historical checksum defect out of provenance.
+
+## KOD serialized queue — current working state and result/queue divergence
+
+Queue source:
 `entities/koordinator/current/KOO__kod-serialized-queue-v02.md`
 blob `d0b16369ce9b2decc6c6f02e8f2b09bb2e918a10`.
 
-Completed:
+Completed in queue:
 - `anthropic-direct-adapter-r01`;
 - exact KOO receipt: `routes/receipts/KOD__anthropic-direct-adapter-r01__KOO.receipt.md`;
 - verdict: `PASS_ANTHROPIC_DIRECT_ADAPTER_READY_FOR_D0_LIVE_GATE`;
@@ -72,17 +95,41 @@ Completed:
 - credits purchase: no;
 - production: no.
 
-Active KOD lane:
-- `anthropic-live-transport-r01`;
-- task commit: `00116e5003680fb4a33f18a0d5739bb9c3ac1fd0`;
-- live network call remains forbidden in this pass.
+Queue file still labels `anthropic-live-transport-r01` as the active KOD lane. After that queue snapshot, however, KOD produced and routed a bounded result:
+- result artifact: `entities/koder/outbox/KOD__anthropic-live-transport-r01__KOO.md`;
+- result commit: `f020d79563c691cec86e2fd70437ca9d2d2686cb`;
+- verdict: `PASS_ANTHROPIC_LIVE_TRANSPORT_READY_FOR_ACCOUNT_GATE`;
+- package commit: `48ea999e957242cbf472febecf5aa92889b67f13`;
+- package subtree: `8132017eed21d5073de78fc6147000a35829c230`;
+- deterministic tests: `26/26 PASS`;
+- real provider calls: `0`;
+- real credentials used: `0`;
+- credits purchases: `0`;
+- production deployments: `0`.
 
-Observed candidate package:
-`entities/koder/outbox/multi-model-anthropic-live-transport-r01/`
-with manifest status `candidate_ready_for_account_gate`.
-Package presence is not a KOO receipt, acceptance, live call, credential use, billing readiness or production permission.
+Exchange route exists:
+- dispatch: `routes/dispatch/KOD__anthropic-live-transport-r01__KOO.md`;
+- dispatch commit: `9443aeb3a980e61d4b9dc99c5198300652fdfa3d`;
+- KOO inbox locator commit: `ed03f443a988343c09e6eb6c223eb00414acdc03`;
+- sender-registry append commit: `bbfc500dc5bdf412b358c0dd8a104a94669c0d6d`.
 
-READY_SERIALIZED after active lane:
+Activation detector saw the KOO locator but records:
+- `processing_started: no`;
+- `activation_status: activation_failed`;
+- reason: `exact_entity_chat_resume_not_supported_by_current_adapter`;
+- `operator_manual_ping_required: yes`.
+
+No exact KOO receipt for this KOD result is present at this snapshot boundary. Therefore:
+- KOD execution/result publication is factual;
+- KOO receipt/acceptance is not factual;
+- a real Anthropic call is not factual;
+- account/key/billing/model-access readiness is not factual;
+- live D0 authorization is not factual;
+- production permission is not factual.
+
+This is a current-state divergence between an older KOO queue file and a newer routed KOD result. Preserve both facts until KOO reconciles the queue/receipt state.
+
+READY_SERIALIZED still recorded by the queue after the active lane:
 1. `info-entry-static-preview-E1-evidence-alignment`;
 2. `activation-lineage-schema-F1-F2`;
 3. `koder-sender-registry-sanitation`.
@@ -171,6 +218,8 @@ No evidence in ARH state says this command has been executed. Live Telegram send
 - Historical failure is not rewritten by later success.
 - Sender registry becomes `received` or `received_and_processed` only from exact matching receipt evidence.
 - Canonical recovery preservation PASS does not equal practical replacement initiation.
+- Permission to cold-start SHD does not equal performed cold-start or writer handoff.
+- A routed KOD result does not equal KOO acceptance or live provider execution.
 - ARH does not silently resolve authority/canon conflicts or perform unrelated destructive cleanup.
 - Materialized active queue does not become semantic authority over artifacts, receipts, decisions or raw inbox evidence.
 - Zero Git delta does not close pending routes.
@@ -178,12 +227,14 @@ No evidence in ARH state says this command has been executed. Live Telegram send
 ## Current open work
 
 1. Start every run with fresh GitHub-preflight and delta classification.
-2. Watch `ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.md` for exact KOO receipt/processing evidence; do not invent receipt or acceptance.
-3. Watch `ARH__sis-sender-registry-reconciliation-gap__SIS.md` for exact SIS receipt/result; activation detector failure is not processing.
-4. Watch `ARH__koder-sender-registry-reconciliation-gap-r2__KOO.md` for exact KOO receipt. Until then, do not claim F3 was folded into the serialized KOD sanitation lane.
-5. Keep KOD sender-registry sanitation open while KOO queue keeps it `READY_SERIALIZED`; do not declare KOD execution from queue presence.
-6. Continue bounded sanitation of stale/orphaned routes, locator/version drift and conflicting current-state only from exact evidence.
-7. Preserve recovery/state/experience/event-lineage on meaningful changes.
+2. Watch SHD practical replacement cold-start/current-writer transfer for exact performed evidence; current state is permission only.
+3. Watch `KOD__anthropic-live-transport-r01__KOO.md` for exact KOO receipt/queue reconciliation; do not infer acceptance or live provider execution.
+4. Watch `ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.md` for exact KOO receipt/processing evidence; do not invent receipt or acceptance.
+5. Watch `ARH__sis-sender-registry-reconciliation-gap__SIS.md` for exact SIS receipt/result; activation detector failure is not processing.
+6. Watch `ARH__koder-sender-registry-reconciliation-gap-r2__KOO.md` for exact KOO receipt. Until then, do not claim F3 was folded into the serialized KOD sanitation lane.
+7. Keep KOD sender-registry sanitation open while KOO queue keeps it `READY_SERIALIZED`; do not declare KOD execution from queue presence.
+8. Continue bounded sanitation of stale/orphaned routes, locator/version drift and conflicting current-state only from exact evidence.
+9. Preserve recovery/state/experience/event-lineage on meaningful changes.
 
 ## Resume-First for replacement ARH
 
@@ -197,5 +248,5 @@ No evidence in ARH state says this command has been executed. Live Telegram send
 ---
 КТО: ARH / АРХИВАРИУС
 КОГДА: не указано — trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать current recovery/state после zero-delta preflight и устранить stale KOD queue/state в предыдущем snapshot
+ДЛЯ ЧЕГО: синхронизировать current recovery/state после zero-delta preflight, SHD recovery correction PASS и routed KOD Anthropic live-transport result без выдуманного receipt/acceptance
 СТАТУС: emergency-self-preservation-current
