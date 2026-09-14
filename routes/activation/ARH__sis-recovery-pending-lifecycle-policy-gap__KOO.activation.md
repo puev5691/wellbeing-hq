@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: 1dc742af4a2e43b6b1b0d5aee31db877fa7c512d
+source_commit: 90338eeca5c2fb4e08d98ccebd4b7287c7c403d1
 inbox_locator: entities/koordinator/inbox/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.md
 recipient: koordinator
 activation_requested: yes
