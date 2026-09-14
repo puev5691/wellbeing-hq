@@ -29,7 +29,7 @@ task commit:
 
 Purpose: close only Static Preview E1 byte-reproducibility defect.
 
-Activation evidence remains:
+Activation evidence:
 - `activation_requested: yes`;
 - `processing_started: no`;
 - exact Entity-chat resume unsupported by current adapter.
@@ -48,7 +48,7 @@ task commit:
 
 Purpose: bounded read-only WBN/WBNP/TERA2 launch-readiness reconciliation on MAZHOR/lab-01.
 
-Activation evidence remains:
+Activation evidence:
 - `activation_requested: yes`;
 - `processing_started: no`;
 - exact Entity-chat resume unsupported by current adapter.
@@ -57,7 +57,7 @@ No node launch, production mutation or secrets.
 
 ### O3 — SIS / СИСАДМИН
 
-State: `READY_WAKE`.
+State: `READY_WAKE_MANUAL_RESUME_REQUIRED`.
 
 Replacement current-writer:
 `entities/sisadmin/current/SIS__replacement-current-writer-v01.md`
@@ -70,6 +70,14 @@ Exact input:
 task commit:
 `88bfefeeb212bcd991a70cfcd15d4b242f14ce1f`
 
+Activation record commit:
+`2ebeb85f6a1ff8ae0b53a2980861c8fd828f85fb`.
+
+Activation evidence:
+- `activation_requested: yes`;
+- `processing_started: no`;
+- `operator_manual_ping_required: yes`.
+
 Purpose: fresh Phase1B resume gate after replacement; verify current host state and resume-aware v2 script without replaying historical v1 sudo action.
 
 If interactive sudo is actually required, SIS must return one exact Termux block and stop in `WAITING_OPERATOR_EXACT_HUMAN_ACTION`.
@@ -78,13 +86,21 @@ No live Telegram, public webhook, production or credentials.
 
 ### O4 — ARH / АРХИВАРИУС
 
-State: `READY_WAKE`.
+State: `READY_WAKE_MANUAL_RESUME_REQUIRED`.
 
 Exact input:
 `entities/archivarius/inbox/KOO__sis-replacement-preservation-reconcile__ARH.md`
 
 task commit:
 `aafd5aa7bbe226f27254fa172571b5c3f353a0bc`
+
+Activation record commit:
+`ceec25c4f7738f06a21e95804f98027c3b1bc03b`.
+
+Activation evidence:
+- `activation_requested: yes`;
+- `processing_started: no`;
+- `operator_manual_ping_required: yes`.
 
 Purpose: independently reconcile preservation/recovery registry state after verified SIS replacement current-writer establishment.
 
