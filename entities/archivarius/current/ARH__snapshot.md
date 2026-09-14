@@ -12,9 +12,9 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Previous ARH run boundary: `ab68673e1d8931a62dd5112c35d5956bd1d03f74`
-- Pre-profile HEAD: `e61acde959cb09fbf2053fe9d5da7d5d5a6de0ee`
-- Compare: `ahead 11 / behind 0`
+- Previous ARH run boundary: `7acf433eb772b472cfd9f0cbb602da7b8d625b24`
+- Pre-profile HEAD: `7acf433eb772b472cfd9f0cbb602da7b8d625b24`
+- Compare: `ahead 0 / behind 0`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -26,23 +26,13 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 ## Fresh delta classification
 
-После предыдущей ARH-границы свежая дельта затронула:
-- `entities/shardovik/current/`;
-- `entities/shardovik/outbox/`;
-- `entities/sisadmin/inbox/`;
-- `routes/dispatch/`;
-- `routes/activation/`;
-- `registry/by-sender/shardovik.jsonl`.
+После предыдущей ARH-границы fresh delta отсутствовала:
+- новых commits: 0;
+- новых изменений в `entities/*/inbox/`, `entities/*/outbox/`, `entities/*/current/`: 0;
+- новых изменений в `routes/dispatch/`, `routes/receipts/`, `receipts/`, `handoff/`, `registry/`, recovery/experience/activation-state: 0;
+- новых task/result/blocker/approval/acceptance/dependency-change из fresh delta: 0.
 
-В исходной fresh delta не было новых изменений в:
-- `entities/archivarius/inbox/`;
-- `entities/archivarius/current/`;
-- `routes/receipts/`;
-- `receipts/`;
-- `handoff/`;
-- ARH recovery registry/pending state.
-
-Новых receipt/acceptance в этой дельте не обнаружено.
+Нулевая дельта не закрывает ранее зафиксированные pending/open sanitation tails.
 
 ## ARH recovery — current truth
 
@@ -113,7 +103,7 @@ No recovery event authorizes automatic sudo, Telegram live send, public webhook,
 
 `entities/shardovik/outbox/SHD__erefia-host-access-restore__SIS.md`
 
-This route is historical provenance from the state where host identity/access were still unresolved. Its exact receipt remained absent at the previous refresh boundary.
+This route is historical provenance from the state where host identity/access were still unresolved. Its exact receipt remained absent at this refresh boundary.
 
 ### Exact host / live node evidence
 
@@ -171,6 +161,20 @@ Operational precedence is therefore:
 
 The old artifact is preserved as history; it must not be executed as if the port-22 premise were still current.
 
+### Sender-registry reconciliation
+
+The previously missing append-only sender-registry record for the SSH-2222 correction has now been added:
+- registry: `registry/by-sender/shardovik.jsonl`;
+- record: `SHD-erefia-ssh2222-correction-SIS-003`;
+- registry commit: `690130396937478329cbb1b32c39d203940d8cd8`;
+- status: `dispatched_pending_receipt`;
+- receipt: null.
+
+Historical sender-registry rows were not rewritten or removed.
+
+Causal preservation:
+`entities/archivarius/current/experience/ARH__shd-erefia-ssh2222-registry-reconciliation-lineage.md`.
+
 ### Activation / receipt boundary
 
 For both the exact-locator route and the SSH-2222 correction route:
@@ -180,7 +184,7 @@ For both the exact-locator route and the SSH-2222 correction route:
 - failure_reason: `exact_entity_chat_resume_not_supported_by_current_adapter`;
 - operator manual ping required: yes.
 
-Exact receipt files for both routes are absent at this refresh boundary.
+Exact receipt files for both routes remain absent at this refresh boundary.
 
 Therefore ARH does not assert:
 - SIS processing;
@@ -189,9 +193,7 @@ Therefore ARH does not assert:
 - receipt;
 - acceptance.
 
-Information-field sanitation tail: `registry/by-sender/shardovik.jsonl` contains the exact-locator dispatch record but no separate record for the later SSH-2222 correction dispatch. This is a sender-registry reconciliation gap, not a reason to invent processing state.
-
-Causal preservation for this transition:
+Causal preservation for route supersession:
 `entities/archivarius/current/experience/ARH__erefia-route-supersession-lineage.md`.
 
 ## KOD Anthropic live-transport — reconciled acceptance truth
@@ -235,18 +237,17 @@ Absence means ARH does not assert recipient processing or acceptance for those e
 - `PERMITTED`, `PERFORMED` and `CURRENT_WRITER_ESTABLISHED` are distinct states.
 - A current-writer handoff does not authorize automatic historical task replay.
 - Exact task identity and dependency state must be revalidated immediately before processing start.
-- Zero Git delta does not close pending routes.
+- Zero Git delta does not close pending routes or sanitation tails by itself.
 
 ## Current open work
 
 1. Start every run with fresh GitHub-preflight and delta classification.
 2. Watch the corrected SHD → SIS эРэФия route for exact SIS receipt/result; current SSH endpoint is `194.87.107.135:2222`.
 3. Do not treat the earlier port-22 refusal as a current SSH blocker.
-4. Preserve the shardovik sender-registry omission for the correction as an open sanitation tail until exact append-only reconciliation appears.
-5. Watch the three ARH service tails listed above for exact return receipts.
-6. Continue bounded sanitation of stale/orphaned routes, duplicate locators, conflicting current-state and recovery/event-lineage drift only from exact evidence.
-7. Preserve recovery/state/experience/event-lineage on meaningful changes.
-8. Do not promote candidate/draft material to canon without exact authority.
+4. Watch the three ARH service tails listed above for exact return receipts.
+5. Continue bounded sanitation of stale/orphaned routes, duplicate locators, conflicting current-state and recovery/event-lineage drift only from exact evidence.
+6. Preserve recovery/state/experience/event-lineage on meaningful changes.
+7. Do not promote candidate/draft material to canon without exact authority.
 
 ## Resume-First for replacement ARH
 
@@ -261,5 +262,5 @@ Absence means ARH does not assert recipient processing or acceptance for those e
 ---
 КТО: ARH / АРХИВАРИУС
 КОГДА: не указано — trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать emergency current-state с подтверждённым host/live-node evidence эРэФии, исправленным SSH endpoint 2222 и точной границей routing/activation без выдуманного receipt/acceptance
+ДЛЯ ЧЕГО: закрыть точный sender-registry gap для SHD → SIS correction SSH 2222, сохранив route/receipt/acceptance boundaries без выдуманного исполнения
 СТАТУС: emergency-self-preservation-current
