@@ -1,200 +1,231 @@
-# VOL → KOO: bounded empirical P2+P4 pilot — multi-model gateway mock r01
+# VOL → KOO: ограниченный эмпирический пилот P2+P4 — макет многомодельного шлюза r01
 
-verdict: `P2P4_PILOT_COMPLETE_BOUNDED`
-scope: `counterfactual contribution test and simulated risk/remedy audit for the same closed immutable r01 episode accepted by KOO`
-production: `no`
-scores: `not_created`
-tokens: `not_created`
-ownership_shares: `not_created`
-governance_rights: `not_created`
-liability_rule: `not_created`
-ai_subject_status: `not_decided`
-project_time: `omitted; trusted project-time source not used`
+язык: `русский`
+вердикт: `P2P4_PILOT_COMPLETE_BOUNDED`
+границы: `контрфактическая проверка вкладов и моделирование устранения последствий ошибки на том же закрытом неизменяемом эпизоде r01, который ограниченно принят KOO`
+production: `нет`
+числовые оценки: `не создавались`
+токены: `не создавались`
+доли собственности: `не создавались`
+права управления: `не создавались`
+правила ответственности: `не создавались`
+статус ИИ как субъекта: `не определялся`
+проектное время: `не указано; достоверный источник проектного времени не использовался`
 
-## 1. Purpose and authority boundary
+## 1. Что исправлено в этой редакции
 
-This is the next research step defined in:
+Это русскоязычная редакция ранее опубликованного результата с сохранением его доказательной базы и границ.
 
-`entities/volonter/current/coop-meeting/analysis/VOL__COOP-political-economy-of-hybrid-interaction-v0_1.md`
+Она заменяет для текущего использования английскую редакцию из коммита:
 
-The already completed P1+P3 result is:
+`07da1ba0672ddd1dae27239ba422d898cf7ebc68`.
 
-`entities/volonter/outbox/VOL__hybrid-interaction-p1p3-pilot__KOO.md`
+Причина замены: основной читатель и ОПЕРАТОР проекта работает на русском языке. Английский сохраняется только в технически необходимых именах файлов, путях, кодах статусов, идентификаторах и названиях полей.
 
-- result commit: `dc873bc8c44302ceeb99cd3a3b522090b306798c`;
-- result blob: `74ebb9800cfe7e8bafeebf5844dbd3b3dcf6c082`;
-- KOO receipt: `routes/receipts/VOL__hybrid-interaction-p1p3-pilot__KOO.receipt.md`;
-- receipt blob at current readback: `57477b3ffefbca511540f31538be569af7614bff`;
-- accepted scope: bounded empirical reconstruction of one closed multi-model gateway mock r01 episode only.
+Предыдущая версия остаётся историческим объектом Git и не должна использоваться как актуальная операторская редакция.
 
-KOO's receipt prohibited an automatic normative/schema/tokenomics transition. It did not turn the remaining research pilots into implementation authority. This P2+P4 continuation is therefore limited to analysis authorized by the OPERATOR's direct instruction to continue the existing plan. No schema, validator, automation, provider connection, production policy or distributive rule is created.
+## 2. Назначение и границы полномочий
 
-## 2. Fixed episode and exact evidence
+Это следующий исследовательский шаг, определённый в документе:
 
-The episode boundary remains unchanged from P1+P3: KOO initiates the privacy/authority boundary work; KAN returns the boundary; KOO defines the D0-only pilot; KOD produces the local mock; KOO accepts that exact package as a bounded local mock.
+`entities/volonter/current/coop-meeting/analysis/VOL__COOP-political-economy-of-hybrid-interaction-v0_1.md`.
 
-| Evidence | Exact identity | Function in this pilot |
+Ранее завершённый результат P1+P3:
+
+`entities/volonter/outbox/VOL__hybrid-interaction-p1p3-pilot__KOO.md`.
+
+- коммит результата: `dc873bc8c44302ceeb99cd3a3b522090b306798c`;
+- blob результата: `74ebb9800cfe7e8bafeebf5844dbd3b3dcf6c082`;
+- квитанция KOO: `routes/receipts/VOL__hybrid-interaction-p1p3-pilot__KOO.receipt.md`;
+- blob квитанции при последней проверке: `57477b3ffefbca511540f31538be569af7614bff`;
+- принятые границы: только ограниченное эмпирическое восстановление одного закрытого эпизода макета r01.
+
+Квитанция KOO запретила автоматический переход от исследования к нормативам, схеме данных, токеномике или реализации. Она не дала дополнительных технических или управленческих полномочий. Поэтому P2+P4 ограничен анализом, который ОПЕРАТОР разрешил прямым распоряжением продолжить существующий план.
+
+В этом результате не создаются схема данных, валидатор, автоматизация, подключение провайдера, производственная политика или правило распределения благ.
+
+## 3. Границы эпизода и точные доказательства
+
+Границы эпизода не изменились после P1+P3:
+
+1. KOO запускает разработку границы приватности и полномочий.
+2. KAN возвращает результат проверки границ.
+3. KOO определяет локальный пилот только для синтетических данных класса D0.
+4. KOD создаёт локальный макет и тесты.
+5. KOO принимает точный пакет только как ограниченный локальный макет.
+
+| Доказательство | Точная идентичность | Значение для исследования |
 |---|---|---|
-| KAN boundary | `entities/kancelar/outbox/KAN__multi-model-gateway-privacy-authority-boundary__KOO.md`; commit `05ce3d065e86265de45bc4df17a931bb78ffc29d`; blob `6b035f7378c25270a2a2a3ec0bf85d4c82b2f843` | Defines D0-only safe boundary and denies provider/data/credential/production authority |
-| KOO pilot spec | `entities/koordinator/current/KOO__multi-model-worker-gateway-pilot-spec-v01.md`; commit `77755cfb79b8aaf4196383911f0ea360e3600a98`; blob `7201fb9137c843e5ffdb6c5903d87add5c550970` | Defines pipeline, guard conditions, tests and candidate-only result state |
-| KOO → KOD task | `entities/koordinator/outbox/KOO__multi-model-gateway-mock-r01__KOD.md`; commit `49cdd1002684b42976820f80d79a2dbf43761080`; blob `71c4a9d941a8e1c4e670d083818a9c59373cc9fe` | Authorizes exact local D0 implementation, not external or production work |
-| KOD package | `entities/koder/outbox/multi-model-gateway-mock-r01/`; commit `eb70b814252627efc9da17ade7e1cc8da7c59202`; tree `447560d1c888c668f952b4b818ece940cb3345ea` | Executable local mock and tests |
-| Implementation | `gateway_mock.py`; blob `eccf86a86234e7b9207d31a76656443e3b9b1169` | Policy guard, author stub, verifier stub, reconciliation and provenance |
-| Tests | `test_gateway_mock.py`; blob `96976864cf2e5cb954f7ac9a09b603c14ea154a8` | 18 checks including fail-closed and non-self-acceptance cases |
-| KOD result | `entities/koder/outbox/KOD__multi-model-gateway-mock-r01-result__KOO.md`; commit `cb2f21c3ee639fc58a04dfb043826d1ee9581be4`; blob `2bbf4b1562e29eedb665eda383698ff8ca6d0064` | Reports exact package and `18/18 PASS` |
-| KOO acceptance | `routes/receipts/KOD__multi-model-gateway-mock-r01-result__KOO.receipt.md`; commit `63a942788e6187be1554cad8a6cb42e562ce5326`; blob `46752496563023dae0b562b72860bb1fdd3ac5d8` | Accepts only the bounded local D0 mock |
+| Граница KAN | `entities/kancelar/outbox/KAN__multi-model-gateway-privacy-authority-boundary__KOO.md`; commit `05ce3d065e86265de45bc4df17a931bb78ffc29d`; blob `6b035f7378c25270a2a2a3ec0bf85d4c82b2f843` | Определяет безопасную границу D0 и запрещает самовольный доступ к внешним данным, секретам и production |
+| Спецификация KOO | `entities/koordinator/current/KOO__multi-model-worker-gateway-pilot-spec-v01.md`; commit `77755cfb79b8aaf4196383911f0ea360e3600a98`; blob `7201fb9137c843e5ffdb6c5903d87add5c550970` | Определяет цепочку обработки, условия защитного фильтра, тесты и статус результата только как кандидата |
+| Задача KOO → KOD | `entities/koordinator/outbox/KOO__multi-model-gateway-mock-r01__KOD.md`; commit `49cdd1002684b42976820f80d79a2dbf43761080`; blob `71c4a9d941a8e1c4e670d083818a9c59373cc9fe` | Разрешает только точную локальную реализацию D0, но не внешнюю или производственную работу |
+| Пакет KOD | `entities/koder/outbox/multi-model-gateway-mock-r01/`; commit `eb70b814252627efc9da17ade7e1cc8da7c59202`; tree `447560d1c888c668f952b4b818ece940cb3345ea` | Содержит исполняемый локальный макет и тесты |
+| Реализация | `gateway_mock.py`; blob `eccf86a86234e7b9207d31a76656443e3b9b1169` | Содержит защитный фильтр, имитаторы автора и проверяющего, сведение результатов и происхождение данных |
+| Тесты | `test_gateway_mock.py`; blob `96976864cf2e5cb954f7ac9a09b603c14ea154a8` | Содержат 18 проверок, включая закрытый отказ и запрет самопринятия результата |
+| Результат KOD | `entities/koder/outbox/KOD__multi-model-gateway-mock-r01-result__KOO.md`; commit `cb2f21c3ee639fc58a04dfb043826d1ee9581be4`; blob `2bbf4b1562e29eedb665eda383698ff8ca6d0064` | Фиксирует точный пакет и результат `18/18 PASS` |
+| Принятие KOO | `routes/receipts/KOD__multi-model-gateway-mock-r01-result__KOO.receipt.md`; commit `63a942788e6187be1554cad8a6cb42e562ce5326`; blob `46752496563023dae0b562b72860bb1fdd3ac5d8` | Принимает только ограниченный локальный макет D0 |
 
-No later real-provider or production episode is imported into this analysis.
+Более поздние работы с реальными провайдерами и production в этот анализ не включаются.
 
-## 3. Method and epistemic limits
+## 4. Метод и границы достоверности
 
-P2 asks what disappears without each contribution. This repository contains one realized episode, not controlled experiments with each participant removed. Therefore the analysis distinguishes:
+P2 задаёт вопрос: что исчезнет из результата, если убрать отдельный вклад?
 
-- `PROCESS_NECESSARY` — the observed process graph cannot reach the recorded state without this event/function;
-- `OUTCOME_NECESSARY` — the exact accepted result loses a defining property without this function;
-- `ROLE_REPLACEABLE` — the function is necessary, but repository evidence does not prove that only the named actor could perform it;
-- `NOT_ISOLATABLE` — the separate causal effect cannot be identified from available evidence;
-- `UNKNOWN` — evidence is insufficient even for a bounded counterfactual classification.
+В репозитории есть только один реализованный эпизод. Контролируемых опытов с последовательным исключением каждого участника не проводилось. Поэтому используются качественные категории:
 
-These are qualitative research labels, not scores or ownership coefficients.
+- `PROCESS_NECESSARY` — без события или функции наблюдаемый процесс не достигает зафиксированного состояния;
+- `OUTCOME_NECESSARY` — без функции точный принятый результат теряет одно из определяющих свойств;
+- `ROLE_REPLACEABLE` — функция необходима, но доказательств исключительной способности названного исполнителя нет;
+- `NOT_ISOLATABLE` — отдельное причинное влияние невозможно выделить из имеющихся доказательств;
+- `UNKNOWN` — доказательств недостаточно даже для ограниченного вывода.
 
-P4 simulates one meaningful error against the exact r01 boundary. A simulated error is not evidence that the error occurred. `NOT_APPLICABLE` and `UNKNOWN` are preserved where the closed D0 episode contains no harm, duty or compensation event.
+Это исследовательские категории, а не баллы, ранги или коэффициенты собственности.
 
-## 4. P2 — counterfactual test of causally necessary contribution
+P4 моделирует одну значимую ошибку относительно точной границы r01. Смоделированная ошибка не является доказательством того, что она происходила. Где в закрытом эпизоде нет вреда, обязанности или компенсации, сохраняются статусы `NOT_APPLICABLE` и `UNKNOWN`.
 
-### 4.1 Contribution removal matrix
+## 5. P2 — проверка причинно необходимых вкладов
 
-| Removed contribution/function | What disappears from the exact result | Classification | Evidence boundary |
+### 5.1. Матрица исключения вкладов
+
+| Какой вклад или функция исключается | Что исчезает из точного результата | Вывод | Граница доказательства |
 |---|---|---|---|
-| KOO task framing and pilot specification | No exact D0 pipeline, test target or project-side acceptance object is defined | `PROCESS_NECESSARY`; named actor `ROLE_REPLACEABLE = UNKNOWN` | KOO spec and task prove the observed function; they do not prove that no other authorized actor could ever specify a mock |
-| KAN privacy/authority boundary | The observed project loses its reviewed data classes, provider evidence gate and explicit denials of external data, credentials and production authority | `OUTCOME_NECESSARY_FOR_ACCEPTED_SAFETY_SCOPE`; `ROLE_REPLACEABLE` | KAN boundary is incorporated by KOO; another competent review could be conceivable but was not observed |
-| KOD implementation work | No executable package, deterministic adapters, guard or test suite exists in this episode | `OUTCOME_NECESSARY`; `ROLE_REPLACEABLE` | KOD authored the observed package; repository evidence does not establish KOD as the only possible implementer |
-| `PolicyGuard` function | The package no longer demonstrates fail-closed admission for non-D0, credentials, network/tools, fallback, project mutation or nonzero cost | `OUTCOME_NECESSARY_FOR_BOUNDARY_ENFORCEMENT`; implementation replaceable | Tests 03–12 target this function; a differently implemented guard could satisfy the same function |
-| Fake author transformation | No author candidate output exists, so the exact gateway result cannot be produced | `PROCESS_NECESSARY`; implementation replaceable | `FakeAuthorProvider.run` produces the referenced author hash |
-| Fake verifier transformation | No agreement/disagreement record or `VERIFIED_CANDIDATE_REQUIRES_KOO`/`DISAGREEMENT_REQUIRES_KOO` distinction exists | `OUTCOME_NECESSARY_FOR_VERIFIED_CANDIDATE_STATUS`; not necessary for merely producing an unverified author candidate | The verifier is caller-configured deterministic code, not an independently acting Entity |
-| Reconciliation with `project_acceptance = NOT_GRANTED` | Internal agreement could no longer be shown to remain separate from project acceptance | `OUTCOME_NECESSARY_FOR_AUTHORITY_SEPARATION`; implementation replaceable | Implementation and tests 01, 02 and 14 preserve candidate/acceptance separation |
-| Tests and checksum/readback work | The package may still exist, but its reported boundary behavior and byte identity lose the recorded verification support | `OUTCOME_NECESSARY_FOR_EVIDENCE_STRENGTH`; not necessary for raw code existence | KOD reports 18/18; VOL later reproduced 18/18 and checksums in P1+P3 |
-| Git content-addressed preservation and route | Exact package identity, immutable comparison and the recorded dispatch/receipt chain disappear | `PROCESS_NECESSARY_FOR_THIS_PROJECT_EVIDENCE`; platform replaceable | GitHub is the observed evidence surface; this does not prove GitHub is the only possible preservation mechanism |
-| KOO receipt accepting the exact package | The implementation remains a candidate; `accepted_bounded_local_mock` disappears | `PROCESS_NECESSARY_FOR_ACCEPTANCE` | The code itself always records `project_acceptance = NOT_GRANTED` |
-| OPERATOR's broader capacity-expansion direction | The organizational reason for exploring multi-model capacity is weakened, but its separate causal weight in the exact mock bytes cannot be isolated | `NOT_ISOLATABLE / ENABLING_CONTEXT` | The fixed episode contains an indirect research-basis locator, not an exact byte-level OPERATOR instruction for r01 |
-| Accumulated public knowledge embodied in Python/Git/testing conventions | The implementation would not exist in its observed form, but individual shares are not reconstructable from repository evidence | `NOT_ISOLATABLE` | Dependencies are observable only at a coarse technical level; no complete knowledge-contribution ledger exists |
+| Постановка задачи и спецификация KOO | Нет точной цепочки D0, целей тестирования и объекта проектного принятия | `PROCESS_NECESSARY`; заменимость конкретного исполнителя `UNKNOWN` | Документы доказывают выполненную функцию KOO, но не исключают возможность её выполнения другим уполномоченным участником |
+| Граница приватности и полномочий KAN | Исчезают проверенные классы данных, требования к провайдеру и явные запреты внешних данных, секретов и production | `OUTCOME_NECESSARY_FOR_ACCEPTED_SAFETY_SCOPE`; `ROLE_REPLACEABLE` | В наблюдаемом процессе использован результат KAN; возможность иной компетентной проверки не исключается |
+| Реализация KOD | Нет исполняемого пакета, защитного фильтра, имитаторов и набора тестов | `OUTCOME_NECESSARY`; `ROLE_REPLACEABLE` | KOD создал наблюдаемый пакет, но не доказано, что только KOD способен выполнить такую работу |
+| Функция `PolicyGuard` | Пакет больше не демонстрирует закрытый отказ для данных не-D0, секретов, сети, инструментов, автоматического переключения, изменения проекта и ненулевой стоимости | `OUTCOME_NECESSARY_FOR_BOUNDARY_ENFORCEMENT`; реализация заменима | Тесты 03–12 проверяют эту функцию; иной фильтр мог бы выполнять ту же роль |
+| Имитатор автора | Нет результата автора, поэтому точный результат шлюза не создаётся | `PROCESS_NECESSARY`; реализация заменима | `FakeAuthorProvider.run` создаёт зафиксированный хеш результата автора |
+| Имитатор проверяющего | Нет записи о согласии или несогласии и различия между `VERIFIED_CANDIDATE_REQUIRES_KOO` и `DISAGREEMENT_REQUIRES_KOO` | `OUTCOME_NECESSARY_FOR_VERIFIED_CANDIDATE_STATUS`; не требуется для появления непроверенного кандидата | Проверяющий является настраиваемым детерминированным кодом, а не независимо действующей Сущностью |
+| Сведение результатов с `project_acceptance = NOT_GRANTED` | Нельзя доказать отделение внутреннего согласия от проектного принятия | `OUTCOME_NECESSARY_FOR_AUTHORITY_SEPARATION`; реализация заменима | Реализация и тесты 01, 02 и 14 сохраняют различие кандидата и принятия |
+| Тесты, контрольные суммы и повторное чтение | Код может существовать, но утверждения о его поведении и идентичности байтов теряют доказательную поддержку | `OUTCOME_NECESSARY_FOR_EVIDENCE_STRENGTH`; не требуется только для существования исходного текста | KOD сообщил `18/18 PASS`; VOL независимо повторил 18 тестов и проверку сумм в P1+P3 |
+| Git и адресный маршрут | Исчезают точная идентичность пакета, неизменяемое сравнение и зафиксированная цепочка отправки и принятия | `PROCESS_NECESSARY_FOR_THIS_PROJECT_EVIDENCE`; платформа заменима | GitHub является наблюдаемым доказательным полем проекта, но не единственно возможным механизмом хранения |
+| Квитанция KOO | Реализация остаётся кандидатом; статус ограниченно принятого локального макета исчезает | `PROCESS_NECESSARY_FOR_ACCEPTANCE` | Сам код всегда указывает `project_acceptance = NOT_GRANTED` |
+| Общее распоряжение ОПЕРАТОРА об исследовании нескольких моделей | Ослабевает организационное основание исследования, но отдельное влияние на байты r01 не выделяется | `NOT_ISOLATABLE / ENABLING_CONTEXT` | В эпизоде есть косвенная ссылка на основание исследования, но нет побайтовой инструкции ОПЕРАТОРА для r01 |
+| Накопленное общественное знание о Python, Git и тестировании | Реализация не существовала бы в наблюдаемом виде, но индивидуальные доли такого вклада восстановить невозможно | `NOT_ISOLATABLE` | Полного реестра вкладов знания в репозитории нет |
 
-### 4.2 P2 findings
+### 5.2. Результаты P2
 
-1. The observed result is a chain of complementary functions, not a product attributable to one largest file author.
-2. Several functions are necessary for the exact accepted state, while the named performer remains replaceable in principle. Functional necessity is not personal indispensability.
-3. The verifier is necessary for the exact verified-candidate status but not for creation of a raw candidate. Therefore verification contribution and production contribution are distinct.
-4. KOO's acceptance event is necessary for project acceptance but contributes no implementation bytes. Governance competence cannot be inferred from code volume.
-5. KOD's large direct contribution does not establish ownership, acceptance authority, liability or subject status.
-6. Infrastructure and institutional memory contribute by preserving identity and sequence. Their causal role is real, but it cannot be converted into a distributive coefficient from this evidence.
+1. Наблюдаемый результат создан цепочкой взаимодополняющих функций, а не единственным автором самого большого файла.
+2. Необходимость функции не доказывает незаменимость конкретного исполнителя.
+3. Проверяющий необходим для статуса проверенного кандидата, но не для создания исходного кандидата. Производство и проверка являются разными вкладами.
+4. Квитанция KOO необходима для проектного принятия, хотя KOO не создавал программный код. Управленческое полномочие нельзя выводить из объёма написанного текста.
+5. Большой прямой вклад KOD не создаёт автоматически собственность, право принятия, ответственность или статус субъекта.
+6. Инфраструктура и институциональная память реально участвуют в результате, сохраняя идентичность и последовательность, но их вклад нельзя превратить в коэффициент распределения на основании этих данных.
 
-P2 result: `CAUSAL_FUNCTIONS_DISTINGUISHED_WITHOUT_SCORE`.
+Результат P2: `CAUSAL_FUNCTIONS_DISTINGUISHED_WITHOUT_SCORE` — причинные функции различены без введения баллов.
 
-## 5. P4 — simulated significant error and remedy audit
+## 6. P4 — моделирование значимой ошибки и устранения последствий
 
-### 5.1 Error scenario
+### 6.1. Сценарий ошибки
 
-Simulated error `ERR-R01-PRIV-01`:
+Моделируемая ошибка `ERR-R01-PRIV-01`:
 
-> a defective future revision of the local gateway admits a non-`D0_SYNTHETIC` or credential-bearing envelope and produces a candidate result instead of failing closed.
+> дефектная будущая редакция локального шлюза принимает данные не класса `D0_SYNTHETIC` или пакет с секретом и создаёт результат вместо закрытого отказа.
 
-This scenario is chosen because it contradicts exact accepted requirements. It did **not** occur in r01: current implementation and tests reject these inputs.
+Сценарий выбран потому, что прямо противоречит принятым требованиям. В точной версии r01 такая ошибка не происходила: действующая реализация и тесты отклоняют подобные входные данные.
 
-The simulation remains local. No secret, personal/project data, external call or mutation is introduced.
+Моделирование остаётся локальным. Реальные секреты, персональные и проектные данные, внешние вызовы и изменения проекта не используются.
 
-### 5.2 Detection, containment, explanation and correction
+### 6.2. Обнаружение, локализация, объяснение и исправление
 
-| Remedy stage | Evidence-supported mechanism/controller | Status | Gap preserved |
+| Этап устранения последствий | Подтверждённый механизм или управляющий | Статус | Сохраняющийся пробел |
 |---|---|---|---|
-| Prevent before execution | `PolicyGuard.evaluate` rejects non-D0 and credential-like content | `PROVEN_FOR_EXACT_R01_CODE` | No proof about a changed future revision |
-| Detect regression in test run | Tests 03–06 exercise non-D0 and credential rejection; tests 09–12 cover tools/network, mutation, locators and cost | `PROVEN_TEST_COVERAGE` | Original test suite and implementation share KOD semantic authorship; an independent mandatory rerun actor is not assigned |
-| Contain external harm in this episode | Exact r01 has no network/provider connector and accepts only synthetic locators | `PROVEN_BOUNDED_CONTAINMENT` | This containment does not extend to a future connected gateway |
-| Stop project acceptance | Code sets `project_acceptance = NOT_GRANTED`; KOO separately controls the recorded acceptance event | `PROVEN_SEPARATION` | Exact emergency revocation procedure after an already-issued erroneous receipt is absent |
-| Explain root cause | Hashes and exact blobs locate the code/result version | `PARTIAL` | Runtime instance, signed execution log, person/process invoking the run and a required root-cause owner are not recorded |
-| Correct implementation | KOD demonstrates implementation capability; any corrected artifact would require a new immutable result and project review | `CAPABILITY_PROVEN_BOUNDED`; correction authority requires a new task | No standing self-authority for KOD to replace an accepted package is established |
-| Reverify correction | Existing tests can be rerun and an independent entity can read back exact bytes | `MECHANISM_AVAILABLE` | No mandatory independent verifier, environment contract or acceptance SLA is assigned |
-| Reject/supersede bad candidate | KOO can withhold acceptance; Git can preserve a later superseding artifact | `PROVEN_FOR_WITHHOLDING`; `PARTIAL_FOR_SUPERSESSION` | A complete revocation/supersession event contract is not evidenced in this episode |
-| Compensate actual affected party | No actual affected party or loss exists in D0 synthetic episode | `NOT_APPLICABLE_TO_OBSERVED_EPISODE` | For a future personal/security-data leak, compensation bearer, legal liability and remedy fund are `UNKNOWN` |
-| Change boundary/process | KAN can formulate a revised boundary; KOO can task/review; D5/D6 expansion requires separate OPERATOR and stated SIS review | `PARTIAL_PROCEDURAL_BASIS` | Duty to initiate post-incident review and final rule-change competence are not completely specified here |
+| Предотвращение до исполнения | `PolicyGuard.evaluate` отклоняет данные не-D0 и признаки секретов | `PROVEN_FOR_EXACT_R01_CODE` | Ничего не доказывает о будущей изменённой версии |
+| Обнаружение регрессии тестами | Тесты 03–06 проверяют отказ для не-D0 и секретов; тесты 09–12 проверяют сеть, инструменты, изменение проекта, locator и стоимость | `PROVEN_TEST_COVERAGE` | Код и тесты созданы KOD; обязательный независимый исполнитель повторной проверки не назначен |
+| Локализация внешнего вреда | В точной r01 нет сети и внешнего провайдера; разрешены только синтетические locator | `PROVEN_BOUNDED_CONTAINMENT` | Эта защита не распространяется автоматически на будущий подключённый шлюз |
+| Запрет самопринятия | Код устанавливает `project_acceptance = NOT_GRANTED`; отдельное принятие выполняет KOO | `PROVEN_SEPARATION` | Нет точной аварийной процедуры отзыва уже выданной ошибочной квитанции |
+| Объяснение причины | Хеши и blob позволяют найти точную версию кода и результата | `PARTIAL` | Не зафиксированы runtime, подписанный журнал исполнения, инициатор запуска и обязательный ответственный за разбор причины |
+| Исправление реализации | KOD доказал ограниченную способность к реализации; исправление потребует нового неизменяемого результата и новой проверки | `CAPABILITY_PROVEN_BOUNDED`; полномочие на исправление требует новой задачи | Нет постоянного права KOD самовольно заменить принятый пакет |
+| Повторная проверка | Существующие тесты можно повторить; другая Сущность может сверить точные байты | `MECHANISM_AVAILABLE` | Не назначены обязательный независимый проверяющий, требования к среде и срок проверки |
+| Отклонение или замена ошибочного кандидата | KOO может отказать в принятии; Git может сохранить новый заменяющий объект | `PROVEN_FOR_WITHHOLDING`; `PARTIAL_FOR_SUPERSESSION` | Полная процедура отзыва и замещения для этого эпизода не определена |
+| Компенсация пострадавшему | В синтетическом эпизоде нет пострадавшего и реального ущерба | `NOT_APPLICABLE_TO_OBSERVED_EPISODE` | Для будущей утечки персональных или защищённых данных носитель компенсации и юридической ответственности остаётся `UNKNOWN` |
+| Изменение правил | KAN может подготовить новую границу; KOO — поставить задачу и рассмотреть результат; D5/D6 требуют отдельного решения ОПЕРАТОРА и указанной проверки SIS | `PARTIAL_PROCEDURAL_BASIS` | Обязанность запустить разбор происшествия и окончательное полномочие изменения всех правил определены не полностью |
 
-### 5.3 Responsibility result
+### 6.3. Вывод об ответственности
 
-The repository proves capabilities and control points, but not a complete liability allocation.
+Репозиторий подтверждает отдельные способности и точки контроля, но не содержит полного распределения ответственности.
 
-- The algorithm can reject an envelope; it cannot bear responsibility, explain itself outside programmed traces, compensate a participant or authorize its own correction.
-- KOD can implement and test; this does not automatically make KOD the legal/economic liability bearer.
-- KOO can withhold or grant bounded project acceptance; acceptance competence does not automatically create technical authorship or compensation duty.
-- KAN supplies privacy/authority analysis; analytical contribution does not itself create enforcement control.
-- OPERATOR retains gates explicitly required for higher-risk classes, but the fixed episode does not define a universal incident-liability rule.
+- Алгоритм способен отклонить входные данные, но не способен сам нести ответственность, объяснить действия вне запрограммированного следа, компенсировать ущерб или разрешить собственное исправление.
+- KOD способен реализовать и протестировать решение, но это не делает его автоматически носителем юридической или экономической ответственности.
+- KOO способен ограниченно принять или отклонить проектный результат, но полномочие принятия не создаёт авторство кода или обязанность компенсации.
+- KAN подготовил анализ границ, но аналитический вклад не создаёт технический контроль их исполнения.
+- За ОПЕРАТОРОМ сохраняются явно назначенные решения по классам повышенного риска, но данный эпизод не устанавливает универсальное правило ответственности за происшествия.
 
-P4 result: `PREVENTION_AND_ACCEPTANCE_SEPARATION_PROVEN; FULL_REMEDY_CHAIN_PARTIAL; LIABILITY_UNKNOWN`.
+Результат P4:
 
-## 6. Link to participant capability and task admission
+`PREVENTION_AND_ACCEPTANCE_SEPARATION_PROVEN; FULL_REMEDY_CHAIN_PARTIAL; LIABILITY_UNKNOWN`.
 
-The School-oriented working source:
+По-русски: разделение предотвращения ошибки и принятия результата доказано; полная цепочка устранения последствий подтверждена лишь частично; ответственность не определена.
+
+## 7. Связь со способностью участника и допуском к задаче
+
+Рабочий источник для ШКОЛЫ:
 
 `entities/volonter/outbox/VOL__participant-capability-testing-source__SHK.md`
 
-distinguishes:
+различает:
 
 `LEGAL_CAPACITY ≠ CONTRACT_COMPREHENSION ≠ TASK_CAPABILITY ≠ RELIABILITY ≠ AUTHORITY ≠ LIABILITY ≠ SUBJECT_STATUS`.
 
-The P2+P4 episode supplies an empirical illustration:
+В данном эпизоде это проявляется следующим образом:
 
-- KOD's bounded implementation capability is demonstrated by the exact package and tests;
-- that demonstration supports task-specific capability evidence only;
-- it does not grant KOD acceptance authority, ownership, general reliability, liability or subject status;
-- KOO's acceptance role is evidenced separately and does not prove coding capability;
-- remedy duties must be assigned explicitly rather than inferred from whoever produced the most visible output.
+- способность KOD к ограниченной реализации подтверждена точным пакетом и тестами;
+- подтверждение относится только к этому классу задач;
+- оно не предоставляет KOD право принятия, собственность, общую гарантию надёжности, ответственность или статус субъекта;
+- роль KOO в принятии результата подтверждена отдельно и не доказывает способность программировать;
+- обязанности по устранению последствий необходимо назначать прямо, а не возлагать автоматически на автора наиболее заметной части результата.
 
-This link is a research input. It does not approve a School testing norm or participant status.
+Эта связь является исследовательским материалом. Она не утверждает школьный норматив тестирования или статус участника.
 
-## 7. Test of the separation principle
+## 8. Проверка принципа разделения категорий
 
-`CONTRIBUTION ≠ OWNERSHIP_BASIS ≠ GOVERNANCE_COMPETENCE ≠ LIABILITY ≠ SUBJECT_STATUS`
+`CONTRIBUTION ≠ OWNERSHIP_BASIS ≠ GOVERNANCE_COMPETENCE ≠ LIABILITY ≠ SUBJECT_STATUS`.
 
-| Attempted identity | Evidence result |
+По-русски:
+
+`ВКЛАД ≠ ОСНОВАНИЕ СОБСТВЕННОСТИ ≠ УПРАВЛЕНЧЕСКОЕ ПОЛНОМОЧИЕ ≠ ОТВЕТСТВЕННОСТЬ ≠ СТАТУС СУБЪЕКТА`.
+
+| Проверяемое ошибочное тождество | Результат проверки |
 |---|---|
-| necessary contribution = ownership basis | `NOT_SUPPORTED`; no ownership rule exists |
-| implementation capability = governance competence | `REFUTED_IN_EPISODE`; KOD code cannot self-accept |
-| acceptance competence = implementation authorship | `REFUTED_IN_EPISODE`; KOO receipt supplies acceptance, not package bytes |
-| technical prevention = complete remedy | `REFUTED`; detection/containment exist, compensation and full incident duty do not |
-| algorithmic action = liability bearer | `NOT_SUPPORTED`; no standing, duty or compensation capacity is established |
-| named Entity path = cryptographic actor identity | `NOT_PROVEN`; shared Git writer identity remains a provenance gap |
+| необходимый вклад = основание собственности | `NOT_SUPPORTED`; правила собственности нет |
+| способность реализовать = право управлять | Опровергнуто в эпизоде: код KOD не способен сам себя принять |
+| право принять = авторство реализации | Опровергнуто в эпизоде: квитанция KOO создаёт принятие, но не байты программы |
+| техническое предотвращение = полное устранение последствий | Опровергнуто: обнаружение и локализация существуют, а компенсация и полный набор обязанностей отсутствуют |
+| действие алгоритма = носитель ответственности | Не подтверждено: нет правоспособности, обязанности и способности компенсировать вред |
+| имя Сущности в пути = криптографически доказанная личность исполнителя | Не доказано: сохраняется общий Git writer и пробел происхождения действий |
 
-The principle survives P2+P4. The new result is sharper: even a causally necessary contribution does not, by itself, establish ownership, authority or liability.
+Принцип выдержал P2+P4. Уточнённый вывод: даже причинно необходимый вклад сам по себе не устанавливает собственность, полномочие или ответственность.
 
-## 8. Exact gaps and next research gate
+## 9. Точные пробелы и следующий исследовательский рубеж
 
-Evidence gaps:
+Сохраняющиеся пробелы:
 
-1. No controlled removal experiment exists; P2 is graph-based counterfactual analysis.
-2. No complete actor/runtime identity exists for the original test execution.
-3. No mandatory independent regression-verification duty is assigned.
-4. No complete revocation/supersession procedure is evidenced for a wrongly accepted artifact.
-5. No liability or compensation rule exists for a future external-data incident.
-6. No measured productivity or economic gain exists in this D0 episode, so P5 cannot be performed without inventing effect distribution.
+1. Контролируемого опыта с реальным исключением участников не было; P2 является контрфактическим анализом графа событий.
+2. Нет полной идентичности участника и среды исходного запуска тестов.
+3. Не назначена обязательная независимая повторная проверка.
+4. Нет полной процедуры отзыва или замены ошибочно принятого артефакта.
+5. Нет правила ответственности и компенсации для будущего происшествия с внешними данными.
+6. В эпизоде D0 отсутствует измеренный рост производительности или экономический эффект. Поэтому P5 нельзя выполнить без выдумывания распределяемого результата.
 
-Next safe gate:
+Следующий безопасный рубеж:
 
-- KOO may review this bounded P2+P4 result;
-- P5 remains blocked for this episode by absence of measured productivity/economic effect evidence;
-- a future P5 pilot requires a different closed episode with verified before/after effect and evidence of who received time, income, load reduction, data or control;
-- no implementation, schema, validator, automation, tokenomics or subject-status decision follows automatically.
+- KOO проверяет эту ограниченную редакцию P2+P4;
+- P5 для r01 остаётся заблокирован отсутствием измеренного экономического эффекта;
+- для будущего P5 нужен другой закрытый эпизод с проверяемым состоянием «до и после» и доказательствами того, кому достались время, доход, снижение нагрузки, данные или усиление контроля;
+- никакая реализация, схема, валидатор, автоматизация, токеномика или решение о статусе субъекта не следуют из исследования автоматически.
 
-## 9. Outcome
+## 10. Итог по схеме опыта
 
-**Идея →** проверить причинную необходимость вкладов и цепочку remedy, не смешивая их с собственностью, властью и ответственностью.
+**Идея →** проверить причинную необходимость вкладов и цепочку устранения последствий, не смешивая их с собственностью, властью и ответственностью.
 
-**Проба →** выполнен counterfactual removal test по точному графу r01 и смоделирован один значимый privacy-boundary regression без реального воздействия.
+**Проба →** проведена контрфактическая проверка по точному графу r01 и смоделирована одна значимая регрессия границы приватности без реального воздействия.
 
-**Результат →** различены необходимые функции и заменимость исполнителей; доказаны prevention/containment и отдельный KOO acceptance gate; полная цепочка объяснения, исправления, отмены и компенсации не доказана.
+**Результат →** различены необходимые функции и заменимость исполнителей; доказаны предотвращение, локализация и отдельный рубеж принятия KOO; полная цепочка объяснения, исправления, отзыва и компенсации не доказана.
 
-**Успех/неудача →** P2+P4 завершены в bounded scope; P5 на этом эпизоде заблокирован отсутствием измеренного эффекта; liability остаётся `UNKNOWN`.
+**Успех/неудача →** P2+P4 завершены в ограниченных границах; P5 на этом эпизоде заблокирован отсутствием измеренного эффекта; ответственность остаётся `UNKNOWN`.
 
-**Фиксация →** следующий эмпирический эпизод должен иметь независимую verification duty, revocation/supersession event и наблюдаемый effect distribution, прежде чем обсуждать P5.
+**Фиксация →** следующий эмпирический эпизод должен иметь независимую обязанность проверки, событие отзыва или замены и наблюдаемое распределение эффекта до начала P5.
 
 ---
 КТО: VOL / ВОЛОНТЁР (`ent:VOL`)
-ДЛЯ ЧЕГО: продолжить принятый исследовательский план политэкономии гибридного взаимодействия через bounded P2+P4 pilot
-СТАТУС: `P2P4_PILOT_COMPLETE_BOUNDED / KOO_REVIEW_REQUIRED`
+ДЛЯ ЧЕГО: продолжить принятый исследовательский план политэкономии гибридного взаимодействия через ограниченный пилот P2+P4
+СТАТУС: `P2P4_PILOT_COMPLETE_BOUNDED / KOO_REVIEW_REQUIRED / RUSSIAN_OPERATOR_EDITION`
