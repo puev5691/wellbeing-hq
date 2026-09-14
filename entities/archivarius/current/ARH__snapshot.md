@@ -6,20 +6,73 @@ project_time: omitted; trusted project-time source not used
 
 ## Назначение
 
-Resume-First current-state для восстановления ARH. Snapshot не является approval, не заменяет fresh GitHub-preflight и не доказывает practical cold-start нового экземпляра.
+Resume-First current-state для восстановления ARH. Snapshot не является approval, не заменяет fresh GitHub-preflight и не создаёт current-writer authority сам по себе.
 
-## Проверяемая граница
+## Проверяемая граница этого refresh
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Boundary before this snapshot refresh: `7b8ebc6837dd285e4ee74e9f9070fbe9e08e53f8`
-- Fresh preflight compare from the previous ARH boundary to `main`: `identical`, `0 ahead / 0 behind`, `0 commits`
+- Previous ARH run boundary: `ad028679b52e30127f5719f931510b51af2b739c`
+- Pre-profile HEAD: `703944f248186fc7017244bcb1451963457053c7`
+- Compare: `ahead 7 / behind 0`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
 
-Каждый replacement ARH обязан начать с нового GitHub-preflight по инварианту:
+Каждый запуск ARH начинается только так:
 `WAKE → SCAN PROJECT INFORMATION FIELD → CLASSIFY CHANGES → PROFILE WORK`.
+
+Само сканирование не является профильным исполнением.
+
+## Fresh delta classification
+
+После предыдущей ARH-границы изменены только следующие профильные зоны:
+- `entities/shtabist/outbox/`;
+- `entities/volonter/outbox/`;
+- `entities/koordinator/inbox/`;
+- `routes/dispatch/`;
+- `routes/activation/`;
+- `registry/by-sender/volonter.jsonl`.
+
+В исходной fresh delta не было новых изменений в:
+- `entities/archivarius/inbox/`;
+- `entities/archivarius/current/`;
+- `routes/receipts/`;
+- `receipts/`;
+- `handoff/`;
+- ARH recovery registry/pending state.
+
+### SHT result
+
+Artifact:
+`entities/shtabist/outbox/SHT__entity-wake-initiation-resume-process-review__KOO.md`
+
+Verdict:
+`PASS_WITH_EXACT_PROCESS_FIXES`
+
+Boundary:
+- review complete;
+- canon approval: no;
+- implementation selection: no;
+- production: no;
+- exact fixes F1–F5 and test vectors T9–T12 are required before authority/terminology review.
+
+KOO inbox locator and dispatch exist. Activation detector records `processing_started: no`, `activation_status: activation_failed`, reason `exact_entity_chat_resume_not_supported_by_current_adapter`. No KOO receipt/acceptance is inferred from routing or activation.
+
+### VOL result
+
+Artifact:
+`entities/volonter/outbox/VOL__hybrid-interaction-p5-evidence-scout__KOO.md`
+
+Verdict:
+`P5_EVIDENCE_SCOUT_COMPLETE__NO_ELIGIBLE_CLOSED_EPISODE`
+
+Boundary:
+- no eligible closed P5 episode with measured before/after effect was found at the scout boundary;
+- no numerical participant valuation, token, ownership share, governance right or subject-status conclusion was created;
+- direct file exchange is only a future partial candidate because actual operator effort reduction is not yet measured.
+
+KOO inbox locator and dispatch exist. Activation detector records `processing_started: no`, `activation_status: activation_failed`, reason `exact_entity_chat_resume_not_supported_by_current_adapter`. No KOO receipt/acceptance is inferred.
 
 ## ARH recovery — current truth
 
@@ -29,251 +82,191 @@ Verified source candidate:
 Independent KOO verification:
 - artifact: `entities/koordinator/outbox/KOO__ARH-emergency-self-preservation-v03-verification__ARH.md`;
 - commit: `d5d3da16792f2c235837698677e33b30caa9a8f5`;
-- result: `PASS_INDEPENDENT_VERIFICATION`;
-- source composition: `8/8 PASS`;
-- exact source provenance: `5/5 PASS`;
-- independent source SHA-256: `7/7 PASS`.
+- result: `PASS_INDEPENDENT_VERIFICATION`.
 
 Canonical ARH recovery:
 `puev5691/wellbeing-entity-bootstrap@9ffe7190298689bd90f047c249151213e101450e:entities/arh/recovery/current`
 
-Canonical preservation publication remains **PASS**. Practical replacement ARH initiation and current-writer transfer are **NOT PERFORMED**. Do not infer either from preservation PASS, inbox placement, activation detector or receipt.
+ARH canonical preservation publication remains PASS. The recovery registry still records practical ARH reinitiation as not performed; this snapshot does not silently upgrade that state.
 
-Historical v02/v03 candidate paths remain provenance; future recovery should prefer the canonical immutable locator above and then fresh-scan HQ after this snapshot boundary.
+## SHD replacement recovery/current-writer — current truth
 
-## Current project-field classification
+The old snapshot statement `permission only / not yet performed` is superseded by exact SHD-owned evidence.
 
-Fresh preflight found no commits after `7b8ebc6837dd285e4ee74e9f9070fbe9e08e53f8` before this profile write. Therefore there were no newly changed files after the previous ARH run in:
-- `entities/*/inbox/`;
-- `entities/*/outbox/`;
-- `entities/*/current/`;
-- `routes/dispatch/`;
-- `routes/receipts/`;
-- `receipts/`;
-- `handoff/`;
-- `registry/`;
-- recovery / experience / activation-state.
+Current writer artifact:
+`entities/shardovik/current/SHD__replacement-initiation-current-writer.md`
 
-Zero delta does not close previously open routes and does not convert pending activation into processing.
+Exact publication:
+- commit: `85260a61784e9aec33784c5d50cfbc3bfceab19b`;
+- blob: `88473e85feab1ae5482ff33268ca488abc42f8a4`;
+- state: `replacement_current_writer_established`;
+- old writer: `historical_non_authoritative`;
+- production mutation: no;
+- secrets/credentials: not accessed.
 
-## ARH sender-registry — KOO v04 receipt reconciliation
+Post-handoff artifact:
+`entities/shardovik/current/SHD__replacement-resume-state.md`
 
-Historical sender event `ARH-emergency-recovery-v04-result-KOO-001` remains preserved as the original `dispatched` state.
+Post-handoff commit:
+`4abab83e831d236e3a97949c103675460c261bb9`
 
-Exact later receipt evidence already existed and was reconciled append-only:
-- receipt: `routes/receipts/ARH__emergency-recovery-v04-result__KOO.receipt.md`;
-- receipt commit: `28b9a01522826dc02c3041cdbfa3d9074dc07882`;
-- source artifact: `entities/archivarius/outbox/ARH__emergency-recovery-v04-result__KOO.md`;
-- source commit: `6d92aa174240fc2875d67b2f1a375d332bda999b`;
-- source blob: `61d77f95f653f6447ddeb309316aca81acb97cc6`;
-- content read: `PASS`;
-- processing: `completed`;
-- processing result: `initiation_verified`;
-- processing artifact: `entities/koordinator/current/KOO__initiation-v04-result.md`;
-- processing commit: `2a4284d592e142d373ac942e336095336b6efc67`.
+The replacement writer was therefore actually established. Historical base checksum defects remain provenance and are not rewritten away; corrected integrity evidence remains the recovery bridge rather than canon-promotion of the correction candidate.
 
-Per append-only registry policy, a later event was added rather than rewriting history:
-- record: `ARH-emergency-recovery-v04-result-KOO-002`;
-- state: `received_and_processed`;
-- registry reconciliation commit: `8a32bd0de79397d5abcd6590ff0041d20aa90ae4`;
-- registry blob after reconciliation: `b8769f5c147a5a4df88bd5ac7a67bdcd1b53fe15`;
-- lineage: `entities/archivarius/current/experience/ARH__koo-v04-sender-registry-reconciliation-lineage.md`;
-- lineage commit: `7b8ebc6837dd285e4ee74e9f9070fbe9e08e53f8`.
+After writer establishment SHD later received exact profile direction and performed bounded profile work. Therefore the historical immediate post-handoff state `WAITING_OPERATOR_EXACT_PROFILE_DIRECTION` must not be interpreted as a current universal SHD status.
 
-This closes only the stale sender-registry receipt tail for that exact route. It does not create broader approval, does not alter KOO canonical recovery authority and does not close unrelated ARH pending routes.
+## SIS replacement recovery/current-writer — current truth
 
-## SHD emergency failover — corrected recovery truth
+Preferred recovery basis for the current replacement lineage:
+`puev5691/wellbeing-entity-bootstrap@dfac1b1f4a4664f85f12c6590a511502b9828ace:entities/sis/preservation/pending/self-preservation-current-writer-v02`
 
-Current ARH recovery registry records the historical SHD base recovery as preserved provenance with a corrected integrity layer independently verified by KOO.
+Boundary:
+- this is preferred recovery basis for the current replacement lineage;
+- candidate-only, not Project Source/canon;
+- historical `861645... + 23c83ad...` chain remains provenance-only.
 
-Exact current boundary:
-- historical checksum table: invalid for raw blob bytes;
-- corrected raw hash table: `4/4 PASS`;
-- corrected payload: `4/4 PASS`;
-- original raw Git blobs: `4/4 PASS`;
-- terminal-LF checksum cause: independently reproduced;
-- KOO correction receipt: `routes/receipts/ARH__SHD-base-recovery-integrity-correction__KOO.receipt.md`;
-- receipt commit: `187697503b63b07286e7af20bef910470fdaa61e`;
-- KOO re-verification artifact: `entities/koordinator/outbox/KOO__SHD-emergency-failover-v02-reverification__OPERATOR.md`;
-- re-verification commit: `e34a7a2c6ad0f3f0b54973f67bf042cbcefbf307`;
-- verdict: `PASS_RECOVERY_CORRECTION_VERIFIED__PRACTICAL_COLD_START_PERMITTED`.
+Current writer artifact:
+`entities/sisadmin/current/SIS__replacement-current-writer-v01.md`
 
-This verdict permits practical replacement cold-start but does **not** prove it happened.
-Current exact state:
-- practical replacement initiation: `permitted_not_yet_performed`;
-- current-writer transfer: `not_yet_performed`.
+Exact publication:
+- commit: `2926908f9843a8c325a975dcf5180fa51baef2c5`;
+- blob: `6590555d95275d18f4eee4478dad0f80ec9b260f`.
 
-Do not promote the correction candidate to canon and do not rewrite the historical checksum defect out of provenance.
+Independent SIS initiation report:
+`entities/sisadmin/outbox/SIS__replacement-initiation-v01-result.md`
+commit `551abc81d6950b868d37607643456e0cc5bff982`.
 
-## KOD serialized queue — current working state and result/queue divergence
+Verified state:
+- `current_writer_state: ESTABLISHED`;
+- immutable current-writer readback: PASS;
+- post-handoff competing writer check: `PASS_ONLY_ONE_REPLACEMENT_WRITER_ARTIFACT`;
+- production mutation during recovery: none;
+- historical task replay: none.
 
-Queue source:
-`entities/koordinator/current/KOO__kod-serialized-queue-v02.md`
-blob `d0b16369ce9b2decc6c6f02e8f2b09bb2e918a10`.
+No recovery event authorizes automatic sudo, Telegram live send, public webhook, Entity Runner provider-side execution, VPN/server mutation, OSS/TERA2 replay or destructive cleanup.
 
-Completed in queue:
-- `anthropic-direct-adapter-r01`;
-- exact KOO receipt: `routes/receipts/KOD__anthropic-direct-adapter-r01__KOO.receipt.md`;
-- verdict: `PASS_ANTHROPIC_DIRECT_ADAPTER_READY_FOR_D0_LIVE_GATE`;
-- accepted scope: credential-free, network-disabled, `D0_SYNTHETIC` only;
-- live API call: no;
-- credentials: no;
-- credits purchase: no;
-- production: no.
+## SHD → SIS эРэФия host-access route — exact open state
 
-Queue file still labels `anthropic-live-transport-r01` as the active KOD lane. After that queue snapshot, however, KOD produced and routed a bounded result:
-- result artifact: `entities/koder/outbox/KOD__anthropic-live-transport-r01__KOO.md`;
-- result commit: `f020d79563c691cec86e2fd70437ca9d2d2686cb`;
-- verdict: `PASS_ANTHROPIC_LIVE_TRANSPORT_READY_FOR_ACCOUNT_GATE`;
-- package commit: `48ea999e957242cbf472febecf5aa92889b67f13`;
-- package subtree: `8132017eed21d5073de78fc6147000a35829c230`;
-- deterministic tests: `26/26 PASS`;
-- real provider calls: `0`;
-- real credentials used: `0`;
-- credits purchases: `0`;
-- production deployments: `0`.
+Source artifact:
+`entities/shardovik/outbox/SHD__erefia-host-access-restore__SIS.md`
 
-Exchange route exists:
-- dispatch: `routes/dispatch/KOD__anthropic-live-transport-r01__KOO.md`;
-- dispatch commit: `9443aeb3a980e61d4b9dc99c5198300652fdfa3d`;
-- KOO inbox locator commit: `ed03f443a988343c09e6eb6c223eb00414acdc03`;
-- sender-registry append commit: `bbfc500dc5bdf412b358c0dd8a104a94669c0d6d`.
+Source identity:
+- source commit: `ad257fb1492bdb50866299ecdedf6ab6acebccb5`;
+- source blob: `adda1932d85e26051928ac661e5653dd706ef01f`.
 
-Activation detector saw the KOO locator but records:
-- `processing_started: no`;
-- `activation_status: activation_failed`;
+Purpose:
+restore only bounded administrative access to the historical host called `эРэФия`, without changing TERA/WBN runtime.
+
+Exchange Gate exists:
+- dispatch commit: `2d5812cb105f81bda457f92dca8bdfa764e9cba5`;
+- SIS inbox locator commit: `973771a82c657f24fce07f0abd3d690725dd2b03`;
+- sender-registry append commit: `d4fa5534e8a833f79817fddc1919806f97606190`.
+
+Activation boundary:
+- detector: PASS;
+- processing_started: no;
+- activation_status: activation_failed;
 - reason: `exact_entity_chat_resume_not_supported_by_current_adapter`;
-- `operator_manual_ping_required: yes`.
+- operator manual ping required: yes.
 
-No exact KOO receipt for this KOD result is present at this snapshot boundary. Therefore:
-- KOD execution/result publication is factual;
-- KOO receipt/acceptance is not factual;
-- a real Anthropic call is not factual;
-- account/key/billing/model-access readiness is not factual;
-- live D0 authorization is not factual;
-- production permission is not factual.
+Exact receipt
+`routes/receipts/SHD__erefia-host-access-restore__SIS.receipt.md`
+is absent at this refresh boundary.
 
-This is a current-state divergence between an older KOO queue file and a newer routed KOD result. Preserve both facts until KOO reconciles the queue/receipt state.
+Therefore SIS processing, restored access, exact host locator, delivery, receipt or acceptance are not asserted.
 
-READY_SERIALIZED still recorded by the queue after the active lane:
-1. `info-entry-static-preview-E1-evidence-alignment`;
-2. `activation-lineage-schema-F1-F2`;
-3. `koder-sender-registry-sanitation`.
+## KOD Anthropic live-transport — reconciled acceptance truth
 
-The queue is KOO working state, not Project Source/canon. Inbox placement or queue presence is not KOD execution.
+The old snapshot statement that the exact KOO receipt was absent is superseded.
 
-## KOD sender-registry sanitation — exact open state
+Exact receipt now exists:
+`routes/receipts/KOD__anthropic-live-transport-r01__KOO.receipt.md`
 
-Previous bounded sanitation finding remains routed, and a later F3 was found for:
-`record_id: KOD-anthropic-direct-adapter-r01-001`.
+Accepted result:
+`ACCEPTED_BOUNDED_TECHNICAL_TRANSPORT`
 
-Observed stale state at the recorded boundary:
-- `status=dispatched`;
-- `receipt=null`;
-- exact KOO receipt for the underlying KOD result already exists.
+Accepted scope:
+- live-capable transport preparation for `D0_SYNTHETIC` only;
+- package readback `26/26 PASS`;
+- real provider calls: 0;
+- real credentials used: 0;
+- credit purchases: 0;
+- production deployments: 0.
 
-ARH F3 update:
-- artifact: `entities/archivarius/outbox/ARH__koder-sender-registry-reconciliation-gap-r2__KOO.md`;
-- artifact commit: `94e3b484d874eb9c6f163d051ae0ca353379ae92`;
-- artifact blob: `33614248ee1c53add4d90bc947da44a5a7b35491`;
-- dispatch commit: `96bdc5a5cf64f61695db50e714af279e6a4eba3e`;
-- KOO inbox locator commit: `716104cffd65245dcdcd4ff4901ffd839bc37e2d`;
-- ARH sender-registry append commit: `eecfcba6f3a87fce109b78fbbc8206a2de4c2a85`;
-- event-lineage commit: `5d4e5b7942669b6a20b9c636724970302126d275`.
+The receipt does NOT authorize:
+- account creation;
+- credit purchase;
+- API-key handling;
+- live Anthropic request;
+- D1/D2+ data;
+- tools/search/files/MCP/code execution/fallback;
+- production deployment.
 
-Activation record:
-`routes/activation/ARH__koder-sender-registry-reconciliation-gap-r2__KOO.activation.md`
-records detector PASS but `processing_started: no`, `activation_status: activation_failed`, reason `exact_entity_chat_resume_not_supported_by_current_adapter`, `operator_manual_ping_required: yes`.
+Next gate remains OPERATOR account/billing/key/model-access readiness plus separate explicit authorization for one D0 live request.
 
-Exact receipt for `ARH__koder-sender-registry-reconciliation-gap-r2__KOO.md` is still absent at this snapshot boundary. Therefore F3 is **not** declared accepted, queued by KOO, or executed by KOD from ARH evidence alone.
+The older `KOO__kod-serialized-queue-v02.md` still describes `anthropic-live-transport-r01` as active. Preserve this as an older working-queue snapshot; do not use that stale label to contradict the later exact receipt.
 
-## KOO inbox-lifecycle preservation verdict — open receipt state
+## ARH append-only receipt reconciliations already closed
 
-ARH independent re-check result:
-- verdict: `PASS_BOUNDED_PRESERVATION_RECHECK`;
-- artifact: `entities/archivarius/outbox/ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.md`;
-- artifact commit: `04037d8db16d81c5b84c348273e87558952f270b`;
-- dispatch commit: `e2976c3ecfc1ba80aa5852b659ee7a1b75dd7a7b`;
-- KOO inbox locator commit: `0b65a6e1419e0742bc99e2e0d5d6a6d4f1a97b71`.
+### KOO v04 recovery route
 
-Exact receipt for this returned verdict is still absent. No KOO receipt/acceptance is inferred.
+Historical event `ARH-emergency-recovery-v04-result-KOO-001` remains the original dispatched fact.
+Later exact receipt was reconciled append-only by `ARH-emergency-recovery-v04-result-KOO-002` as `received_and_processed`.
 
-## KOO parallel-queue supplemental recovery checkpoint
+This closes only that exact route and does not create broader approval.
 
-Processed task:
-`entities/archivarius/inbox/KOO__parallel-queue-transition-preservation__ARH.md`.
+### KOO inbox-lifecycle review sender-state
 
-Minimal supplemental preservation checkpoint:
-`puev5691/wellbeing-entity-bootstrap@9b2a37c80f99495249a21d3b8e6390a5abd85e85:entities/koo/preservation/parallel-queue-transition-v01`
+Historical `ARH-inbox-lifecycle-operational-review-KOO-001` remains provenance.
+A later append-only reconciliation records the exact KOO receipt/processing state without destructive history rewrite.
 
-Fresh immutable readback was `2/2 SHA-256 PASS`.
+## ARH open service tails with no exact return receipt at this refresh boundary
 
-Exact result receipt exists:
-`routes/receipts/ARH__parallel-queue-transition-preservation__KOO.receipt.md`
-commit `2a0010303e7fc61d1f4cdd5cdf9f74350a3095d2`, result `PASS_SUPPLEMENTAL_RECOVERY_CHECKPOINT_ACCEPTED`.
+The following exact receipt files remain absent on direct readback:
 
-This checkpoint remains supplemental: canonical KOO recovery was not replaced, current-writer state was not transferred, secrets/credentials were not preserved, and process/candidate artifacts were not promoted to Project Sources.
+1. `routes/receipts/ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.receipt.md`
+2. `routes/receipts/ARH__sis-sender-registry-reconciliation-gap__SIS.receipt.md`
+3. `routes/receipts/ARH__koder-sender-registry-reconciliation-gap-r2__KOO.receipt.md`
 
-## SIS Phase 1B sender-registry sanitation — open receipt state
-
-Exact underlying KOO receipt already exists for SIS tooling-path result and records:
-`WAITING_OPERATOR_EXACT_HUMAN_ACTION_RECEIVED`.
-
-ARH sanitation route:
-- artifact: `entities/archivarius/outbox/ARH__sis-sender-registry-reconciliation-gap__SIS.md`;
-- artifact commit: `023e22da0e0d7424bcf817b8b8714d3ea9b455eb`;
-- dispatch commit: `cffdb4d2240b2ea36395b22b4f5765838d713917`;
-- SIS inbox pointer commit: `e3f9757fbf25e10036fd50084c394457d134e796`;
-- ARH sender-registry commit: `4875b54b3309423c0e781b8f659195bda6564b17`;
-- lineage commit: `a4da9f0cb1bed87db23aa129419b4e97055b2e85`.
-
-Activation detector recorded `processing_started: no` and `activation_failed`. Exact SIS receipt for the ARH sanitation route is still absent. No SIS processing or acceptance is inferred.
-
-Exact external dependency remains the human sudo action already accepted by KOO:
-`sudo /home/pev5691/sis-phase1b-tooling/phase1b-host-gate-once.sh`
-
-No evidence in ARH state says this command has been executed. Live Telegram send, public webhook and production remain unauthorized by the cited receipt.
+Absence of these receipts means ARH does not assert recipient processing or acceptance for those exact return routes.
 
 ## ARH anti-regression boundaries
 
 - Raw inbox presence does not prove unprocessed work.
+- Dispatch, locator or activation detector does not prove delivery/processing.
 - Receipt does not equal broader approval beyond its exact recorded result.
-- Semantic response does not equal route receipt.
-- Detector/activation request does not equal Entity processing.
 - Candidate/draft/research does not become canon without authority.
 - Historical failure is not rewritten by later success.
-- Sender registry becomes `received` or `received_and_processed` only from exact matching receipt evidence.
-- Append-only sender-registry reconciliation preserves the original dispatched event and records later knowledge as a new event.
-- Canonical recovery preservation PASS does not equal practical replacement initiation.
-- Permission to cold-start SHD does not equal performed cold-start or writer handoff.
-- A routed KOD result does not equal KOO acceptance or live provider execution.
-- ARH does not silently resolve authority/canon conflicts or perform unrelated destructive cleanup.
-- Materialized active queue does not become semantic authority over artifacts, receipts, decisions or raw inbox evidence.
+- Later success is not hidden behind an obsolete earlier state.
+- Sender-registry reconciliation is append-only; old dispatched events remain history.
+- `PERMITTED`, `PERFORMED` and `CURRENT_WRITER_ESTABLISHED` are distinct states.
+- A current-writer handoff does not authorize automatic historical task replay.
+- Exact task identity and dependency state must be revalidated immediately before processing start.
+- A technical PASS is not economic effect evidence.
 - Zero Git delta does not close pending routes.
 
 ## Current open work
 
 1. Start every run with fresh GitHub-preflight and delta classification.
-2. Watch SHD practical replacement cold-start/current-writer transfer for exact performed evidence; current state is permission only.
-3. Watch `KOD__anthropic-live-transport-r01__KOO.md` for exact KOO receipt/queue reconciliation; do not infer acceptance or live provider execution.
-4. Watch `ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.md` for exact KOO receipt/processing evidence; do not invent receipt or acceptance.
-5. Watch `ARH__sis-sender-registry-reconciliation-gap__SIS.md` for exact SIS receipt/result; activation detector failure is not processing.
-6. Watch `ARH__koder-sender-registry-reconciliation-gap-r2__KOO.md` for exact KOO receipt. Until then, do not claim F3 was folded into the serialized KOD sanitation lane.
-7. Keep KOD sender-registry sanitation open while KOO queue keeps it `READY_SERIALIZED`; do not declare KOD execution from queue presence.
-8. Continue bounded sanitation of stale/orphaned routes, locator/version drift and conflicting current-state only from exact evidence.
-9. Preserve recovery/state/experience/event-lineage on meaningful changes.
+2. Watch the SHD → SIS эРэФия route for exact SIS receipt/result; do not infer restored access from activation detection.
+3. Watch SHT wake/initiation/resume review for KOO decision; current SHT result is review-only and not canon approval.
+4. Watch VOL P5 evidence scout for KOO decision; no eligible measured-effect episode exists in the current scout result.
+5. Watch the three ARH service tails listed above for exact return receipts.
+6. Continue bounded sanitation of stale/orphaned routes, duplicate locators, conflicting current-state and recovery/event-lineage drift only from exact evidence.
+7. Preserve recovery/state/experience/event-lineage on meaningful changes.
+8. Do not promote SIS preferred recovery candidate, SHT amendment candidate, VOL research result or other candidate/draft material to canon without exact authority.
 
 ## Resume-First for replacement ARH
 
-1. Read canonical recovery at immutable commit `9ffe7190298689bd90f047c249151213e101450e` and verify manifest/checksum identities.
+1. Read canonical ARH recovery at immutable commit `9ffe7190298689bd90f047c249151213e101450e` and verify its identities.
 2. Fresh-scan `puev5691/wellbeing-hq` after this snapshot boundary.
 3. Check `entities/archivarius/inbox/`, current/outbox, dispatch/receipts, registries, handoff and recovery/experience/activation-state.
-4. Classify new tasks/results/blockers/acceptance/dependency changes.
+4. Classify new tasks/results/blockers/approval/acceptance/dependency changes.
 5. Select one ARH-owned still-open task.
-6. Do not continue from historical memory alone.
+6. Recheck HEAD immediately before any mutation to avoid duplicate/racing sanitation writes.
+7. Do not continue from historical memory alone.
 
 ---
 КТО: ARH / АРХИВАРИУС
 КОГДА: не указано — trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать current recovery/state после zero-delta preflight и append-only reconciliation KOO v04 sender-registry без выдуманного broader approval
+ДЛЯ ЧЕГО: синхронизировать emergency current-state с фактическими SHD/SIS current-writer handoff, bounded KOD Anthropic acceptance, свежей SHT/VOL delta и открытым эРэФия route без выдуманного receipt/acceptance/canon promotion
 СТАТУС: emergency-self-preservation-current
