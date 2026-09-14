@@ -4,6 +4,7 @@ artifact: `entities/archivarius/outbox/ARH__sis-recovery-pending-lifecycle-polic
 artifact_commit: `2ea877283576a5c14f9a8b19b7331e025a5ecd1f`
 artifact_blob: `d3a6f0fece88f94fe5df151e6cf70237ed0f40d0`
 dispatch: `routes/dispatch/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.md`
+dispatch_commit: `20f90e5eaffcbb1d0ed331ccbacc285d992fc133`
 status: `addressed_for_processing`
 required_action: `fresh-preflight; verify exact ARH sanitation finding; decide exact lifecycle disposition/path rule for completed recovery records under recovery-pending; return receipt and semantic decision separately`
 receipt: null
