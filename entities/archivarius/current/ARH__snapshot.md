@@ -12,8 +12,8 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Previous ARH run boundary: `7acf433eb772b472cfd9f0cbb602da7b8d625b24`
-- Pre-profile HEAD: `7acf433eb772b472cfd9f0cbb602da7b8d625b24`
+- Previous ARH run boundary: `f9e6b7df235e3fc8166d1abf4d13b8aaa1a0c7f7`
+- Pre-profile HEAD: `f9e6b7df235e3fc8166d1abf4d13b8aaa1a0c7f7`
 - Compare: `ahead 0 / behind 0`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
@@ -67,6 +67,22 @@ Post-handoff commit:
 
 The replacement writer is established. Historical base checksum defects remain provenance; later corrected integrity evidence is a recovery bridge, not a silent canon-promotion.
 
+### SHD base recovery integrity correction — reconciled receipt truth
+
+Exact receipt:
+`routes/receipts/ARH__SHD-base-recovery-integrity-correction__KOO.receipt.md`
+
+Receipt status:
+`RECEIVED_AND_INDEPENDENTLY_VERIFIED_BY_KOO`
+
+Verified by KOO:
+- correction package protected payload: `4/4 PASS`;
+- original SHD raw Git blobs against corrected raw hash table: `4/4 PASS`;
+- terminal-LF checksum-boundary explanation reproduced and consistent;
+- historical verification `29e0a61e...` remains provenance of an invalid raw-byte verification claim and is not current integrity authority.
+
+Sender-side closure was reconciled append-only in `registry/by-sender/archivarius.jsonl`. This receipt does not itself perform SHD practical initiation or current-writer transfer.
+
 ## SIS replacement recovery/current-writer — current truth
 
 Preferred recovery basis for the current replacement lineage:
@@ -94,6 +110,28 @@ Verified state:
 - post-handoff competing writer check: `PASS_ONLY_ONE_REPLACEMENT_WRITER_ARTIFACT`;
 - production mutation during recovery: none;
 - historical task replay: none.
+
+ARH reconciliation result:
+`entities/archivarius/outbox/ARH__SIS-replacement-current-writer-reconcile__KOO.md`
+- commit: `453d7f8be2145d2c0984fe8dc36a78263b7734f6`;
+- blob: `bb5e54e9ebfd0dbab9350189ffa67474365fe470`.
+
+Exact KOO receipt:
+`routes/receipts/ARH__SIS-replacement-current-writer-reconcile__KOO.receipt.md`
+- receipt commit: `1b89a425767b19a3d2bb155293c09d27fcb01fbf`;
+- status: `RECEIVED_REVIEWED_ACCEPTED_BOUNDED`;
+- result: `PASS_SIS_REPLACEMENT_PRESERVATION_RECONCILED_ACCEPTED`.
+
+Accepted scope is only the preservation/recovery synchronization with the already established SIS replacement current-writer. The receipt does not create or expand writer authority and does not authorize production mutation, credentials, live Telegram/provider execution, historical replay or destructive cleanup.
+
+Sender-side closure was added append-only as:
+`ARH-SIS-replacement-current-writer-reconcile-KOO-001`
+in `registry/by-sender/archivarius.jsonl`.
+
+Its first write accidentally truncated one unrelated historical VPN commit id by one character; mandatory diff-readback caught the defect, and commit `a75b461c02987f4474080de1e969628232dcd408` restored the historical value. Net registry change from the pre-write boundary is exactly one added closure row and no historical deletion.
+
+Causal preservation:
+`entities/archivarius/current/experience/ARH__SIS-reconcile-acceptance-registry-closure-lineage.md`.
 
 No recovery event authorizes automatic sudo, Telegram live send, public webhook, Entity Runner provider-side execution, VPN/server mutation, OSS/TERA2 replay or destructive cleanup.
 
@@ -216,7 +254,7 @@ The receipt does NOT authorize account creation, credit purchase, API-key handli
 
 ## ARH open service tails
 
-Exact return receipts still absent for the previously tracked ARH service tails:
+Exact return receipts remain absent after direct recheck for the previously tracked ARH service tails:
 
 1. `routes/receipts/ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.receipt.md`
 2. `routes/receipts/ARH__sis-sender-registry-reconciliation-gap__SIS.receipt.md`
@@ -262,5 +300,5 @@ Absence means ARH does not assert recipient processing or acceptance for those e
 ---
 КТО: ARH / АРХИВАРИУС
 КОГДА: не указано — trusted project-time source not used
-ДЛЯ ЧЕГО: закрыть точный sender-registry gap для SHD → SIS correction SSH 2222, сохранив route/receipt/acceptance boundaries без выдуманного исполнения
+ДЛЯ ЧЕГО: синхронизировать current snapshot с доказанными KOO receipts, sender-registry closures и текущими route/receipt boundaries без повышения authority/canon
 СТАТУС: emergency-self-preservation-current
