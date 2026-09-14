@@ -10,7 +10,8 @@ required_action: verify exact artifact identity and review only the counterfactu
 expected_result: bounded receipt and review decision, or one exact evidence or authority blocker
 failure_mode: do not infer scores, tokens, ownership, governance rights, liability, AI subject status, provider authority, production policy or implementation from this research result
 inbox_pointer: `entities/koordinator/inbox/VOL__hybrid-interaction-p2p4-pilot__KOO.md`
-registry_record: `VOL-KOO-HYBRID-P2P4-001`
+registry_record: `registry/by-sender/volonter.jsonl`
+registry_record_id: `VOL-KOO-HYBRID-P2P4-001`
 status: dispatched
 
 ## Exact identity
