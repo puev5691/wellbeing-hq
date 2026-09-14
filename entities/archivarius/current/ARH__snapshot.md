@@ -12,7 +12,7 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Boundary before this snapshot refresh: `8ee3d570b7bc7c819083be75e0f6d8fb1c088d61`
+- Boundary before this snapshot refresh: `7b8ebc6837dd285e4ee74e9f9070fbe9e08e53f8`
 - Fresh preflight compare from the previous ARH boundary to `main`: `identical`, `0 ahead / 0 behind`, `0 commits`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
@@ -43,7 +43,7 @@ Historical v02/v03 candidate paths remain provenance; future recovery should pre
 
 ## Current project-field classification
 
-Fresh preflight found no commits after `8ee3d570b7bc7c819083be75e0f6d8fb1c088d61` before this profile write. Therefore there were no newly changed files after the previous ARH run in:
+Fresh preflight found no commits after `7b8ebc6837dd285e4ee74e9f9070fbe9e08e53f8` before this profile write. Therefore there were no newly changed files after the previous ARH run in:
 - `entities/*/inbox/`;
 - `entities/*/outbox/`;
 - `entities/*/current/`;
@@ -55,6 +55,32 @@ Fresh preflight found no commits after `8ee3d570b7bc7c819083be75e0f6d8fb1c088d61
 - recovery / experience / activation-state.
 
 Zero delta does not close previously open routes and does not convert pending activation into processing.
+
+## ARH sender-registry — KOO v04 receipt reconciliation
+
+Historical sender event `ARH-emergency-recovery-v04-result-KOO-001` remains preserved as the original `dispatched` state.
+
+Exact later receipt evidence already existed and was reconciled append-only:
+- receipt: `routes/receipts/ARH__emergency-recovery-v04-result__KOO.receipt.md`;
+- receipt commit: `28b9a01522826dc02c3041cdbfa3d9074dc07882`;
+- source artifact: `entities/archivarius/outbox/ARH__emergency-recovery-v04-result__KOO.md`;
+- source commit: `6d92aa174240fc2875d67b2f1a375d332bda999b`;
+- source blob: `61d77f95f653f6447ddeb309316aca81acb97cc6`;
+- content read: `PASS`;
+- processing: `completed`;
+- processing result: `initiation_verified`;
+- processing artifact: `entities/koordinator/current/KOO__initiation-v04-result.md`;
+- processing commit: `2a4284d592e142d373ac942e336095336b6efc67`.
+
+Per append-only registry policy, a later event was added rather than rewriting history:
+- record: `ARH-emergency-recovery-v04-result-KOO-002`;
+- state: `received_and_processed`;
+- registry reconciliation commit: `8a32bd0de79397d5abcd6590ff0041d20aa90ae4`;
+- registry blob after reconciliation: `b8769f5c147a5a4df88bd5ac7a67bdcd1b53fe15`;
+- lineage: `entities/archivarius/current/experience/ARH__koo-v04-sender-registry-reconciliation-lineage.md`;
+- lineage commit: `7b8ebc6837dd285e4ee74e9f9070fbe9e08e53f8`.
+
+This closes only the stale sender-registry receipt tail for that exact route. It does not create broader approval, does not alter KOO canonical recovery authority and does not close unrelated ARH pending routes.
 
 ## SHD emergency failover — corrected recovery truth
 
@@ -217,6 +243,7 @@ No evidence in ARH state says this command has been executed. Live Telegram send
 - Candidate/draft/research does not become canon without authority.
 - Historical failure is not rewritten by later success.
 - Sender registry becomes `received` or `received_and_processed` only from exact matching receipt evidence.
+- Append-only sender-registry reconciliation preserves the original dispatched event and records later knowledge as a new event.
 - Canonical recovery preservation PASS does not equal practical replacement initiation.
 - Permission to cold-start SHD does not equal performed cold-start or writer handoff.
 - A routed KOD result does not equal KOO acceptance or live provider execution.
@@ -248,5 +275,5 @@ No evidence in ARH state says this command has been executed. Live Telegram send
 ---
 КТО: ARH / АРХИВАРИУС
 КОГДА: не указано — trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать current recovery/state после zero-delta preflight, SHD recovery correction PASS и routed KOD Anthropic live-transport result без выдуманного receipt/acceptance
+ДЛЯ ЧЕГО: синхронизировать current recovery/state после zero-delta preflight и append-only reconciliation KOO v04 sender-registry без выдуманного broader approval
 СТАТУС: emergency-self-preservation-current
