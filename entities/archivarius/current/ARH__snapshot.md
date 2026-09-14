@@ -12,9 +12,9 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 - Repository: `puev5691/wellbeing-hq`
 - Branch: `main`
-- Previous ARH run boundary: `ad028679b52e30127f5719f931510b51af2b739c`
-- Pre-profile HEAD: `703944f248186fc7017244bcb1451963457053c7`
-- Compare: `ahead 7 / behind 0`
+- Previous ARH run boundary: `ab68673e1d8931a62dd5112c35d5956bd1d03f74`
+- Pre-profile HEAD: `e61acde959cb09fbf2053fe9d5da7d5d5a6de0ee`
+- Compare: `ahead 11 / behind 0`
 - Canonical ARH path: `entities/archivarius/`
 - Recovery registry: `entities/archivarius/current/recovery-registry.jsonl`
 - Experience/event-lineage: `entities/archivarius/current/experience/`
@@ -26,13 +26,13 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 
 ## Fresh delta classification
 
-После предыдущей ARH-границы изменены только следующие профильные зоны:
-- `entities/shtabist/outbox/`;
-- `entities/volonter/outbox/`;
-- `entities/koordinator/inbox/`;
+После предыдущей ARH-границы свежая дельта затронула:
+- `entities/shardovik/current/`;
+- `entities/shardovik/outbox/`;
+- `entities/sisadmin/inbox/`;
 - `routes/dispatch/`;
 - `routes/activation/`;
-- `registry/by-sender/volonter.jsonl`.
+- `registry/by-sender/shardovik.jsonl`.
 
 В исходной fresh delta не было новых изменений в:
 - `entities/archivarius/inbox/`;
@@ -42,37 +42,7 @@ Resume-First current-state для восстановления ARH. Snapshot н�
 - `handoff/`;
 - ARH recovery registry/pending state.
 
-### SHT result
-
-Artifact:
-`entities/shtabist/outbox/SHT__entity-wake-initiation-resume-process-review__KOO.md`
-
-Verdict:
-`PASS_WITH_EXACT_PROCESS_FIXES`
-
-Boundary:
-- review complete;
-- canon approval: no;
-- implementation selection: no;
-- production: no;
-- exact fixes F1–F5 and test vectors T9–T12 are required before authority/terminology review.
-
-KOO inbox locator and dispatch exist. Activation detector records `processing_started: no`, `activation_status: activation_failed`, reason `exact_entity_chat_resume_not_supported_by_current_adapter`. No KOO receipt/acceptance is inferred from routing or activation.
-
-### VOL result
-
-Artifact:
-`entities/volonter/outbox/VOL__hybrid-interaction-p5-evidence-scout__KOO.md`
-
-Verdict:
-`P5_EVIDENCE_SCOUT_COMPLETE__NO_ELIGIBLE_CLOSED_EPISODE`
-
-Boundary:
-- no eligible closed P5 episode with measured before/after effect was found at the scout boundary;
-- no numerical participant valuation, token, ownership share, governance right or subject-status conclusion was created;
-- direct file exchange is only a future partial candidate because actual operator effort reduction is not yet measured.
-
-KOO inbox locator and dispatch exist. Activation detector records `processing_started: no`, `activation_status: activation_failed`, reason `exact_entity_chat_resume_not_supported_by_current_adapter`. No KOO receipt/acceptance is inferred.
+Новых receipt/acceptance в этой дельте не обнаружено.
 
 ## ARH recovery — current truth
 
@@ -87,11 +57,9 @@ Independent KOO verification:
 Canonical ARH recovery:
 `puev5691/wellbeing-entity-bootstrap@9ffe7190298689bd90f047c249151213e101450e:entities/arh/recovery/current`
 
-ARH canonical preservation publication remains PASS. The recovery registry still records practical ARH reinitiation as not performed; this snapshot does not silently upgrade that state.
+ARH canonical preservation publication remains PASS. Recovery registry still records practical ARH reinitiation as not performed; this snapshot does not upgrade that state.
 
 ## SHD replacement recovery/current-writer — current truth
-
-The old snapshot statement `permission only / not yet performed` is superseded by exact SHD-owned evidence.
 
 Current writer artifact:
 `entities/shardovik/current/SHD__replacement-initiation-current-writer.md`
@@ -104,15 +72,10 @@ Exact publication:
 - production mutation: no;
 - secrets/credentials: not accessed.
 
-Post-handoff artifact:
-`entities/shardovik/current/SHD__replacement-resume-state.md`
-
 Post-handoff commit:
-`4abab83e831d236e3a97949c103675460c261bb9`
+`4abab83e831d236e3a97949c103675460c261bb9`.
 
-The replacement writer was therefore actually established. Historical base checksum defects remain provenance and are not rewritten away; corrected integrity evidence remains the recovery bridge rather than canon-promotion of the correction candidate.
-
-After writer establishment SHD later received exact profile direction and performed bounded profile work. Therefore the historical immediate post-handoff state `WAITING_OPERATOR_EXACT_PROFILE_DIRECTION` must not be interpreted as a current universal SHD status.
+The replacement writer is established. Historical base checksum defects remain provenance; later corrected integrity evidence is a recovery bridge, not a silent canon-promotion.
 
 ## SIS replacement recovery/current-writer — current truth
 
@@ -120,7 +83,7 @@ Preferred recovery basis for the current replacement lineage:
 `puev5691/wellbeing-entity-bootstrap@dfac1b1f4a4664f85f12c6590a511502b9828ace:entities/sis/preservation/pending/self-preservation-current-writer-v02`
 
 Boundary:
-- this is preferred recovery basis for the current replacement lineage;
+- preferred recovery basis for the current replacement lineage;
 - candidate-only, not Project Source/canon;
 - historical `861645... + 23c83ad...` chain remains provenance-only.
 
@@ -144,41 +107,96 @@ Verified state:
 
 No recovery event authorizes automatic sudo, Telegram live send, public webhook, Entity Runner provider-side execution, VPN/server mutation, OSS/TERA2 replay or destructive cleanup.
 
-## SHD → SIS эРэФия host-access route — exact open state
+## SHD → SIS эРэФия — current route truth
 
-Source artifact:
+### Historical precursor
+
 `entities/shardovik/outbox/SHD__erefia-host-access-restore__SIS.md`
 
-Source identity:
-- source commit: `ad257fb1492bdb50866299ecdedf6ab6acebccb5`;
-- source blob: `adda1932d85e26051928ac661e5653dd706ef01f`.
+This route is historical provenance from the state where host identity/access were still unresolved. Its exact receipt remained absent at the previous refresh boundary.
 
-Purpose:
-restore only bounded administrative access to the historical host called `эРэФия`, without changing TERA/WBN runtime.
+### Exact host / live node evidence
 
-Exchange Gate exists:
-- dispatch commit: `2d5812cb105f81bda457f92dca8bdfa764e9cba5`;
-- SIS inbox locator commit: `973771a82c657f24fce07f0abd3d690725dd2b03`;
-- sender-registry append commit: `d4fa5534e8a833f79817fddc1919806f97606190`.
+SHD then published:
+`entities/shardovik/current/SHD__tera-wbn-three-host-state-v02.md`
 
-Activation boundary:
+Confirmed:
+- exact host: `194.87.107.135`;
+- WBN node live;
+- ports `30000/tcp` and `8780/tcp` open;
+- chain identity consistent with Буржуиния by checked chain-defining data.
+
+This removed the host-identity blocker. However v0.2 and the first exact-locator task still treated refusal on TCP/22 as the SSH blocker.
+
+Exact-locator route:
+`entities/shardovik/outbox/SHD__erefia-exact-locator-live-node__SIS.md`
+
+Artifact identity:
+- commit: `a9b70ded72d743e2abc5438d7f40afa7d9d197cf`;
+- blob: `02a26a41ca6725c2a0643a2d9d9329023edbee9f`.
+
+Dispatch:
+`routes/dispatch/SHD__erefia-exact-locator-live-node__SIS.md`
+commit `f9f25cce24d30ee715dc01289e920f18f217b181`.
+
+Sender registry contains append-only record `SHD-erefia-exact-locator-live-node-SIS-002`, status `dispatched_pending_receipt`.
+
+### SSH endpoint correction
+
+OPERATOR then corrected the SSH endpoint to:
+`194.87.107.135:2222`.
+
+SHD published:
+`entities/shardovik/current/SHD__tera-wbn-three-host-state-v03.md`
+
+Fresh verification recorded:
+- TCP `2222`: OPEN;
+- SSH banner: `OpenSSH_9.6p1 Ubuntu-3ubuntu13.18`;
+- batch login without credentials rejected as expected;
+- the old `SSH_PORT_22_REFUSED` inference is explicitly superseded.
+
+Correction artifact:
+`entities/shardovik/outbox/SHD__erefia-ssh2222-correction__SIS.md`
+
+Artifact identity:
+- commit: `9b257f36c02cde9dcaec680aa4190b2ac7011705`;
+- blob: `db749700ca2b4ce8c49bdb0ef54fbe400954dddb`.
+
+Correction dispatch:
+`routes/dispatch/SHD__erefia-ssh2222-correction__SIS.md`
+commit `3a2c6fb9f109e4240adce08cd626d6b4ff3c8969`.
+
+Operational precedence is therefore:
+`194.87.107.135:2222` supersedes the earlier inference from port 22.
+
+The old artifact is preserved as history; it must not be executed as if the port-22 premise were still current.
+
+### Activation / receipt boundary
+
+For both the exact-locator route and the SSH-2222 correction route:
 - detector: PASS;
 - processing_started: no;
 - activation_status: activation_failed;
-- reason: `exact_entity_chat_resume_not_supported_by_current_adapter`;
+- failure_reason: `exact_entity_chat_resume_not_supported_by_current_adapter`;
 - operator manual ping required: yes.
 
-Exact receipt
-`routes/receipts/SHD__erefia-host-access-restore__SIS.receipt.md`
-is absent at this refresh boundary.
+Exact receipt files for both routes are absent at this refresh boundary.
 
-Therefore SIS processing, restored access, exact host locator, delivery, receipt or acceptance are not asserted.
+Therefore ARH does not assert:
+- SIS processing;
+- restored Commander access;
+- delivery;
+- receipt;
+- acceptance.
+
+Information-field sanitation tail: `registry/by-sender/shardovik.jsonl` contains the exact-locator dispatch record but no separate record for the later SSH-2222 correction dispatch. This is a sender-registry reconciliation gap, not a reason to invent processing state.
+
+Causal preservation for this transition:
+`entities/archivarius/current/experience/ARH__erefia-route-supersession-lineage.md`.
 
 ## KOD Anthropic live-transport — reconciled acceptance truth
 
-The old snapshot statement that the exact KOO receipt was absent is superseded.
-
-Exact receipt now exists:
+Exact receipt:
 `routes/receipts/KOD__anthropic-live-transport-r01__KOO.receipt.md`
 
 Accepted result:
@@ -192,42 +210,17 @@ Accepted scope:
 - credit purchases: 0;
 - production deployments: 0.
 
-The receipt does NOT authorize:
-- account creation;
-- credit purchase;
-- API-key handling;
-- live Anthropic request;
-- D1/D2+ data;
-- tools/search/files/MCP/code execution/fallback;
-- production deployment.
+The receipt does NOT authorize account creation, credit purchase, API-key handling, live Anthropic request, D1/D2+ data, tools/search/files/MCP/code execution/fallback or production deployment.
 
-Next gate remains OPERATOR account/billing/key/model-access readiness plus separate explicit authorization for one D0 live request.
+## ARH open service tails
 
-The older `KOO__kod-serialized-queue-v02.md` still describes `anthropic-live-transport-r01` as active. Preserve this as an older working-queue snapshot; do not use that stale label to contradict the later exact receipt.
-
-## ARH append-only receipt reconciliations already closed
-
-### KOO v04 recovery route
-
-Historical event `ARH-emergency-recovery-v04-result-KOO-001` remains the original dispatched fact.
-Later exact receipt was reconciled append-only by `ARH-emergency-recovery-v04-result-KOO-002` as `received_and_processed`.
-
-This closes only that exact route and does not create broader approval.
-
-### KOO inbox-lifecycle review sender-state
-
-Historical `ARH-inbox-lifecycle-operational-review-KOO-001` remains provenance.
-A later append-only reconciliation records the exact KOO receipt/processing state without destructive history rewrite.
-
-## ARH open service tails with no exact return receipt at this refresh boundary
-
-The following exact receipt files remain absent on direct readback:
+Exact return receipts still absent for the previously tracked ARH service tails:
 
 1. `routes/receipts/ARH__koo-inbox-lifecycle-preservation-correction-verdict__KOO.receipt.md`
 2. `routes/receipts/ARH__sis-sender-registry-reconciliation-gap__SIS.receipt.md`
 3. `routes/receipts/ARH__koder-sender-registry-reconciliation-gap-r2__KOO.receipt.md`
 
-Absence of these receipts means ARH does not assert recipient processing or acceptance for those exact return routes.
+Absence means ARH does not assert recipient processing or acceptance for those exact routes.
 
 ## ARH anti-regression boundaries
 
@@ -237,23 +230,23 @@ Absence of these receipts means ARH does not assert recipient processing or acce
 - Candidate/draft/research does not become canon without authority.
 - Historical failure is not rewritten by later success.
 - Later success is not hidden behind an obsolete earlier state.
+- Superseded route evidence remains provenance but must not override later exact correction.
 - Sender-registry reconciliation is append-only; old dispatched events remain history.
 - `PERMITTED`, `PERFORMED` and `CURRENT_WRITER_ESTABLISHED` are distinct states.
 - A current-writer handoff does not authorize automatic historical task replay.
 - Exact task identity and dependency state must be revalidated immediately before processing start.
-- A technical PASS is not economic effect evidence.
 - Zero Git delta does not close pending routes.
 
 ## Current open work
 
 1. Start every run with fresh GitHub-preflight and delta classification.
-2. Watch the SHD → SIS эРэФия route for exact SIS receipt/result; do not infer restored access from activation detection.
-3. Watch SHT wake/initiation/resume review for KOO decision; current SHT result is review-only and not canon approval.
-4. Watch VOL P5 evidence scout for KOO decision; no eligible measured-effect episode exists in the current scout result.
+2. Watch the corrected SHD → SIS эРэФия route for exact SIS receipt/result; current SSH endpoint is `194.87.107.135:2222`.
+3. Do not treat the earlier port-22 refusal as a current SSH blocker.
+4. Preserve the shardovik sender-registry omission for the correction as an open sanitation tail until exact append-only reconciliation appears.
 5. Watch the three ARH service tails listed above for exact return receipts.
 6. Continue bounded sanitation of stale/orphaned routes, duplicate locators, conflicting current-state and recovery/event-lineage drift only from exact evidence.
 7. Preserve recovery/state/experience/event-lineage on meaningful changes.
-8. Do not promote SIS preferred recovery candidate, SHT amendment candidate, VOL research result or other candidate/draft material to canon without exact authority.
+8. Do not promote candidate/draft material to canon without exact authority.
 
 ## Resume-First for replacement ARH
 
@@ -268,5 +261,5 @@ Absence of these receipts means ARH does not assert recipient processing or acce
 ---
 КТО: ARH / АРХИВАРИУС
 КОГДА: не указано — trusted project-time source not used
-ДЛЯ ЧЕГО: синхронизировать emergency current-state с фактическими SHD/SIS current-writer handoff, bounded KOD Anthropic acceptance, свежей SHT/VOL delta и открытым эРэФия route без выдуманного receipt/acceptance/canon promotion
+ДЛЯ ЧЕГО: синхронизировать emergency current-state с подтверждённым host/live-node evidence эРэФии, исправленным SSH endpoint 2222 и точной границей routing/activation без выдуманного receipt/acceptance
 СТАТУС: emergency-self-preservation-current
