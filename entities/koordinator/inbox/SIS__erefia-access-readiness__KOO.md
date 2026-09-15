@@ -3,10 +3,10 @@
 sender: `sisadmin`
 recipient: `koordinator`
 artifact: `entities/sisadmin/outbox/SIS__erefia-access-readiness__KOO.md`
-artifact_commit: `6fcd53f52f2c477ce91bfb2ab96be5785ab78c59`
-artifact_blob: `19ad954f7cdad2ad098c4182cb602f1f84adcb59`
+artifact_commit: `fba82d6748f5fbc392e6d5d77ad5f359caf1a4ad`
+artifact_blob: `95f7fbb0dd3bbdf8a82f88585747b92376478324`
 dispatch: `routes/dispatch/SIS__erefia-access-readiness__KOO.md`
-required_action: `review WAITING_OPERATOR_EXACT_HUMAN_ACTION blocker; keep Telegram Phase1B paused unless separately reprioritized`
+required_action: `review DC-first exhausted-automation blocker; keep Telegram Phase1B paused unless separately reprioritized`
 status: `addressed_for_processing`
 receipt: null
 acceptance: null
