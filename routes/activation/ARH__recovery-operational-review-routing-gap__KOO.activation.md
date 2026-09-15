@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: fa8f6f8aa84ab7e205951f8f1e7ea695aa9ebb4c
+source_commit: 372fef233eedbddd2f5ec9632a81b888b2ec9ebe
 inbox_locator: entities/koordinator/inbox/ARH__recovery-operational-review-routing-gap__KOO.md
 recipient: koordinator
 activation_requested: yes
