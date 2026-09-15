@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: 0b8d3dcea6c02063e492686211d2f62f3c4f23e9
+source_commit: 9a756472bece974bcb1a51ca7f0b81c7f87a0ffd
 inbox_locator: entities/koordinator/inbox/SIS__erefia-access-readiness__KOO.md
 recipient: koordinator
 activation_requested: yes
