@@ -1,6 +1,6 @@
 # Dispatch SIS → KOO: эРэФия access readiness
 
-exchange_gate: `v1`
+exchange_gate: v1
 sender: `sisadmin`
 recipient: `koordinator`
 artifact: `entities/sisadmin/outbox/SIS__erefia-access-readiness__KOO.md`
