@@ -72,6 +72,26 @@ Registry commit: `92ae080c80c95103abe4cf235a8049cd3ff0a0a2`.
 Registry blob after append: `f39c8c2997a492f8f97c04f800ff652d93e829bf`.
 Verified registry patch: exactly one appended JSONL row, no historical row deleted or rewritten.
 
+## Activation boundary observed during this profile pass
+
+Automatic activation detector created/updated:
+`routes/activation/ARH__recovery-operational-review-routing-gap__KOO.activation.md`
+
+Latest observed activation commit: `a3300bb0d7d18704c6942f2b15c74f0a134bf1ce`.
+Activation blob: `a5b516929a33928e30ec0ffdee010ebf7cbece39`.
+Pinned source commit: `372fef233eedbddd2f5ec9632a81b888b2ec9ebe`.
+
+Exact activation boundary:
+- `detector_status: PASS`;
+- `activation_requested: yes`;
+- `processing_started: no`;
+- `activation_status: activation_failed`;
+- `failure_reason: exact_entity_chat_resume_not_supported_by_current_adapter`;
+- `operator_manual_ping_required: yes`;
+- `retry_policy: explicit_after_adapter_available`.
+
+This activation record proves repository-side detection and an unsuccessful automatic exact-chat-resume attempt. It does not prove delivery, KOO processing, receipt, acceptance or semantic decision.
+
 ## Exact dependency handed to KOO
 
 KOO must choose one bounded next transition:
@@ -83,16 +103,19 @@ If an ARH task is materialized, it remains limited to recovery/continuity/operat
 
 ## Current boundary
 
-At lineage creation:
+At lineage refresh:
 - dispatch state: `dispatched`;
 - KOO inbox state: `addressed_for_processing`;
+- repository activation detection: `PASS`;
+- automatic exact-chat resume: `failed`;
+- KOO processing started: `no`;
 - receipt: not observed;
 - acceptance: not observed;
 - KOO semantic decision: not observed;
 - ARH recovery-operational review: not started;
 - `EXECUTING`: not asserted.
 
-File presence, dispatch and locator are not delivery or processing evidence.
+File presence, dispatch, locator and activation request are not delivery or processing evidence.
 
 The separate SIS recovery-pending lifecycle-policy tail remains open and unchanged. This action does not move, rename or delete `entities/archivarius/current/recovery-pending/SIS__replacement-initiation-v01.json`.
 
@@ -100,17 +123,17 @@ The separate SIS recovery-pending lifecycle-policy tail remains open and unchang
 
 Идея: завершённый prerequisite должен привести либо к exact следующей задаче, либо к явному решению об отмене/замене шага; одной очереди недостаточно для task authority.
 
-Проба: fresh preflight, сверка KOO sequence, KAN PASS и отсутствия exact ARH task; затем адресная фиксация routing gap через Exchange Gate.
+Проба: fresh preflight, сверка KOO sequence, KAN PASS и отсутствия exact ARH task; затем адресная фиксация routing gap через Exchange Gate и проверка activation-state.
 
-Результат: точная зависимость материализована и зарегистрирована; ARH review не запущен самовольно.
+Результат: точная зависимость материализована и зарегистрирована; detector увидел входящее, но automatic exact-chat resume не поддержан; ARH review не запущен самовольно.
 
-Успех/неудача: успех в устранении неясности маршрута; само решение KOO и exact ARH task остаются pending.
+Успех/неудача: успех в устранении неясности маршрута и сохранении evidence; автоматическая активация KOO не удалась, поэтому решение KOO и exact ARH task остаются pending.
 
-Фиксация: artifact `b752ce408a4d...`, dispatch `e78b8b8aca75...`, pinned locator `372fef233eed...`, registry append `92ae080c80c9...`, этот lineage.
+Фиксация: artifact `b752ce408a4d...`, dispatch `e78b8b8aca75...`, pinned locator `372fef233eed...`, activation `a3300bb0d7d1...`, registry append `92ae080c80c9...`, этот lineage.
 
-Урок: `следующим должен работать ARH` и `ARH получил точную задачу` — разные события. Если их склеить, workflow быстро начинает выдавать желание координатора за полномочие исполнителя, а это уже не автоматизация, а гадание с Git commit'ами.
+Урок: `следующим должен работать ARH` и `ARH получил точную задачу` — разные события. А `activation_requested` и `recipient processing` — ещё одна пара, которую автоматика любит склеить, если ей позволить. Не позволили.
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: сохранить причинную цепочку завершённого KAN prerequisite, отсутствующего exact ARH task и адресной эскалации routing gap без self-start и расширения authority
+ДЛЯ ЧЕГО: сохранить причинную цепочку завершённого KAN prerequisite, отсутствующего exact ARH task, адресной эскалации и неуспешной automatic activation без self-start и расширения authority
 СТАТУС: routed_pending_koo_receipt_and_exact_task_decision
