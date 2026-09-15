@@ -4,18 +4,18 @@ exchange_gate: v1
 sender: `sisadmin`
 recipient: `koordinator`
 artifact: `entities/sisadmin/outbox/SIS__erefia-access-readiness__KOO.md`
-artifact_commit: `fba82d6748f5fbc392e6d5d77ad5f359caf1a4ad`
-artifact_blob: `95f7fbb0dd3bbdf8a82f88585747b92376478324`
+artifact_commit: `26df12757efc46e4a7bcd9e049a86837930de061`
+artifact_blob: `424bfba42d385e056552ef3528205d61cb9c3447`
 inbox_pointer: `entities/koordinator/inbox/SIS__erefia-access-readiness__KOO.md`
 registry_record: `registry/by-sender/sisadmin.jsonl`
-purpose: `return DC-first Erefia access investigation, exhausted automatic paths and exact bounded human gate`
-required_action: `KOO review refined blocker and preserve SIS serialization; Telegram Phase1B remains paused`
-expected_result: `KOO decision after exact OPERATOR credential-mediated login or explicit re-prioritization`
+purpose: `return verified exact Erefia identity and restored Remote Desktop Commander access`
+required_action: `KOO review PASS and route SHD next bounded read-only inventory decision; keep Telegram Phase1B serialized`
+expected_result: `KOO acceptance or next exact priority after Erefia access blocker removal`
 failure_mode: `if artifact commit/blob or inbox locator mismatches, routing is invalid and no receipt/acceptance may be inferred`
 status: `dispatched`
 project_time: omitted; trusted project-time source not used
 
 ---
 КТО: SIS / СИСАДМИН
-ДЛЯ ЧЕГО: Exchange Gate dispatch refined Erefia readiness/blocker
+ДЛЯ ЧЕГО: Exchange Gate dispatch Erefia access PASS KOO
 СТАТУС: dispatched
