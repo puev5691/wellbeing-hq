@@ -3,10 +3,10 @@
 sender: `sisadmin`
 recipient: `koordinator`
 artifact: `entities/sisadmin/outbox/SIS__telegram-phase1b-resume-r05__KOO.md`
-artifact_commit: `0273f2c4f27fcdb1c6a69022d55a33b6574bb186`
-artifact_blob: `3932deb522c369fd01230df1a36b44b55dfdc03a`
+artifact_commit: `3bf8affcd82527cdca0d1253a674e33b4db35ba7`
+artifact_blob: `f90a473664c634bdab4210117959e579f717b360`
 dispatch: `routes/dispatch/SIS__telegram-phase1b-resume-r05__KOO.md`
-required_action: `preserve WAITING_OPERATOR_EXACT_HUMAN_ACTION and review only the fresh v2 bounded gate result`
+required_action: `review BLOCKED_PHASE1B_RUNTIME_THREADING_DEFECT and route bounded code fix to KOD; do not repeat unchanged v2 gate`
 status: `addressed_for_processing`
 receipt: null
 acceptance: null
