@@ -1,12 +1,12 @@
-# Входящий указатель KOO: SIS Telegram Phase 1B resume r0.5
+# Входящий указатель KOO: SIS Telegram Phase 1B resume r0.5 fresh recheck
 
 sender: `sisadmin`
 recipient: `koordinator`
 artifact: `entities/sisadmin/outbox/SIS__telegram-phase1b-resume-r05__KOO.md`
-artifact_commit: `3bf8affcd82527cdca0d1253a674e33b4db35ba7`
-artifact_blob: `f90a473664c634bdab4210117959e579f717b360`
+artifact_commit: `078e747a940dcc47fd6a2ee917842e52a6ddd5fb`
+artifact_blob: `510aa64c3647e22e6f10374e0058947c8f9fb37a`
 dispatch: `routes/dispatch/SIS__telegram-phase1b-resume-r05__KOO.md`
-required_action: `review BLOCKED_PHASE1B_RUNTIME_THREADING_DEFECT and route bounded code fix to KOD; do not repeat unchanged v2 gate`
+required_action: `review fresh BLOCKED_PHASE1B_RUNTIME_THREADING_DEFECT; do not request repeated sudo against unchanged package; route corrected immutable KOD candidate when available`
 status: `addressed_for_processing`
 receipt: null
 acceptance: null
