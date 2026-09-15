@@ -1,0 +1,11 @@
+{
+  "schema_version": "info-entry-static-preview-v0.1",
+  "unknown_properties_policy": "fail_closed",
+  "required_count": 60,
+  "semantic_status": ["current", "candidate", "superseded", "withdrawn", "unknown"],
+  "editorial_status": ["editorial_unassessed", "editorial_draft", "editorial_reviewed", "editorial_ready", "editorial_blocked", "editorial_superseded", "editorial_withdrawn"],
+  "public_legal_outcome": ["allowed", "allowed-with-conditions", "blocked", "unknown"],
+  "security_state": ["public_safe", "requires_SIS_review", "blocked_secret", "unknown", "not_applicable"],
+  "representation_state": ["representation_unassessed", "preview_ready", "preview_built", "representation_ready", "representation_blocked", "representation_superseded", "representation_withdrawn", "readback_confirmed"],
+  "release_state": ["release_authorized", "release_unassessed", "release_blocked", "release_withdrawn"]
+}

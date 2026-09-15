@@ -1,0 +1,51 @@
+<!doctype html><meta charset='utf-8'><title>Info Entry Static Preview</title>
+<div>NON-PRODUCTION STATIC PREVIEW — STATUS IS NOT AUTHORITY</div><div>SYNTHETIC FIXTURE SET</div>
+<h1>Public-safe navigation</h1><ul><li>synthetic-candidate-001</li><li>synthetic-public-ready-001</li><li>synthetic-superseded-001</li><li>synthetic-withdrawn-001</li></ul>
+<section data-bucket='current-public-ready'><h2>Current / Public-ready</h2><article data-fixture='synthetic-public-ready-001' data-bucket='current-public-ready'>
+<h3>Synthetic Public-Ready Guide</h3>
+<b>PUBLIC-READY / SYNTHETIC</b>
+<p>Synthetic public-safe content used only to test a fully eligible representation.</p>
+<p>semantic: current | editorial: editorial_ready | public/legal: allowed | security: public_safe | representation: representation_ready | release: release_authorized</p>
+<p>provenance: fixture-pack://synthetic-public-ready-001 | immutable: {&quot;id&quot;: &quot;synthetic-public-ready-001-v1&quot;, &quot;scheme&quot;: &quot;synthetic-fixture&quot;}</p>
+<p>derivative parent: synthetic-fixture://parent-guide-001-v1 | type: summary</p>
+</article></section>
+<section data-bucket='research-candidate'><h2>Research / Candidate</h2><article data-fixture='synthetic-candidate-001' data-bucket='research-candidate'>
+<h3>Synthetic Research Candidate</h3>
+<b>CANDIDATE / NOT CURRENT</b>
+<p>Synthetic research material may be previewed for review but must remain non-current.</p>
+<p>semantic: candidate | editorial: editorial_reviewed | public/legal: allowed-with-conditions | security: public_safe | representation: preview_ready | release: release_unassessed</p>
+<p>provenance: fixture-pack://synthetic-candidate-001 | immutable: {&quot;id&quot;: &quot;synthetic-candidate-001-v1&quot;, &quot;scheme&quot;: &quot;synthetic-fixture&quot;}</p>
+<p>NOT CURRENT — release_unassessed</p>
+</article></section>
+<section data-bucket='historical-superseded'><h2>Historical / Superseded</h2><article data-fixture='synthetic-superseded-001' data-bucket='historical-superseded'>
+<h3>Synthetic Superseded Guide</h3>
+<b>SUPERSEDED</b>
+<p>Synthetic former guide retained only to test historical/superseded rendering.</p>
+<p>semantic: superseded | editorial: editorial_superseded | public/legal: allowed | security: public_safe | representation: representation_superseded | release: release_unassessed</p>
+<p>provenance: fixture-pack://synthetic-superseded-001 | immutable: {&quot;id&quot;: &quot;synthetic-superseded-001-v1&quot;, &quot;scheme&quot;: &quot;synthetic-fixture&quot;}</p>
+<p>superseded by: synthetic-fixture://synthetic-current-successor-001-v2</p><p>STALE — superseded by newer version</p>
+</article></section>
+<section data-bucket='withdrawn-historical'><h2>Withdrawn</h2><article data-fixture='synthetic-withdrawn-001' data-bucket='withdrawn-historical'>
+<h3>Synthetic Withdrawn Publication</h3>
+<b>WITHDRAWN</b>
+<p>WITHDRAWAL RECORD — prior body is not presented as current</p>
+<p>semantic: withdrawn | editorial: editorial_withdrawn | public/legal: allowed-with-conditions | security: public_safe | representation: representation_withdrawn | release: release_withdrawn</p>
+<p>provenance: fixture-pack://synthetic-withdrawn-001 | immutable: {&quot;id&quot;: &quot;synthetic-withdrawn-001-v1&quot;, &quot;scheme&quot;: &quot;synthetic-fixture&quot;}</p>
+</article></section>
+<section id='internal-quarantine' data-public-nav='false'><h2>INTERNAL TEST-ONLY QUARANTINE</h2><article data-fixture='synthetic-blocked-001' data-bucket='blocked-quarantine-internal-only'>
+<h3>Synthetic Blocked Material</h3>
+<b>BLOCKED / NOT PUBLIC</b>
+<p>CONTENT SUPPRESSED — BLOCKED / QUARANTINE</p>
+<p>semantic: candidate | editorial: editorial_blocked | public/legal: blocked | security: public_safe | representation: representation_blocked | release: release_blocked</p>
+<p>provenance: fixture-pack://synthetic-blocked-001 | immutable: {&quot;id&quot;: &quot;synthetic-blocked-001-v1&quot;, &quot;scheme&quot;: &quot;synthetic-fixture&quot;}</p>
+<p>reason class: editorial_blocked + public_legal_outcome=blocked + rights_basis=unknown</p>
+</article>
+<article data-fixture='synthetic-secret-like-001' data-bucket='blocked-quarantine-internal-only'>
+<h3>Synthetic Secret-Like Object</h3>
+<b>SECRET-LIKE / BLOCKED</b>
+<p>CONTENT SUPPRESSED — BLOCKED / QUARANTINE</p>
+<p>semantic: unknown | editorial: editorial_unassessed | public/legal: unknown | security: blocked_secret | representation: representation_blocked | release: release_blocked</p>
+<p>provenance: fixture-pack://synthetic-secret-like-001 | immutable: {&quot;id&quot;: &quot;synthetic-secret-like-001-v1&quot;, &quot;scheme&quot;: &quot;synthetic-fixture&quot;}</p>
+<p>SIS REVIEW REQUIRED</p>
+<p>reason class: security_state=blocked_secret; credential-like material</p>
+</article></section>

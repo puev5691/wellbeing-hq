@@ -1,0 +1,50 @@
+{
+  "canonical_v02_commit": "d3e8f4141e3c63c7634b59932a9cc042b953617c",
+  "canonical_v02_tree": "6e8c0240f436b68dbee5cfb5580f8b98129742ce",
+  "deployment": false,
+  "network_dependency": false,
+  "new_e1_regression": "test_e1_reproduction.py",
+  "package": "info-entry-static-preview-impl-v03",
+  "production": false,
+  "publication": false,
+  "regenerated_evidence": {
+    "build_state": {
+      "git_blob": "bc63f26a0f534bbd07f0130ba76c89f7a8b49a0c",
+      "sha256": "52f11dd92e4af615eac53b8719049823f3460b60c6b3032a7096c7bc566b7f62",
+      "size": 2478
+    },
+    "expected_actual_report_git_blob": "d4553226f5c074259f48206b9ec854b8294cbfab",
+    "old_v02_report_git_blob": "307d630e63853aba81848051fd7bfb6d3fa6cc34",
+    "readback_report": {
+      "git_blob": "d4553226f5c074259f48206b9ec854b8294cbfab",
+      "sha256": "74e464e530c4437b400af48e2d91771b8d933789d50c6d91581bbe82eccff9a4",
+      "size": 6736
+    }
+  },
+  "representation_semantics_reopened": false,
+  "scope": "exact_E1_only",
+  "source_task_commit": "ed84c8c379dc1ba450310fd6be46b2fa30e30fad",
+  "tests": {
+    "combined_unittest": "21/21 PASS",
+    "existing_v02": "20/20 PASS",
+    "final_e1_regression": "1/1 PASS"
+  },
+  "unchanged_inherited_git_blobs": {
+    "README.md": "7d278b67bf203f1254e5f06bddfba51507015295",
+    "build_preview.py": "7bdeea6316de5acbed094f10fa49f8002b928b9a",
+    "fixtures/BLOCKED.md": "fbcd3392b6a9c19277576eca805c609ed32637d4",
+    "fixtures/CANDIDATE-RESEARCH.md": "9f13a052cf6e22b7bf6bf938a4163a3879ba9db3",
+    "fixtures/POSITIVE-PUBLIC-READY.md": "0abf9f2ebba4791b1a460cbd66a6c6fad04557b0",
+    "fixtures/SECRET-LIKE.md": "375313908556d08c4bd988051e46aa8297cb2fb9",
+    "fixtures/SUPERSEDED.md": "bb02ead6dd2a44d10da42cded85ef9bea1eddf4f",
+    "fixtures/WITHDRAWN.md": "daa28286b9330deed22b6232330843ae3078de83",
+    "post_build_readback.py": "5acdfad6d2234a192da4c26a070f93c6202a47c4",
+    "preview.html": "ed85ce20409237c1738f847e2ee38f0319cdd618",
+    "schema-v01.json": "018a15c46988053de7d3fc2f5c244bcdf50ff361",
+    "static_preview.py": "36f2b464e5479264760c1d9fac7e9c6370436c9c",
+    "static_preview_core.py": "36fcf9ff2f27598876617af2823a4a102268477c",
+    "test_static_preview.py": "3e1e290ae03870fc58dab9e5b252a8a6f83a6c9b"
+  },
+  "verdict": "PASS_STATIC_PREVIEW_E1_EVIDENCE_ALIGNMENT",
+  "web_narrow_recheck_commit": "d5988a59f9a5594268a260b26e6333575e5d47fb"
+}

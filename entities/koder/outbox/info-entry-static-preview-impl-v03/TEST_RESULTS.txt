@@ -1,0 +1,16 @@
+Static Preview E1 evidence alignment v0.3
+
+py_compile: PASS
+combined unittest suite: 21/21 PASS
+existing v0.2 tests retained: 20/20 PASS
+new E1 byte-reproduction regression: PASS
+final standalone E1 regression on committed-report bytes: 1/1 PASS
+
+canonical v0.2 subtree: 6e8c0240f436b68dbee5cfb5580f8b98129742ce
+old non-reproducible report blob: 307d630e63853aba81848051fd7bfb6d3fa6cc34
+actual verifier-generated report blob: d4553226f5c074259f48206b9ec854b8294cbfab
+actual verifier-generated report sha256: 74e464e530c4437b400af48e2d91771b8d933789d50c6d91581bbe82eccff9a4
+preview blob retained: ed85ce20409237c1738f847e2ee38f0319cdd618
+
+production/deployment/publication: none
+representation semantics reopened: no
