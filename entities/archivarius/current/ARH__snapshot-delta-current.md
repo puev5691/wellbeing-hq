@@ -7,136 +7,112 @@ project_time: omitted; trusted project-time source not used
 ## Назначение
 
 Этот файл дополняет, но не заменяет `entities/archivarius/current/ARH__snapshot.md`.
-Он нужен для Resume-First, когда базовый emergency snapshot остаётся полезным как большой проверенный слепок, но после его последнего refresh появились существенные bounded-состояния, которые нельзя терять между запусками.
-
-Этот supplement не является approval, canon, writer-authority grant или доказательством delivery/processing сам по себе.
+Он нужен для Resume-First между полными snapshot refresh и не является approval, canon, writer-authority grant, delivery/processing evidence сам по себе.
 
 ## Проверяемая граница
 
 - repository: `puev5691/wellbeing-hq`
 - branch: `main`
 - base snapshot blob: `8223ea771012d1cf0cc654047e51e87787879bbe`
-- previous ARH run boundary: `bceae0e1ba79d0bc6ec851badc54afd51ddf7398`
-- pre-profile HEAD: `c44a0a684c32914a19827271133b0d88567543f1`
-- fresh delta after previous run: `11 commits ahead / 0 behind`
-- fresh changed paths: `entities/koordinator/inbox/SIS__erefia-access-readiness__KOO.md`, `entities/shardovik/current/SHD__tera-wbn-three-host-state-v04.md`, `entities/sisadmin/outbox/SIS__erefia-access-readiness__KOO.md`, `registry/by-sender/sisadmin.jsonl`, `routes/activation/SIS__erefia-access-readiness__KOO.activation.md`, `routes/dispatch/SIS__erefia-access-readiness__KOO.md`
+- previous ARH run boundary: `401787943a3cdfa64a5e835c483b68f5a0811054`
+- pre-profile HEAD: `401787943a3cdfa64a5e835c483b68f5a0811054`
+- fresh delta after previous run: `0 commits ahead / 0 behind`
 - canonical ARH path checked: `entities/archivarius/`
-- fresh exact ARH inbox task for recovery-operational review: not found
+- fresh exact ARH inbox task after previous run: not found
 
-Invariant remains:
+Invariant:
 `WAKE → SCAN PROJECT INFORMATION FIELD → CLASSIFY CHANGES → PROFILE WORK`.
 The scan itself is not profile execution.
 
-## Fresh preflight classification
+## Current verified ARH state
 
-### 1. SIS / Erefia access dependency changed from blocker to bounded PASS
+### 1. Wake / Resume / Initiation recovery review lane is no longer blocked on task materialization
 
-Latest SIS artifact:
-`entities/sisadmin/outbox/SIS__erefia-access-readiness__KOO.md`
+The former routing blocker
+`BLOCKED_EXACT_ARH_RECOVERY_OPERATIONAL_TASK_NOT_MATERIALIZED`
+is superseded by later exact KOO tasks and completed ARH review work.
 
-Verified latest identity:
-- artifact commit: `26df12757efc46e4a7bcd9e049a86837930de061`;
-- artifact blob: `424bfba42d385e056552ef3528205d61cb9c3447`;
-- status: `PASS_EREFIA_ACCESS_READY_VIA_COMMANDER`;
-- production mutation: `no`;
-- TERA/WBN mutation: `no`.
+Latest exact narrow review result:
+`entities/archivarius/outbox/ARH__entity-wake-initiation-resume-r04-narrow-recheck__KOO.md`
 
-Bounded meaning:
-- exact Erefia host `ruvds-ygo0w` is reachable through the authorized Remote Desktop Commander path;
-- the earlier SSH/manual-login blocker is superseded for bounded read-only investigation;
-- no OPERATOR login/password action is required for that bounded access path;
-- SHD may perform the requested bounded read-only inventory only under its own exact authority;
-- no TERA/WBN mutation is implied.
+Verified identity/status:
+- result commit: `de4a5f012a60870f01f72d59ccd8d793eaf2bd73`;
+- result blob: `e82438d0dc67e1c0b25646309ea093849704d440`;
+- verdict: `PASS_RECOVERY_COMPATIBLE_READY_FOR_OPERATOR_GATE`;
+- receipt: `routes/receipts/KOO__entity-wake-initiation-resume-r04-narrow-recheck__ARH.receipt.md`;
+- receipt commit: `24cf9f5269831930c71ff2ef5f73db1b8b3f7221`;
+- processing status: `received_and_processed`.
 
-Exchange Gate remains incomplete at this boundary:
-- KOO inbox locator points to the latest artifact identity;
-- dispatch points to the latest artifact identity;
-- sender registry contains revisioned `SIS-erefia-access-readiness-KOO`, `-r2`, `-r3` rows;
-- exact receipt `routes/receipts/SIS__erefia-access-readiness__KOO.receipt.md`: absent;
-- acceptance: not asserted;
-- activation detector: `PASS`;
-- activation requested: `yes`;
-- processing started: `no`;
-- activation status: `activation_failed`;
-- failure reason: `exact_entity_chat_resume_not_supported_by_current_adapter`.
+Boundaries remain exact:
+- candidate r0.4 is not canon approval;
+- active v1.4 is unchanged;
+- no writer/current-state mutation follows from the review;
+- no production/external execution is authorized by the review;
+- no additional ARH recovery fix is required for candidate r0.4;
+- next gate belongs to KOO/operator processing under current authority.
 
-Therefore `dispatched`/`activation_requested` is not promoted to `received`, `accepted` or `processing_started`.
+### 2. Sender-registry append-only defect is repaired
 
-### 2. SHD / WBN state changed to verified fork stop-condition
+The historical ARH sender-registry record
+`ARH-SIS-base-recovery-composition-correction-KOO-001`
+had previously lost exact field
+`dispatch_commit = 187ba5f8f636ccc8c37f474529bab0ae502e4a92`.
 
-Fresh SHD current-state:
-`entities/shardovik/current/SHD__tera-wbn-three-host-state-v04.md`
+Repair status:
+- repair commit: `d03d4a5f859ca79276daf2b5ca9dd0930477b6f6`;
+- repaired registry blob: `d45088b00ed566b1dfa301ca6947c8cbef9c0a14`;
+- repair lineage: `entities/archivarius/current/experience/ARH__sender-registry-append-only-repair-lineage.md`;
+- lineage commit: `401787943a3cdfa64a5e835c483b68f5a0811054`.
 
-Fresh commit:
-`c44a0a684c32914a19827271133b0d88567543f1`
+The repair restored only the proven missing field. It does not create new delivery, receipt, acceptance or authority semantics.
 
-Verified state:
-- status: `BLOCKED_CANONICAL_BRANCH_DECISION`;
-- production mutation: `no`;
-- Burzh and Erefia share history through block `2984033` and diverge at `2984034`;
-- current account state also differs, so the divergence is not merely a header/transport anomaly;
-- destructive auto-recovery, DB reset, history replacement or forced reorg is explicitly stopped pending a canonical-history decision;
-- Burzh is only a technical candidate, not an approved canonical branch;
-- SHD recommends preserving immutable snapshots of both branches and auditing post-fork transactions/rewards before final branch selection.
+### 3. SIS recovery-pending lifecycle ambiguity remains open, but the safe process direction is clearer
 
-This is a material project dependency change but not an ARH authority grant. ARH records the stop-condition and does not select a canonical WBN branch.
+Current evidence object remains in place:
+`entities/archivarius/current/recovery-pending/SIS__replacement-initiation-v01.json`.
 
-### 3. KOD recovery freshness boundary remains valid
+Its own current content states:
+- replacement initiation verified;
+- replacement current writer established;
+- preservation reconciled;
+- preferred recovery basis points to the later verified SIS self-preservation v0.2 package;
+- production mutation: `no`.
 
-Canonical KOD recovery remains independently verified and published, but it predates newer HQ evidence. The KOO runbook v0.2 correctly treats recovery as a verified basis plus a mandatory fresh reconciliation step, not as an exhaustive current-state claim.
+SHT has proposed reusable process convention candidate:
+`entities/shtabist/outbox/SHT__recovery-record-lifecycle-convention-r01__KOO.md`
+commit `ceeef1b02046a436a8ac19d72d1ee9181190be5f`
+verdict `PASS_KEEP_IN_PLACE_WITH_STATUS_RULE`.
 
-ARH therefore preserves both facts simultaneously:
-- canonical recovery identity and prior ARH verification remain valid within their publication boundary;
-- later KOD state/results must be reconciled after recovery before profile execution or writer decisions.
+Candidate meaning:
+- path is a historical locator, not lifecycle truth;
+- default is `KEEP IMMUTABLE LOCATOR + APPEND LIFECYCLE DISPOSITION`;
+- completed/superseded/historical status may be recorded without move/rename;
+- this convention is explicitly non-canon and does not expand ARH authority.
 
-No canonical recovery rewrite or promotion is performed in this pass.
+At this boundary:
+- no exact receipt for `SHT__recovery-record-lifecycle-convention-r01__KOO` is present;
+- no exact KOO → ARH bounded lifecycle/disposition task has been verified;
+- therefore ARH does not move, rename, delete or reclassify the SIS record by self-issued authority.
 
-## Open ARH service tails
+Current safe ARH state for this tail:
+`WAITING_EXACT_KOO_LIFECYCLE_DISPOSITION_TASK_OR_ACCEPTED_PROCESS_BASIS`.
 
-### A. SIS recovery-pending lifecycle policy gap
+### 4. External project dependencies retained from the prior delta
 
-Current evidence object:
-`entities/archivarius/current/recovery-pending/SIS__replacement-initiation-v01.json`
+SIS / Erefia bounded access remains recorded as `PASS_EREFIA_ACCESS_READY_VIA_COMMANDER` for authorized read-only investigation only; it does not imply TERA/WBN mutation authority.
 
-Exact ARH dependency artifact:
-`entities/archivarius/outbox/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.md`
+SHD / WBN remains under the verified fork stop-condition `BLOCKED_CANONICAL_BRANCH_DECISION`: Burzh and Erefia diverge after block `2984033`, first differing block `2984034`, and destructive recovery/reorg/reset is not authorized by ARH.
 
-Verified blocker:
-`BLOCKED_RECOVERY_PENDING_LIFECYCLE_DESTINATION_UNDEFINED`.
+These are dependency facts, not ARH execution grants.
 
-At this boundary exact receipt
-`routes/receipts/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.receipt.md`
-is absent. ARH does not move, rename or delete the recovery object and does not assert KOO processing or acceptance.
+## Information-field sanitation status
 
-### B. Wake / Resume / Initiation → ARH recovery-operational review routing boundary
-
-KAN authority/terminology review is complete with `PASS_WITH_EXACT_AUTHORITY_FIXES`, without canon approval, implementation selection, writer-state establishment or production authority.
-
-Intended sequence remains:
-`KAN authority/terminology review → ARH recovery-operational review → KOO integration → OPERATOR decision`.
-
-Exact ARH review task is still not materialized in `entities/archivarius/inbox/`.
-
-Previously routed blocker remains:
-`BLOCKED_EXACT_ARH_RECOVERY_OPERATIONAL_TASK_NOT_MATERIALIZED`.
-
-Exact route artifact:
-`entities/archivarius/outbox/ARH__recovery-operational-review-routing-gap__KOO.md`
-
-Current state remains:
-`ARH_RECOVERY_OPERATIONAL_REVIEW_GAP_ROUTED_TO_KOO_WAITING_PROCESSING_EVIDENCE`.
-
-Exact receipt
-`routes/receipts/ARH__recovery-operational-review-routing-gap__KOO.receipt.md`
-is absent at this boundary. ARH therefore does not infer review scope, processing, delivery or acceptance and does not declare `EXECUTING`.
-
-## Information-field sanitation note
-
-The fresh SIS Erefia route uses one mutable artifact/dispatch/locator path across successive immutable artifact revisions, while sender registry preserves `r1/r2/r3` artifact identities. Historical rows therefore remain interpretable only together with their pinned artifact commit/blob, not by resolving the current mutable path alone. This is recorded as a provenance caution; no historical row or foreign route is rewritten by ARH in this pass.
-
-## Still-open ARH service rule
-
-No exact return receipt is asserted for tracked tails unless a file is actually present and identity-checked. Historical sender-registry rows are not rewritten; reconciliations remain append-only. Candidate/draft material is not promoted to canon by this supplement.
+- stale statement that the recovery-operational ARH review task was not materialized: corrected/superseded by exact r0.4 task + receipt evidence;
+- sender registry lost-field defect: repaired and lineaged;
+- SIS `recovery-pending/` path/status ambiguity: still open as a bounded sanitation tail;
+- no candidate/draft is promoted to canon by this supplement;
+- no project time is invented;
+- no delivery, receipt, acceptance or processing is asserted without exact evidence.
 
 ## Resume rule
 
@@ -145,11 +121,11 @@ A replacement ARH should read in this order:
 1. `entities/archivarius/current/ARH__initiation-current.md`
 2. `entities/archivarius/current/ARH__snapshot.md`
 3. `entities/archivarius/current/ARH__snapshot-delta-current.md`
-4. fresh GitHub-preflight from the newest observed boundary before any profile execution.
+4. fresh GitHub-preflight from the newest observed boundary before profile execution.
 
 If this supplement conflicts with later exact evidence, later verified evidence wins. If it conflicts with Project Source/canon, Project Source/canon wins.
 
 ---
 КТО: ARH / АРХИВАРИУС
-ДЛЯ ЧЕГО: сохранить bounded current-state delta после восстановления Erefia access и обнаружения WBN fork, без переписывания истории, повышения authority/canon или выдуманного processing
+ДЛЯ ЧЕГО: синхронизировать Resume-First current-state после r0.4 recovery review, sender-registry repair и SHT lifecycle convention candidate без повышения authority/canon
 СТАТУС: supplemental_current_state_non_canon
