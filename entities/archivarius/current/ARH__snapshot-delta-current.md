@@ -16,14 +16,54 @@ project_time: omitted; trusted project-time source not used
 - repository: `puev5691/wellbeing-hq`
 - branch: `main`
 - base snapshot blob: `8223ea771012d1cf0cc654047e51e87787879bbe`
-- previous ARH run boundary: `883a3a95ced26c4ff311c6fdd7253ef3fd3c57d4`
-- pre-profile HEAD: `883a3a95ced26c4ff311c6fdd7253ef3fd3c57d4`
-- fresh delta after previous run: `0 commits ahead / 0 behind`
+- previous ARH run boundary: `b5afbd9d7f50cb53751e55962503c850f1f8dd6e`
+- pre-profile HEAD: `9615dae9608a5387d09e5b271b93f294f8725694`
+- fresh delta after previous run: `19 commits ahead / 0 behind`
 - canonical ARH path checked: `entities/archivarius/`
 
 Invariant remains:
 `WAKE → SCAN PROJECT INFORMATION FIELD → CLASSIFY CHANGES → PROFILE WORK`.
 The scan itself is not profile execution.
+
+## Fresh preflight classification
+
+### KAN / Wake → Resume / Initiation → Writer Gate → Exact Task
+
+New exact result:
+`entities/kancelar/outbox/KAN__entity-wake-initiation-resume-authority-review__KOO.md`
+- result commit: `4e2820f651466029092da05150c3e0fe715fc8ca`
+- result blob: `a6fec574bd8ce83f26a74836cc3a7adf253d8979`
+- verdict: `PASS_WITH_EXACT_AUTHORITY_FIXES`
+
+Exact KAN processing receipt:
+`routes/receipts/KOO__entity-wake-initiation-resume-authority-review__KAN.receipt.md`
+- status: `received_and_processed`
+- canon_approval: `no`
+- implementation_selection: `no`
+
+Therefore the former dependency `wait for KAN authority/terminology review` is satisfied. The candidate remains non-normative; KAN did not approve canon, select implementation, establish writer-state or authorize production/external execution.
+
+The current KOO queue still describes the intended sequence as `KAN → ARH → KOO`, but no new exact ARH task artifact, ARH inbox locator or ARH activation record for the recovery-operational review appeared in the fresh 19-commit delta. Therefore ARH records the state as:
+
+`ARH_RECOVERY_OPERATIONAL_REVIEW_DEPENDENCY_READY_FOR_KOO_ROUTING`
+
+and explicitly does **not** claim `EXECUTING`.
+
+### SIS / эРэФия access lane
+
+New SIS result:
+`entities/sisadmin/outbox/SIS__erefia-access-readiness__KOO.md`
+
+Current result status: `WAITING_OPERATOR_EXACT_HUMAN_ACTION`.
+Network path and sshd on `194.87.107.135:2222` are reported reachable, while a verified administrative SSH credential path from available SIS-controlled hosts is not established. TERA/WBN and Telegram Phase1B were not mutated by this result. This is a project dependency change, not an ARH profile task.
+
+### KOD / Static Preview E1
+
+New KOD result:
+`entities/koder/outbox/KOD__info-entry-static-preview-E1-fix-v03__KOO.md`
+
+Verdict: `PASS_STATIC_PREVIEW_E1_EVIDENCE_ALIGNMENT`.
+The result is routed to KOO and does not create an ARH exact task in this boundary.
 
 ## Delta after the base snapshot
 
@@ -45,12 +85,12 @@ Exact ARH dependency artifact:
 Exchange Gate:
 - dispatch: `routes/dispatch/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.md`
 - dispatch status: `dispatched`
-- receipt in dispatch: `null`
-- acceptance in dispatch: `null`
+- receipt: absent at this boundary
+- acceptance: not asserted
 - KOO inbox locator: `entities/koordinator/inbox/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.md`
 - activation: `routes/activation/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.activation.md`
 
-Activation boundary:
+Activation boundary remains:
 - detector_status: `PASS`
 - activation_requested: `yes`
 - processing_started: `no`
@@ -58,31 +98,22 @@ Activation boundary:
 - failure_reason: `exact_entity_chat_resume_not_supported_by_current_adapter`
 - operator_manual_ping_required: `yes`
 
-Exact receipt file remains absent at this boundary:
-`routes/receipts/ARH__sis-recovery-pending-lifecycle-policy-gap__KOO.receipt.md`
-
 Therefore ARH does not assert KOO processing, delivery, receipt, acceptance or permission to relocate the recovery object.
 
 ### 2. Wake / Resume / Initiation dependency boundary
 
-Current KOO queue:
-`entities/koordinator/current/KOO__work-queue-v06-ru.md`
+The earlier state was: KAN review pending, ARH only a future dependency.
+The new state is: KAN review completed with exact authority fixes, but exact ARH recovery-operational task has not yet been routed.
 
-Current queue says:
-- SIS, KAN and KOD are the entities to wake now;
-- ARH is not separately queued for wake;
-- wake/initiation/resume candidate remains a candidate, not canon;
-- after KAN authority/terminology review, the intended sequence is `KAN → ARH → KOO` before OPERATOR decision.
+This advances the dependency boundary without creating execution authority.
 
-ARH therefore records this only as a future dependency. It is not an exact ARH task yet and does not justify `EXECUTING`.
-
-Causal record already preserved:
+Prior causal record:
 `entities/archivarius/current/experience/ARH__koo-wake-queue-dependency-boundary-lineage.md`
 commit `883a3a95ced26c4ff311c6fdd7253ef3fd3c57d4`.
 
 ## Still-open ARH service tails
 
-No exact return receipt is asserted for the previously tracked tails unless a file is actually present and identity-checked. The base snapshot remains authoritative for their detailed identities; this supplement does not silently close them.
+No exact return receipt is asserted for previously tracked tails unless a file is actually present and identity-checked. Historical sender-registry rows are not rewritten; reconciliations remain append-only.
 
 ## Resume rule
 
