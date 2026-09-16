@@ -1,0 +1,76 @@
+{
+  "parsed_response": {
+    "model": "gpt-5.6-luna",
+    "response_id": "resp_syn_001",
+    "status": "completed",
+    "text": "SYNTHETIC",
+    "usage": {
+      "cached_input_tokens": 3,
+      "input_tokens": 11,
+      "output_tokens": 5,
+      "reasoning_tokens": 2,
+      "total_tokens": 16
+    }
+  },
+  "provenance": {
+    "adapter_version": "openai-responses-d0-adapter-r01",
+    "code_execution_used": false,
+    "computer_use_used": false,
+    "credential_source": "OPENAI_API_KEY",
+    "credential_value_recorded": false,
+    "data_class": "D0_SYNTHETIC",
+    "endpoint": "https://api.openai.com/v1/responses",
+    "external_network_used": false,
+    "fallback_used": false,
+    "file_search_used": false,
+    "input_locator": "fixture://openai-responses-d0-r01",
+    "model": "gpt-5.6-luna",
+    "normalized_usage": {
+      "cached_input_tokens": 3,
+      "input_tokens": 11,
+      "output_tokens": 5,
+      "reasoning_tokens": 2,
+      "total_tokens": 16
+    },
+    "policy_decision": "PASS_D0_SYNTHETIC_MOCK_ONLY",
+    "production": false,
+    "project_acceptance": "NOT_GRANTED",
+    "project_mutation_performed": false,
+    "provider": "openai",
+    "request_hash": "a451caa3eb38ba933e3211443715434562483c1e5bc5fe3cd7c3d7e50e58db80",
+    "response_hash": "a0ba19c8772b6d73b3fde6603e8926970747dd5ced2753c878035d1a44e6e054",
+    "response_id": "resp_syn_001",
+    "response_status": "completed",
+    "synthetic_text_sha256": "1d4d31ce8fbbfc167b302ec0e6cb99984972dacd7af8d79e58d72887cf9dbd91",
+    "tools_used": false,
+    "web_search_used": false
+  },
+  "provenance_hash": "6454349eb38e26cd56230d89906b56a51382dbd781d4dc37ed9eb683c3624e5b",
+  "request_plan": {
+    "body": {
+      "input": "Return exactly the word SYNTHETIC.",
+      "max_output_tokens": 64,
+      "model": "gpt-5.6-luna",
+      "parallel_tool_calls": false,
+      "store": false,
+      "tool_choice": "none",
+      "tools": []
+    },
+    "credential_ref": {
+      "environment_variable": "OPENAI_API_KEY",
+      "kind": "environment_secret_injection",
+      "secret_value_in_provenance": false,
+      "secret_value_logged": false,
+      "secret_value_stored": false
+    },
+    "headers": {
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "network_execution_enabled": false,
+    "request_hash": "a451caa3eb38ba933e3211443715434562483c1e5bc5fe3cd7c3d7e50e58db80",
+    "transport_mode": "mock_only",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "result_identity": "a34202f63caf4bff0423a3f7463edd2924d16de56337863970a028e201ffe0b7"
+}
