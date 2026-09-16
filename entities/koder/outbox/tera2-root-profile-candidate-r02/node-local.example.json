@@ -1,0 +1,18 @@
+{
+  "purpose": "per-node operational example only; not chain identity",
+  "MODE_RUN": "WBN_ROOT",
+  "DATA_PATH": "<new-empty-runtime-path>",
+  "JINN_IP": "<node-public-ip>",
+  "LISTEN_PORT": "<node-listen-port>",
+  "HTTP_PORT": "<node-http-port-or-disabled>",
+  "NODE_NAME": "<node-local-name>",
+  "MINING_ACCOUNT": "<future-authorized-account-id-or-disabled>",
+  "USE_MINING": false,
+  "bootstrap_peers": [],
+  "required_preflight": {
+    "new_empty_DATA_DB": true,
+    "DATA_shard_js_absent": true,
+    "root_profile_hash_match": true,
+    "runtime_launch_authorized": false
+  }
+}
