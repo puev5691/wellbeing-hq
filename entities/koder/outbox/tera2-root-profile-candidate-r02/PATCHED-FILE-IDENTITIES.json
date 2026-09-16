@@ -1,0 +1,10 @@
+{
+  "Source/core/const-mode.js": {
+    "git_blob_after_patch": "a87e90417e567a84d5b91b645799d908294b3e28",
+    "sha256_after_patch": "86a504928ecb7e4a638edc901b2e1359d3b121d9c2e7c75290ce701946a896b5"
+  },
+  "Source/system/accounts.js": {
+    "git_blob_after_patch": "994d76efcdb46276d306a038f9874c1b785ac096",
+    "sha256_after_patch": "b2158598c66a1f2e3f896a95245ac166ebd98d579b4f6eea4d1a72e89642b78f"
+  }
+}
