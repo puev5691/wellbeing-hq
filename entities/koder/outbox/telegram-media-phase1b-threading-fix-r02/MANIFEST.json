@@ -1,0 +1,23 @@
+{
+  "package": "telegram-media-phase1b-threading-fix-r02",
+  "status": "candidate_final_bytes_before_checksum",
+  "production": false,
+  "live_network": false,
+  "credentials": false,
+  "source_package": {
+    "path": "entities/koder/outbox/telegram-media-phase1b-privacy-v01/",
+    "commit": "cd81bbd98a4be334388f95ea948427d91fa82a05"
+  },
+  "task_commit": "903241fc508562d28ca37c68dd64bef9b8e1ac3d",
+  "task_blob": "e1c2b87526bda4f8cc87dead55fd193701ee3cb5",
+  "sis_blocker_commit": "078e747a940dcc47fd6a2ee917842e52a6ddd5fb",
+  "threading_fix": "require sqlite3.threadsafety == 3 and use check_same_thread=False",
+  "privacy_mode": "aggregate_only",
+  "sandbox_db_path": "/var/lib/wellbeing/telegram-phase1b-sandbox/gateway.sqlite3",
+  "cleanup_command": "python3 cleanup_sandbox.py --db /var/lib/wellbeing/telegram-phase1b-sandbox/gateway.sqlite3 --confirm DELETE_PHASE1B_SANDBOX_DB",
+  "test_command": "python3 -m unittest -v",
+  "test_result": "24/24 PASS",
+  "threaded_http_regression": "PASS",
+  "files": ["gateway.py","test_gateway.py","cleanup_sandbox.py","test_cleanup.py","runtime-config.schema.json","README.md","PRIVACY-CLEANUP.md","TEST_RESULTS.txt","MANIFEST.json","SHA256SUMS.txt"],
+  "checksum_rule": "SHA256SUMS.txt generated after final bytes for every payload file except SHA256SUMS.txt itself"
+}

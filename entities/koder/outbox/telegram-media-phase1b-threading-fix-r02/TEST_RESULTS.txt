@@ -1,0 +1,24 @@
+Telegram Phase1B threading fix r0.2 verification
+
+Source package commit: cd81bbd98a4be334388f95ea948427d91fa82a05
+Task commit: 903241fc508562d28ca37c68dd64bef9b8e1ac3d
+SIS blocker commit: 078e747a940dcc47fd6a2ee917842e52a6ddd5fb
+
+Environment used for code-level verification:
+Python 3; sqlite3.sqlite_version=3.45.1; sqlite3.threadsafety=3.
+
+Commands:
+python3 -m py_compile gateway.py test_gateway.py cleanup_sandbox.py test_cleanup.py
+RESULT: PASS
+
+python3 -m unittest -v
+RESULT: 24/24 PASS
+
+New regression:
+test_threaded_http_comment_path -> PASS
+The test creates Gateway in the test thread, runs a local ThreadingHTTPServer, and exercises Gateway.ingest_update() from the HTTP request worker thread. HTTP result is 200 and aggregate comment count increments without storing/exporting audience identity or raw comment text.
+
+Existing privacy/storage checks remain PASS, including aggregate-only receipt semantics and forbidden audience-identity/raw-text schema columns.
+Existing cleanup tests remain PASS: exact sandbox path only and explicit confirmation required.
+
+No live Telegram call, public webhook, deployment, credentials, production mutation, sudo or host-gate replay occurred.
