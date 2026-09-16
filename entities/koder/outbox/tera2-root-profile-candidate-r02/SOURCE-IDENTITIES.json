@@ -1,0 +1,23 @@
+{
+  "upstream_commit": "6cc2061c12986bbaea182786c42d89fd979eeb33",
+  "Source/core/const-mode.js": {
+    "git_blob": "d550f0804b2b6068504fa2fcbaf578ddd01cc252",
+    "sha256": "3ec35d1c06952a3183568f0b1275d2f16293ee79517a2353d5780a1d04958ba0"
+  },
+  "Source/system/accounts.js": {
+    "git_blob": "79be2d3d61e1d6aef8d4d8254cc11d76c45e6d91",
+    "sha256": "453d789aa1c4f4467e457834eac1cecd1556c4c5b424b4c4c5efc70d591ecc50"
+  },
+  "Source/system/smart.js": {
+    "git_blob": "7c89eae9119201bddfa5d08d4d1d63cc8c001968",
+    "sha256": "a2b9600078654972a84b7fe10231dc153cc53b3371c9063eeda3831b53428bee"
+  },
+  "Source/core/crypto-library.js": {
+    "git_blob": "deb22556a82f633cd4acfbabe6691700d67dfeaf",
+    "sha256": "e701bb070bf33628039f30a6f4bce6889635ab1a3a0eb37238e09b48c31a094a"
+  },
+  "Source/core/constant.js": {
+    "git_blob": "cb45aede6df7be5dba36859290cbcf58f317d37c",
+    "sha256": "8b122d27951ff9d9bb5e437de0db5505759bcfe3f30ae02cb34c03e082f871e1"
+  }
+}
