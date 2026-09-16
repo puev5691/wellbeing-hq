@@ -1,0 +1,39 @@
+test_absent_details_not_invented (test_adapter.AdapterTests.test_absent_details_not_invented) ... ok
+test_deterministic_identity (test_adapter.AdapterTests.test_deterministic_identity) ... ok
+test_http_errors (test_adapter.AdapterTests.test_http_errors) ... ok
+test_malformed_usage (test_adapter.AdapterTests.test_malformed_usage) ... ok
+test_model_mismatch (test_adapter.AdapterTests.test_model_mismatch) ... ok
+test_non_d0_rejects_before_transport (test_adapter.AdapterTests.test_non_d0_rejects_before_transport) ... ok
+test_output_text_mismatch (test_adapter.AdapterTests.test_output_text_mismatch) ... ok
+test_request_contract (test_adapter.AdapterTests.test_request_contract) ... ok
+test_restricted_capability_rejects_before_transport (test_adapter.AdapterTests.test_restricted_capability_rejects_before_transport) ... ok
+test_timeout_and_network_errors (test_adapter.AdapterTests.test_timeout_and_network_errors) ... ok
+test_tool_output_rejected (test_adapter.AdapterTests.test_tool_output_rejected) ... ok
+test_valid_d0_response (test_adapter.AdapterTests.test_valid_d0_response) ... ok
+test_blueprint_rejects_endpoint_change (test_live_transport.LiveTransportTests.test_blueprint_rejects_endpoint_change) ... ok
+test_blueprint_rejects_tools (test_live_transport.LiveTransportTests.test_blueprint_rejects_tools) ... ok
+test_injected_http_errors (test_live_transport.LiveTransportTests.test_injected_http_errors) ... ok
+test_injected_success_has_no_external_network (test_live_transport.LiveTransportTests.test_injected_success_has_no_external_network) ... ok
+test_live_default_deny_before_secret_or_network (test_live_transport.LiveTransportTests.test_live_default_deny_before_secret_or_network) ... ok
+test_credential_field_rejected (test_policy.PolicyTests.test_credential_field_rejected) ... ok
+test_credential_value_rejected (test_policy.PolicyTests.test_credential_value_rejected) ... ok
+test_non_d0_rejected (test_policy.PolicyTests.test_non_d0_rejected) ... ok
+test_project_locator_rejected (test_policy.PolicyTests.test_project_locator_rejected) ... ok
+test_project_text_rejected (test_policy.PolicyTests.test_project_text_rejected) ... ok
+test_restricted_flags_rejected (test_policy.PolicyTests.test_restricted_flags_rejected) ... ok
+test_valid (test_policy.PolicyTests.test_valid) ... ok
+test_wrong_model_rejected (test_policy.PolicyTests.test_wrong_model_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.011s
+
+OK
+
+BOUNDARY
+real_openai_api_calls=0
+credentials_used=0
+billing_changes=0
+project_private_data_sent=0
+tools_search_files_computer_use=0
+fallback=0
+production=0
