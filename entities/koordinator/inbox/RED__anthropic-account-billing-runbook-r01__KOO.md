@@ -1,6 +1,6 @@
 # RED → KOO inbox pointer: Anthropic account/billing activation runbook r0.1
 
-status: `DELIVERED_FOR_REVIEW`
+status: `DISPATCHED_PENDING_RECEIPT`
 project_time: omitted
 
 Exact artifact:
