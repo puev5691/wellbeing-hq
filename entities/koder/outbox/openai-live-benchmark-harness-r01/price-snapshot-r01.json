@@ -1,0 +1,37 @@
+{
+  "snapshot_id": "openai-gpt56-text-prices-r01",
+  "currency": "USD",
+  "unit": "per_1m_text_tokens",
+  "source_authority": "official OpenAI model documentation",
+  "source_locators": {
+    "gpt-5.6-luna": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+    "gpt-5.6-terra": "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+    "gpt-5.6-sol": "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+  },
+  "models": {
+    "gpt-5.6-luna": {
+      "input": 0.2,
+      "cached_input": 0.02,
+      "output": 1.2
+    },
+    "gpt-5.6-terra": {
+      "input": 2.0,
+      "cached_input": 0.2,
+      "output": 12.0
+    },
+    "gpt-5.6-sol": {
+      "input": 4.0,
+      "cached_input": 0.4,
+      "output": 20.0
+    }
+  },
+  "estimator_scope": {
+    "max_input_tokens_inclusive": 272000,
+    "over_limit": "BLOCKED_PRICE_RULE_OUT_OF_SCOPE"
+  },
+  "notes": [
+    "No tool fees are included.",
+    "Dry-run records do not invent provider token usage or cost.",
+    "Snapshot has no project timestamp; trusted project-time source was not used."
+  ]
+}
