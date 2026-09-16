@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: 192d1751f323ff48653036caa179780bc677214f
+source_commit: df37719e40dd91ee5ffe8dea2e3ad259dd7ff44e
 inbox_locator: entities/koordinator/inbox/RED__anthropic-account-billing-runbook-r01__KOO.md
 recipient: koordinator
 activation_requested: yes
