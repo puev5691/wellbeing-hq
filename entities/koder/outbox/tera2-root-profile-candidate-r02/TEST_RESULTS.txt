@@ -1,0 +1,20 @@
+TERA2 root-profile candidate r0.2 static verification
+
+Exact upstream commit: 6cc2061c12986bbaea182786c42d89fd979eeb33
+Upstream remote HEAD observed during candidate work: same commit
+
+Pre-publication checks:
+- python3 -m py_compile verify_candidate.py test_candidate.py: PASS
+- python3 -m unittest -q test_candidate.py: 6/6 PASS
+- python3 verify_candidate.py --upstream /tmp/tera2-root-r02/upstream: PASS
+- git apply --check WBN_ROOT_PROFILE.patch against exact upstream: PASS
+- no candidate secret/private-key material: PASS
+- root/node-local config separation: PASS
+- node/genesis runtime launch: NOT PERFORMED
+- existing WBN/TERA2 DATA/DB mutation: NOT PERFORMED
+- credentials work: NOT PERFORMED
+
+Verification history:
+- first static verifier run rejected its own embedded private-key detector string;
+- verifier scan scope was reconciled to candidate payload files only;
+- full pre-publication checks then passed.
