@@ -1,0 +1,33 @@
+TERA2 root-profile r0.3 correction verification
+
+py_compile:
+PASS
+
+unit_tests:
+test_explicit_non_goals_unchanged (test_candidate.CandidateTests.test_explicit_non_goals_unchanged) ... ok
+test_genesis_allocation_drift_fails_closed (test_candidate.CandidateTests.test_genesis_allocation_drift_fails_closed) ... ok
+test_negative_fixture_consensus_mismatch_fails_closed (test_candidate.CandidateTests.test_negative_fixture_consensus_mismatch_fails_closed) ... ok
+test_negative_fixture_mode_run_mismatch_fails_closed (test_candidate.CandidateTests.test_negative_fixture_mode_run_mismatch_fails_closed) ... ok
+test_node_local_has_no_free_mode_selector (test_candidate.CandidateTests.test_node_local_has_no_free_mode_selector) ... ok
+test_positive_full_verifier (test_candidate.CandidateTests.test_positive_full_verifier) ... ok
+test_reward_policy_drift_fails_closed (test_candidate.CandidateTests.test_reward_policy_drift_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.105s
+
+OK
+
+static_verifier_without_checksum_stage:
+PASS 12 profile_metadata,policy_map_full_leaf_coverage,mode_selector_fail_closed,pinned_source_identities,declared_postpatch_identities,full_policy_source_assignments,derived_chain_identity,upstream_constants,full_genesis_accounts_0_15,patch_invariants,policy_only_boundaries,no_secret_material
+
+immutable_policy_preservation:
+patch_sha256_r03=0a4ea4f65631de985d0c28b927ae351d717c0ea84b98a83c3f4d411c6f65aed6
+patch_sha256_r02=0a4ea4f65631de985d0c28b927ae351d717c0ea84b98a83c3f4d411c6f65aed6
+non_goals_unchanged=PASS
+
+runtime_boundaries:
+node_start=NOT_PERFORMED
+genesis_execution=NOT_PERFORMED
+DATA_DB_mutation=NOT_PERFORMED
+credentials_or_miner_keys=NOT_PERFORMED
+public_network_actions=NOT_PERFORMED

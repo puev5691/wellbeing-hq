@@ -1,0 +1,51 @@
+{
+  "package": "tera2-root-profile-candidate-r03",
+  "status": "corrected_candidate_only_ready_for_shd_rereview",
+  "terminal_verdict": "PASS_TERA2_ROOT_PROFILE_R03_CORRECTED_READY_FOR_SHD_REREVIEW",
+  "task_commit": "a7042dadd762f5b68609134a87c781a9886c2f25",
+  "task_blob": "e5ae3aa455724a3c2387074a8b6806627de6f581",
+  "shd_blocker_review_commit": "bcdbe6dfc744ee1ff581ca78bd1f3eeaf001323c",
+  "r02_package_commit": "0562bafc790ba2f5e8b5e26214e14e7fa246146e",
+  "r02_package_tree": "c914edd8a4b2f4cf9488b5b03654327e3c155311",
+  "upstream_commit": "6cc2061c12986bbaea182786c42d89fd979eeb33",
+  "corrections": [
+    "MODE_RUN_common_selector_fail_closed",
+    "full_machine_readable_policy_to_patch_proof"
+  ],
+  "non_goals_unchanged": [
+    "WELLBEING.ROOT",
+    "supply_allocation",
+    "reward_policy",
+    "GenesisSmartCreate",
+    "fixed_start_date_policy"
+  ],
+  "runtime_launch": false,
+  "node_start": false,
+  "genesis_execution": false,
+  "DATA_DB_mutation": false,
+  "credentials": false,
+  "public_network_actions": false,
+  "negative_fixtures": [
+    "fixtures/negative-node-mode-mismatch.json",
+    "fixtures/negative-profile-consensus-mismatch.json"
+  ],
+  "files": [
+    "CANDIDATE-CHOICES.md",
+    "PATCHED-FILE-IDENTITIES.json",
+    "POLICY-MAP.json",
+    "README.md",
+    "SOURCE-IDENTITIES.json",
+    "UPSTREAM-EVIDENCE.md",
+    "WBN_ROOT_PROFILE.patch",
+    "fixtures/negative-node-mode-mismatch.json",
+    "fixtures/negative-profile-consensus-mismatch.json",
+    "node-local.example.json",
+    "root-profile.json",
+    "test_candidate.py",
+    "verify_candidate.py",
+    "MANIFEST.json",
+    "TEST_RESULTS.txt",
+    "SHA256SUMS.txt"
+  ],
+  "checksum_rule": "SHA256SUMS.txt covers every final package file except SHA256SUMS.txt itself"
+}

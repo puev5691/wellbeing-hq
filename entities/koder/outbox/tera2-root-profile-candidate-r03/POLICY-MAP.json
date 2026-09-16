@@ -1,0 +1,70 @@
+{
+  "schema": "tera2-root-profile-policy-map-r03",
+  "selector": {
+    "profile_path": "mode_run",
+    "source_file": "Source/core/const-mode.js",
+    "proof": "case_label",
+    "expected": "WBN_ROOT"
+  },
+  "source_assignments": [
+    {"profile_path":"chain_identity.NETWORK","source_file":"Source/core/const-mode.js","source_symbol":"NETWORK","proof":"global_assignment","value_type":"string"},
+    {"profile_path":"chain_identity.SHARD_NAME","source_file":"Source/core/const-mode.js","source_symbol":"SHARD_NAME","proof":"global_assignment","value_type":"string"},
+    {"profile_path":"temporal_identity.START_NETWORK_DATE","source_file":"Source/core/const-mode.js","source_symbol":"START_NETWORK_DATE","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"temporal_identity.CONSENSUS_PERIOD_TIME","source_file":"Source/core/const-mode.js","source_symbol":"CONSENSUS_PERIOD_TIME","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"consensus_schedule.PERIOD_ACCOUNT_HASH","source_file":"Source/core/const-mode.js","source_symbol":"PERIOD_ACCOUNT_HASH","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"consensus_schedule.START_BLOCK_ACCOUNT_HASH","source_file":"Source/core/const-mode.js","source_symbol":"START_BLOCK_ACCOUNT_HASH","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"consensus_schedule.START_BLOCK_ACCOUNT_HASH3","source_file":"Source/core/const-mode.js","source_symbol":"START_BLOCK_ACCOUNT_HASH3","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"consensus_schedule.SMART_BLOCKNUM_START","source_file":"Source/core/const-mode.js","source_symbol":"SMART_BLOCKNUM_START","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"consensus_schedule.UPDATE_CODE_JINN","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_JINN","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"consensus_schedule.UPDATE_CODE_JINN_KTERA","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_JINN_KTERA","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"consensus_schedule.UPDATE_CODE_NEW_ACCHASH","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_NEW_ACCHASH","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"consensus_schedule.UPDATE_CODE_SHARDING","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_SHARDING","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.UPDATE_CODE_1","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_1","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.UPDATE_CODE_2","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_2","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.UPDATE_CODE_3","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_3","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.UPDATE_CODE_4","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_4","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.UPDATE_CODE_5","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_5","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.UPDATE_CODE_6","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_6","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.UPDATE_CODE_7","source_file":"Source/core/const-mode.js","source_symbol":"UPDATE_CODE_7","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.NEW_SIGN_TIME","source_file":"Source/core/const-mode.js","source_symbol":"NEW_SIGN_TIME","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.BLOCKNUM_TICKET_ALGO","source_file":"Source/core/const-mode.js","source_symbol":"BLOCKNUM_TICKET_ALGO","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.START_BAD_ACCOUNT_CONTROL","source_file":"Source/core/const-mode.js","source_symbol":"START_BAD_ACCOUNT_CONTROL","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.COIN_STORE_NUM","source_file":"Source/core/const-mode.js","source_symbol":"COIN_STORE_NUM","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"protocol_updates.COIN_SMART_NUM","source_file":"Source/core/const-mode.js","source_symbol":"COIN_SMART_NUM","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.START_MINING","source_file":"Source/core/const-mode.js","source_symbol":"START_MINING","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.REF_PERIOD_END","source_file":"Source/core/const-mode.js","source_symbol":"REF_PERIOD_END","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.REF_PERIOD_MINING","source_file":"Source/core/const-mode.js","source_symbol":"REF_PERIOD_MINING","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.MIN_POWER_POW_ACC_CREATE","source_file":"Source/core/const-mode.js","source_symbol":"MIN_POWER_POW_ACC_CREATE","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.NEW_ACCOUNT_INCREMENT","source_file":"Source/core/const-mode.js","source_symbol":"NEW_ACCOUNT_INCREMENT","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.NEW_BLOCK_REWARD1","source_file":"Source/core/const-mode.js","source_symbol":"NEW_BLOCK_REWARD1","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.NEW_FORMULA_START","source_file":"Source/core/const-mode.js","source_symbol":"NEW_FORMULA_START","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.NEW_FORMULA_KTERA","source_file":"Source/core/const-mode.js","source_symbol":"NEW_FORMULA_KTERA","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.NEW_FORMULA_JINN_KTERA","source_file":"Source/core/const-mode.js","source_symbol":"NEW_FORMULA_JINN_KTERA","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.NEW_FORMULA_TARGET1","source_file":"Source/core/const-mode.js","source_symbol":"NEW_FORMULA_TARGET1","proof":"global_assignment","value_type":"int"},
+    {"profile_path":"reward_mining_policy.NEW_FORMULA_TARGET2","source_file":"Source/core/const-mode.js","source_symbol":"NEW_FORMULA_TARGET2","proof":"global_assignment","value_type":"int"}
+  ],
+  "derived": [{"profile_path":"chain_identity.NETWORK_ID","proof":"concat","inputs":["chain_identity.NETWORK","chain_identity.SHARD_NAME"],"separator":"."}],
+  "upstream_constants": [{"profile_path":"genesis_public_config.TOTAL_SUPPLY_TERA","source_file":"Source/core/constant.js","source_symbol":"TOTAL_SUPPLY_TERA","proof":"upstream_global_numeric","expected_source_expression":"1e9"}],
+  "genesis_semantics": {
+    "source_file":"Source/system/accounts.js","selector":"global.MODE_RUN === \"WBN_ROOT\"","system_account":0,"system_balance_profile_path":"genesis_public_config.allocation.system_account_0","zero_account_range":[1,15],"zero_range_profile_path":"genesis_public_config.allocation.accounts_1_through_15","founder_profile_path":"genesis_public_config.preallocated_founder_balance","developer_profile_path":"genesis_public_config.preallocated_developer_balance","supply_profile_path":"genesis_public_config.TOTAL_SUPPLY_TERA","genesis_count_source_file":"Source/core/constant.js","genesis_count_symbol":"BLOCK_PROCESSING_LENGTH2","expected_genesis_count":16,"proof":"wbn_root_branch_then_return"
+  },
+  "patch_invariants": [
+    {"profile_path":"chain_identity.DATA_shard_js_required","proof":"patch_forbids_text","text":"DATA/shard.js","expected":false},
+    {"profile_path":"reward_mining_policy.runtime_USE_MINING","proof":"patch_no_global_assignment_and_node_local_false","source_symbol":"USE_MINING","expected":"node_local_not_enabled_by_profile"},
+    {"profile_path":"genesis_public_config.private_keys_or_secrets","proof":"package_secret_scan","expected":false},
+    {"profile_path":"genesis_public_config.smart_genesis","proof":"source_unchanged_and_patch_untouched","source_file":"Source/system/smart.js","expected":"retain exact upstream built-in GenesisSmartCreate at pinned commit"}
+  ],
+  "policy_only": [
+    {"profile_path":"temporal_identity.launch_after_start_date_requires_reissue","expected":true},
+    {"profile_path":"candidate_boundaries.runtime_launch","expected":false},
+    {"profile_path":"candidate_boundaries.node_start","expected":false},
+    {"profile_path":"candidate_boundaries.genesis_execution","expected":false},
+    {"profile_path":"candidate_boundaries.existing_DATA_DB_mutation","expected":false},
+    {"profile_path":"candidate_boundaries.credentials","expected":false},
+    {"profile_path":"candidate_boundaries.production","expected":false},
+    {"profile_path":"candidate_boundaries.launch_authority","expected":"NOT_GRANTED"}
+  ],
+  "identity_files":{"source":"SOURCE-IDENTITIES.json","post_patch":"PATCHED-FILE-IDENTITIES.json"},
+  "required_patch_files":["Source/core/const-mode.js","Source/system/accounts.js"],
+  "retained_upstream_files":["Source/system/smart.js","Source/core/constant.js","Source/core/crypto-library.js"]
+}
