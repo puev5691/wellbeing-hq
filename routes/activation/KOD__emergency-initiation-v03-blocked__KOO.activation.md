@@ -2,7 +2,7 @@
 
 detector_status: PASS
 source_event: github_push
-source_commit: aec8911019be56f3197902a8f720d57f31797645
+source_commit: e3c20c36e12f0324ae9e698ade0e77651bb2d677
 inbox_locator: entities/koordinator/inbox/KOD__emergency-initiation-v03-blocked__KOO.md
 recipient: koordinator
 activation_requested: yes
