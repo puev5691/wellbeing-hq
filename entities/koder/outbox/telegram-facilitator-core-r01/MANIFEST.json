@@ -1,0 +1,32 @@
+{
+  "package": "telegram-facilitator-core-r01",
+  "status": "candidate_pending_independent_verify",
+  "source_files_commit": "8e91c60e306b0c861aa53877bd8ee09377d29c8a",
+  "expected_members": ["facilitator_core.py", "test_facilitator.py", "README.md", "MANIFEST.json"],
+  "manifest_self_integrity": "Use immutable package commit and Git tree/blob identity; no circular self-hash.",
+  "files": [
+    {"file": "facilitator_core.py", "blob": "ad980b0de8a00c1d134823cebc49059a0811f3fa", "sha256": "33f280e9cc56534996d0706de7e3605c0247ff1af8b71ea985fdd7613d47b64a", "bytes": 24982},
+    {"file": "test_facilitator.py", "blob": "8b9488f548a1a3aeb2ef97c631c847f39e8294fc", "sha256": "21c652528e5e2167529f8958c7906cff4d5552e52bcdb924b14943399d5489eb", "bytes": 15903},
+    {"file": "README.md", "blob": "53771fc0d528de377d0dff18f41f0533345c29ab", "sha256": "28eed895b70875ad028c81b6f7043c351b75ab53a20a3066f3f17cc27a7f2ae1", "bytes": 12753}
+  ],
+  "test_command": "python3 -I -B test_facilitator.py",
+  "test_evidence": {
+    "tests_run": 31,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "uid": 1000,
+    "operation_counters": {"network_attempts": 0, "process_attempts": 0, "write_attempts": 0, "denied_reads": 0},
+    "stdout_sha256": "b78f251fe0d96494a238e026201eca83bb895893519a619b3a735ad94e55ab43",
+    "stderr_sha256": "3e1353bc760b7db3b086c377964136c268fd47597a5617964aa72f5e03f35085",
+    "independent_review": "pending"
+  },
+  "synthetic_demo": {"normalized_events": 14, "discussion_items": 13, "candidate_questions": 2, "candidate_summaries": 1, "candidate_tasks": 1, "executable_tasks": 0},
+  "authority": {"candidate_only": true, "automatic_execution": false, "automatic_group_agreement": false, "automatic_dispatch": false},
+  "privacy": {"raw_telegram_input_supported": false, "persistent_audience_identity_required": false, "production_storage": false, "minimized_derived_snapshot_export": "blocked"},
+  "task_commit": "8173e2ec28c01be11c4e211e966ae7be0c8e3d50",
+  "operator_direction_commit": "26b9c121402a5c72260d1f8d6d3a36d539d2ea78",
+  "writer_commit": "f6686de567b4fa1906ea7cecbc5b5963fcd4e587",
+  "project_time": "generated_without_trusted_project_time"
+}
