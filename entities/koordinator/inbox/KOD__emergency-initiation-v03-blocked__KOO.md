@@ -31,3 +31,28 @@ Receipt и acceptance КОО не заявляются от имени адре�
 КТО: KOD / КОДЕР, initiation reporting only
 ДЛЯ ЧЕГО: передать КОО проверяемый блокер и точный следующий шаг
 СТАТУС: dispatched; receipt_pending; acceptance_not_claimed
+
+## Дополнение: внешняя проверка опубликованного маршрута
+
+Проверенная immutable HQ граница: `d7565db2c1f19e63c22f7692e18652ef8b7be645`.
+
+- Отчёт: 12500 bytes; blob и SHA-256 совпали с указанными выше; версия на проверенной границе равна опубликованной immutable версии.
+- Dispatch blob: `951ef2e5cee2a489a70ac0c75689a7f93b3c0a07`.
+- Исходный inbox pointer blob до этого дополнения: `69a63781a21c0a2219cf18674c3f3bf3dcd616c2`.
+- Sender registry commit: `d7565db2c1f19e63c22f7692e18652ef8b7be645`; blob `4c58a87befb8d400fb7e2948874f82776d285f2a`.
+- Append-only проверка: прежние 17165 bytes реестра сохранены точно; 28 записей стали 29; добавлена ровно одна запись этой отправки, receipt=null.
+- Проверка одного точного dispatch через неизменённые функции parse_gate/check_dispatch действующего `ops/validate_exchange.py`, blob `685f55f5d8a0332baf4eccda25e358ad8daa2355`: `TARGET_DISPATCH_VALIDATOR_PASS`, errors=[]; использованы реальные внешне прочитанные байты artifact, dispatch, pointer и registry из указанного commit.
+
+Ограничение: это bounded PASS данного маршрута, не общий PASS репозитория.
+
+Общий workflow `exchange-gate`, run `35187459420`, job `105092496422`, на той же границе завершился `FAIL`: журнал содержит отсутствующие обязательные поля и sender-records других маршрутов. Новый `KOD__emergency-initiation-v03-blocked__KOO.md` в перечне ошибок отсутствует. Общие дефекты не исправлялись в рамках инициации; общий gate PASS не заявляется.
+
+## Дополнение: активация адресата не равна отправке
+
+Автоматически созданный записью workflow файл:
+`routes/activation/KOD__emergency-initiation-v03-blocked__KOO.activation.md`
+на `d7565db2c1f19e63c22f7692e18652ef8b7be645`, blob `0d2e4c8b0f50418e139afbca43a147c94a250ea7`.
+
+Его фактическое состояние: detector_status=PASS, activation_requested=yes, processing_started=no, activation_status=activation_failed, failure_reason=exact_entity_chat_resume_not_supported_by_current_adapter, operator_manual_ping_required=yes.
+
+Следовательно, отправка и bounded route validation подтверждены, но автоматическое возобновление КОО, receipt и acceptance не подтверждены. Для начала обработки может требоваться обычный вызов чата КОО; ручной перенос файлов не требуется. Эта наблюдаемая граница адаптера не обходилась и не исправлялась в текущем цикле.
