@@ -1,0 +1,22 @@
+{
+  "archive_bytes": 438,
+  "archive_sha256": "de9a586791a7b00ea3816c3bd0ce48a33a69fca8e424eb332f7f5d08cd88bc6d",
+  "diff": {
+    "added": [
+      "data/beta.json"
+    ],
+    "changed": [
+      "docs/alpha.txt"
+    ],
+    "removed": [
+      "removed.txt"
+    ],
+    "unchanged": []
+  },
+  "identical": true,
+  "manifest_sha256": "1269f3013039e1b512ccf62f19d177ab4ba0e746261d90a85ff5f0a1443a3c33",
+  "readback_sha256": "6bf95aa46b911a2533681b4e3f8e3147dbe0188cfffdf4eba66644f32f061404",
+  "run1_exit": 0,
+  "run2_exit": 0,
+  "schema": "file-artifact-service-fix-demo-r01"
+}
