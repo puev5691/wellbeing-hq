@@ -1,0 +1,24 @@
+{
+  "create_archive": true,
+  "git_adapter_enabled": false,
+  "inputs": [
+    {
+      "sha256": "b6a98d9ce9a2d9149288fa3df42d377c3e42737afdcdaf714e33c0a100b51060",
+      "size": 6,
+      "source_id": "alpha",
+      "source_path": "alpha.txt",
+      "target_path": "docs/alpha.txt"
+    },
+    {
+      "sha256": "84eff180621eee0146c669d0f001864531d289179be66a78f2164925b035ca73",
+      "size": 11,
+      "source_id": "beta",
+      "source_path": "beta.json",
+      "target_path": "data/beta.json"
+    }
+  ],
+  "package_id": "demo-package-fix-r01",
+  "prior_manifest_path": "prior.json",
+  "request_id": "demo-fix-r01",
+  "schema": "file-artifact-service-request-r01"
+}
