@@ -1,0 +1,108 @@
+{
+  "activation_commit": "0281372c9053d6775a72092d04d64ee6d47c058b",
+  "authority_semantics": "none",
+  "demo": {
+    "archive_bytes": 434,
+    "archive_sha256": "f65260009c473d4adef51e7e9c228c05f74a102c463ae25f21062a4428f9f006",
+    "diff": {
+      "added": [
+        "data/beta.json"
+      ],
+      "changed": [
+        "docs/alpha.txt"
+      ],
+      "removed": [
+        "removed.txt"
+      ],
+      "unchanged": []
+    },
+    "identical": true,
+    "manifest_sha256": "786d8ebd39b0aa08f2a7b87c20ed1da6da692ed52aee6e79714aa324045c57b4",
+    "readback_sha256": "a68bd7e1f970d2603b2cfbef9f4d54e218d6bb47b87f59517705ff328d748f2c",
+    "run1_exit": 0,
+    "run2_exit": 0,
+    "schema": "file-artifact-service-demo-evidence-r01"
+  },
+  "direction_commit": "b62896ff271ab0480a4ff1fcecef386a7c65b1b6",
+  "files": [
+    {
+      "bytes": 7051,
+      "path": "file_service.py",
+      "sha256": "9b201df4137b840d4bba3428de796f44f0c6c150e54a9075fa99315d6e48b5d5"
+    },
+    {
+      "bytes": 5030,
+      "path": "test_file_service.py",
+      "sha256": "2ce1018bb888f36d710447664dd36d83231781c7135613357c6c683733e09bf3"
+    },
+    {
+      "bytes": 1432,
+      "path": "README.md",
+      "sha256": "9514e70004832d909e9490ff6930edf8a52c767af7085c3b17b89782727421c3"
+    },
+    {
+      "bytes": 659,
+      "path": "example-request.json",
+      "sha256": "30dcaf5e1fe86304a59f3e5caaa1d14e3fe5fcd929cbc28fe98ce5d8acddb439"
+    },
+    {
+      "bytes": 578,
+      "path": "demo-evidence.json",
+      "sha256": "ac117d2cf2b288e4bf25ded76b328f7bc9f869aa2a896e762d313e2cbc97a39e"
+    },
+    {
+      "bytes": 249,
+      "path": "test.stdout.json",
+      "sha256": "259a4228676bc67c93b8cfbad0bb0e7d90bb8e990248852a00bd074b903a4952"
+    },
+    {
+      "bytes": 963,
+      "path": "test.stderr.txt",
+      "sha256": "ba382f1dd47137302bdd771d88285e6c812374478375ed0833502b5f45900adb"
+    },
+    {
+      "bytes": 438,
+      "path": "run1/package/MANIFEST.json",
+      "sha256": "786d8ebd39b0aa08f2a7b87c20ed1da6da692ed52aee6e79714aa324045c57b4"
+    },
+    {
+      "bytes": 434,
+      "path": "run1/package.tar.gz",
+      "sha256": "f65260009c473d4adef51e7e9c228c05f74a102c463ae25f21062a4428f9f006"
+    },
+    {
+      "bytes": 385,
+      "path": "run1/readback.json",
+      "sha256": "a68bd7e1f970d2603b2cfbef9f4d54e218d6bb47b87f59517705ff328d748f2c"
+    },
+    {
+      "bytes": 99,
+      "path": "run1/diff.json",
+      "sha256": "11fac0f9622efda2a7353d03e42bd32a07a81241c1ec8d8d42c2549f78f50008"
+    },
+    {
+      "bytes": 494,
+      "path": "run1/result.json",
+      "sha256": "3ed98e055b0178d9fe00b29116e144d16d678a1deac0c41b890dc3c1a697a79e"
+    }
+  ],
+  "git_adapter_enabled": false,
+  "package": "file-artifact-service-mvp-r01",
+  "project_state_semantics": "none",
+  "project_time": "omitted",
+  "schema": "file-artifact-service-package-manifest-r01",
+  "source_task_commit": "f1753621b1181f425b574f68fca36e3bc40d115a",
+  "status": "candidate_pending_independent_verify",
+  "test_result": {
+    "authority_semantics": "none",
+    "credentials": 0,
+    "errors": 0,
+    "failures": 0,
+    "git_publications": 0,
+    "network_calls": 0,
+    "project_state_semantics": "none",
+    "skipped": 0,
+    "tests": 12,
+    "verdict": "PASS_FILE_ARTIFACT_SERVICE_MVP_R01_READY_FOR_VERIFY"
+  }
+}
