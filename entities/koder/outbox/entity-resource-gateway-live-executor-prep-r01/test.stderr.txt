@@ -1,0 +1,44 @@
+test_anthropic_native_plan (__main__.PrepTests.test_anthropic_native_plan) ... ok
+test_anthropic_simulated (__main__.PrepTests.test_anthropic_simulated) ... ok
+test_authority_binding_all_fields (__main__.PrepTests.test_authority_binding_all_fields) ... ok
+test_bad_source_or_multi_call_budget (__main__.PrepTests.test_bad_source_or_multi_call_budget) ... ok
+test_changed_request_entity_role_task_writer_purpose_sources (__main__.PrepTests.test_changed_request_entity_role_task_writer_purpose_sources) ... ok
+test_credential_reference_only (__main__.PrepTests.test_credential_reference_only) ... ok
+test_credentials_never_resolved (__main__.PrepTests.test_credentials_never_resolved) ... ok
+test_dependencies_and_candidate_unchanged (__main__.PrepTests.test_dependencies_and_candidate_unchanged) ... ok
+test_exact_dependency_loaders (__main__.PrepTests.test_exact_dependency_loaders) ... ok
+test_expired_or_mismatched_attestation (__main__.PrepTests.test_expired_or_mismatched_attestation) ... ok
+test_expiry_and_not_before (__main__.PrepTests.test_expiry_and_not_before) ... ok
+test_failure_consumes_authority_without_diagnostic_echo (__main__.PrepTests.test_failure_consumes_authority_without_diagnostic_echo) ... ok
+test_false_boolean_exception_or_nonbool_verifier (__main__.PrepTests.test_false_boolean_exception_or_nonbool_verifier) ... ok
+test_http_error_is_not_retried (__main__.PrepTests.test_http_error_is_not_retried) ... ok
+test_live_flag_not_enough_even_with_valid_simulation (__main__.PrepTests.test_live_flag_not_enough_even_with_valid_simulation) ... ok
+test_live_no_switch_and_no_installed_port (__main__.PrepTests.test_live_no_switch_and_no_installed_port) ... ok
+test_missing_authority_no_attempt (__main__.PrepTests.test_missing_authority_no_attempt) ... ok
+test_missing_verifier_no_attempt (__main__.PrepTests.test_missing_verifier_no_attempt) ... ok
+test_no_live_default_before_any_executor (__main__.PrepTests.test_no_live_default_before_any_executor) ... ok
+test_non_authority_kind_or_mode (__main__.PrepTests.test_non_authority_kind_or_mode) ... ok
+test_openai_plan_matches_verified_transport (__main__.PrepTests.test_openai_plan_matches_verified_transport) ... ok
+test_plan_tamper_rejected (__main__.PrepTests.test_plan_tamper_rejected) ... ok
+test_policy_finite_bounds_and_zero_retry (__main__.PrepTests.test_policy_finite_bounds_and_zero_retry) ... ok
+test_port_can_not_elevate_live_authority (__main__.PrepTests.test_port_can_not_elevate_live_authority) ... ok
+test_preparation_determinism_and_redaction (__main__.PrepTests.test_preparation_determinism_and_redaction) ... ok
+test_privacy_tools_payload_and_external_send_unchanged (__main__.PrepTests.test_privacy_tools_payload_and_external_send_unchanged) ... ok
+test_response_limit_before_attempt (__main__.PrepTests.test_response_limit_before_attempt) ... ok
+test_response_model_mismatch (__main__.PrepTests.test_response_model_mismatch) ... ok
+test_result_acceptance_authority_and_original_request (__main__.PrepTests.test_result_acceptance_authority_and_original_request) ... ok
+test_result_acceptance_hash_preserved (__main__.PrepTests.test_result_acceptance_hash_preserved) ... ok
+test_runtime_identity_switch_secret_contract (__main__.PrepTests.test_runtime_identity_switch_secret_contract) ... ok
+test_same_authority_no_second_attempt (__main__.PrepTests.test_same_authority_no_second_attempt) ... ok
+test_shared_ledger_budget_across_boundaries (__main__.PrepTests.test_shared_ledger_budget_across_boundaries) ... ok
+test_three_openai_models_simulated (__main__.PrepTests.test_three_openai_models_simulated) ... ok
+test_timeout_consumes_authority_without_retry (__main__.PrepTests.test_timeout_consumes_authority_without_retry) ... ok
+test_unknown_mode_closed (__main__.PrepTests.test_unknown_mode_closed) ... ok
+test_unknown_model_and_provider_no_fallback (__main__.PrepTests.test_unknown_model_and_provider_no_fallback) ... ok
+test_upstream_checks_without_real_transport (__main__.PrepTests.test_upstream_checks_without_real_transport) ... ok
+test_wrong_replay_or_arbitrary_executor (__main__.PrepTests.test_wrong_replay_or_arbitrary_executor) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 1.626s
+
+OK

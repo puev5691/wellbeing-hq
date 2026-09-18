@@ -1,0 +1,154 @@
+{
+  "package_id": "entity-resource-gateway-live-executor-prep-r01",
+  "source_location": "puev5691/wellbeing-hq:entities/koder/outbox/entity-resource-gateway-live-executor-prep-r01/",
+  "generated_files": [
+    "MANIFEST.json",
+    "README.md",
+    "executor_prep.py",
+    "test.stderr.txt",
+    "test.stdout.json",
+    "test_executor.py"
+  ],
+  "files": [
+    {
+      "file": "README.md",
+      "git_blob": "ff3df489e5a91395d9458b6614b3308422f514dd",
+      "sha256": "7b71b0f45d2bc12f6d57b6ce93b0dfd143679cba0d393accc2bde32273e2dae6",
+      "bytes": 16837
+    },
+    {
+      "file": "executor_prep.py",
+      "git_blob": "97031bc1948ec6adfe44bede3c8a219fd0310a44",
+      "sha256": "76bacfe103cfd84b4ba219ebbba6d7798f7b24bb34ddf85b12ff5fc33249988b",
+      "bytes": 19247
+    },
+    {
+      "file": "test.stderr.txt",
+      "git_blob": "cd39f248b15639cb2e2b0960903cfebed3b26d19",
+      "sha256": "5451ba47b59b3c3f08fb79ff20b7fd18f2d21c6e0ce0c93abd167bff902f2cd8",
+      "bytes": 4237
+    },
+    {
+      "file": "test.stdout.json",
+      "git_blob": "2386b68efccba494c6de82b42476a04c2115ed5f",
+      "sha256": "f86c47ddc86fe6917e78b64b530dd19fdd2c97963dcf13f526122b9eca031586",
+      "bytes": 467
+    },
+    {
+      "file": "test_executor.py",
+      "git_blob": "5bfc9ce60d8649a5fd76dcbff4cc719144cd2a04",
+      "sha256": "fef61c1d362264c3adcc4281907a9b604858c43bb03104b3571a9c7f16d24653",
+      "bytes": 25035
+    }
+  ],
+  "dependencies": [
+    {
+      "file": "gateway.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/entity-resource-gateway-mvp-r01/gateway.py",
+      "commit": "f4807a5f2e3231fda3e4ba0f258de647b055c6e4",
+      "git_blob": "e93ac320468dfeed84a7342b4e9dc5c597f48fc2",
+      "sha256": "703f9e4a72ab043063ff74f636ec6c3fa85de1a8fc8b89ac1859623f46a17d7a",
+      "bytes": 20179
+    },
+    {
+      "file": "policy.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/openai-three-model-d0-extension-r01/policy.py",
+      "commit": "7957b4d0211ed6cef96f54f2693c19b88e9f9d2e",
+      "git_blob": "f04676995d63e6e5eadb9474aaf2d15e5153ab43",
+      "sha256": "b95edabf6461ce155f48cf08fcec752d7c2c5dd8a7cc94ff4e765575731a83ad",
+      "bytes": 5623
+    },
+    {
+      "file": "openai_adapter.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/openai-three-model-d0-extension-r01/openai_adapter.py",
+      "commit": "9824993082fccacfd09ac47ad465eb342803878e",
+      "git_blob": "47c2c2e8bd361a2dafad3e66457c95de9a11d5e0",
+      "sha256": "e2787a3764eb09a209fcbea5ccbcada55ad32b870b87efbcdd2a225b4fb7d232",
+      "bytes": 7415
+    },
+    {
+      "file": "live_transport.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/openai-three-model-d0-extension-r01/live_transport.py",
+      "commit": "715eeb2357e23605d0570a15a900c5ceeced705c",
+      "git_blob": "4407a38113b5dd7de8ec30caca29be66a78f0239",
+      "sha256": "6ebad878a82d116aa9f7b21e9cf63bc53c1fac562bd8a9c7a9da86746e446498",
+      "bytes": 9920
+    },
+    {
+      "file": "orchestrator-mvp-r01.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/orchestrator-mvp-r01.py",
+      "commit": "e26600070943c4940f1ef449487a2e0a7c4911d5",
+      "git_blob": "55939b2e4c91f7af1159a60b2f4ee8fa961196f2",
+      "sha256": "bb4ac91d6c48ecded54405cdc49db57d6edd5e018e92b7332f35dfa331849852",
+      "bytes": 10001
+    },
+    {
+      "file": "anthropic-provider-compatible-adapter-r01.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/anthropic-provider-compatible-adapter-r01.py",
+      "commit": "4186f47f350133495ac21ca4cf758e481850d81c",
+      "git_blob": "985746909772900d9c72257dc53478aa34861d91",
+      "sha256": "e6b8b371ddd8d8f6b57d822e8bed7c4bb08f7936130f7202841df24da9e598da",
+      "bytes": 27650
+    }
+  ],
+  "test_result": {
+    "credential_reads": 0,
+    "errors": 0,
+    "failures": 0,
+    "live_executor_installed": false,
+    "operation_counters": {
+      "denied_reads": 0,
+      "network_attempts": 0,
+      "process_attempts": 0,
+      "write_attempts": 0
+    },
+    "provider_api_calls": 0,
+    "review": "pending_independent_verify",
+    "skipped": 0,
+    "test_methods": 39,
+    "uid": 1000,
+    "upstream_anthropic_assertions": 231,
+    "upstream_mvp_checks": 7,
+    "verdict": "PASS_ENTITY_RESOURCE_GATEWAY_LIVE_EXECUTOR_PREP_R01_READY_FOR_INDEPENDENT_VERIFY"
+  },
+  "test_execution": {
+    "command": [
+      "python3",
+      "-I",
+      "-B",
+      "candidate/test_executor.py",
+      "--deps",
+      "deps"
+    ],
+    "uid": 1000,
+    "exit_code": 0,
+    "stdout_sha256": "f86c47ddc86fe6917e78b64b530dd19fdd2c97963dcf13f526122b9eca031586",
+    "stderr_sha256": "5451ba47b59b3c3f08fb79ff20b7fd18f2d21c6e0ce0c93abd167bff902f2cd8"
+  },
+  "source_task_commit": "b847321faad85bd0e74bdac9bfd5234d7aa23ae9",
+  "source_task_blob": "364eab08cbc98da4b59f3a69fc79e46d9d289e83",
+  "gateway_independent_pass": "fd49601948827cc43e46331ae98ab1f680101c0a",
+  "openai_final_gate": "787ec5df1878c7ddb0a5f2928c61e265b40959b0",
+  "anthropic_independent_pass": "d92b3a9ba5abc0c4d1f03169425fb2dcb6e6cd6a",
+  "recipients": [
+    "koordinator"
+  ],
+  "copied_to": "local candidate; immutable publication identity recorded separately",
+  "operator_action": "No manual file transfer. Independent review of preparation only.",
+  "unresolved_questions": [
+    "live port not installed",
+    "trusted admission and account/model checks",
+    "durable one-shot ledger",
+    "bounded HTTP read/deadline/redirect contract",
+    "truthful live result representation without authority change"
+  ],
+  "status": "candidate_pending_independent_verify",
+  "integrity": "MANIFEST identified by immutable Git tree/blob; no circular self-hash.",
+  "project_time": "omitted"
+}
