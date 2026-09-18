@@ -1,0 +1,97 @@
+{
+  "package_id": "entity-resource-gateway-mvp-r01",
+  "status": "candidate_pending_independent_verify",
+  "source_location": "puev5691/wellbeing-hq:entities/koder/outbox/entity-resource-gateway-mvp-r01/",
+  "source_files_commit": "22b3f1a3956de50b94d9aa14001b7344020f7c65",
+  "generated_files": [
+    "README.md",
+    "gateway.py",
+    "test_gateway.py",
+    "MANIFEST.json"
+  ],
+  "files": {
+    "README.md": {
+      "sha256": "dcd215dd74e7f62ea9d2ca76f7975bec1df7d6f94009724767b5c53acde5ca65",
+      "git_blob": "0d68cd36cb60f9e0c2fe0bf915d5252901ec2315",
+      "bytes": 12930
+    },
+    "gateway.py": {
+      "sha256": "703f9e4a72ab043063ff74f636ec6c3fa85de1a8fc8b89ac1859623f46a17d7a",
+      "git_blob": "e93ac320468dfeed84a7342b4e9dc5c597f48fc2",
+      "bytes": 20179
+    },
+    "test_gateway.py": {
+      "sha256": "72885e4055576496034d5d673e2064a382b8fa99950ffc65b8391dd623d703d9",
+      "git_blob": "632d1fd5f9e522483b5f13e04ec156c46a38b60b",
+      "bytes": 18580
+    }
+  },
+  "dependencies": [
+    {
+      "file": "anthropic-provider-compatible-adapter-r01.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/anthropic-provider-compatible-adapter-r01.py",
+      "git_blob": "985746909772900d9c72257dc53478aa34861d91",
+      "sha256": "e6b8b371ddd8d8f6b57d822e8bed7c4bb08f7936130f7202841df24da9e598da"
+    },
+    {
+      "file": "openai_adapter.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/openai-three-model-d0-extension-r01/openai_adapter.py",
+      "git_blob": "47c2c2e8bd361a2dafad3e66457c95de9a11d5e0",
+      "sha256": "e2787a3764eb09a209fcbea5ccbcada55ad32b870b87efbcdd2a225b4fb7d232"
+    },
+    {
+      "file": "orchestrator-mvp-r01.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/orchestrator-mvp-r01.py",
+      "git_blob": "55939b2e4c91f7af1159a60b2f4ee8fa961196f2",
+      "sha256": "bb4ac91d6c48ecded54405cdc49db57d6edd5e018e92b7332f35dfa331849852"
+    },
+    {
+      "file": "policy.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/openai-three-model-d0-extension-r01/policy.py",
+      "git_blob": "f04676995d63e6e5eadb9474aaf2d15e5153ab43",
+      "sha256": "b95edabf6461ce155f48cf08fcec752d7c2c5dd8a7cc94ff4e765575731a83ad"
+    }
+  ],
+  "dependency_resolution": "Use exact repository Git blob; loader checks all four before executing. Operator ZIP includes these unchanged bytes in deps/.",
+  "test_command": "python3 -I -B entity-resource-gateway-mvp-r01/test_gateway.py --deps deps",
+  "test_result": {
+    "credential_reads": 0,
+    "errors": 0,
+    "failures": 0,
+    "gateway_test_methods": 34,
+    "independent_review": "pending",
+    "live_provider_calls": 0,
+    "operation_counters": {
+      "denied_reads": 0,
+      "network_attempts": 0,
+      "process_attempts": 0,
+      "write_attempts": 0
+    },
+    "skipped": 0,
+    "uid": 1000,
+    "upstream_anthropic_assertions": 231,
+    "upstream_mvp_checks": 7,
+    "verdict": "PASS_ENTITY_RESOURCE_GATEWAY_MVP_R01_READY_FOR_INDEPENDENT_VERIFY"
+  },
+  "test_exit_code": 0,
+  "test_stdout_sha256": "d4b2de170ca96427ec246ed3cc4ff508cfccac3a71c1f4bb19985233c865e36b",
+  "test_stderr_sha256": "67722f18c0776ef271f48f0cbb9083f598394dfc382be820c87165db1e946500",
+  "recipients": [
+    "koordinator"
+  ],
+  "copied_to": "GitHub package publication; exact commit recorded in terminal report",
+  "operator_action": "No manual file transfer required; independent review before integration.",
+  "unresolved_questions": [
+    "Live executor, expanded payload contract, current-writer verifier and provider entitlement are outside this synthetic task."
+  ],
+  "integrity": "Manifest itself is identified by immutable Git blob/tree; archive has independent SHA256SUMS.txt.",
+  "task_commit": "f97886e46264a94487c1a54697da7778c870317e",
+  "task_blob": "ed63e79c28ec9c6f0bd6cf57f46e505dfabaac61",
+  "initial_head": "f7c45352795244658eafc17e19314ec3d810014b",
+  "prewrite_head": "d7705abac3df029b503fa29b706e5deff8d2367f",
+  "project_time": "generated_without_trusted_project_time"
+}
