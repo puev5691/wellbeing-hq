@@ -1,0 +1,62 @@
+{
+  "package": "entity-resource-gateway-live-worker-race-fix-r01",
+  "status": "candidate_pending_independent_reverify",
+  "source_candidate": {
+    "path": "entities/koder/outbox/entity-resource-gateway-live-worker-r01/",
+    "commit": "cd9f0c7327613ee29f9de54574ca141b557e5d18",
+    "tree": "222c75ddb8cb47f1a2b4b601fe49dee4a78d9ce4"
+  },
+  "blocker": {
+    "commit": "d15b88501d227f778b657af638e86bf028f1948b",
+    "verdict": "BLOCKED_LIVE_WORKER_LEDGER_INIT_RACE"
+  },
+  "task_commit": "388d3b67d0d2e0de008ca1dd8cef872da46a4338",
+  "inbox_commit": "029e79967bd76cb5bf7f693f047fe911c7e34bfe",
+  "files": {
+    "live_worker.py": {
+      "git_blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256": "631ad7e8e5bb12ddfed92d8a8c02c113dfc2b2dde18c848b6c69e739321e6835"
+    },
+    "test_live_worker.py": {
+      "git_blob": "e9a0d938e0eb7180fdc8336050a38347a477c2ed",
+      "sha256": "920023253409bc5bc8d685cb66c51f1dffc05c314ea38700b080e3669c6bdc74"
+    },
+    "test.stdout.json": {
+      "git_blob": "a7240571a956c4c5a09401e454665dd29b8240c6",
+      "sha256": "0917760e5d9f930e03474cc9242198b1f43c4b4a67f9e713a7b638b2eac248ab"
+    },
+    "test.stderr.txt": {
+      "git_blob": "b3b9054cde58b6c193981993d334a79b586cac19",
+      "sha256": "522740d49d8e7aee6eb57c660617d6fb1d2c6172d0a09156107b1bd003810b41"
+    }
+  },
+  "test_result": {
+    "verdict": "PASS_ENTITY_RESOURCE_GATEWAY_LIVE_WORKER_RACE_FIX_R01_READY_FOR_REVERIFY",
+    "test_methods": 31,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "uid": 1000,
+    "real_provider_calls": 0,
+    "real_credential_reads": 0,
+    "production": false
+  },
+  "stress": {
+    "constructor_claim_rounds": 40,
+    "threads_per_claim_round": 12,
+    "constructor_only_rounds": 30,
+    "threads_per_constructor_round": 16,
+    "restart_replay_attempts": 50,
+    "raw_sqlite_lock_exceptions": 0
+  },
+  "invariants": {
+    "reservation_before_credential_or_transport": true,
+    "restart_replay_prevention": true,
+    "automatic_provider_retries": 0,
+    "provider_fallback": false,
+    "project_acceptance": "NOT_GRANTED",
+    "caller_writer_changed": false,
+    "project_state_applied": false
+  },
+  "project_time": "omitted"
+}

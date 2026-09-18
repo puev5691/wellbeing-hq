@@ -1,0 +1,36 @@
+test_anthropic_success (__main__.T.test_anthropic_success) ... ok
+test_atomic_competing_claim (__main__.T.test_atomic_competing_claim) ... ok
+test_bad_endpoint (__main__.T.test_bad_endpoint) ... ok
+test_bad_model_binding (__main__.T.test_bad_model_binding) ... ok
+test_bad_secret_ref (__main__.T.test_bad_secret_ref) ... ok
+test_bind_prepared_exact (__main__.T.test_bind_prepared_exact) ... ok
+test_bind_rejects_simulation (__main__.T.test_bind_rejects_simulation) ... ok
+test_claim_busy_maps_bounded_error (__main__.T.test_claim_busy_maps_bounded_error) ... ok
+test_concrete_client_class_not_used (__main__.T.test_concrete_client_class_not_used) ... ok
+test_fail_closed_redirect_handler (__main__.T.test_fail_closed_redirect_handler) ... ok
+test_hard_timeout (__main__.T.test_hard_timeout) ... ok
+test_model_mismatch (__main__.T.test_model_mismatch) ... ok
+test_no_retry_after_error (__main__.T.test_no_retry_after_error) ... ok
+test_no_retry_on_429 (__main__.T.test_no_retry_on_429) ... ok
+test_no_secret_in_reply_repr (__main__.T.test_no_secret_in_reply_repr) ... ok
+test_openai_success (__main__.T.test_openai_success) ... ok
+test_oversize (__main__.T.test_oversize) ... ok
+test_policy_no_retries (__main__.T.test_policy_no_retries) ... ok
+test_redirect (__main__.T.test_redirect) ... ok
+test_repeated_concurrent_construction_claim_stress (__main__.T.test_repeated_concurrent_construction_claim_stress) ... ok
+test_repeated_constructor_only_stress_no_raw_sqlite (__main__.T.test_repeated_constructor_only_stress_no_raw_sqlite) ... ok
+test_resource_boundary (__main__.T.test_resource_boundary) ... ok
+test_response_limit_bounds (__main__.T.test_response_limit_bounds) ... ok
+test_restart_replay_stress (__main__.T.test_restart_replay_stress) ... ok
+test_restart_safe_duplicate (__main__.T.test_restart_safe_duplicate) ... ok
+test_secret_ref_only_and_redaction (__main__.T.test_secret_ref_only_and_redaction) ... ok
+test_sqlite_row_consumed_before_resolve_failure (__main__.T.test_sqlite_row_consumed_before_resolve_failure) ... ok
+test_stale (__main__.T.test_stale) ... ok
+test_timeout_bounds (__main__.T.test_timeout_bounds) ... ok
+test_worker_reply_invariants (__main__.T.test_worker_reply_invariants) ... ok
+test_zero_network_by_monkeypatch (__main__.T.test_zero_network_by_monkeypatch) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 12.015s
+
+OK

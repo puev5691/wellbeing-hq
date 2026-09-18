@@ -1,0 +1,1 @@
+{"errors": 0, "failures": 0, "production": false, "real_credential_reads": 0, "real_provider_calls": 0, "skipped": 0, "test_methods": 31, "uid": 1000, "verdict": "PASS_ENTITY_RESOURCE_GATEWAY_LIVE_WORKER_RACE_FIX_R01_READY_FOR_REVERIFY"}

@@ -1,0 +1,11 @@
+{
+  "verdict": "PASS_ENTITY_RESOURCE_GATEWAY_LIVE_WORKER_RACE_FIX_R01_READY_FOR_REVERIFY",
+  "test_methods": 31,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "uid": 1000,
+  "real_provider_calls": 0,
+  "real_credential_reads": 0,
+  "production": false
+}
