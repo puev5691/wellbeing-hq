@@ -1,0 +1,82 @@
+{
+  "package": "telegram-facilitator-normalized-event-bridge-r01",
+  "status": "candidate_pending_independent_verify",
+  "expected_files": [
+    "bridge.py",
+    "test_bridge.py",
+    "README.md",
+    "MANIFEST.json"
+  ],
+  "files": [
+    {
+      "file": "README.md",
+      "git_blob": "ee2d011bfc67f0ee63eefd92dcd23b5ecae08743",
+      "sha256": "83c13e106e20deb1d7b85f5b63169fc65d36c2f16a5bb89feac38e06ea49dd45",
+      "bytes": 15496
+    },
+    {
+      "file": "bridge.py",
+      "git_blob": "789aa45efad6e38be7cb9fd4a25ad25efc3562d4",
+      "sha256": "1ee9c480405473c1f461766d42b3ab1c6a617405a3e70268393d8646668b61fc",
+      "bytes": 12949
+    },
+    {
+      "file": "test_bridge.py",
+      "git_blob": "d0eb531df05cdb956c874a536122c053aabc5b59",
+      "sha256": "47cc424bb62a1c6d2ad350e25a6da747865adca515d1e3f23d64b9fd03b8e1a4",
+      "bytes": 20377
+    }
+  ],
+  "dependencies": [
+    {
+      "file": "facilitator_core.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/telegram-facilitator-core-r01/facilitator_core.py",
+      "commit": "0020dff62785a5fd0048b0696728b3518812dcd1",
+      "git_blob": "ad980b0de8a00c1d134823cebc49059a0811f3fa",
+      "sha256": "33f280e9cc56534996d0706de7e3605c0247ff1af8b71ea985fdd7613d47b64a"
+    },
+    {
+      "file": "phase1b_gateway.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/telegram-media-phase1b-threading-fix-r02/gateway.py",
+      "commit": "62f82c3322f28adc55b47b1a7064fccb23e4c351",
+      "git_blob": "c870616f119fa3198a50db31898ad9ba4ad4bafc",
+      "sha256": "661300101b34ea52e90094b148319afa97e752c1f51fb980775eab3cdd8a38a9",
+      "use": "test_only_exact_safe_receipt_with_in_memory_row_stub"
+    }
+  ],
+  "test_command": "python3 -I -B candidate/test_bridge.py --deps deps",
+  "test_result": {
+    "credentials_read": false,
+    "errors": 0,
+    "failures": 0,
+    "live_provider_calls": 0,
+    "live_telegram_calls": 0,
+    "operation_counters": {
+      "database_open_attempts": 0,
+      "denied_reads": 0,
+      "network_attempts": 0,
+      "process_attempts": 0,
+      "write_attempts": 0
+    },
+    "scope": "synthetic producer method with in-memory row stub; no real DB or runtime",
+    "skipped": 0,
+    "test_methods": 33,
+    "uid": 1000,
+    "verdict": "PASS_TELEGRAM_FACILITATOR_NORMALIZED_EVENT_BRIDGE_R01_READY_FOR_INDEPENDENT_VERIFY"
+  },
+  "test_exit_code": 0,
+  "test_stdout_sha256": "169ce2490f6d5300b80c87c6e4f13b009cbf10a63a6d387656db55e3c351b1f4",
+  "test_stderr_sha256": "6641f5e4e232135fe696111671c7baf81559999a4b0a23727c9cd11d99c325f4",
+  "source_task_commit": "8f79c66715b623ca287430c5b1b4b0d725ec57e5",
+  "source_task_blob": "d09b1bba42d281b665b646a70747159ba4bf64aa",
+  "source_inbox_commit": "bbfcec1825b3bf69c5115120efaa03bcbe9d3dcd",
+  "independent_core_pass_commit": "947ea4b76d367774fbc2ae37b61d49e0e89d55bc",
+  "recipients": [
+    "koordinator"
+  ],
+  "operator_action": "No manual transfer required. Independent verification and separate runtime gate.",
+  "integrity": "Manifest itself identified by immutable Git blob/tree; no circular self-hash.",
+  "project_time": "omitted"
+}
