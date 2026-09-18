@@ -125,8 +125,8 @@ class ResourceResult:
     provenance: tuple[tuple[str, str], ...]
     sources: tuple[SourceRef, ...]
     transport_calls: int
-    data_class: str = field(default="D0_SYNTHETIC", init=False)
-    privacy_class: str = field(default="synthetic_only", init=False)
+    data_class: str
+    privacy_class: str
     execution_mode: str = field(default="synthetic_no_network", init=False)
     project_acceptance: str = field(default="NOT_GRANTED", init=False)
     caller_writer_changed: bool = field(default=False, init=False)
@@ -249,7 +249,7 @@ class Gateway:
             return ResourceResult(req.request_id,request_hash,req.requester,run_id,
                 req.provider,req.model,used_provider,used_model,status,terminal,
                 None if status=="completed" else terminal,payload,usage,usage_origin,
-                tuple(sorted(prov.items())),req.sources,calls)
+                tuple(sorted(prov.items())),req.sources,calls,req.data_class,req.privacy_class)
 
         try:
             check_policy(req)
