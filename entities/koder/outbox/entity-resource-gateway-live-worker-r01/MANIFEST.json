@@ -1,0 +1,45 @@
+{
+  "package": "entity-resource-gateway-live-worker-r01",
+  "status": "candidate_pending_independent_verify",
+  "task_commit": "dbe29d49eef74e491ed055e642f1411ff4273bbe",
+  "inbox_commit": "540f197575c10ec757bbd1435f8c6e6da9c08f57",
+  "basis": {
+    "gateway_independent_pass": "fd49601948827cc43e46331ae98ab1f680101c0a",
+    "executor_prep_independent_pass": "888e9fe64dccc2c12571b246cdf8d754e0df1214",
+    "openai_final_gate": "787ec5df1878c7ddb0a5f2928c61e265b40959b0",
+    "anthropic_independent_pass": "d92b3a9ba5abc0c4d1f03169425fb2dcb6e6cd6a"
+  },
+  "files": {
+    "live_worker.py": {
+      "git_blob": "2e9ddfac78e8a38a413c9e6ee9a938208de2eb89",
+      "sha256": "4dcf53cacd0ba20c734fff218fd7b555a86af5244f8359e2c3eda6a0c76fd093"
+    },
+    "test_live_worker.py": {
+      "git_blob": "97f37dd62fee5ef4f3ff5360902e086e72cd9add",
+      "sha256": "dc5fb1e12d5b19534b5e967db95559e82de589f719e9a2dfedbc2552a92122ba"
+    }
+  },
+  "test_result": {
+    "verdict": "PASS_ENTITY_RESOURCE_GATEWAY_LIVE_WORKER_R01_READY_FOR_INDEPENDENT_VERIFY",
+    "test_methods": 27,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "uid": 1000,
+    "real_provider_calls": 0,
+    "real_credential_reads": 0,
+    "production": false
+  },
+  "invariants": {
+    "durable_atomic_one_shot": true,
+    "hard_timeout": "POSIX_main_thread_setitimer_fail_closed",
+    "max_response_bytes": 65536,
+    "redirect_policy": "fail_closed_no_follow",
+    "automatic_retries": 0,
+    "project_acceptance": "NOT_GRANTED",
+    "caller_writer_changed": false,
+    "project_state_applied": false
+  },
+  "note": "First test run failed only because test_live_worker.py omitted asdict import in two attachment tests; live_worker.py bytes were unchanged before successful full rerun.",
+  "project_time": "omitted"
+}
