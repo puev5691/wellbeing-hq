@@ -1,0 +1,22 @@
+{
+  "archive_bytes": 434,
+  "archive_sha256": "f65260009c473d4adef51e7e9c228c05f74a102c463ae25f21062a4428f9f006",
+  "diff": {
+    "added": [
+      "data/beta.json"
+    ],
+    "changed": [
+      "docs/alpha.txt"
+    ],
+    "removed": [
+      "removed.txt"
+    ],
+    "unchanged": []
+  },
+  "identical": true,
+  "manifest_sha256": "786d8ebd39b0aa08f2a7b87c20ed1da6da692ed52aee6e79714aa324045c57b4",
+  "readback_sha256": "a68bd7e1f970d2603b2cfbef9f4d54e218d6bb47b87f59517705ff328d748f2c",
+  "run1_exit": 0,
+  "run2_exit": 0,
+  "schema": "file-artifact-service-demo-evidence-r01"
+}
