@@ -1,0 +1,32 @@
+{
+  "package": "entity-resource-gateway-live-worker-hash-metadata-fix-r01",
+  "status": "metadata_only_candidate_pending_independent_reverify",
+  "source_package": {
+    "path": "entities/koder/outbox/entity-resource-gateway-live-worker-race-fix-r01/",
+    "commit": "6880f16459c5424992fcbe2102f0889142fe533a",
+    "tree": "81a23900c6437c8a76ee3f45cb451f319f3fdec2"
+  },
+  "blocker": {
+    "commit": "75c877679bb2ce2126a2934b50cc9caaddaaca71",
+    "verdict": "BLOCKED_LIVE_WORKER_RACE_FIX_IMMUTABLE_HASH_MISMATCH"
+  },
+  "task_commit": "628ff93bc70aab8ed77556cc3d216df180cf43fc",
+  "inbox_commit": "bf14a5912a0d8d6385dfeb6925d9263fcacf0ce2",
+  "files": {
+    "live_worker.py": {
+      "git_blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256_direct_git_blob_bytes": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+      "behavior_changed": false
+    },
+    "test_live_worker.py": {
+      "git_blob": "e9a0d938e0eb7180fdc8336050a38347a477c2ed",
+      "sha256_direct_git_blob_bytes": "3eb5f2ff7c664f8a03cd3978636537aa8ab5c776dc44803c56799d779f0c5ad0",
+      "behavior_changed": false
+    }
+  },
+  "correction": "metadata_only",
+  "race_fix_behavior_preserved": true,
+  "required_post_publish_test": true,
+  "expected": "PASS_LIVEWORKER_HASH_METADATA_FIX_R01_READY_FOR_REVERIFY",
+  "project_time": "omitted"
+}
