@@ -1,0 +1,290 @@
+{
+  "files": [
+    {
+      "bytes": 13648,
+      "path": "builder.py",
+      "sha256": "d2d63513a23e791232885adc5c6afdfc50b4e3c9d4f7a215ace97f10b6e9953f"
+    },
+    {
+      "bytes": 5270,
+      "path": "test_builder.py",
+      "sha256": "86b4f2474655a4c6a1ab6b6a6853815c5d4e74602ad5382bb40f984e147def90"
+    },
+    {
+      "bytes": 1404,
+      "path": "README.md",
+      "sha256": "b784da15f40b09212f0991e9aeff41f4bc2f07b05465379a26943c5be614e532"
+    },
+    {
+      "bytes": 1700,
+      "path": "MANIFEST.json",
+      "sha256": "f92ac52a87f3adbfab9fe1ef81290d13d8f5543360d718d4404b1d798816f184"
+    },
+    {
+      "bytes": 2368,
+      "path": "inputs/content/faq-index.md",
+      "sha256": "ddc8ae98e6b510a15837a58b175319cd3f94ae5d490fac5939c02e6c54b9df44"
+    },
+    {
+      "bytes": 1059,
+      "path": "inputs/content/knowledge-answer-cards.md",
+      "sha256": "61817608d3b2b3d329338ed7330315348ef971602e7599d7078cd4fed4ab9ca6"
+    },
+    {
+      "bytes": 1187,
+      "path": "inputs/content/knowledge-public-index.md",
+      "sha256": "a24a06a65efd83bdd68b88ecc65f213e9ffbeb40f0bac148966443f7432ea805"
+    },
+    {
+      "bytes": 3391,
+      "path": "inputs/content/log16-current-stage.md",
+      "sha256": "b4bf807c9447717d3e963a2acf69d5b87e9c71a3fc77e89722004730b8839cea"
+    },
+    {
+      "bytes": 1396,
+      "path": "inputs/content/participation-how-to-start.md",
+      "sha256": "730812e4f55ac1e41568138ca8e52142d0199964a97bd97362e5b545dde9f907"
+    },
+    {
+      "bytes": 1281,
+      "path": "inputs/content/participation-task-classes.md",
+      "sha256": "9ceb136cbf41af32ebf3803e9aa5e906b6a0838b00ea5d9744db1618190d6ef9"
+    },
+    {
+      "bytes": 1360,
+      "path": "inputs/content/project-overview-log16.md",
+      "sha256": "7d830671792d09868b71f5fa50f64c65419057b0ddbbd1886e9a9aa4e9b9700a"
+    },
+    {
+      "bytes": 1688,
+      "path": "inputs/content/project-overview-wellbeing.md",
+      "sha256": "d6833f60c8eeca4e0befd573ecf32bbf65855d579576fd041fd2319a8785cb5a"
+    },
+    {
+      "bytes": 1533,
+      "path": "inputs/content/publication-boundary.md",
+      "sha256": "115ab38137407f578dd52a6f267fe78eb8780f9a432b9041f92b22c8494026ce"
+    },
+    {
+      "bytes": 20281,
+      "path": "inputs/content-eligibility-ledger.json",
+      "sha256": "8fb3743948ae968455fc5ebaf096a3d9884e5ff40c169bec89475792a2fb167d"
+    },
+    {
+      "bytes": 5319,
+      "path": "inputs/presentation-spec.md",
+      "sha256": "3f36a697520d8bbd55ee69c919ee824f26160f2655780c1361846f7213c3259b"
+    },
+    {
+      "bytes": 4248,
+      "path": "inputs/route-map.json",
+      "sha256": "0792bded2fca112a4c6ed11e4944836afc8dc7f1edfb0b76c5d8f4e7bec0619d"
+    },
+    {
+      "bytes": 1715,
+      "path": "inputs/route-presentation-delta.json",
+      "sha256": "9b3649fb1bfa7ce5e8f96fc81b5581acfa2e23f5a53b4a7f3f3392b287768c1f"
+    },
+    {
+      "bytes": 5120,
+      "path": "site/achievements/index.html",
+      "sha256": "a0452549580b04c33afe30f026afdda1d467e5b45b54e91b9c06012208edf5c2"
+    },
+    {
+      "bytes": 1941,
+      "path": "site/achievements/information-entry-r2-reverification/index.html",
+      "sha256": "cfb21a1733efd3211a22d35c960c3c816e613a63f188b3aa1661c8f2600a6045"
+    },
+    {
+      "bytes": 1934,
+      "path": "site/achievements/information-entry-stage-b/index.html",
+      "sha256": "574f314fb5d422675d19bf20b1f692f764c85a849dcfcc2611b8141acfcbcbcb"
+    },
+    {
+      "bytes": 1877,
+      "path": "site/achievements/static-preview-contract/index.html",
+      "sha256": "3f3603360765469b264dfd47e8f8d4844dc6931c8338c2aea4309813750ae3d8"
+    },
+    {
+      "bytes": 1890,
+      "path": "site/achievements/static-preview-v03/index.html",
+      "sha256": "243ee2e1d47dd33fec397d7b861b33c2aed97db825d9e512294f4e1cf26e8086"
+    },
+    {
+      "bytes": 939,
+      "path": "site/assets/style.css",
+      "sha256": "d3765b66c5eccd4070c531d71e48ae1cf605646f46785e631ccb89cc7967ae47"
+    },
+    {
+      "bytes": 5080,
+      "path": "site/build-manifest.json",
+      "sha256": "6ebd5a292d5c077a3c0ab598b10d9a4f4b3eebe2428615cf6ff13cd7cfa6313c"
+    },
+    {
+      "bytes": 1263,
+      "path": "site/cooperation/index.html",
+      "sha256": "e84e632afb77f852ab83faa8ade46a293e2472041e50c1588301072bbe8a4a55"
+    },
+    {
+      "bytes": 1967,
+      "path": "site/developments/entity-ai-resource-boosters/index.html",
+      "sha256": "aa436d42154b9ab5799debae327e1eece22632536b1df6fc19a8e6bebf545594"
+    },
+    {
+      "bytes": 4297,
+      "path": "site/developments/index.html",
+      "sha256": "47e95cd645e751d5b7d1fcc2266ba65117d3339fcae6d5631ee3e5dc3606fdfa"
+    },
+    {
+      "bytes": 1980,
+      "path": "site/developments/public-information-portal/index.html",
+      "sha256": "080fbb61dfebc1cf051af7ac919510d16c515522a9f3fc96badaf472db7ed2af"
+    },
+    {
+      "bytes": 1986,
+      "path": "site/developments/telegram-facilitator/index.html",
+      "sha256": "0f323b1e2924d1b3af959ecd185447869d5978dbe6b6aea86d1ab8aed09a9037"
+    },
+    {
+      "bytes": 4327,
+      "path": "site/faq/index.html",
+      "sha256": "7af89d90b4453bb6120009e43962b7127f649b8c5470e1bd4f21cf40947180bd"
+    },
+    {
+      "bytes": 3087,
+      "path": "site/history/index.html",
+      "sha256": "37822ee6871ccb4f835b435abcc20894e7c3c6ce800db7e997154959deb87d4e"
+    },
+    {
+      "bytes": 1912,
+      "path": "site/history/information-entry/static-preview-v01/index.html",
+      "sha256": "1459d5d6f1c32f3b5beb47e2c0a3d229e5e41b356ccc2320a4dfd10bb502f671"
+    },
+    {
+      "bytes": 1908,
+      "path": "site/history/information-entry/static-preview-v02/index.html",
+      "sha256": "e56f52cc71c787d2aca3b4cbdcce800b701afd5acb2b3e7834aed8312d3313c0"
+    },
+    {
+      "bytes": 3201,
+      "path": "site/index.html",
+      "sha256": "bd1122165dfe84d881e2ad11273df5f9a2c926914d4cf86f96674e7095549c43"
+    },
+    {
+      "bytes": 2973,
+      "path": "site/knowledge/answers/index.html",
+      "sha256": "d012b26f40a02ff72bb4303f5616019369edd4c5c70624ae603ed41172babe51"
+    },
+    {
+      "bytes": 5071,
+      "path": "site/knowledge/index.html",
+      "sha256": "3425bdcae04a6e221829905589028460e6e4745d65ffe106f76e4e8a16bee0cf"
+    },
+    {
+      "bytes": 4365,
+      "path": "site/participate/index.html",
+      "sha256": "da36b87d140bc933e2884f27d917a5fa4e2a773d9cb2e81c29dd77d3ffe18bae"
+    },
+    {
+      "bytes": 3231,
+      "path": "site/participate/task-classes/index.html",
+      "sha256": "e736753ed759d9e3c8df529ef707e57546e58fe5e096f78e8677ab2de4785509"
+    },
+    {
+      "bytes": 2983,
+      "path": "site/project/index.html",
+      "sha256": "77f82d0df1a588bb4da2fd24a8ec4250a15fc977546bd008800cb8ed7a7d154c"
+    },
+    {
+      "bytes": 3335,
+      "path": "site/project/log16/index.html",
+      "sha256": "db15840281b9cd8d7bf8432ddba3597956d0fde8ac014e8803af9d97005732be"
+    },
+    {
+      "bytes": 3698,
+      "path": "site/project/what-is-wellbeing/index.html",
+      "sha256": "012af31b5a34e0fc53b974c31e1e2bec825730290a7bee69fb3589eb174d3e69"
+    },
+    {
+      "bytes": 3672,
+      "path": "site/publications/index.html",
+      "sha256": "9a6137d7d17fc649ca7975c342f7ce4c0eecea79848f9d02a0d6d7d347aa0bf0"
+    },
+    {
+      "bytes": 6881,
+      "path": "site/routes.json",
+      "sha256": "9df117fe7770e8860095e48ade6c1c15b0b093662a5592659e303f2d408ba75b"
+    },
+    {
+      "bytes": 2109,
+      "path": "site/status/gates/entity-ai-resource-boosters/index.html",
+      "sha256": "0733e8d14a32afcb6f1d2d2f8c8b429174b14caf45463d3c58f3918b3f3e835a"
+    },
+    {
+      "bytes": 3324,
+      "path": "site/status/gates/index.html",
+      "sha256": "470e6503d45870b88a0a6bf090590f1c8dbd5a1b0b88af49867b948ce866b933"
+    },
+    {
+      "bytes": 1932,
+      "path": "site/status/gates/telegram-phase1b-host-runtime/index.html",
+      "sha256": "5db5f0cb3506bd0f974c61d2ba4026ed1d96f6431aa5c70cb2882b5058b98b6c"
+    },
+    {
+      "bytes": 5568,
+      "path": "site/status/log16/index.html",
+      "sha256": "0a205c005793ab67ff4cf9586a2688a51569c46ecda330b94e970a260f38c2dd"
+    },
+    {
+      "bytes": 1346,
+      "path": "site/withdrawn/index.html",
+      "sha256": "19a14f43d380c7b9c0c9faae6011cda5b877afdf7190a26e85acf4b3155bcf32"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/build-1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 123,
+      "path": "evidence/build-1.stdout.json",
+      "sha256": "c4ced1d7092502627901e66b22fdcda301302c731d0eba677edd29d0eaca5cca"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/build-2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 123,
+      "path": "evidence/build-2.stdout.json",
+      "sha256": "c4ced1d7092502627901e66b22fdcda301302c731d0eba677edd29d0eaca5cca"
+    },
+    {
+      "bytes": 5813,
+      "path": "evidence/readback.json",
+      "sha256": "aec089915d3833cb057a2680430fd734fcf00204df198055b938a11eaf066f66"
+    },
+    {
+      "bytes": 287,
+      "path": "evidence/reproducibility.json",
+      "sha256": "7a89ba29013783cccbdbe9aa57f3c739e592479a84bd8eb14fd8aa74aea9cdf4"
+    },
+    {
+      "bytes": 3541,
+      "path": "evidence/source-verification.json",
+      "sha256": "824e711a0773c0efe0461ddb2d02bbb4fc5107e857bb9df8b59e298074293e2e"
+    },
+    {
+      "bytes": 750,
+      "path": "evidence/test.stderr.txt",
+      "sha256": "ba8affb10c7b63d48d3d5b4a018de708df699c0da60490f580915f5170dc9c7f"
+    },
+    {
+      "bytes": 100,
+      "path": "evidence/test.stdout.json",
+      "sha256": "9b1b29d6a473cd0c6f85b2f4551a06e8dcef511c487c3d5671aef97c36aed4ee"
+    }
+  ],
+  "schema": "portal-static-artifact-hashes-r01"
+}

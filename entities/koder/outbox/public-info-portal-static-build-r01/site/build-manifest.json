@@ -1,0 +1,136 @@
+{
+  "deployment": "none",
+  "deterministic": true,
+  "files": {
+    "achievements/index.html": {
+      "bytes": 5120,
+      "sha256": "a0452549580b04c33afe30f026afdda1d467e5b45b54e91b9c06012208edf5c2"
+    },
+    "achievements/information-entry-r2-reverification/index.html": {
+      "bytes": 1941,
+      "sha256": "cfb21a1733efd3211a22d35c960c3c816e613a63f188b3aa1661c8f2600a6045"
+    },
+    "achievements/information-entry-stage-b/index.html": {
+      "bytes": 1934,
+      "sha256": "574f314fb5d422675d19bf20b1f692f764c85a849dcfcc2611b8141acfcbcbcb"
+    },
+    "achievements/static-preview-contract/index.html": {
+      "bytes": 1877,
+      "sha256": "3f3603360765469b264dfd47e8f8d4844dc6931c8338c2aea4309813750ae3d8"
+    },
+    "achievements/static-preview-v03/index.html": {
+      "bytes": 1890,
+      "sha256": "243ee2e1d47dd33fec397d7b861b33c2aed97db825d9e512294f4e1cf26e8086"
+    },
+    "assets/style.css": {
+      "bytes": 939,
+      "sha256": "d3765b66c5eccd4070c531d71e48ae1cf605646f46785e631ccb89cc7967ae47"
+    },
+    "cooperation/index.html": {
+      "bytes": 1263,
+      "sha256": "e84e632afb77f852ab83faa8ade46a293e2472041e50c1588301072bbe8a4a55"
+    },
+    "developments/entity-ai-resource-boosters/index.html": {
+      "bytes": 1967,
+      "sha256": "aa436d42154b9ab5799debae327e1eece22632536b1df6fc19a8e6bebf545594"
+    },
+    "developments/index.html": {
+      "bytes": 4297,
+      "sha256": "47e95cd645e751d5b7d1fcc2266ba65117d3339fcae6d5631ee3e5dc3606fdfa"
+    },
+    "developments/public-information-portal/index.html": {
+      "bytes": 1980,
+      "sha256": "080fbb61dfebc1cf051af7ac919510d16c515522a9f3fc96badaf472db7ed2af"
+    },
+    "developments/telegram-facilitator/index.html": {
+      "bytes": 1986,
+      "sha256": "0f323b1e2924d1b3af959ecd185447869d5978dbe6b6aea86d1ab8aed09a9037"
+    },
+    "faq/index.html": {
+      "bytes": 4327,
+      "sha256": "7af89d90b4453bb6120009e43962b7127f649b8c5470e1bd4f21cf40947180bd"
+    },
+    "history/index.html": {
+      "bytes": 3087,
+      "sha256": "37822ee6871ccb4f835b435abcc20894e7c3c6ce800db7e997154959deb87d4e"
+    },
+    "history/information-entry/static-preview-v01/index.html": {
+      "bytes": 1912,
+      "sha256": "1459d5d6f1c32f3b5beb47e2c0a3d229e5e41b356ccc2320a4dfd10bb502f671"
+    },
+    "history/information-entry/static-preview-v02/index.html": {
+      "bytes": 1908,
+      "sha256": "e56f52cc71c787d2aca3b4cbdcce800b701afd5acb2b3e7834aed8312d3313c0"
+    },
+    "index.html": {
+      "bytes": 3201,
+      "sha256": "bd1122165dfe84d881e2ad11273df5f9a2c926914d4cf86f96674e7095549c43"
+    },
+    "knowledge/answers/index.html": {
+      "bytes": 2973,
+      "sha256": "d012b26f40a02ff72bb4303f5616019369edd4c5c70624ae603ed41172babe51"
+    },
+    "knowledge/index.html": {
+      "bytes": 5071,
+      "sha256": "3425bdcae04a6e221829905589028460e6e4745d65ffe106f76e4e8a16bee0cf"
+    },
+    "participate/index.html": {
+      "bytes": 4365,
+      "sha256": "da36b87d140bc933e2884f27d917a5fa4e2a773d9cb2e81c29dd77d3ffe18bae"
+    },
+    "participate/task-classes/index.html": {
+      "bytes": 3231,
+      "sha256": "e736753ed759d9e3c8df529ef707e57546e58fe5e096f78e8677ab2de4785509"
+    },
+    "project/index.html": {
+      "bytes": 2983,
+      "sha256": "77f82d0df1a588bb4da2fd24a8ec4250a15fc977546bd008800cb8ed7a7d154c"
+    },
+    "project/log16/index.html": {
+      "bytes": 3335,
+      "sha256": "db15840281b9cd8d7bf8432ddba3597956d0fde8ac014e8803af9d97005732be"
+    },
+    "project/what-is-wellbeing/index.html": {
+      "bytes": 3698,
+      "sha256": "012af31b5a34e0fc53b974c31e1e2bec825730290a7bee69fb3589eb174d3e69"
+    },
+    "publications/index.html": {
+      "bytes": 3672,
+      "sha256": "9a6137d7d17fc649ca7975c342f7ce4c0eecea79848f9d02a0d6d7d347aa0bf0"
+    },
+    "routes.json": {
+      "bytes": 6881,
+      "sha256": "9df117fe7770e8860095e48ade6c1c15b0b093662a5592659e303f2d408ba75b"
+    },
+    "status/gates/entity-ai-resource-boosters/index.html": {
+      "bytes": 2109,
+      "sha256": "0733e8d14a32afcb6f1d2d2f8c8b429174b14caf45463d3c58f3918b3f3e835a"
+    },
+    "status/gates/index.html": {
+      "bytes": 3324,
+      "sha256": "470e6503d45870b88a0a6bf090590f1c8dbd5a1b0b88af49867b948ce866b933"
+    },
+    "status/gates/telegram-phase1b-host-runtime/index.html": {
+      "bytes": 1932,
+      "sha256": "5db5f0cb3506bd0f974c61d2ba4026ed1d96f6431aa5c70cb2882b5058b98b6c"
+    },
+    "status/log16/index.html": {
+      "bytes": 5568,
+      "sha256": "0a205c005793ab67ff4cf9586a2688a51569c46ecda330b94e970a260f38c2dd"
+    },
+    "withdrawn/index.html": {
+      "bytes": 1346,
+      "sha256": "19a14f43d380c7b9c0c9faae6011cda5b877afdf7190a26e85acf4b3155bcf32"
+    }
+  },
+  "inputs": {
+    "ledger_blob": "c8dbac045b51cf2f5315b0b29ae74f5eea393246",
+    "presentation_delta_blob": "47648448fa632f45e79fb4a7d5b0a1028bc6d774",
+    "presentation_spec_blob": "7ab2d9555b57499ee457ce2abc1142586020742b",
+    "route_map_blob": "94c79cb035387986e8147a6ea52d41b3e7e30be5"
+  },
+  "public_ready": false,
+  "routes_count": 28,
+  "schema": "portal-static-build-manifest-r01",
+  "state_database": false
+}

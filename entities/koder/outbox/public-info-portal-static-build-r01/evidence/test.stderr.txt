@@ -1,0 +1,14 @@
+test_banner_and_empty_states (__main__.T.test_banner_and_empty_states) ... ok
+test_candidate_stale_labels (__main__.T.test_candidate_stale_labels) ... ok
+test_fail_closed_input_identity (__main__.T.test_fail_closed_input_identity) ... ok
+test_hq_metadata_only (__main__.T.test_hq_metadata_only) ... ok
+test_manifest_readback (__main__.T.test_manifest_readback) ... ok
+test_no_public_ready_promotion (__main__.T.test_no_public_ready_promotion) ... ok
+test_presentation_titles (__main__.T.test_presentation_titles) ... ok
+test_reproducible (__main__.T.test_reproducible) ... ok
+test_routes_and_static_only (__main__.T.test_routes_and_static_only) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.148s
+
+OK

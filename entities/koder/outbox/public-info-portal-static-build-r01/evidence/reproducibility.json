@@ -1,0 +1,8 @@
+{
+  "build1_exit": 0,
+  "build2_exit": 0,
+  "identical": true,
+  "schema": "portal-static-reproducibility-r01",
+  "tree_digest_1": "4a344eed5b0a3fe01760dfb4b2c797c818e3bc85e4ff1210bfe19f62e6ab0f25",
+  "tree_digest_2": "4a344eed5b0a3fe01760dfb4b2c797c818e3bc85e4ff1210bfe19f62e6ab0f25"
+}

@@ -1,0 +1,127 @@
+{
+  "curated_bodies": 9,
+  "entries": [
+    {
+      "body_included": true,
+      "bytes": 1688,
+      "id": "project-overview-wellbeing",
+      "source_blob": "846241c04b493dc2d30af604dad9a24062864577"
+    },
+    {
+      "body_included": true,
+      "bytes": 1360,
+      "id": "project-overview-log16",
+      "source_blob": "bf30e13417a5dfe97f295970032a48e991f86aca"
+    },
+    {
+      "body_included": false,
+      "bytes": 1308,
+      "id": "public-info-portal-current",
+      "source_blob": "20a50a657794ccb7aa685c3fe9e1c81aa9050b99"
+    },
+    {
+      "body_included": false,
+      "bytes": 1922,
+      "id": "entity-ai-resource-boosters",
+      "source_blob": "cd19af251901db808866f29dc1e1fac0f96a16ad"
+    },
+    {
+      "body_included": false,
+      "bytes": 1087,
+      "id": "entity-ai-resource-boosters-live-gate",
+      "source_blob": "7dd68a2ce0d5851e781aa19a86fdc1f012ed0e17"
+    },
+    {
+      "body_included": false,
+      "bytes": 4146,
+      "id": "telegram-facilitator-direction",
+      "source_blob": "0ed933c79a4d91d6c8dfc425284bbe3d027302f9"
+    },
+    {
+      "body_included": false,
+      "bytes": 8188,
+      "id": "telegram-phase1b-host-runtime-gate",
+      "source_blob": "34eff69659a6bd4a73d67321deb42af509ebcad4"
+    },
+    {
+      "body_included": false,
+      "bytes": 1953,
+      "id": "achievement-stage-b-baseline",
+      "source_blob": "5b4e081d6fd394b156a4b905c31022db9bfdef08"
+    },
+    {
+      "body_included": false,
+      "bytes": 1405,
+      "id": "achievement-static-preview-contract",
+      "source_blob": "ec8ad6629168be3c30376c61449b040c110eb975"
+    },
+    {
+      "body_included": false,
+      "bytes": 522,
+      "id": "achievement-static-preview-v03-e1",
+      "source_blob": "5c62cd12d99b84c354d89d39f4123dfe613aeca8"
+    },
+    {
+      "body_included": false,
+      "bytes": 55,
+      "id": "achievement-info-entry-r2-shd-reverify",
+      "source_blob": "a2a79458eb5118dc8c636ea3d6743c5326269db6"
+    },
+    {
+      "body_included": true,
+      "bytes": 3391,
+      "id": "log16-current-stage",
+      "source_blob": "95f41c8d24b84f1e9f2ea2fbec95e6c9db58d4b1"
+    },
+    {
+      "body_included": true,
+      "bytes": 1396,
+      "id": "participation-how-to-start",
+      "source_blob": "7c1f88623fbb916e6f8310e70350a88e5ed9e6c5"
+    },
+    {
+      "body_included": true,
+      "bytes": 1281,
+      "id": "participation-task-classes",
+      "source_blob": "ff334bad8a6495b19011b6157a91b613330a8de6"
+    },
+    {
+      "body_included": true,
+      "bytes": 1187,
+      "id": "knowledge-public-index",
+      "source_blob": "c2ee7e1eb8039a9a75536fa2f6d270aba1e735c3"
+    },
+    {
+      "body_included": true,
+      "bytes": 1059,
+      "id": "knowledge-answer-cards",
+      "source_blob": "321c33d3374e0d1f897b46277b25f5e8e6bd4149"
+    },
+    {
+      "body_included": true,
+      "bytes": 2368,
+      "id": "faq-index",
+      "source_blob": "0e60245d83c2858dc04ac8730729289322d3a96d"
+    },
+    {
+      "body_included": true,
+      "bytes": 1533,
+      "id": "publication-boundary",
+      "source_blob": "b9a5be2287f14d9382b989098e62fc1c125d07dc"
+    },
+    {
+      "body_included": false,
+      "bytes": 1178,
+      "id": "historical-static-preview-v01-review",
+      "source_blob": "5796265d855b3fdedbe8c2c3ea5679c585a7ba0d"
+    },
+    {
+      "body_included": false,
+      "bytes": 889,
+      "id": "historical-static-preview-v02-review",
+      "source_blob": "cbae869fe314810a0e1d7a0e940a5a2f033b464c"
+    }
+  ],
+  "schema": "portal-static-source-verification-r01",
+  "verified_count": 20
+}

@@ -1,0 +1,10 @@
+html{font-family:system-ui,-apple-system,sans-serif;background:#f7f7f5;color:#202020}body{margin:0}
+header{background:#fff;border-bottom:1px solid #ddd;padding:1rem 5vw;position:sticky;top:0}
+.banner{font-weight:800;border:2px solid #111;padding:.6rem;margin-bottom:.8rem;background:#fff2c7}
+nav a{margin-right:1rem;color:#222}main{max-width:960px;margin:auto;padding:2rem 5vw}
+.card{background:#fff;border:1px solid #ddd;border-radius:10px;padding:1rem;margin:1rem 0}
+.badge{display:inline-block;border:1px solid #555;border-radius:999px;padding:.15rem .55rem;margin:.15rem;font-size:.85rem}
+.stale{font-weight:700}.empty{padding:1rem;border-left:4px solid #777;background:#fff}
+.provenance{margin-top:1rem;color:#555}.provenance code{word-break:break-all}
+.source-body{background:#fff;padding:1rem;border:1px solid #ddd}.source-body h1,.source-body h2{line-height:1.2}
+footer{max-width:960px;margin:2rem auto;padding:1rem 5vw;color:#666}

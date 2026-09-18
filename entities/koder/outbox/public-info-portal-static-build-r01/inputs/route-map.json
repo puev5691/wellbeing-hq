@@ -1,0 +1,135 @@
+{
+  "schema": "public-info-portal-route-map-r01",
+  "deterministic": true,
+  "public_ready": false,
+  "routes": [
+    {
+      "route": "/",
+      "title": "БЛАГОПОЛУЧИЕ — информационный портал",
+      "bucket": "home",
+      "source_ids": [
+        "project-overview-wellbeing",
+        "public-info-portal-current"
+      ],
+      "visibility": "preview_only",
+      "notes": "home assembles verified metadata plus candidate project explanation; no public-ready claim"
+    },
+    {
+      "route": "/project/",
+      "title": "О проекте",
+      "bucket": "project",
+      "source_ids": [
+        "project-overview-wellbeing",
+        "project-overview-log16"
+      ],
+      "visibility": "candidate_preview",
+      "notes": "candidate public docs; retain draft labels"
+    },
+    {
+      "route": "/developments/",
+      "title": "Текущие разработки",
+      "bucket": "developments",
+      "source_ids": [
+        "public-info-portal-current",
+        "entity-ai-resource-boosters",
+        "telegram-facilitator-direction"
+      ],
+      "visibility": "metadata_preview",
+      "notes": "HQ metadata projections only; never expose raw operational bodies"
+    },
+    {
+      "route": "/achievements/",
+      "title": "Завершённые проверенные рубежи",
+      "bucket": "achievements",
+      "source_ids": [
+        "achievement-stage-b-baseline",
+        "achievement-static-preview-contract",
+        "achievement-static-preview-v03-e1",
+        "achievement-info-entry-r2-shd-reverify"
+      ],
+      "visibility": "metadata_preview",
+      "notes": "accepted bounded achievements, not public release claims"
+    },
+    {
+      "route": "/status/gates/",
+      "title": "Активные блокеры и gates",
+      "bucket": "gates",
+      "source_ids": [
+        "entity-ai-resource-boosters-live-gate",
+        "telegram-phase1b-host-runtime-gate"
+      ],
+      "visibility": "metadata_preview",
+      "notes": "show exact verdict/reason class, not private operational details"
+    },
+    {
+      "route": "/status/log16/",
+      "title": "log16: текущая стадия",
+      "bucket": "status",
+      "source_ids": [
+        "log16-current-stage"
+      ],
+      "visibility": "candidate_preview",
+      "notes": "must show STALE_RISK + DRAFT"
+    },
+    {
+      "route": "/participate/",
+      "title": "Участие",
+      "bucket": "participation",
+      "source_ids": [
+        "participation-how-to-start",
+        "participation-task-classes"
+      ],
+      "visibility": "candidate_preview",
+      "notes": "draft/skeleton; do not imply open recruitment commitments"
+    },
+    {
+      "route": "/cooperation/",
+      "title": "Кооперация",
+      "bucket": "participation",
+      "source_ids": [],
+      "visibility": "blocked_empty_state",
+      "notes": "no admitted public-safe cooperation projection in r0.1; show 'public projection not yet verified'"
+    },
+    {
+      "route": "/knowledge/",
+      "title": "База знаний",
+      "bucket": "knowledge",
+      "source_ids": [
+        "knowledge-public-index",
+        "knowledge-answer-cards",
+        "faq-index"
+      ],
+      "visibility": "candidate_preview",
+      "notes": "working/draft content only"
+    },
+    {
+      "route": "/publications/",
+      "title": "Публикации",
+      "bucket": "publications",
+      "source_ids": [
+        "publication-boundary"
+      ],
+      "visibility": "candidate_boundary_only",
+      "notes": "no approved publication feed admitted in r0.1; show boundary and empty-state"
+    },
+    {
+      "route": "/history/",
+      "title": "История и superseded",
+      "bucket": "history",
+      "source_ids": [
+        "historical-static-preview-v01-review",
+        "historical-static-preview-v02-review"
+      ],
+      "visibility": "historical_preview",
+      "notes": "not in primary current navigation"
+    },
+    {
+      "route": "/withdrawn/",
+      "title": "Отозванные материалы",
+      "bucket": "withdrawn",
+      "source_ids": [],
+      "visibility": "empty_state",
+      "notes": "no verified withdrawn public-safe object admitted in r0.1; bucket remains explicit"
+    }
+  ]
+}

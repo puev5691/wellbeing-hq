@@ -1,0 +1,41 @@
+{
+  "assembly_commit": "d78b7c549d92f51f1b485b02469a65f8272e6f2b",
+  "builder_sha256": "d2d63513a23e791232885adc5c6afdfc50b4e3c9d4f7a215ace97f10b6e9953f",
+  "credentials": "none",
+  "deployment": "none",
+  "inputs": {
+    "content-eligibility-ledger.json": "c8dbac045b51cf2f5315b0b29ae74f5eea393246",
+    "presentation-spec.md": "7ab2d9555b57499ee457ce2abc1142586020742b",
+    "route-map.json": "94c79cb035387986e8147a6ea52d41b3e7e30be5",
+    "route-presentation-delta.json": "47648448fa632f45e79fb4a7d5b0a1028bc6d774"
+  },
+  "package": "public-info-portal-static-build-r01",
+  "pages_dns_https": "unchanged",
+  "presentation_commit": "d305ebccfe845aebefda86979fa9ea11e056d3c6",
+  "prewrite_head": "9e8f8c16ea9692f7b206df3f39ee853b7116c206",
+  "project_time": "omitted",
+  "public_ready": false,
+  "red_review_commit": "8484b16dbb6d46833af4096f8f9b5f8e442aec1a",
+  "reproducibility": {
+    "build1_exit": 0,
+    "build2_exit": 0,
+    "identical": true,
+    "schema": "portal-static-reproducibility-r01",
+    "tree_digest_1": "4a344eed5b0a3fe01760dfb4b2c797c818e3bc85e4ff1210bfe19f62e6ab0f25",
+    "tree_digest_2": "4a344eed5b0a3fe01760dfb4b2c797c818e3bc85e4ff1210bfe19f62e6ab0f25"
+  },
+  "routes_count": 28,
+  "site_files_count": 31,
+  "site_tree_digest": "4a344eed5b0a3fe01760dfb4b2c797c818e3bc85e4ff1210bfe19f62e6ab0f25",
+  "state_database": false,
+  "status": "candidate_pending_independent_verify",
+  "task_commit": "deb06cece3c4f10ed41562b010c7e14547d00b54",
+  "test_builder_sha256": "86b4f2474655a4c6a1ab6b6a6853815c5d4e74602ad5382bb40f984e147def90",
+  "test_result": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 9,
+    "verdict": "PASS_PORTAL_STATIC_BUILD_TESTS"
+  }
+}
