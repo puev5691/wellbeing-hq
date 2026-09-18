@@ -1,0 +1,102 @@
+{
+  "package_id": "telegram-facilitator-semantic-input-contract-r01",
+  "status": "candidate_pending_independent_verify",
+  "source_location": "puev5691/wellbeing-hq:entities/koder/outbox/telegram-facilitator-semantic-input-contract-r01/",
+  "generated_files": [
+    "MANIFEST.json",
+    "README.md",
+    "fixtures.py",
+    "semantic_input.py",
+    "test.stderr.txt",
+    "test.stdout.json",
+    "test_semantic.py"
+  ],
+  "files": [
+    {
+      "file": "README.md",
+      "git_blob": "026f9d20603a48c79c8d45cae0e9c15f0617684c",
+      "sha256": "0d4e743e367919b46a8a0bd749afc2f08d388b86089ae9aa686439d75ebee84b",
+      "bytes": 20025
+    },
+    {
+      "file": "fixtures.py",
+      "git_blob": "b61f1f73b58d774eba8b68f5fa084273f6cae38a",
+      "sha256": "44c6a4d3b975dfe143b6140374e312c4b0f12314d856f65d739c9dfa9dfd7b79",
+      "bytes": 4552
+    },
+    {
+      "file": "semantic_input.py",
+      "git_blob": "5fe4b794ae88665b8999e055a3b427116a2c8fab",
+      "sha256": "dab4746b25a62d07b7d84d5ee933bfb978d420593079a98c99552c485acf73f9",
+      "bytes": 17417
+    },
+    {
+      "file": "test.stderr.txt",
+      "git_blob": "0bc017121346cbde46fc3e1f7befa74a442a88a4",
+      "sha256": "0cea82967c53a0f4d5d6a440bbc337210e710a38487c53eff58c65ed2267af28",
+      "bytes": 4619
+    },
+    {
+      "file": "test.stdout.json",
+      "git_blob": "a0be5b77d6d52f0e6d870052b03c16cffffc0a9d",
+      "sha256": "24fa5eabc324e9cee112ff7ff08264cd6896a7c965e17ca9719de5488e563577",
+      "bytes": 449
+    },
+    {
+      "file": "test_semantic.py",
+      "git_blob": "52f2ac9bc3ead3b16b117ea1577e1b40de17e228",
+      "sha256": "521c84dd6eb4e8a8b6edba5c45fac4a804fe595aa81cd4a492278ce1c2a2e483",
+      "bytes": 24222
+    }
+  ],
+  "dependencies": [
+    {
+      "file": "facilitator_core.py",
+      "repository": "puev5691/wellbeing-hq",
+      "path": "entities/koder/outbox/telegram-facilitator-core-r01/facilitator_core.py",
+      "commit": "0020dff62785a5fd0048b0696728b3518812dcd1",
+      "git_blob": "ad980b0de8a00c1d134823cebc49059a0811f3fa",
+      "sha256": "33f280e9cc56534996d0706de7e3605c0247ff1af8b71ea985fdd7613d47b64a",
+      "bytes": 24982
+    }
+  ],
+  "test_command": "python3 -I -B candidate/test_semantic.py --core deps/facilitator_core.py",
+  "test_result": {
+    "credentials_used": false,
+    "errors": 0,
+    "failures": 0,
+    "fixture_semantic_inputs": 13,
+    "independent_review": "pending",
+    "operation_counters": {
+      "database_open_attempts": 0,
+      "denied_reads": 0,
+      "network_attempts": 0,
+      "process_attempts": 0,
+      "write_attempts": 0
+    },
+    "provider_calls": 0,
+    "skipped": 0,
+    "telegram_api_calls": 0,
+    "test_methods": 39,
+    "uid": 1000,
+    "verdict": "PASS_TELEGRAM_FACILITATOR_SEMANTIC_INPUT_CONTRACT_R01_READY_FOR_INDEPENDENT_VERIFY"
+  },
+  "test_exit_code": 0,
+  "task_commit": "517aab86ec383e6b4c9446eaf1863decb45ba2eb",
+  "task_blob": "8a2d1bcc4dd319fee8dfff9a5d8ea6e0d2e66b8f",
+  "core_independent_pass": "947ea4b76d367774fbc2ae37b61d49e0e89d55bc",
+  "bridge_independent_pass": "c0ed7057da344bf6b10b0718960c36962b8d9536",
+  "recipients": [
+    "koordinator"
+  ],
+  "copied_to": "local candidate; immutable publication recorded in report",
+  "operator_action": "Independent verification; no manual transfer of files required.",
+  "unresolved_questions": [
+    "upstream privacy gate not implemented",
+    "real source/current-writer/pseudonym verification",
+    "runtime retention clock and revocation",
+    "real-data integration not authorized"
+  ],
+  "integrity": "MANIFEST is identified by the package Git tree; no circular self-hash.",
+  "project_time": "omitted"
+}

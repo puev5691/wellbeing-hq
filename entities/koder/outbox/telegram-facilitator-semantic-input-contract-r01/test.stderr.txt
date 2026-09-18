@@ -1,0 +1,44 @@
+test_admission_binds_every_semantic_dimension (__main__.SemanticTests.test_admission_binds_every_semantic_dimension) ... ok
+test_all_source_expiry_and_memory_policy_inherit (__main__.SemanticTests.test_all_source_expiry_and_memory_policy_inherit) ... ok
+test_allowlist_and_unknown_categories (__main__.SemanticTests.test_allowlist_and_unknown_categories) ... ok
+test_bad_json_size_duplicate_and_unicode (__main__.SemanticTests.test_bad_json_size_duplicate_and_unicode) ... ok
+test_changed_content_needs_changed_source_and_new_admission (__main__.SemanticTests.test_changed_content_needs_changed_source_and_new_admission) ... ok
+test_claim_limits_and_unknown_fields (__main__.SemanticTests.test_claim_limits_and_unknown_fields) ... ok
+test_claim_not_verified_and_agreement_not_consensus (__main__.SemanticTests.test_claim_not_verified_and_agreement_not_consensus) ... ok
+test_core_identity_mismatch_before_execution (__main__.SemanticTests.test_core_identity_mismatch_before_execution) ... ok
+test_declared_categories_and_native_event (__main__.SemanticTests.test_declared_categories_and_native_event) ... ok
+test_determinism_no_input_mutation_and_core_duplicate (__main__.SemanticTests.test_determinism_no_input_mutation_and_core_duplicate) ... ok
+test_end_to_end_candidates (__main__.SemanticTests.test_end_to_end_candidates) ... ok
+test_exact_admission_required (__main__.SemanticTests.test_exact_admission_required) ... ok
+test_exact_core_and_typed_input (__main__.SemanticTests.test_exact_core_and_typed_input) ... ok
+test_exact_sources_and_semantic_provenance (__main__.SemanticTests.test_exact_sources_and_semantic_provenance) ... ok
+test_excerpt_and_claim_are_literal (__main__.SemanticTests.test_excerpt_and_claim_are_literal) ... ok
+test_expired_input_checked_against_current_tick (__main__.SemanticTests.test_expired_input_checked_against_current_tick) ... ok
+test_finite_local_bounds_types (__main__.SemanticTests.test_finite_local_bounds_types) ... ok
+test_frozen_types_and_redacted_result (__main__.SemanticTests.test_frozen_types_and_redacted_result) ... ok
+test_invalid_proof_and_minimization (__main__.SemanticTests.test_invalid_proof_and_minimization) ... ok
+test_minimized_memory_only_and_core_export_blocked (__main__.SemanticTests.test_minimized_memory_only_and_core_export_blocked) ... ok
+test_missing_fields_all_levels (__main__.SemanticTests.test_missing_fields_all_levels) ... ok
+test_missing_or_derived_analysis_policy (__main__.SemanticTests.test_missing_or_derived_analysis_policy) ... ok
+test_missing_semantic_problem_produces_question_not_fictional_task (__main__.SemanticTests.test_missing_semantic_problem_produces_question_not_fictional_task) ... ok
+test_nested_identity_fields_closed (__main__.SemanticTests.test_nested_identity_fields_closed) ... ok
+test_no_automatic_core_mutation_or_dispatch (__main__.SemanticTests.test_no_automatic_core_mutation_or_dispatch) ... ok
+test_no_inference_from_content (__main__.SemanticTests.test_no_inference_from_content) ... ok
+test_participant_confirmation_and_binding (__main__.SemanticTests.test_participant_confirmation_and_binding) ... ok
+test_participant_optional_scoped_and_not_exported (__main__.SemanticTests.test_participant_optional_scoped_and_not_exported) ... ok
+test_participant_wrong_scope_scheme_identity_and_policy (__main__.SemanticTests.test_participant_wrong_scope_scheme_identity_and_policy) ... ok
+test_privacy_classes_and_downgrade_closed (__main__.SemanticTests.test_privacy_classes_and_downgrade_closed) ... ok
+test_proof_time_and_retention_limit (__main__.SemanticTests.test_proof_time_and_retention_limit) ... ok
+test_raw_telegram_undeclared_identity_and_action_fields (__main__.SemanticTests.test_raw_telegram_undeclared_identity_and_action_fields) ... ok
+test_rejected_input_never_calls_verifier (__main__.SemanticTests.test_rejected_input_never_calls_verifier) ... ok
+test_review_does_not_make_task_executable (__main__.SemanticTests.test_review_does_not_make_task_executable) ... ok
+test_semantic_source_collision (__main__.SemanticTests.test_semantic_source_collision) ... ok
+test_source_scope_duplicates_and_missing (__main__.SemanticTests.test_source_scope_duplicates_and_missing) ... ok
+test_sources_and_code_unchanged (__main__.SemanticTests.test_sources_and_code_unchanged) ... ok
+test_targets_are_explicit_and_core_checks_existence (__main__.SemanticTests.test_targets_are_explicit_and_core_checks_existence) ... ok
+test_text_utf8_limits_and_types (__main__.SemanticTests.test_text_utf8_limits_and_types) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 1.162s
+
+OK
