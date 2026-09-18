@@ -1,0 +1,290 @@
+{
+  "files": [
+    {
+      "bytes": 1736,
+      "path": "MANIFEST.json",
+      "sha256": "d818dd10b15b13b3a2e6dde02c5b80730c06d7ab4614831bcbf76828cc1080ca"
+    },
+    {
+      "bytes": 852,
+      "path": "README.md",
+      "sha256": "3891b9add14deedf8684c8b7b5e3923f4800bd188f09ece9e7e8ac52369a6827"
+    },
+    {
+      "bytes": 15175,
+      "path": "builder.py",
+      "sha256": "c25a8f55fcc7a74a9775c6cf939081cb4f957f34a6da0f2884e6ed574c00dff7"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/build-1.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 123,
+      "path": "evidence/build-1.stdout.json",
+      "sha256": "087cf50c232033e7769ec4c2f967bbc65831c0020555bb6049a036a942728021"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/build-2.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 123,
+      "path": "evidence/build-2.stdout.json",
+      "sha256": "087cf50c232033e7769ec4c2f967bbc65831c0020555bb6049a036a942728021"
+    },
+    {
+      "bytes": 159,
+      "path": "evidence/presentation-readback.json",
+      "sha256": "7a04d1e523bf6d721e9487e9792b3c99fd2316bb37ab22b7bd8f4e107115d5a4"
+    },
+    {
+      "bytes": 285,
+      "path": "evidence/reproducibility.json",
+      "sha256": "8a39e370742c7c61aaa2364606f94b6ae36ff2ee73fe75641da045b3f90c69c3"
+    },
+    {
+      "bytes": 5720,
+      "path": "evidence/site-readback.json",
+      "sha256": "a6eec9678bb01a486d88a6bde295641f4a889dd08776b957548b8edb41f08c06"
+    },
+    {
+      "bytes": 1099,
+      "path": "evidence/test.stderr.txt",
+      "sha256": "27b9cafbfc197444bc72dafa42e421589d4c43cf6ac509a69aa1e9e031830e14"
+    },
+    {
+      "bytes": 101,
+      "path": "evidence/test.stdout.json",
+      "sha256": "fb833ef2ad8978999e76662227098b7b66e657d9d3a0a8be915be672796c04f8"
+    },
+    {
+      "bytes": 2368,
+      "path": "inputs/content/faq-index.md",
+      "sha256": "ddc8ae98e6b510a15837a58b175319cd3f94ae5d490fac5939c02e6c54b9df44"
+    },
+    {
+      "bytes": 1059,
+      "path": "inputs/content/knowledge-answer-cards.md",
+      "sha256": "61817608d3b2b3d329338ed7330315348ef971602e7599d7078cd4fed4ab9ca6"
+    },
+    {
+      "bytes": 1187,
+      "path": "inputs/content/knowledge-public-index.md",
+      "sha256": "a24a06a65efd83bdd68b88ecc65f213e9ffbeb40f0bac148966443f7432ea805"
+    },
+    {
+      "bytes": 3391,
+      "path": "inputs/content/log16-current-stage.md",
+      "sha256": "b4bf807c9447717d3e963a2acf69d5b87e9c71a3fc77e89722004730b8839cea"
+    },
+    {
+      "bytes": 1396,
+      "path": "inputs/content/participation-how-to-start.md",
+      "sha256": "730812e4f55ac1e41568138ca8e52142d0199964a97bd97362e5b545dde9f907"
+    },
+    {
+      "bytes": 1281,
+      "path": "inputs/content/participation-task-classes.md",
+      "sha256": "9ceb136cbf41af32ebf3803e9aa5e906b6a0838b00ea5d9744db1618190d6ef9"
+    },
+    {
+      "bytes": 1360,
+      "path": "inputs/content/project-overview-log16.md",
+      "sha256": "7d830671792d09868b71f5fa50f64c65419057b0ddbbd1886e9a9aa4e9b9700a"
+    },
+    {
+      "bytes": 1688,
+      "path": "inputs/content/project-overview-wellbeing.md",
+      "sha256": "d6833f60c8eeca4e0befd573ecf32bbf65855d579576fd041fd2319a8785cb5a"
+    },
+    {
+      "bytes": 1533,
+      "path": "inputs/content/publication-boundary.md",
+      "sha256": "115ab38137407f578dd52a6f267fe78eb8780f9a432b9041f92b22c8494026ce"
+    },
+    {
+      "bytes": 20281,
+      "path": "inputs/content-eligibility-ledger.json",
+      "sha256": "8fb3743948ae968455fc5ebaf096a3d9884e5ff40c169bec89475792a2fb167d"
+    },
+    {
+      "bytes": 5319,
+      "path": "inputs/presentation-spec.md",
+      "sha256": "3f36a697520d8bbd55ee69c919ee824f26160f2655780c1361846f7213c3259b"
+    },
+    {
+      "bytes": 4248,
+      "path": "inputs/route-map.json",
+      "sha256": "0792bded2fca112a4c6ed11e4944836afc8dc7f1edfb0b76c5d8f4e7bec0619d"
+    },
+    {
+      "bytes": 1715,
+      "path": "inputs/route-presentation-delta.json",
+      "sha256": "9b3649fb1bfa7ce5e8f96fc81b5581acfa2e23f5a53b4a7f3f3392b287768c1f"
+    },
+    {
+      "bytes": 5690,
+      "path": "site/achievements/index.html",
+      "sha256": "66529afe5e61accc8e15d852e8ec7ab17eaf0efc7526457b47535136d199368c"
+    },
+    {
+      "bytes": 2189,
+      "path": "site/achievements/information-entry-r2-reverification/index.html",
+      "sha256": "5654d477503d4c6fba09fa5de8a5b600fa7b056648e36f61ffbcec2177b08a91"
+    },
+    {
+      "bytes": 2163,
+      "path": "site/achievements/information-entry-stage-b/index.html",
+      "sha256": "d91788383cf134a698dbf12cefd9398fe191b5a421a2e6afadf6d2d819843cb9"
+    },
+    {
+      "bytes": 2032,
+      "path": "site/achievements/static-preview-contract/index.html",
+      "sha256": "53b0b21f2e848222d763c4a86a3337d262478808fa4edff52a289fbc78d50d53"
+    },
+    {
+      "bytes": 2076,
+      "path": "site/achievements/static-preview-v03/index.html",
+      "sha256": "9994bc51ac6e70c9e352d90d932c74aa39185016302381b7568d3597e4afbe77"
+    },
+    {
+      "bytes": 939,
+      "path": "site/assets/style.css",
+      "sha256": "d3765b66c5eccd4070c531d71e48ae1cf605646f46785e631ccb89cc7967ae47"
+    },
+    {
+      "bytes": 5080,
+      "path": "site/build-manifest.json",
+      "sha256": "0817b5ca5220b2960a3e1d5dbd38ad232de983301c536677357df80dc44a17fe"
+    },
+    {
+      "bytes": 1263,
+      "path": "site/cooperation/index.html",
+      "sha256": "e84e632afb77f852ab83faa8ade46a293e2472041e50c1588301072bbe8a4a55"
+    },
+    {
+      "bytes": 2180,
+      "path": "site/developments/entity-ai-resource-boosters/index.html",
+      "sha256": "3fec21db30a28942b2aac91895d09c4ee1e97ae09cf6855b81aa2d5d9bdd3c34"
+    },
+    {
+      "bytes": 4666,
+      "path": "site/developments/index.html",
+      "sha256": "b109ec97622254d8a5da59dddd529c953de45165906ba800111ae068ee851073"
+    },
+    {
+      "bytes": 2129,
+      "path": "site/developments/public-information-portal/index.html",
+      "sha256": "e4e87d8c075644d8103fa1c2526c78986e9a45e4bcace551e429065d5fc5044a"
+    },
+    {
+      "bytes": 2097,
+      "path": "site/developments/telegram-facilitator/index.html",
+      "sha256": "557c2d8b67807edcc9471fc5ec4558fb62e3723f037749e4cebe824f3e641ebc"
+    },
+    {
+      "bytes": 4511,
+      "path": "site/faq/index.html",
+      "sha256": "a5aaa528f1694d1e11dcf3d67af0f45e41d542d58f694472a672c29d5453f6cd"
+    },
+    {
+      "bytes": 3311,
+      "path": "site/history/index.html",
+      "sha256": "0f904f3ddb23d03ec4a019a9f2a9035ecdd1cc071dd1ae46f3760a9583616678"
+    },
+    {
+      "bytes": 2020,
+      "path": "site/history/information-entry/static-preview-v01/index.html",
+      "sha256": "d45c704b649b4be921b4c3259a50fea92413be71c196474c061b8bb5e15cc60d"
+    },
+    {
+      "bytes": 2016,
+      "path": "site/history/information-entry/static-preview-v02/index.html",
+      "sha256": "605f6450d71478d2b988c28366af5b326fd9e7fcf725ea097d1da941b4259189"
+    },
+    {
+      "bytes": 3487,
+      "path": "site/index.html",
+      "sha256": "f0e30447956e2b3015d874c2133a0560c986e5a6108ad6edfcd6b539d653a9f1"
+    },
+    {
+      "bytes": 3134,
+      "path": "site/knowledge/answers/index.html",
+      "sha256": "712bb205f71290fced16e7d7f2b2f98d28e717cbaad74064f348a09a12408a0b"
+    },
+    {
+      "bytes": 5514,
+      "path": "site/knowledge/index.html",
+      "sha256": "0c1cc01622dd7e3144e2d484f033e1d5ded7361b293f4966335cbbb915dd9390"
+    },
+    {
+      "bytes": 4678,
+      "path": "site/participate/index.html",
+      "sha256": "e55866ea9e9756215d8d048955e1df17c11084dd275a49b0762bab0caad21cb7"
+    },
+    {
+      "bytes": 3462,
+      "path": "site/participate/task-classes/index.html",
+      "sha256": "c612f68be80ddb0e8f96abd848ecc14f30e40fd2861681bc6b75eda11f169b56"
+    },
+    {
+      "bytes": 3302,
+      "path": "site/project/index.html",
+      "sha256": "09f6e41999451067a315bf1b603abd9dc222c0e5be38494c7ec0327b731e4f17"
+    },
+    {
+      "bytes": 3502,
+      "path": "site/project/log16/index.html",
+      "sha256": "5b5ea953714bbcd986518b37b974e6e40811abf536e233b10315f28d3986ddf0"
+    },
+    {
+      "bytes": 3857,
+      "path": "site/project/what-is-wellbeing/index.html",
+      "sha256": "f5546ffbed636d558129b5b42069f1be1e750e64f2fa55603c2e9009641a9d3a"
+    },
+    {
+      "bytes": 3854,
+      "path": "site/publications/index.html",
+      "sha256": "cbe3a4f99e08b6433e2edd5a97e7b147fa1901c6e0553cb391c038221e540267"
+    },
+    {
+      "bytes": 7162,
+      "path": "site/routes.json",
+      "sha256": "55119277f590ffc69ee1af00e1c79915c13e044c309d779edfe67438e7d3cf6e"
+    },
+    {
+      "bytes": 2275,
+      "path": "site/status/gates/entity-ai-resource-boosters/index.html",
+      "sha256": "56376ecfe8192430f675a505d2ac7d9e241cbe2059c63de85d4083e9ea1a9c9f"
+    },
+    {
+      "bytes": 3596,
+      "path": "site/status/gates/index.html",
+      "sha256": "e9d269868edc283c87c88570e7e0b9b750cd3aa5b8e41b5001e0b0c68d5279b9"
+    },
+    {
+      "bytes": 2128,
+      "path": "site/status/gates/telegram-phase1b-host-runtime/index.html",
+      "sha256": "f6c5d5be102f3677fc7e3e8fada5cdc9b1d60a06a5f7aec029f58b6796d3bcd0"
+    },
+    {
+      "bytes": 5729,
+      "path": "site/status/log16/index.html",
+      "sha256": "48844c102434e9dd5d7d2cd2d2ace6a3ba53c25ba6a8936ea6d15e44f0a1c1b6"
+    },
+    {
+      "bytes": 1346,
+      "path": "site/withdrawn/index.html",
+      "sha256": "19a14f43d380c7b9c0c9faae6011cda5b877afdf7190a26e85acf4b3155bcf32"
+    },
+    {
+      "bytes": 7495,
+      "path": "test_builder.py",
+      "sha256": "831749b2256410a2339cb4eb6f3b08fed8360ebafe9b70633f7d2a6496ff23e8"
+    }
+  ],
+  "schema": "portal-presentation-fix-artifact-hashes-r01"
+}

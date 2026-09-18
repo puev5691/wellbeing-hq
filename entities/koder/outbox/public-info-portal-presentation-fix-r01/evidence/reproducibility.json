@@ -1,0 +1,8 @@
+{
+  "build1_exit": 0,
+  "build2_exit": 0,
+  "digest1": "0ca0229cc04685cd93ca27ee6a071c5440716780f798061c4f29beda68a84f1f",
+  "digest2": "0ca0229cc04685cd93ca27ee6a071c5440716780f798061c4f29beda68a84f1f",
+  "identical": true,
+  "schema": "portal-presentation-fix-reproducibility-r01"
+}

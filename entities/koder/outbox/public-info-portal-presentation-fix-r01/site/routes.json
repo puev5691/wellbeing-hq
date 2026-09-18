@@ -1,0 +1,238 @@
+{
+  "public_ready": false,
+  "routes": [
+    {
+      "file": "index.html",
+      "route": "/",
+      "source_ids": [
+        "project-overview-wellbeing",
+        "public-info-portal-current"
+      ],
+      "title": "БЛАГОПОЛУЧИЕ — информационный портал"
+    },
+    {
+      "file": "achievements/index.html",
+      "route": "/achievements/",
+      "source_ids": [
+        "achievement-stage-b-baseline",
+        "achievement-static-preview-contract",
+        "achievement-static-preview-v03-e1",
+        "achievement-info-entry-r2-shd-reverify"
+      ],
+      "title": "Завершённые проверенные рубежи"
+    },
+    {
+      "file": "achievements/information-entry-r2-reverification/index.html",
+      "route": "/achievements/information-entry-r2-reverification/",
+      "source_ids": [
+        "achievement-info-entry-r2-shd-reverify"
+      ],
+      "title": "Межслойная проверка информационного входа r2"
+    },
+    {
+      "file": "achievements/information-entry-stage-b/index.html",
+      "route": "/achievements/information-entry-stage-b/",
+      "source_ids": [
+        "achievement-stage-b-baseline"
+      ],
+      "title": "Базовая модель информационного входа"
+    },
+    {
+      "file": "achievements/static-preview-contract/index.html",
+      "route": "/achievements/static-preview-contract/",
+      "source_ids": [
+        "achievement-static-preview-contract"
+      ],
+      "title": "Контракт статического preview"
+    },
+    {
+      "file": "achievements/static-preview-v03/index.html",
+      "route": "/achievements/static-preview-v03/",
+      "source_ids": [
+        "achievement-static-preview-v03-e1"
+      ],
+      "title": "Повторная проверка Static Preview v0.3 E1"
+    },
+    {
+      "file": "cooperation/index.html",
+      "route": "/cooperation/",
+      "source_ids": [],
+      "title": "Кооперация"
+    },
+    {
+      "file": "developments/index.html",
+      "route": "/developments/",
+      "source_ids": [
+        "public-info-portal-current",
+        "entity-ai-resource-boosters",
+        "telegram-facilitator-direction"
+      ],
+      "title": "Текущие разработки"
+    },
+    {
+      "file": "developments/entity-ai-resource-boosters/index.html",
+      "route": "/developments/entity-ai-resource-boosters/",
+      "source_ids": [
+        "entity-ai-resource-boosters"
+      ],
+      "title": "Направление разработки AI-ресурсов"
+    },
+    {
+      "file": "developments/public-information-portal/index.html",
+      "route": "/developments/public-information-portal/",
+      "source_ids": [
+        "public-info-portal-current"
+      ],
+      "title": "Информационный портал"
+    },
+    {
+      "file": "developments/telegram-facilitator/index.html",
+      "route": "/developments/telegram-facilitator/",
+      "source_ids": [
+        "telegram-facilitator-direction"
+      ],
+      "title": "Telegram-фасилитатор"
+    },
+    {
+      "file": "faq/index.html",
+      "route": "/faq/",
+      "source_ids": [
+        "faq-index"
+      ],
+      "title": "Частые вопросы"
+    },
+    {
+      "file": "history/index.html",
+      "route": "/history/",
+      "source_ids": [
+        "historical-static-preview-v01-review",
+        "historical-static-preview-v02-review"
+      ],
+      "title": "История и заменённые версии"
+    },
+    {
+      "file": "history/information-entry/static-preview-v01/index.html",
+      "route": "/history/information-entry/static-preview-v01/",
+      "source_ids": [
+        "historical-static-preview-v01-review"
+      ],
+      "title": "История Static Preview v0.1"
+    },
+    {
+      "file": "history/information-entry/static-preview-v02/index.html",
+      "route": "/history/information-entry/static-preview-v02/",
+      "source_ids": [
+        "historical-static-preview-v02-review"
+      ],
+      "title": "История Static Preview v0.2"
+    },
+    {
+      "file": "knowledge/index.html",
+      "route": "/knowledge/",
+      "source_ids": [
+        "knowledge-public-index",
+        "knowledge-answer-cards",
+        "faq-index"
+      ],
+      "title": "База знаний"
+    },
+    {
+      "file": "knowledge/answers/index.html",
+      "route": "/knowledge/answers/",
+      "source_ids": [
+        "knowledge-answer-cards"
+      ],
+      "title": "Карточки ответов"
+    },
+    {
+      "file": "participate/index.html",
+      "route": "/participate/",
+      "source_ids": [
+        "participation-how-to-start",
+        "participation-task-classes"
+      ],
+      "title": "Участие"
+    },
+    {
+      "file": "participate/task-classes/index.html",
+      "route": "/participate/task-classes/",
+      "source_ids": [
+        "participation-task-classes"
+      ],
+      "title": "Классы задач для участия"
+    },
+    {
+      "file": "project/index.html",
+      "route": "/project/",
+      "source_ids": [
+        "project-overview-wellbeing",
+        "project-overview-log16"
+      ],
+      "title": "О проекте"
+    },
+    {
+      "file": "project/log16/index.html",
+      "route": "/project/log16/",
+      "source_ids": [
+        "project-overview-log16"
+      ],
+      "title": "О направлении log16"
+    },
+    {
+      "file": "project/what-is-wellbeing/index.html",
+      "route": "/project/what-is-wellbeing/",
+      "source_ids": [
+        "project-overview-wellbeing"
+      ],
+      "title": "О проекте «БЛАГОПОЛУЧИЕ»"
+    },
+    {
+      "file": "publications/index.html",
+      "route": "/publications/",
+      "source_ids": [
+        "publication-boundary"
+      ],
+      "title": "Публикации"
+    },
+    {
+      "file": "status/gates/index.html",
+      "route": "/status/gates/",
+      "source_ids": [
+        "entity-ai-resource-boosters-live-gate",
+        "telegram-phase1b-host-runtime-gate"
+      ],
+      "title": "Ожидающие проверки и ограничения"
+    },
+    {
+      "file": "status/gates/entity-ai-resource-boosters/index.html",
+      "route": "/status/gates/entity-ai-resource-boosters/",
+      "source_ids": [
+        "entity-ai-resource-boosters-live-gate"
+      ],
+      "title": "AI-ресурсы: ожидающие проверки"
+    },
+    {
+      "file": "status/gates/telegram-phase1b-host-runtime/index.html",
+      "route": "/status/gates/telegram-phase1b-host-runtime/",
+      "source_ids": [
+        "telegram-phase1b-host-runtime-gate"
+      ],
+      "title": "Telegram Phase 1B: техническая подготовка"
+    },
+    {
+      "file": "status/log16/index.html",
+      "route": "/status/log16/",
+      "source_ids": [
+        "log16-current-stage"
+      ],
+      "title": "log16: текущая стадия"
+    },
+    {
+      "file": "withdrawn/index.html",
+      "route": "/withdrawn/",
+      "source_ids": [],
+      "title": "Отозванные материалы"
+    }
+  ],
+  "schema": "portal-static-routes-r01"
+}

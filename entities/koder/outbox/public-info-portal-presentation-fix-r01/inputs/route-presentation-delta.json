@@ -1,0 +1,41 @@
+{
+  "schema": "public-info-portal-presentation-delta-r02",
+  "presentation_only": true,
+  "public_ready": false,
+  "routes": [
+    {
+      "route": "/status/gates/",
+      "public_title": "Ожидающие проверки и ограничения",
+      "technical_bucket": "gates"
+    },
+    {
+      "route": "/history/",
+      "public_title": "История и заменённые версии",
+      "technical_bucket": "history"
+    },
+    {
+      "route": "/cooperation/",
+      "empty_state": "Публичное представление кооперации ещё не прошло необходимую проверку. Это не означает отсутствие самой работы по кооперации."
+    },
+    {
+      "route": "/publications/",
+      "empty_state": "Для этой версии ещё не выбран утверждённый публичный индекс публикаций."
+    },
+    {
+      "route": "/withdrawn/",
+      "empty_state": "В эту версию не включены проверенные публично допустимые объекты данной категории. Это не является утверждением, что отозванных материалов вообще нет."
+    }
+  ],
+  "badges": {
+    "draft": "Черновик",
+    "working": "Рабочий материал",
+    "working skeleton": "Рабочий каркас",
+    "skeleton": "Каркас",
+    "candidate": "Кандидат",
+    "STALE_RISK": "Актуальность не подтверждена"
+  },
+  "provenance": {
+    "placement": "secondary_or_collapsible",
+    "preserve_exact_machine_metadata": true
+  }
+}

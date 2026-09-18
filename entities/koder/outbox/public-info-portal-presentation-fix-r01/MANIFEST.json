@@ -1,0 +1,49 @@
+{
+  "builder_sha256": "c25a8f55fcc7a74a9775c6cf939081cb4f957f34a6da0f2884e6ed574c00dff7",
+  "candidate_entries": 9,
+  "deployment": "none",
+  "package": "public-info-portal-presentation-fix-r01",
+  "pinned_inputs": {
+    "ledger": "c8dbac045b51cf2f5315b0b29ae74f5eea393246",
+    "presentation_delta": "47648448fa632f45e79fb4a7d5b0a1028bc6d774",
+    "presentation_spec": "7ab2d9555b57499ee457ce2abc1142586020742b",
+    "route_map": "94c79cb035387986e8147a6ea52d41b3e7e30be5"
+  },
+  "presentation_readback": {
+    "bad_primary_labels": [],
+    "candidate_badges_missing": [],
+    "candidate_entries": 9,
+    "routes": 28,
+    "schema": "portal-presentation-fix-readback-r01"
+  },
+  "project_time": "omitted",
+  "public_ready": false,
+  "reproducibility": {
+    "build1_exit": 0,
+    "build2_exit": 0,
+    "digest1": "0ca0229cc04685cd93ca27ee6a071c5440716780f798061c4f29beda68a84f1f",
+    "digest2": "0ca0229cc04685cd93ca27ee6a071c5440716780f798061c4f29beda68a84f1f",
+    "identical": true,
+    "schema": "portal-presentation-fix-reproducibility-r01"
+  },
+  "routes_count": 28,
+  "shd_failure": {
+    "commit": "0710cdbb3c0817e5f1dba2df414a849af6f1cb34",
+    "verdict": "FAIL_SHD_PORTAL_STATIC_BUILD_R01_PRESENTATION_BOUNDARY"
+  },
+  "source_candidate": {
+    "commit": "224fbb3ba5331e89d335b368bcb87c6705265b00",
+    "tree": "ba19e4b9edbcbdf0d1155fdc47654917c0c8f77f"
+  },
+  "state_database": false,
+  "status": "candidate_pending_independent_reverify",
+  "task_commit": "4778a44e63da414f67681f30755350500f8a6463",
+  "test_sha256": "831749b2256410a2339cb4eb6f3b08fed8360ebafe9b70633f7d2a6496ff23e8",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 12,
+    "verdict": "PASS_PORTAL_STATIC_BUILD_TESTS"
+  }
+}
