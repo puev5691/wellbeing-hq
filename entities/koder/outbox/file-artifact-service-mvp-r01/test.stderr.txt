@@ -1,0 +1,17 @@
+test_compact_result_no_paths_or_content (__main__.T.test_compact_result_no_paths_or_content) ... ok
+test_deterministic_package_and_archive (__main__.T.test_deterministic_package_and_archive) ... ok
+test_diff (__main__.T.test_diff) ... ok
+test_git_adapter_disabled (__main__.T.test_git_adapter_disabled) ... ok
+test_hash_mismatch_fail_closed (__main__.T.test_hash_mismatch_fail_closed) ... ok
+test_manifest_inventory_exact (__main__.T.test_manifest_inventory_exact) ... ok
+test_missing_source (__main__.T.test_missing_source) ... ok
+test_no_subprocess_needed (__main__.T.test_no_subprocess_needed) ... ok
+test_readback (__main__.T.test_readback) ... ok
+test_request_schema_closed (__main__.T.test_request_schema_closed) ... ok
+test_size_mismatch_fail_closed (__main__.T.test_size_mismatch_fail_closed) ... ok
+test_zero_network (__main__.T.test_zero_network) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.024s
+
+OK
