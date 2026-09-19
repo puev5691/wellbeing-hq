@@ -1,0 +1,29 @@
+{
+  "schema": "wb.shard_gateway.tests.v1",
+  "verdict": "PASS_KOD_SHARD_GATEWAY_ADAPTER_R01_LOCAL_SYNTHETIC",
+  "runtime": "python",
+  "tests": 15,
+  "failures": 0,
+  "errors": 0,
+  "covered": [
+    "exact opcode enum",
+    "unknown opcode",
+    "unknown root",
+    "absolute path",
+    "traversal",
+    "symlink",
+    "denied target",
+    "oversized output",
+    "timeout",
+    "target-changed/race simulation",
+    "write attempt",
+    "no automatic cross-host failover",
+    "canonical result/audit serialization",
+    "exact host/root mapping",
+    "concurrency=1 per host"
+  ],
+  "deployment_performed": false,
+  "host_mutation_performed": false,
+  "credential_access": 0,
+  "note": "Local/synthetic non-secret tests only; no production host roots or credentials were used."
+}
