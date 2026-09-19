@@ -498,3 +498,82 @@ Recovery-реестр должен быть минимальным и функц
 Первая:
 
 > новый чат, не имеющий памяти прежнего, после чтения сохранённых материалов способен понять свою роль, отделить подтверждённое от неизвестного и выполнить следующий безопасный шаг.
+
+Вторая:
+
+> новый чат способен установить происхождение recovery-пакета и подтвердить, что использует внешне сохранённую версию, а не случайный одноимённый набор файлов.
+
+Если для продолжения приходится угадывать, восстанавливать решения по памяти или снова спрашивать ОПЕРАТОРА о том, что уже было установлено и могло быть сохранено, пакет неполон.
+
+Если пакет читается, но его связь с внешним recovery-контуром не проверена, восстановление функционально возможно, но не считается полностью верифицированным.
+
+Следует проводить пробную инициацию по событийному или отдельно утверждённому основанию. Такая проверка считается успешной только если новый экземпляр прошёл обязательную процедуру инициации, включая внешний locator и проверку версии. АРХИВАРИУС фиксирует результат проверки в recovery-реестре. Backup, архив или каталог, которые существуют, но не позволяют практически восстановить работу либо имеют неизвестную актуальность, не считаются подтверждённым recovery.
+
+## Связь с политикой источников
+
+Recovery-канон относится к базовым управляющим источникам recovery-managed Сущностей.
+
+Task-conveyor canon является обязательным baseline для KOO и для тех Entity instances/tasks, которые фактически используют inter-chat/PROMPT conveyor. Recovery-managed non-chat instance не обязан постоянно загружать полный conveyor canon, если его exact recovery/task этот mechanism не использует; достаточно сохранить ссылку на общую boundary: activation mechanism не создаёт task authority, writer authority или `processing_started`.
+
+Это не означает, что весь recovery-пакет или исторические PROMPT должны постоянно находиться среди общепроектных источников.
+
+Профильные `initiation`, `snapshot` и `recovery-manifest` загружаются в конкретный чат при его запуске или восстановлении. Большие evidence-материалы подключаются только по задаче.
+
+Черновой recovery-канон не должен подменять действующий approved-источник до решения ОПЕРАТОРА.
+
+## Локальная рабочая среда
+
+Конкретные абсолютные пути рабочих каталогов определяются действующим файловым каноном и профильными источниками Сущности.
+
+Этот recovery-канон не закрепляет вечный локальный путь и не должен дублировать сведения, которые меняются при переносе устройства или рабочей среды.
+
+Если локальный путь существенен для восстановления, он фиксируется в snapshot как состояние конкретной среды.
+
+## Историческое основание технологии
+
+В подтверждённом handoff-пакете Координатор/АРХИВАРИУС от 12 апреля 2026 года уже применялся recovery-подход: пакет содержал рабочий контекст, снимок корня `wellbeing-archivist`, снимок `src/archivist`, манифест файлов и состояние Git (`status`, `log`, `diff`, `remote`). Его назначением прямо назывались перенос в новый чат, восстановление сломанного состояния и сохранение памяти контура в репозитории Сущностей.
+
+Следовательно, данный канон не вводит recovery как совершенно новую идею. Он извлекает подтверждённую технологию из частного контура АРХИВАРИУСА и распространяет её на все Сущности проекта.
+
+## Что ещё предстоит определить
+
+Отдельно должны быть разработаны и подтверждены:
+
+- единый формат snapshot;
+- расширенный единый формат recovery-manifest поверх уже определённого минимального locator;
+- правила именования и размещения пакетов;
+- календарная периодичность только после появления подтверждённой инфраструктуры и отдельного решения;
+- политика хранения нескольких поколений;
+- разделение публичных и непубличных данных;
+- автоматическая проверка stale recovery и trigger-событий;
+- автоматизация внешней публикации и readback подходящих материалов без привязки канона к одному провайдеру;
+- автоматизация проверки контрольных сумм при инициации;
+- техническая форма единого recovery-реестра;
+- интеграция с программным АРХИВАРИУСОМ и ПОЧТАЛЬОНОМ;
+- технический механизм назначения, передачи и failover current-writer;
+- конкретная механика lease/lock и их expiry/recovery.
+
+До принятия этих решений действует событийное сохранение и обязательная процедура инициации, описанные выше. Отсутствующие технические параметры не выдумываются.
+
+---
+
+## Служебная карточка
+
+Документ: канон сохранения состояния, инициации и восстановления Сущностей  
+Версия: v1.6  
+Статус: candidate_for_operator_approval  
+Область: все Сущности проекта «БЛАГОПОЛУЧИЕ»  
+Основа active: `entity-state-preservation-and-recovery-canon-v1_4-approved.md`  
+Reviewed predecessor candidate: `entities/koordinator/outbox/entity-recovery-canon-v1_5-wake-initiation-resume-amendment-candidate-r04.md@aea341e30d5d5297a491e7320674f2587d66d1e5`  
+Reviewed predecessor blob: `99b1ef3428330fa2e43d76a373b79cb8d3d663c5`  
+Open OPERATOR gate for predecessor: `entities/koordinator/outbox/KOO__entity-recovery-canon-v1_5-operator-gate__OPERATOR.md@17190f729eef6537f0404af387253c9c11eb3a21`  
+Predecessor gate status: unresolved_open_gate  
+Candidate lineage rule: v1.6 integrates the reviewed v1.5 r0.4 Wake/Writer layer plus conveyor-specific recovery delta; it does not approve, withdraw or silently supersede the open v1.5 OPERATOR gate. Before source-set activation OPERATOR must explicitly resolve that gate/lineage.  
+Supersedes if approved and lineage gate resolved: active v1.4 and any predecessor candidate explicitly withdrawn/rejected by OPERATOR  
+Изменены разделы: файл инициации; recovery-пакет; обязательная процедура инициации; integrated Wake/Writer layer; Recovery task conveyor; связь с политикой источников  
+Основание изменения: preserve reviewed r0.4 authority/recovery work, add task-conveyor recovery state and prohibit historical PROMPT replay  
+Current-writer / Writer Gate / exact task authority / immutable identity / verified initiation: preserved and not weakened  
+Automation authority: capability does not create authority; `activation != processing_started`  
+Approval status: requires_operator_review  
+Effective: false  
+Responsibility boundary: полный алгоритм task conveyor не дублируется; recovery canon owns continuity, initiation, writer and recoverability boundaries
