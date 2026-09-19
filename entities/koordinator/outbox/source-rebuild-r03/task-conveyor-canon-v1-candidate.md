@@ -328,3 +328,80 @@ Recovery сохраняет **состояние конвейера**, а не �
 
 - адресат правильный;
 - для file-form: имя начинается с кода адресата;
+- для file-form: длина полного имени 40–50 символов;
+- для file-form: тема читается из имени;
+- materialized PROMPT действительно доступен;
+- внутри есть Resume-First;
+- exact task/input однозначны;
+- authority не расширена молча;
+- stop conditions заданы;
+- terminal result определён;
+- способ возврата результата определён;
+- нет секретов;
+- нет автоматического replay исторических задач;
+- нет второго активного PROMPT той же задачи без причины.
+
+Если хотя бы один обязательный пункт не проходит, файл не передаётся ОПЕРАТОРУ.
+
+## 14. Нормативный шаблон PROMPT
+
+    # <ENTITY> — <тема>
+
+    Продолжай выполнение текущих задач по Resume-First.
+
+    Сначала сделай свежий preflight <источник истины>.
+
+    Current authority / writer:
+    <exact identity>
+
+    Exact task:
+    <exact identity>
+
+    Exact task authority:
+    <approved process / standing delegation / exact authorized decision or instruction>
+
+    Required inputs:
+    <минимальный набор>
+
+    Выполни:
+    <одно конкретное действие или bounded sequence>
+
+    Ограничения:
+    <authority / safety / attempts / forbidden actions>
+
+    Stop conditions:
+    <точные условия остановки>
+
+    Expected terminal result:
+    <PASS/FAIL/BLOCKER/file>
+
+    Верни результат:
+    <адресат и маршрут>
+
+    После terminal result остановись.
+
+Этот шаблон является формой, а не поводом копировать ненужные поля в каждую задачу. Поле включается, если оно помогает однозначно и безопасно исполнить текущий шаг.
+
+## 15. Разделение канонов
+
+- **project core** задаёт общую модель работы и authority;
+- **entity roles** задаёт устойчивые роли;
+- **file-work canon** регулирует создание, проверку, упаковку и доставку артефактов;
+- **task-conveyor canon** регулирует передачу управления между Entity-чатами через PROMPT-файлы;
+- **source-loading policy** определяет, какие источники загружать;
+- **recovery canon** регулирует сохранение и восстановление состояния и current-writer.
+
+Ни один из этих документов не должен повторять полный алгоритм другого.
+
+---
+
+## Служебная карточка
+
+document_type: task-conveyor-canon
+version: v1.0
+status: candidate_for_operator_approval
+scope: inter-chat/PROMPT activation conveyor; mandatory for KOO and participating PROMPT/chat instances
+source: operator decision to formalize existing PROMPT-file conveyor practice
+approval_status: requires_operator_review
+effective: false
+responsibility_boundary: после утверждения является базовым для KOO и для instances/tasks, использующих inter-chat/PROMPT conveyor; non-chat recovery-managed instances загружают его только когда exact recovery/task использует этот mechanism; не заменяет file-work или recovery canon
