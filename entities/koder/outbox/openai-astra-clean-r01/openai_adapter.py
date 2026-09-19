@@ -104,5 +104,3 @@ class OpenAIResponsesAdapter:
         result={"parsed_response":parsed,"provenance":prov,"provenance_hash":sha256_json(prov),"request_plan":plan}
         result["result_identity"]=sha256_json(result)
         return result
-
-[executed on device: ruvds-xnqc6 (dd09a197-f716-4dd6-80bb-7f8e5d8260ff)]
