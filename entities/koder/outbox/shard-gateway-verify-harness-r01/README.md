@@ -42,7 +42,7 @@ Exit codes:
 
 ## Audit sink
 
-Audit is local-file only, canonical JSONL, one record for every attempt that reaches `Gateway.execute`. The sink uses `O_APPEND|O_NOFOLLOW`, validates a regular-file descriptor, writes the full record, and fsyncs before successful process completion.
+Audit is local-file only, canonical JSONL, one record for every syntactically valid harness invocation after argument parsing; pre-gateway adapter/input failures use a redacted harness-failure audit record. The sink uses `O_APPEND|O_NOFOLLOW`, validates a regular-file descriptor, writes the full record, and fsyncs before successful process completion.
 
 Audit contains metadata/digests only. It does not store request bytes, file payload, credential values, environment dumps, Authorization headers or secret material.
 
