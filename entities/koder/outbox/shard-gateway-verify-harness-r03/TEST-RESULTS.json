@@ -1,0 +1,42 @@
+{
+  "schema": "wb.shard_gateway.verify_harness.tests.v3",
+  "verdict": "PASS_KOD_SHARD_GATEWAY_VERIFY_HARNESS_R03_FINAL_BYTES",
+  "adapter": {
+    "commit": "9140d2ffe2b2ab983ce4a607447b5cc20f44ec6f",
+    "tree": "d38d28d490252030b9a6264e9248dd1a4db26af1",
+    "blob": "d42e58060365c4b996bf87c81f3e3eb2ad684ceb",
+    "sha256": "9c443bbfb45c5804a7f375ea42904f99de98b2b07ffe86e53a67d5483166e881"
+  },
+  "unit": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0
+  },
+  "process": {
+    "tests": 7,
+    "failures": 0,
+    "errors": 0
+  },
+  "adapter_regression": {
+    "tests": 20,
+    "failures": 0,
+    "errors": 0
+  },
+  "safe_directory": {
+    "command_scoped": true,
+    "exact_root": true,
+    "wildcard": false,
+    "request_control": false,
+    "archive_root": false,
+    "git_config_env": false
+  },
+  "resume_point": "RESUME_FROM_PHASE_2_GIT_RUNTIME_SUBGATE",
+  "boundaries": {
+    "deployment": 0,
+    "host_mutation": 0,
+    "credential_access": 0,
+    "network_listener": 0,
+    "write_enablement": 0,
+    "production_acceptance": 0
+  }
+}
