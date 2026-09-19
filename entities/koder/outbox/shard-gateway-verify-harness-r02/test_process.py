@@ -32,7 +32,7 @@ class ProcessTests(unittest.TestCase):
         self.base={"python":sys.executable,"harness":str(self.harness),"adapter":str(self.adapter),
                    "audit_module":str(self.audit_module),"request_file":str(self.req),"audit":str(self.audit)}
 
-    def run(self,values=None):
+    def run_proc(self,values=None):
         vals=dict(self.base); vals.update(values or {})
         env={"PATH":"/usr/bin:/bin","LC_ALL":"C","PYTHONPATH":str(self.mal),"PRIVATE_FIXTURE_VALUE":"DO_NOT_LEAK"}
         return subprocess.run(argv(vals),cwd=self.cwd,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=10)
@@ -47,7 +47,7 @@ class ProcessTests(unittest.TestCase):
 
     def test_p1_valid_supervisor_invocation(self):
         self.request()
-        p=self.run()
+        p=self.run_proc()
         self.assertEqual(p.returncode,0,p.stderr.decode())
         self.assertEqual(len(p.stdout.splitlines()),1)
         self.assertTrue(json.loads(p.stdout)["ok"])
@@ -55,7 +55,7 @@ class ProcessTests(unittest.TestCase):
 
     def test_p2_invalid_input_redacted_audit(self):
         self.req.write_bytes(b'{"broken":')
-        p=self.run()
+        p=self.run_proc()
         self.assertEqual(p.returncode,64)
         self.assertEqual(json.loads(p.stdout)["error_code"],"REQUEST_JSON_INVALID")
         self.assertEqual(len(self.lines()),1)
@@ -63,27 +63,27 @@ class ProcessTests(unittest.TestCase):
     def test_p2_adapter_identity_failure_audited(self):
         self.request()
         bad=self.d/"gateway_bad.py"; bad.write_bytes(self.adapter.read_bytes()+b"\n#tamper\n")
-        p=self.run({"adapter":str(bad)})
+        p=self.run_proc({"adapter":str(bad)})
         self.assertEqual(p.returncode,65)
         self.assertEqual(json.loads(p.stdout)["error_code"],"ADAPTER_IDENTITY_MISMATCH")
         self.assertEqual(len(self.lines()),1)
 
     def test_p3_audit_failure_exit70(self):
         self.request(); adir=self.d/"audit-dir"; adir.mkdir()
-        p=self.run({"audit":str(adir)})
+        p=self.run_proc({"audit":str(adir)})
         self.assertEqual(p.returncode,70)
         self.assertEqual(json.loads(p.stdout)["error_code"],"AUDIT_APPEND_FAILED")
 
     def test_p4_cwd_pythonpath_ambient_independence(self):
         self.request()
-        p=self.run()
+        p=self.run_proc()
         self.assertEqual(p.returncode,0,p.stderr.decode())
         self.assertNotIn(b"AMBIENT_SUBSTITUTION",p.stderr+p.stdout)
         self.assertNotEqual(self.cwd,self.harness.parent)
 
     def test_p5_write_rejected_no_expansion(self):
         self.request(mode="WRITE")
-        p=self.run()
+        p=self.run_proc()
         self.assertEqual(p.returncode,20)
         self.assertEqual(json.loads(p.stdout)["error_code"],"WRITE_MODE_NOT_AUTHORIZED")
         self.assertEqual(len(self.lines()),1)
