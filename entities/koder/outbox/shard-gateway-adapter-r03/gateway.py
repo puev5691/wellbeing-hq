@@ -298,19 +298,18 @@ class Gateway:
         if cp.returncode: raise GatewayError(ErrorCode.HOST_UNAVAILABLE)
         return _bounded(cp.stdout,limit)
 
-    def _git_argv(self,root:Path,args:list[str])->list[str]:
-        safe=str(root)
-        if safe=="*" or not safe.startswith("/"):
+    def _git_argv(self,req:Request,args:list[str])->list[str]:
+        if "REPO_" not in req.root_id:
+            raise GatewayError(ErrorCode.GIT_ROOT_REQUIRED)
+        safe=HOST_ROOTS[req.host_id][req.root_id]
+        if safe=="*" or not safe.startswith("/") or req.root_id in ARCHIVE_ROOTS:
             raise GatewayError(ErrorCode.GIT_ROOT_REQUIRED)
         return ["git","-c","safe.directory="+safe,*args]
 
     def _git(self,req:Request,op:Opcode,root:Path)->Mapping[str,Any]:
         if "REPO_" not in req.root_id: raise GatewayError(ErrorCode.GIT_ROOT_REQUIRED)
-        expected=Path(HOST_ROOTS[req.host_id][req.root_id])
-        if self.root_provider.__class__.__name__=="function" and root != expected:
-            pass
         t=TIMEOUTS[op]; lim=req.max_output_bytes
-        ga=lambda args:self._git_argv(root,args)
+        ga=lambda args:self._git_argv(req,args)
         if op==Opcode.GIT_STATUS_PORCELAIN:
             return {"status":_decode_text(self._run(ga(["status","--porcelain=v1","--untracked-files=no"]),root,t,lim))}
         if op==Opcode.GIT_HEAD:
