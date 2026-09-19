@@ -1,0 +1,70 @@
+{
+  "schema": "wb.shard_gateway.verify_harness.manifest.v2",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task_commit": "7bbd9e07f7a20a7bcfe636a08ccf507e7baf11bc",
+  "sis_defect_commit": "66ea2b8e592a22ea73a12c96cf3b42a6081e79e9",
+  "predecessor": {
+    "commit": "c65a126d1ec4043fe9711b00884d3e485a3ba5d0",
+    "tree": "cae5e6220f4f19eb279edb912efabab3e3af2e6e"
+  },
+  "adapter": {
+    "commit": "9329861a3b4b18ed29b2b4470d09adda086978e6",
+    "blob": "1e1da64573016c925c1534efede7fd0e32aabd4b",
+    "sha256": "5d34165c30869d2d12a677093c445115dfc19e410f44a580b9d541eca778fb30",
+    "unchanged": true
+  },
+  "files": [
+    {
+      "path": "harness.py",
+      "blob": "e94bf8dd0ed78dc53a1b1d6057e213584ae9ace4",
+      "bytes": 6244,
+      "sha256": "69ccf13cb0856e498eb8fea78376a04a5dbb70051fe2e9453d843b38641b6762"
+    },
+    {
+      "path": "audit_sink.py",
+      "blob": "763d4ae4945e946878a52098ba87df379f4f6762",
+      "bytes": 1425,
+      "sha256": "5e50e09f01eec3ec5daf8063c4100837375ae89f91f4dda67a5a63990e9e4d88"
+    },
+    {
+      "path": "INVOCATION.json",
+      "blob": "193e6cb2c220cb8ed0c0fd73c99e2c98926c12a4",
+      "bytes": 737,
+      "sha256": "da07b14201491995cde0a20e9211871c247b6e79c21acddb6da504ae4971e218"
+    },
+    {
+      "path": "test_unit.py",
+      "blob": "6dca85815aa2e3bf3f9cad4316084a60831cf4cf",
+      "bytes": 2423,
+      "sha256": "f4e503077eef1acf203a6528f319d553530e60ce229238e137640664d9cc0baa"
+    },
+    {
+      "path": "test_process.py",
+      "blob": "047d6818b9ffc3fcc905b56e389ca331f6d347cc",
+      "bytes": 4471,
+      "sha256": "1ff4885e0be56689f297d302bdb5296e686035d1dc20b02d90ffaf3a34000701"
+    },
+    {
+      "path": "README.md",
+      "blob": "85d48c9d5f7d8715a129f8d36315b22c23777477",
+      "bytes": 2982,
+      "sha256": "0453856eb5c297418f18f1c21289c17892ba7da4f85f5aaa43dad87d23e1508c"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "e14437adaa7f577b974cf3a535130b4cf86bb593",
+      "bytes": 1257,
+      "sha256": "4f6f6a641c233fe26d73cebee945509ab3faf6032f81bf6215e3d4b5c1ce4b5b"
+    }
+  ],
+  "import_design": "explicit audit module path + pinned SHA-256 under python -I",
+  "next_gate": "SIS_INDEPENDENT_EXACT_BYTE_HARNESS_DEPLOYMENT_PREP_REREVIEW",
+  "boundaries": {
+    "deployment": 0,
+    "target_host_mutation": 0,
+    "credential_access": 0,
+    "network_listener": 0,
+    "write_enablement": 0,
+    "production_acceptance": 0
+  }
+}
