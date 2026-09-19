@@ -1,0 +1,30 @@
+{
+  "status": "PASS_KOD_TELEGRAM_SEMANTIC_SYNTH_R01_READY_FOR_VERIFY",
+  "mode": "SYNTHETIC_ONLY",
+  "basis": {
+    "semantic_contract_commit": "5d3db12bb4311e8d2d225882b2fbd7a947e09005",
+    "semantic_input_blob": "5fe4b794ae88665b8999e055a3b427116a2c8fab",
+    "facilitator_core_commit": "0020dff62785a5fd0048b0696728b3518812dcd1",
+    "facilitator_core_blob": "ad980b0de8a00c1d134823cebc49059a0811f3fa"
+  },
+  "synthetic_provenance": true,
+  "raw_telegram_envelope_rejected": true,
+  "unnecessary_participant_identity": false,
+  "raw_discussion_text_persisted": false,
+  "discussion_state": {
+    "items": 13,
+    "questions": 2,
+    "summaries": 1,
+    "candidate_tasks": 1
+  },
+  "candidate_task": {
+    "status": "candidate_only",
+    "executable": false,
+    "approved_for_execution": false,
+    "dispatch_performed": false
+  },
+  "live_telegram_reads": 0,
+  "live_telegram_sends": 0,
+  "live_provider_calls": 0,
+  "note": "Round-trip uses the independently verified synthetic fixture path and accepted core behavior; no live Telegram/provider action."
+}
