@@ -83,5 +83,3 @@ def valid_synthetic_config(model:str,text:str="Return exactly the word SYNTHETIC
     c={"task_id":"syn-openai-001","data_class":DATA_CLASS,"input_locator":"fixture://openai-responses-d0-r01","synthetic_text":text,"provider":PROVIDER,"model":model,"max_output_tokens":64}
     for f in ("tools_allowed","web_search_allowed","file_search_allowed","computer_use_allowed","code_execution_allowed","fallback_allowed","alternate_provider_allowed","network_allowed","project_mutation_allowed","production_allowed"): c[f]=False
     return c
-
-[executed on device: ruvds-xnqc6 (dd09a197-f716-4dd6-80bb-7f8e5d8260ff)]
