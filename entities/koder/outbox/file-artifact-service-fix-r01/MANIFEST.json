@@ -1,0 +1,15 @@
+{
+  "schema": "file-artifact-service-package-seal-r01",
+  "status": "IMMUTABLE_PACKAGE_SEAL",
+  "package_path": "entities/koder/outbox/file-artifact-service-fix-r01/",
+  "test_evidence_commit": "e234c95811a421d525998c180ef8840ea54d3962",
+  "test_verdict": "PASS_SHD_FILE_SERVICE_EXACT_TEST_RUN_R01",
+  "files": [
+    {"path":"file_service.py","git_blob":"a47492ecbd91ee09d33cf6a377580ea1c3d1d250","bytes":9659,"sha256":"83f28b73889c06c3f5497b68ebb22c41e90be2ce14b1b358121fe047545562d6"},
+    {"path":"test_file_service.py","git_blob":"fe68b9c4a201b94db25eab26fcb6fbae20e1cb60","bytes":10507,"sha256":"8520f33edd8a597b66cbcc578da7f451b1214fa987f48b048901eb3703f3538e"},
+    {"path":"README.md","git_blob":"4532151352d547af2f84d6fe2b41385376fadb02","bytes":959},
+    {"path":"example-request.json","git_blob":"52c39fb42d0fd5140215da2f85bb3aebf671f7f1","bytes":666},
+    {"path":"demo-evidence.json","git_blob":"46e9b73caa7e38a718c9f68d39f3a14a1d1c6375","bytes":572}
+  ],
+  "note": "Git blob identities and byte sizes are sealed from final Git readback. SHA-256 values for the two executed exact blobs are independently supplied by SHD exact-byte execution evidence."
+}
