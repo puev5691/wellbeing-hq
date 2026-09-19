@@ -218,3 +218,113 @@ KOO обязан различать как минимум:
 - `AWAITING_OPERATOR_TRANSFER -> AWAITING_ENTITY_RESULT` только после доказанной activation attempt;
 - любой open attempt -> `BLOCKED`, если продолжение требует недостающего external fact/authority;
 - любой open attempt -> `SUPERSEDED`, если появился current successor либо изменились authoritative inputs;
+- `AWAITING_ENTITY_RESULT -> COMPLETED` только по declared terminal criterion.
+
+Перед созданием replacement PROMPT старый open attempt обязан получить non-executable disposition:
+
+- `SUPERSEDED` с exact successor relation; либо
+- `BLOCKED` с явным retry/successor relation.
+
+`activation_failed != processing_failed`.
+
+Activation failure не разрешает replay автоматически. Replacement допускается только после fresh reconciliation exact task identity, authority, inputs и processing evidence.
+
+Manual и automated activation используют одну transition rule. Stale/superseded predecessor не может снова стать executable без нового явно авторизованного перехода.
+
+Эти состояния не обязаны порождать отдельный документ на каждый переход; достаточно текущей проверяемой очереди и фактических артефактов, если successor/predecessor relation остаётся однозначно проверяемой.
+
+### Terminal result и `COMPLETED`
+
+Terminal result закрывает **исполнительную попытку/шаг** в пределах его declared terminal criterion. Он не является delivery, receipt, acknowledgement или substantive acceptance.
+
+Инвариант:
+
+`terminal_result != delivered != received != accepted`
+
+Статус `COMPLETED` допустим только если выполнен именно declared terminal criterion шага. Если критерий требует адресной доставки результата, receipt или substantive acceptance, эти факты проверяются отдельно до перевода соответствующего workflow/parent step в `COMPLETED`.
+
+`PASS` результата не может молча закрыть родительскую задачу, которая ещё ждёт delivery/receipt/acceptance.
+
+## 9. GitHub и адресная доставка результатов
+
+GitHub может хранить:
+
+- current queue;
+- exact tasks;
+- результаты;
+- immutable identities;
+- evidence;
+- dispatch/receipt для межсущностных артефактов.
+
+Но GitHub не считается доказательством, что конкретный Entity-чат проснулся и начал исполнение.
+
+PROMPT можно дополнительно публиковать в GitHub для provenance, если это практически нужно. Такая публикация **не обязательна только ради запуска шага**.
+
+Referenced inputs, уже находящиеся в доступном информационном поле, не переносятся в чат повторно: адресат читает exact locator и проверяет immutable identity. Physical transfer используется только как fallback при недоступном locator либо для внешнего файла, которого нет в общем информационном поле.
+
+Terminal result и значимые рабочие артефакты после исполнения маршрутизируются по файловому канону. Это отдельная процедура от активации Entity-чата.
+
+## 10. Что КООРДИНАТОР отдаёт ОПЕРАТОРУ
+
+Нормальный ответ после подготовки шага содержит:
+
+    Адресат: <Сущность>
+    PROMPT: <готовый activation payload либо ссылка на file-form PROMPT>
+    Входы: <exact locator + immutable identity>
+    Действие: передать PROMPT в чат <Сущности>.
+
+ОПЕРАТОР не обязан переносить referenced artifacts, если адресная Сущность имеет проверяемый доступ к ним по locator.
+
+File-form PROMPT используется, когда это удобно или требуется интерфейсом. Прямой текстовый PROMPT допустим, если он сохраняет те же exact task/authority/input boundaries.
+
+Не требуется:
+- собирать PROMPT из нескольких сообщений;
+- копировать содержимое referenced artifacts в чат;
+- скачивать и повторно загружать GitHub-артефакт только потому, что он является входом задачи.
+
+## 11. Failure modes
+
+### PROMPT/file-form недоступен
+
+KOO повторно материализует актуальный PROMPT после fresh reconciliation. Referenced artifacts не копируются заново, если их exact locator остаётся доступен.
+
+### Файл попал не в тот чат
+
+Не выполнять. ОПЕРАТОР переносит тот же проверенный файл в правильный адресный чат либо KOO создаёт новый, если состояние успело измениться.
+
+### PROMPT устарел до исполнения
+
+Адресная Сущность после Resume-First возвращает `STALE_OR_SUPERSEDED` с точным новым evidence. Старый шаг не исполняется.
+
+### GitHub activation detector увидел файл, но чат не запущен
+
+Фиксируется только технический факт detector/activation failure. Нельзя объявлять Entity execution или delivery PROMPT-а в чат без фактического подтверждения.
+
+### Обнаружены два конкурирующих PROMPT одной задачи
+
+Исполнение останавливается до fresh reconciliation КООРДИНАТОРОМ.
+
+## 12. Recovery и смена КООРДИНАТОРА
+
+Recovery сохраняет **состояние конвейера**, а не обязанность повторно исполнить старые PROMPT-файлы.
+
+При восстановлении KOO должны быть известны:
+
+- текущая очередь;
+- какие задачи completed/blocked/current/superseded;
+- какой последний terminal result подтверждён;
+- какие PROMPT были подготовлены или переданы, но не имеют terminal result;
+- какие activation failures известны.
+
+После Writer Gate replacement KOO выполняет fresh reconciliation и только затем создаёт **новый актуальный PROMPT**, если задача действительно остаётся current.
+
+`historical prompt != current execution authority`.
+
+Автоматическое воспроизведение исторических задач запрещено.
+
+## 13. Проверка качества PROMPT перед выдачей
+
+Перед передачей PROMPT ОПЕРАТОРУ KOO проверяет:
+
+- адресат правильный;
+- для file-form: имя начинается с кода адресата;
