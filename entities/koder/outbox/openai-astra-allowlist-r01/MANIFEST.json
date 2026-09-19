@@ -1,0 +1,59 @@
+{
+  "schema": "openai-astra-allowlist-package-r01",
+  "status": "CORRECTION_ONLY",
+  "task_commit": "c1c0a07cba90227c1e18f4c8fb3492f58118da5d",
+  "allowlist": [
+    "gpt-5.6-luna",
+    "gpt-5.6-terra",
+    "gpt-5.6-sol",
+    "gpt-6-astra"
+  ],
+  "tests": {
+    "policy": 9,
+    "adapter": 13,
+    "live_transport": 6,
+    "total": 28,
+    "failures": 0,
+    "errors": 0,
+    "live_provider_calls": 0,
+    "credential_reads": 0
+  },
+  "files": [
+    {
+      "path": "policy.py",
+      "git_blob": "7a4e8ed9f3e16844383db114781c232c49dbfcec",
+      "bytes": 5709,
+      "sha256": "d5bcfca63e604b1ceb8b7c11045fd1747fcbd8d7ed264b42e04b1f80b35e6598"
+    },
+    {
+      "path": "openai_adapter.py",
+      "git_blob": "de241adc94c0856c9568f299ae0befd8203a6727",
+      "bytes": 7488,
+      "sha256": "e2787a3764eb09a209fcbea5ccbcada55ad32b870b87efbcdd2a225b4fb7d232"
+    },
+    {
+      "path": "live_transport.py",
+      "git_blob": "cd529e33ef33b6a0845b259895a0601c51d7ff92",
+      "bytes": 9992,
+      "sha256": "3dec8563f0de7c7d99a35943955f98fa4e2e4102617191ab4987043d02fb3274"
+    },
+    {
+      "path": "test_policy.py",
+      "git_blob": "bb61f3135fd67f41ca4384009cca1160e0cba193",
+      "bytes": 2538,
+      "sha256": "bbbf4c52e2d430e9d6c4f3e965860bc0f3564ef2932a14bd21e03ad570e434a4"
+    },
+    {
+      "path": "test_adapter.py",
+      "git_blob": "05bfe01d4079af98bd92693714ebda2839de31c7",
+      "bytes": 5262,
+      "sha256": "7052fc52ab85d06327f4caa78a1c74186e0c334c1fb6194421651ff635ce56f0"
+    },
+    {
+      "path": "test_live_transport.py",
+      "git_blob": "e0930bab01370b8706d9367b9a1562888067e2f8",
+      "bytes": 3118,
+      "sha256": "8d3dfcf7b137299dac090d24c5425591e86409300dcf607a4238c31c78fc713e"
+    }
+  ]
+}
