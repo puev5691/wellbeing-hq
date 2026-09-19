@@ -198,3 +198,103 @@ Publication сама по себе не является readback и не док
 ## Обязательная процедура инициации нового чата
 
 Новая Сущность не должна считать себя полностью инициированной только потому, что ей загрузили файл инициации и snapshot.
+
+Если для Сущности определён внешний recovery-контур, процедура включает следующие шаги:
+
+1. Прочитать действующие общепроектные управляющие источники.
+2. Прочитать профильный файл инициации.
+3. Прочитать snapshot и recovery-manifest.
+4. Установить из manifest или initiation точный locator внешнего recovery-пакета.
+5. Проверить фактическое наличие recovery-пакета во внешнем хранилище.
+6. Проверить состав пакета по manifest.
+7. Сопоставить контрольные суммы полученных файлов с внешне сохранённой версией либо выполнить другой предусмотренный механизм проверки версии.
+8. Только после этого подтвердить восстановленную роль, ограничения, подтверждённое состояние, активные и припаркованные хвосты и следующий безопасный шаг.
+9. В первом отчёте об инициации отдельно зафиксировать результат внешней проверки.
+
+Минимальный итог проверки должен различать три состояния:
+
+- `initiation_verified` — пакет прочитан, внешний recovery-контур доступен, версия и целостность подтверждены;
+- `initiation_loaded_external_unverified` — пакет прочитан, но внешний источник или совпадение версии проверить не удалось;
+- `initiation_failed` — пакет отсутствует, повреждён, противоречив или недостаточен для безопасного восстановления.
+
+Статус `initiation_loaded_external_unverified` не означает провал чтения пакета, но запрещает утверждать, что внешний recovery-контур проверен и восстановление полностью подтверждено.
+
+Если внешняя проверка невозможна из-за отсутствия доступа, инструмента или locator, новая Сущность обязана назвать конкретную причину и минимальный проверяемый следующий шаг. Она не должна заменять проверку предположением, что «раз файл загрузили, значит на GitHub он, наверное, есть».
+
+
+### Универсальная процедура Wake → Resume / Initiation → Writer Gate → Exact Task
+
+Этот v1.6 candidate интегрирует reviewed authority/process/recovery слой из exact predecessor candidate:
+
+`entities/koordinator/outbox/entity-recovery-canon-v1_5-wake-initiation-resume-amendment-candidate-r04.md`
+commit `aea341e30d5d5297a491e7320674f2587d66d1e5`
+blob `99b1ef3428330fa2e43d76a373b79cb8d3d663c5`.
+
+Для этой интеграции действуют следующие обязательные инварианты.
+
+**Wake event** предлагает начать цикл проверки состояния, но не доказывает `processing_started` и не создаёт полномочий.
+
+**Instance continuity** и **writer continuity** проверяются раздельно. Успешная initiation/continuity экземпляра не создаёт current-writer authority.
+
+**Resume-First** допустим только при проверяемой continuity экземпляра. Новый/заменяющий либо недостоверно восстановленный экземпляр проходит `Initiation-required`.
+
+**Authority basis** должен существовать до спорного перехода. Wake, dispatch, inbox locator, capability, technical availability, initiation status, publication/readback, lease/lock и наличие recovery package authority не создают.
+
+**Exact task authority** проверяется отдельно. Task artifact/request/dispatch/inbox/wake locator сами по себе exact task authority не создают.
+
+**Writer Gate** обязателен для authoritative current-state mutation. Допустимые outcomes:
+- `WRITER_NOT_REQUIRED_FOR_TASK`;
+- `WRITER_CONTINUITY_VERIFIED`;
+- `WRITER_ESTABLISHED`;
+- `WRITER_REQUIRED_UNVERIFIED`;
+- `WRITER_CONFLICT`.
+
+Competing writers не разрешаются по commit time, last-write-wins или технической доступности.
+
+Базовая машина состояний:
+
+`WAKE_DETECTED`
+→ `TARGET_RESOLVED`
+→ `INSTANCE_CONTINUITY_CHECK`
+→ `RESUME_FIRST` или `INITIATION_REQUIRED`
+→ при необходимости `INITIATION_GATE`
+→ `TASK_REQUIREMENTS_CHECK`
+→ `WRITER_CHECK`
+→ допустимый writer/worker outcome
+→ `READY_FOR_EXACT_TASK`
+→ `FINAL_TASK_REVALIDATION`
+→ `processing_started=yes`
+→ `ONE_PROFILE_TASK`
+→ `RESULT_VERIFICATION`
+→ `ROUTING / PRESERVATION_TRIGGER_IF_NEEDED`.
+
+`initiation_failed` является terminal для обычного профильного исполнения. Допускается только отдельно авторизованная bounded recovery-diagnostic/correction action, не полагающаяся на непроверенное reconstructed self-state.
+
+`initiation_loaded_external_unverified` writer authority не создаёт. Worker/read-only продолжение допустимо лишь когда exact task независимо авторизована и не зависит от непроверенных recovery fields.
+
+Fresher HQ evidence может доказать stale recovery или ограничить claim, но не разрешает synthetic recovery reconstruction по правдоподобию.
+
+Перед `processing_started=yes` выполняется final revalidation:
+1. fresh preflight;
+2. exact task/current recipient/status/dependencies;
+3. exact task authority;
+4. отсутствие superseded/withdrawn/readdressed state;
+5. immutable task identity;
+6. writer/worker outcome, требуемый задачей.
+
+Если актуальной exact task нет, цикл завершается `WAITING_EXACT_TASK`.
+
+Семантические границы:
+
+`wake_detected != wake_routed != activation != processing_started != task_completed`
+
+`package_present != initiation_verified`
+
+`initiation_verified != current_writer_established`
+
+`current_writer_established != task_authorized`
+
+`task_dispatched != task_executed`
+
+`result_published != result_received != result_accepted`.
+
