@@ -1,0 +1,62 @@
+{
+  "schema": "openai-astra-clean-package-r01",
+  "status": "CORRECTION_ONLY_CLEAN_REPUBLISH",
+  "task_commit": "8e3d43bb20b0174f46802ea15ddd9be56ffeb9f3",
+  "source_fail_commit": "7f44a04a01a89dd8616b73f72798e5b810252338",
+  "final_python_boundary_commit": "4b66e32b80b14682296cd0b0ac6baa27ab45dd02",
+  "allowlist": [
+    "gpt-5.6-luna",
+    "gpt-5.6-terra",
+    "gpt-5.6-sol",
+    "gpt-6-astra"
+  ],
+  "annotation_scan": "PASS_NONE_FOUND",
+  "tests": {
+    "policy": 9,
+    "adapter": 13,
+    "live_transport": 6,
+    "total": 28,
+    "failures": 0,
+    "errors": 0,
+    "live_provider_calls": 0,
+    "real_credential_reads": 0
+  },
+  "files": [
+    {
+      "path": "policy.py",
+      "git_blob": "65648aa1ec7161a5ab75bb52bdc699a832c63fd4",
+      "bytes": 5636,
+      "sha256": "d5bcfca63e604b1ceb8b7c11045fd1747fcbd8d7ed264b42e04b1f80b35e6598"
+    },
+    {
+      "path": "openai_adapter.py",
+      "git_blob": "47c2c2e8bd361a2dafad3e66457c95de9a11d5e0",
+      "bytes": 7415,
+      "sha256": "e2787a3764eb09a209fcbea5ccbcada55ad32b870b87efbcdd2a225b4fb7d232"
+    },
+    {
+      "path": "live_transport.py",
+      "git_blob": "97febdae577c5a4020e533d1163f0c4d094de864",
+      "bytes": 9919,
+      "sha256": "3dec8563f0de7c7d99a35943955f98fa4e2e4102617191ab4987043d02fb3274"
+    },
+    {
+      "path": "test_policy.py",
+      "git_blob": "88b7150c9fd545a937939d5c2ba60466a3c80b35",
+      "bytes": 2465,
+      "sha256": "fc56be51d68f4aead421920d83965e2cc7ff6799bdf148571612c05fefd724f2"
+    },
+    {
+      "path": "test_adapter.py",
+      "git_blob": "dea05aa6f5f147f0e0f99467a4cacf62c79100e0",
+      "bytes": 5189,
+      "sha256": "96b3483117f78486311574c00b53965dc23f981ca312d563aa5199caddf9dc94"
+    },
+    {
+      "path": "test_live_transport.py",
+      "git_blob": "7a64b78e7d6f1c58828c4479e14aa996bcb1ebcb",
+      "bytes": 3045,
+      "sha256": "b4dae4fc8949ee69a00f02099c96eb18f8ba067a6692d05b06d6315198a70dfc"
+    }
+  ]
+}
