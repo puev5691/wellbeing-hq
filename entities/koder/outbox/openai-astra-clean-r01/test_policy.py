@@ -47,5 +47,3 @@ class PolicyTests(unittest.TestCase):
                 with self.assertRaises(PolicyViolation): PolicyGuard().evaluate(c)
 
 if __name__=="__main__": unittest.main(verbosity=2)
-
-[executed on device: ruvds-xnqc6 (dd09a197-f716-4dd6-80bb-7f8e5d8260ff)]
