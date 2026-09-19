@@ -1,0 +1,44 @@
+{
+  "schema": "wb.shard_gateway.verify_harness.tests.v2",
+  "verdict": "PASS_KOD_SHARD_GATEWAY_VERIFY_HARNESS_R02_FINAL_BYTES",
+  "predecessor_commit": "c65a126d1ec4043fe9711b00884d3e485a3ba5d0",
+  "adapter": {
+    "commit": "9329861a3b4b18ed29b2b4470d09adda086978e6",
+    "blob": "1e1da64573016c925c1534efede7fd0e32aabd4b",
+    "sha256": "5d34165c30869d2d12a677093c445115dfc19e410f44a580b9d541eca778fb30",
+    "unchanged": true
+  },
+  "unit": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0
+  },
+  "process": {
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "invocation": "INVOCATION.json argv_template under python -I -B"
+  },
+  "closure": {
+    "P1": "PASS",
+    "P2": "PASS",
+    "P3": "PASS",
+    "P4": "PASS",
+    "P5": "PASS"
+  },
+  "isolated_import": {
+    "audit_module": "explicit file path + pinned SHA-256",
+    "cwd_dependency": false,
+    "pythonpath_dependency": false,
+    "ambient_substitution": "blocked/not used"
+  },
+  "boundaries": {
+    "deployment": 0,
+    "target_host_mutation": 0,
+    "credential_access": 0,
+    "network_listener": 0,
+    "write_enablement": 0,
+    "production_mutation": 0
+  },
+  "note": "Process verification used only synthetic non-secret fixture data and removed the fixture after execution."
+}
