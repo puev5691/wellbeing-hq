@@ -1,0 +1,66 @@
+{
+  "schema": "wb.shard_gateway.verify_harness.manifest.v3",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task_commit": "6d40523b00e01dd9663929e2e65aa9a3fa6fcdf7",
+  "predecessor_harness_commit": "01c4f6a336d0ca6d9000d42e5966c4e924f82bbd",
+  "adapter": {
+    "commit": "9140d2ffe2b2ab983ce4a607447b5cc20f44ec6f",
+    "tree": "d38d28d490252030b9a6264e9248dd1a4db26af1",
+    "blob": "d42e58060365c4b996bf87c81f3e3eb2ad684ceb",
+    "sha256": "9c443bbfb45c5804a7f375ea42904f99de98b2b07ffe86e53a67d5483166e881",
+    "pinned": true
+  },
+  "files": [
+    {
+      "path": "harness.py",
+      "blob": "07202ebb8006d0d6388c119cc6576acf62d4a48b",
+      "bytes": 6244,
+      "sha256": "6dbf10acd41105e2491262d6745f4ac9574742ca6a11eb09f933dcaf80ec4465"
+    },
+    {
+      "path": "audit_sink.py",
+      "blob": "763d4ae4945e946878a52098ba87df379f4f6762",
+      "bytes": 1425,
+      "sha256": "5e50e09f01eec3ec5daf8063c4100837375ae89f91f4dda67a5a63990e9e4d88"
+    },
+    {
+      "path": "INVOCATION.json",
+      "blob": "193e6cb2c220cb8ed0c0fd73c99e2c98926c12a4",
+      "bytes": 737,
+      "sha256": "da07b14201491995cde0a20e9211871c247b6e79c21acddb6da504ae4971e218"
+    },
+    {
+      "path": "test_unit.py",
+      "blob": "6dca85815aa2e3bf3f9cad4316084a60831cf4cf",
+      "bytes": 2423,
+      "sha256": "f4e503077eef1acf203a6528f319d553530e60ce229238e137640664d9cc0baa"
+    },
+    {
+      "path": "test_process.py",
+      "blob": "047d6818b9ffc3fcc905b56e389ca331f6d347cc",
+      "bytes": 4471,
+      "sha256": "1ff4885e0be56689f297d302bdb5296e686035d1dc20b02d90ffaf3a34000701"
+    },
+    {
+      "path": "README.md",
+      "blob": "23bf5ed8e6c01470dd8607145631da338ae71595",
+      "bytes": 2982,
+      "sha256": "3ddaea5604db6567bdb6e1bfa50c3f4cc6d63ed451d756e2c43dae06414eccf9"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "69e03f59c18bf8d6e92eac5ad7b21179c9d11447",
+      "bytes": 1051,
+      "sha256": "5b06e474d6dd9e6a2b99166b2208434ad609b77c6b643e5f69e3d907d11a7953"
+    }
+  ],
+  "resume_point": "RESUME_FROM_PHASE_2_GIT_RUNTIME_SUBGATE",
+  "boundaries": {
+    "deployment": 0,
+    "host_mutation": 0,
+    "credential_access": 0,
+    "listener": 0,
+    "write": 0,
+    "production_acceptance": 0
+  }
+}
