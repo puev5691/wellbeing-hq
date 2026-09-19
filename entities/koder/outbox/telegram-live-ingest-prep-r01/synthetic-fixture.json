@@ -1,0 +1,26 @@
+{
+  "schema": "telegram-live-ingest-fixture-r01",
+  "synthetic_only": true,
+  "authorized": {"chat_id": -1002429106148, "min_message_id": 100, "max_message_id": 105, "max_messages": 6},
+  "messages": [
+    {"message_id":99,"chat":{"id":-1002429106148},"from":{"id":9001,"username":"OUTSIDE"},"text":"OUTSIDE_RANGE"},
+    {"message_id":100,"chat":{"id":-1002429106148},"from":{"id":9001,"username":"alpha","first_name":"PRIVATE_A"},"text":"Предлагаю сначала определить критерий проверки."},
+    {"message_id":101,"chat":{"id":-1002429106148},"from":{"id":9002,"username":"beta","last_name":"PRIVATE_B"},"text":"Нужно уточнить ожидаемый результат."},
+    {"message_id":102,"chat":{"id":-1002429106148},"from":{"id":9001,"username":"alpha"},"reply_to_message":{"from":{"id":9002,"username":"beta"}},"text":"Есть другой вариант процедуры."},
+    {"message_id":103,"chat":{"id":-1002429106148},"from":{"id":9003},"photo":[{"file_id":"DO_NOT_DOWNLOAD"}]},
+    {"message_id":104,"chat":{"id":-1002429106148},"from":{"id":9004},"text":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+    {"message_id":105,"chat":{"id":-1002429106148},"from":{"id":9005},"forward_origin":{"sender_user":{"id":7777,"username":"FORWARD_PRIVATE"}},"text":"Кто проверит итог?"}
+  ],
+  "expected": {
+    "no_live_calls": true,
+    "no_credential_read": true,
+    "no_raw_persistence": true,
+    "identity_stripped": true,
+    "out_of_range_rejected": true,
+    "media_not_downloaded": true,
+    "semantic_content_class": "admitted_minimized",
+    "retention_class": "memory_only",
+    "candidate_executable": false,
+    "dispatch": false
+  }
+}
