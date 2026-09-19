@@ -1,0 +1,27 @@
+{
+  "schema": "wb.shard_gateway.tests.v3",
+  "verdict": "PASS_KOD_SHARD_GATEWAY_ADAPTER_R03_LOCAL_SYNTHETIC",
+  "tests": 20,
+  "failures": 0,
+  "errors": 0,
+  "git_safe_directory": {
+    "exact_root_every_git_path": true,
+    "non_git_absent": true,
+    "wildcard_absent": true,
+    "request_injection_rejected": true,
+    "archive_root_rejected": true,
+    "environment_exact": {
+      "PATH": "/usr/bin:/bin",
+      "LC_ALL": "C"
+    },
+    "direct_argv_no_shell": true,
+    "different_uid_real_identity": "DEFERRED_TO_SIS_MAZHOR_RESUME"
+  },
+  "boundaries": {
+    "deployment": 0,
+    "host_mutation": 0,
+    "credential_access": 0,
+    "network_listener": 0,
+    "write_enablement": 0
+  }
+}
