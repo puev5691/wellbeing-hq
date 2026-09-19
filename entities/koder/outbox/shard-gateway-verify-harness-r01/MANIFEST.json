@@ -1,0 +1,56 @@
+{
+  "schema": "wb.shard_gateway.verify_harness.manifest.v1",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task_commit": "b618a7c57f25941338c24d57e7682583d5f63c5b",
+  "sis_blocker_commit": "19eb77645daa7d70006d05e83327d34816bee968",
+  "adapter_basis": {
+    "source_commit": "9329861a3b4b18ed29b2b4470d09adda086978e6",
+    "git_blob": "1e1da64573016c925c1534efede7fd0e32aabd4b",
+    "bytes": 16559,
+    "sha256": "5d34165c30869d2d12a677093c445115dfc19e410f44a580b9d541eca778fb30",
+    "unchanged": true
+  },
+  "files": [
+    {
+      "path": "harness.py",
+      "git_blob": "4ea303e66d07302d608429a5f88221ab28d02135",
+      "bytes": 5429,
+      "sha256": "63e2b5046874248656e9400c6f5de7b52aec3e5bafdb74b6c66434c6a5303552"
+    },
+    {
+      "path": "audit_sink.py",
+      "git_blob": "c739d8b50a160919497056c8b49a7315f3dada91",
+      "bytes": 1290,
+      "sha256": "16425196902993a8944375dbcfa2aaf57b1df4cbcceb6c23dc3a5bb61fc4b2ae"
+    },
+    {
+      "path": "test_harness.py",
+      "git_blob": "d79553895d4dcefd7233f8b5226d7e3da401840d",
+      "bytes": 7629,
+      "sha256": "6a47081e4b6413d5e35afb50e5fe2e63b6b01729a0d8b7376ccbb1ecf67666ec"
+    },
+    {
+      "path": "README.md",
+      "git_blob": "69425d3fb01707001316cd9f8cdb0cb938e4f4c8",
+      "bytes": 3144,
+      "sha256": "4a7414293a315087ad62963e03ca7e9bce89062cbc784a4975c600ecb2302219"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "git_blob": "e5b71d030df75309d3d8b1ccb0d4abbdc4da214e",
+      "bytes": 1235,
+      "sha256": "f6561e08c16a11919f9a299df0ee3eb9e66aa07aa60db03f6d1f739d864f8109"
+    }
+  ],
+  "invocation_contract": "one_shot_json_file",
+  "audit_schema": "wb.shard_gateway.audit.v1",
+  "boundaries": {
+    "deployment": 0,
+    "host_mutation": 0,
+    "credential_access": 0,
+    "listener": 0,
+    "write": 0,
+    "production_mutation": 0
+  },
+  "next_gate": "SIS_INDEPENDENT_HARNESS_DEPLOYMENT_PREP_REVIEW"
+}
