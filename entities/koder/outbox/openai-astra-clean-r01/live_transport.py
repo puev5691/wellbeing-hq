@@ -122,5 +122,3 @@ class OpenAIResponsesLiveTransport:
         validate_blueprint(plan); require_live_switch(live_switch)
         if type(self.executor) is not UrllibExecutor or type(self.secret_reader) is not EnvironmentSecretReader: raise LiveTransportError("LIVE_PATH_REQUIRES_REAL_NETWORK_EXECUTOR_AND_ENV_SECRET_READER")
         return self._send_once(plan,timeout=timeout,external=True)
-
-[executed on device: ruvds-xnqc6 (dd09a197-f716-4dd6-80bb-7f8e5d8260ff)]
