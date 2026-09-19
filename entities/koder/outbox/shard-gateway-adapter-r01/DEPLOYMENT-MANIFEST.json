@@ -1,0 +1,45 @@
+{
+  "schema": "wb.shard_gateway.deployment_manifest.v1",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task_commit": "1612ad05e5da265b4df1b67e5831ac644e555e56",
+  "sis_plan_commit": "8f4c81d283a78ece19e01e54f9fb4d82688b77d7",
+  "reused_historical_artifacts": [],
+  "files": [
+    {
+      "path": "gateway.py",
+      "git_blob": "9aa9b6419983b672cc1bbe599c09fecaf3332d27",
+      "bytes": 12203,
+      "sha256": "053a70de4a2f082363e1f723fc08b94c87ba8009aa64732e32e3853c76f5eeb6"
+    },
+    {
+      "path": "test_gateway.py",
+      "git_blob": "2e3d6a4d879c03f4fce92259ed6985f71c5bc8ab",
+      "bytes": 4012,
+      "sha256": "4309d7213ec6b7f9ba61221f3e3bc181a7a5c7a76bbf0600e0adae5274ca6207"
+    },
+    {
+      "path": "README.md",
+      "git_blob": "ce612288d937792398bca92718400d6ff72a4012",
+      "bytes": 2136,
+      "sha256": "505e66f1bee51c323bca02c081ed82e7e08480d049f9619332d2d198ff014ae6"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "git_blob": "c4475b55c1bbc594ee5c1325d11950d2999ea3dd",
+      "bytes": 782,
+      "sha256": "d1ccae2c6fa82df7e10e4143edac2d6b9f148c3300099ff4dbd0ab23db16c44d"
+    }
+  ],
+  "boundaries": {
+    "deployment_performed": false,
+    "host_mutation_performed": false,
+    "credential_access": 0,
+    "write_enabled": false,
+    "network_listener_exposed": false
+  },
+  "independent_verification_required": [
+    "SIS: exact package identity + contract/host-root/opcode/resource-limit review",
+    "ARH: preservation/read-only/audit/authority-boundary review",
+    "Target-host pre-deployment verification only under separate OPERATOR/KOO authority"
+  ]
+}
