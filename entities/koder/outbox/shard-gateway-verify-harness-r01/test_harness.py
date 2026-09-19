@@ -2,6 +2,7 @@ import importlib.util
 import io
 import json
 import os
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -13,7 +14,7 @@ import audit_sink
 
 def load_module(path,name):
     spec=importlib.util.spec_from_file_location(name,path)
-    mod=importlib.util.module_from_spec(spec); spec.loader.exec_module(mod); return mod
+    mod=importlib.util.module_from_spec(spec); sys.modules[name]=mod; spec.loader.exec_module(mod); return mod
 
 class HarnessTests(unittest.TestCase):
     @classmethod
