@@ -119,7 +119,8 @@ def normalize_relative(p:str)->str:
 
 def denied_absolute(p:Path)->bool:
     s=p.as_posix()
-    return any(s==x or s.startswith(x+"/") for x in DENIED_ABSOLUTE_PREFIXES) or            any(x.lower() in DENIED_COMPONENTS for x in p.parts)
+    return any(s==x or s.startswith(x+"/") for x in DENIED_ABSOLUTE_PREFIXES) or \
+           any(x.lower() in DENIED_COMPONENTS for x in p.parts)
 
 @contextmanager
 def wall_deadline(seconds:float):
