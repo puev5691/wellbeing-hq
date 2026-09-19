@@ -73,7 +73,7 @@ class HarnessTests(unittest.TestCase):
         self.request.write_bytes(b"x"*(harness.MAX_REQUEST_BYTES+1))
         code,out=self.run_main(); self.assertEqual(code,harness.EXIT_INPUT)
         self.assertEqual(json.loads(out)["error_code"],"REQUEST_SIZE_INVALID")
-        self.assertEqual(len(self.audit_lines()),0)
+        self.assertEqual(len(self.audit_lines()),1)
         self.request.write_bytes(self.valid_request()+b"{}")
         code,out=self.run_main(); self.assertEqual(code,harness.EXIT_INPUT)
         self.assertEqual(json.loads(out)["error_code"],"REQUEST_JSON_INVALID")
@@ -141,7 +141,7 @@ class HarnessTests(unittest.TestCase):
         out=io.BytesIO(); fake_stdout=SimpleNamespace(buffer=out)
         with patch.object(harness.sys,"stdout",fake_stdout):
             code=harness.main(["--adapter",str(bad),"--request-file",str(self.request),"--audit",str(self.audit)])
-        self.assertEqual(code,65); self.assertEqual(len(out.getvalue().splitlines()),1)
+        self.assertEqual(code,65); self.assertEqual(len(out.getvalue().splitlines()),1); self.assertEqual(len(self.audit_lines()),1)
         self.assertEqual(out.getvalue().strip(),harness.canonical(json.loads(out.getvalue())))
 
     def test_request_file_read_once_bounded(self):
