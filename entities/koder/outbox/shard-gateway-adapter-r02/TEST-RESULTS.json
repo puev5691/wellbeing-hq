@@ -1,0 +1,23 @@
+{
+  "schema": "wb.shard_gateway.tests.v2",
+  "verdict": "PASS_KOD_SHARD_GATEWAY_ADAPTER_R02_FINAL_BYTES",
+  "exact_git_bytes_verified": true,
+  "tests": 15,
+  "failures": 0,
+  "errors": 0,
+  "closures": {
+    "C1_wall_time": "PASS_SHA256_AND_ARCHIVE_DEADLINE_TESTS",
+    "C2_toc_tou": "PASS_TRUE_SYMLINK_SWAP_NOFOLLOW_TEST",
+    "C3_git_ref": "PASS_SHARED_REF_VALIDATOR_TREE_META_READ",
+    "C4_result_size_utf8": "PASS_JSON_EXPANSION_FINAL_CAP_AND_BINARY_TEXT_FAIL_CLOSED"
+  },
+  "final_git_blobs": {
+    "gateway.py": "1e1da64573016c925c1534efede7fd0e32aabd4b",
+    "test_gateway.py": "0e5a86291b94afb4f43ac4a03baefc95ebbe0008",
+    "README.md": "cda3b28d68bc31d36e2cb48e409d04be335a9c31"
+  },
+  "deployment_performed": false,
+  "host_mutation_performed": false,
+  "credential_access": 0,
+  "write_enabled": false
+}
