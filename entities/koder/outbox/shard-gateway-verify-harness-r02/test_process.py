@@ -39,8 +39,8 @@ class ProcessTests(unittest.TestCase):
 
     def request(self,**kw):
         o={"schema":"wb.shard_gateway.request.v1","request_id":"p1","requester_entity":"KOD",
-           "authority_ref":"fixture://authority","host_id":"mazhor","mode":"VERIFY","operation":"READ_BOUNDED",
-           "root_id":"MAZHOR_REPO_WELLBEING_HQ","relative_path":"fixture.txt","max_output_bytes":1048576}
+           "authority_ref":"fixture://authority","host_id":"burzh","mode":"VERIFY","operation":"READ_BOUNDED",
+           "root_id":"BURZH_REPO_WELLBEING_HQ","relative_path":"fixture.txt","max_output_bytes":1048576}
         o.update(kw); self.req.write_text(json.dumps(o,separators=(",",":")))
 
     def lines(self): return self.audit.read_bytes().splitlines() if self.audit.exists() else []
