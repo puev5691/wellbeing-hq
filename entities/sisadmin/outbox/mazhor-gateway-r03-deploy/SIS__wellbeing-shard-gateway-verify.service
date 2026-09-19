@@ -1,0 +1,16 @@
+[Unit]
+Description=Wellbeing shard gateway VERIFY oneshot
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=arh-preserve
+Group=arh-preserve
+WorkingDirectory=/var/lib/wellbeing/shard-gateway
+Environment=PATH=/usr/bin:/bin
+Environment=LC_ALL=C
+ExecStart=/usr/bin/python3 -I -B /opt/wb-shard-gateway/harness.py --adapter /opt/wb-shard-gateway/gateway.py --audit-module /opt/wb-shard-gateway/audit_sink.py --request-file /run/wb-shard-gateway/request.json --audit /var/log/wb-shard-gateway/audit.jsonl
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
