@@ -1,0 +1,47 @@
+{
+  "schema": "wb.shard_gateway.deployment_manifest.v3",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task_commit": "6d40523b00e01dd9663929e2e65aa9a3fa6fcdf7",
+  "sis_blocker_commit": "6835c756a0cb1254c6f51ec9a6f5f1637eb82d86",
+  "predecessor_commit": "9329861a3b4b18ed29b2b4470d09adda086978e6",
+  "files": [
+    {
+      "path": "gateway.py",
+      "blob": "d42e58060365c4b996bf87c81f3e3eb2ad684ceb",
+      "bytes": 17053,
+      "sha256": "9c443bbfb45c5804a7f375ea42904f99de98b2b07ffe86e53a67d5483166e881"
+    },
+    {
+      "path": "test_gateway.py",
+      "blob": "7cb5eff18bff38c4954a262b78ccda813333b33a",
+      "bytes": 11822,
+      "sha256": "498a6ab4fa3d3f7bfa54471c941383d1b8051a6dfb38688df8afc2a6705ea620"
+    },
+    {
+      "path": "README.md",
+      "blob": "bec51bb593fe6a428dbab866234dd6abe97f751d",
+      "bytes": 1606,
+      "sha256": "ef48901883322b42d5814774fa1c49276581467e9dc613abff038139b6bbbfd0"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "918895bde37e4baa99b3c55e91a8298eaf336e73",
+      "bytes": 695,
+      "sha256": "2d4d076d8edc85bc9745683a6885551a042bfd27682504731a237de205719b17"
+    }
+  ],
+  "safe_directory_policy": "git -c safe.directory=<immutable HOST_ROOTS repo root> ...",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "LC_ALL": "C"
+  },
+  "different_uid_confirmation": "DEFERRED_TO_SIS_MAZHOR_RESUME",
+  "boundaries": {
+    "deployment": 0,
+    "host_mutation": 0,
+    "credential_access": 0,
+    "network_listener": 0,
+    "write_enablement": 0,
+    "production_acceptance": 0
+  }
+}
