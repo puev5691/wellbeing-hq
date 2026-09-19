@@ -1,0 +1,49 @@
+{
+  "schema": "wb.shard_gateway.deployment_manifest.v2",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task_commit": "0bea0365d166918b03bf55e138c786fa5562fde5",
+  "sis_defect_result_commit": "294564fe0d25d6c8e33d51975c62a00823fe2cd7",
+  "r01_basis_commit": "84c7225e8073beeda86491c1f27f371c4f532a2d",
+  "files": [
+    {
+      "path": "gateway.py",
+      "git_blob": "1e1da64573016c925c1534efede7fd0e32aabd4b",
+      "bytes": 16559,
+      "sha256": "5d34165c30869d2d12a677093c445115dfc19e410f44a580b9d541eca778fb30"
+    },
+    {
+      "path": "test_gateway.py",
+      "git_blob": "0e5a86291b94afb4f43ac4a03baefc95ebbe0008",
+      "bytes": 8367,
+      "sha256": "3ec41c2ed2c33edae10a54f2975916441972d8d2046fc9033b675fb35b16d41d"
+    },
+    {
+      "path": "README.md",
+      "git_blob": "cda3b28d68bc31d36e2cb48e409d04be335a9c31",
+      "bytes": 2199,
+      "sha256": "681f1538608d5f570f702a142657dcc96fe2b584f9d40dc6445a43a41cd6dab5"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "git_blob": "7e171ea6e06a4480cb556cf3a1e01fb0598461ef",
+      "bytes": 818,
+      "sha256": "d2d2633257d5ff410964e569680cb5fbce0ee895c2111718c6813acd83a3f186"
+    }
+  ],
+  "security_closure": [
+    "C1_WALL_TIME",
+    "C2_NOFOLLOW_TOCTOU",
+    "C3_SHARED_GIT_REF_VALIDATION",
+    "C4_FINAL_SERIALIZED_CAP_UTF8"
+  ],
+  "boundaries": {
+    "deployment_performed": false,
+    "host_mutation_performed": false,
+    "credential_access": 0,
+    "write_enabled": false,
+    "network_listener_exposed": false,
+    "repository_archive_shard_mutation": false
+  },
+  "next_gate": "SIS_INDEPENDENT_REVERIFY_EXACT_R02",
+  "arh_review": "BLOCKED_UNTIL_SIS_R02_PASS"
+}
