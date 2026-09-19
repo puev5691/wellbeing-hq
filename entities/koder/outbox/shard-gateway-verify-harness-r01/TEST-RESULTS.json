@@ -1,0 +1,37 @@
+{
+  "schema": "wb.shard_gateway.harness.tests.v1",
+  "verdict": "PASS_KOD_SHARD_GATEWAY_VERIFY_HARNESS_R01_FINAL_BYTES",
+  "adapter": {
+    "source_commit": "9329861a3b4b18ed29b2b4470d09adda086978e6",
+    "git_blob": "1e1da64573016c925c1534efede7fd0e32aabd4b",
+    "bytes": 16559,
+    "sha256": "5d34165c30869d2d12a677093c445115dfc19e410f44a580b9d541eca778fb30",
+    "unchanged": true
+  },
+  "tests": 14,
+  "failures": 0,
+  "errors": 0,
+  "covered": [
+    "valid one-shot request",
+    "invalid request stable failure",
+    "request-size overflow and trailing input",
+    "no shell interpretation",
+    "VERIFY-only and WRITE rejection",
+    "exactly one Gateway.execute",
+    "audit exactly once",
+    "audit failure fail-closed",
+    "partial audit write fail-closed",
+    "no raw payload or environment secret in audit",
+    "canonical stdout only",
+    "deterministic exit-code contract",
+    "no listener/socket or credential dependency",
+    "unchanged adapter identity and tamper rejection"
+  ],
+  "environment": "isolated synthetic sandbox only",
+  "deployment_performed": 0,
+  "host_mutation_performed": 0,
+  "credential_access": 0,
+  "network_listener_exposure": 0,
+  "write_enablement": 0,
+  "production_data_mutation": 0
+}
