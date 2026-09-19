@@ -85,6 +85,21 @@ def make_audit(adapter,meta,result,duration_ms):
       "truncated":result.truncated
     }
 
+def make_failure_audit(code,duration_ms=0):
+    result=canonical(harness_error(code))
+    return {"schema":"wb.shard_gateway.audit.v1","request_id":"rejected","requester_entity":"unknown",
+      "authority_ref":"unknown","host_id":"","service_identity":"arh-preserve","mode":"VERIFY",
+      "operation":"","root_id":"","target_rel":"","target_digest":None,
+      "result_digest":hashlib.sha256(result).hexdigest(),"exit_status":1,"error_code":code,
+      "duration_ms":int(duration_ms),"output_bytes":len(result),"truncated":False}
+
+def fail_with_audit(audit_path,code,exit_code):
+    from audit_sink import append_record, AuditSinkError
+    try: append_record(Path(audit_path),make_failure_audit(code))
+    except AuditSinkError:
+        sys.stdout.buffer.write(canonical(harness_error("AUDIT_APPEND_FAILED"))+b"\n"); return EXIT_AUDIT
+    sys.stdout.buffer.write(canonical(harness_error(code))+b"\n"); return exit_code
+
 def main(argv=None):
     p=argparse.ArgumentParser(add_help=True)
     p.add_argument("--adapter",required=True)
@@ -93,10 +108,10 @@ def main(argv=None):
     ns=p.parse_args(argv)
     try: adapter=load_adapter(Path(ns.adapter))
     except RuntimeError as e:
-        sys.stdout.buffer.write(canonical(harness_error(str(e)))+b"\n"); return EXIT_ADAPTER
+        return fail_with_audit(ns.audit,str(e),EXIT_ADAPTER)
     try: raw=read_request(Path(ns.request_file))
     except RuntimeError as e:
-        sys.stdout.buffer.write(canonical(harness_error(str(e)))+b"\n"); return EXIT_INPUT
+        return fail_with_audit(ns.audit,str(e),EXIT_INPUT)
     meta=safe_request_meta(raw)
     started=time.monotonic_ns()
     result=adapter.Gateway().execute(raw)
