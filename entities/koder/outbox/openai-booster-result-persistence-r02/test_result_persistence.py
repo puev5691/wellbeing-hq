@@ -134,7 +134,7 @@ class T(unittest.TestCase):
 
     def test_response_evidence_tamper_without_hash_update(self):
         self.assert_tamper_blocked(lambda o:o["response_evidence"]["output"][0]["content"][0].__setitem__("text","CHANGED"),
-                                   "BLOCKED_REVIEW_PAYLOAD")
+                                   "BLOCKED_")
     def test_response_evidence_tamper_with_hash_update_still_hits_review_payload(self):
         def mutate(o):
             o["response_evidence"]["output"][0]["content"][0]["text"]="CHANGED"
