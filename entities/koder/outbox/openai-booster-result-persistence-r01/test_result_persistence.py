@@ -158,4 +158,24 @@ class T(unittest.TestCase):
             x2.invoke_once_and_persist(self.plan(),self.ident(),now_tick=1)
         self.assertEqual(c2.calls,0)
 
+    def test_fsync_failure_no_false_pass(self):
+        rec=store.normalize_openai_result(body=provider_body(),attempt_key="b"*64,request_sha256=REQUEST_SHA,
+            task_commit=TASK_COMMIT,task_blob=TASK_BLOB,writer_blob=WRITER_BLOB,provider="openai",model=MODEL,
+            http_status=200,provider_calls=1,retries=0,fallback="none")
+        with patch.object(store.os,"fsync",side_effect=OSError("fsync-fail")):
+            with self.assertRaisesRegex(store.PersistenceError,"BLOCKED_RESULT_PERSISTENCE"):
+                store.persist_atomic(self.d/"fsync.json",rec)
+
+    def test_persisted_identity_mismatch_blocks(self):
+        rec=store.normalize_openai_result(body=provider_body(),attempt_key="c"*64,request_sha256=REQUEST_SHA,
+            task_commit=TASK_COMMIT,task_blob=TASK_BLOB,writer_blob=WRITER_BLOB,provider="openai",model=MODEL,
+            http_status=200,provider_calls=1,retries=0,fallback="none")
+        p=self.d/"identity.json"
+        store.persist_atomic(p,rec)
+        obj=json.loads(p.read_text()); obj["writer_blob"]="9"*40
+        p.write_text(json.dumps(obj))
+        with self.assertRaisesRegex(store.PersistenceError,"BLOCKED_RESULT_IDENTITY_MISMATCH"):
+            store.read_and_validate(p,attempt_key="c"*64,request_sha256=REQUEST_SHA,task_commit=TASK_COMMIT,
+                task_blob=TASK_BLOB,writer_blob=WRITER_BLOB,provider="openai",model=MODEL)
+
 if __name__=="__main__": unittest.main(verbosity=2)
