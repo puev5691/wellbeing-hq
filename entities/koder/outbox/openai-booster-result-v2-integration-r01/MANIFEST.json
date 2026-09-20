@@ -1,0 +1,99 @@
+{
+  "schema": "wb.openai_booster.result_v2_integration.manifest.v1",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task": {
+    "path": "entities/koordinator/outbox/KOO__booster-rp-v2-integ__KOD.md",
+    "commit": "ab9769a7234e1df00a23ec1e9107f8f59ff6cb13",
+    "blob": "79d6f8a3809ec91ad2b60ee7ae9c5a37ec897551"
+  },
+  "verified_basis": {
+    "persistence_v2": {
+      "commit": "b76e385c139a1b2b0ccdf2ff6481aa1062c161a1",
+      "tree": "6fcc2f0325256aab96a9c52c913d53875606070f",
+      "sis_pass": "a9b2c084b7e747e66336ff35ed06fcd4f9c76016"
+    },
+    "live_worker": {
+      "commit": "716637bb0e18319fa8f3151253ed5c71b8c1aad7",
+      "tree": "2737ae65789e6608ad71631e074cc67602a182ab",
+      "blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+      "sis_pass": "18af0b778d5b30f15c20da989a39006f503dcff3"
+    },
+    "live_child_sis_pass": "5723ef15ecd76f2c5a0c401d262619c634015c96"
+  },
+  "files": [
+    {
+      "path": "integrated_live_child_runner.py",
+      "blob": "44ae0c4d98e128ed6d4b46f3558f492d09eaa6c0",
+      "bytes": 7091,
+      "sha256": "978685fa00ab63b60298abb3ed60fdd63a79ae9694b835d8182ef52d66c67a45"
+    },
+    {
+      "path": "wellbeing-openai-booster-result-v2.service.candidate",
+      "blob": "53172993a84322e68b16aac883c3f5a541dce639",
+      "bytes": 1869,
+      "sha256": "e853f0eadb43fe18ad74c304459d3e5b8192d8ddcce3cac439457cfcf18c3811"
+    },
+    {
+      "path": "review_result_store.py",
+      "blob": "1f216d9625095d817e4cafb8eea8dacb7cb4b9af",
+      "bytes": 10592,
+      "sha256": "cd01972b7045d4f84583fb5470d4c0012e09c12b954ea65221107eaa01385d7e"
+    },
+    {
+      "path": "reviewable_live_worker.py",
+      "blob": "604f73453ad78fdbc933b1ff7399d5e8c5a0da91",
+      "bytes": 5479,
+      "sha256": "6a81a0c08ffd961e3b22d2d1de4948ebce780555cfe40b8c669e96e47cb07751"
+    },
+    {
+      "path": "test_result_persistence.py",
+      "blob": "667be662fe06caf82361c22adad7c5abe32ed368",
+      "bytes": 11706,
+      "sha256": "849f664ba4cf909836a6b815327a9ba7eec00c8f3bec484b95016898561d814d"
+    },
+    {
+      "path": "test_integration.py",
+      "blob": "0187805ccbd46e8ce8833892085814767bf7fe0a",
+      "bytes": 6936,
+      "sha256": "37300ecccf32a28e5cbb25cb23d77e347080575f9b8fb7358572bc1b8fe46ce1"
+    },
+    {
+      "path": "INTEGRATION-INVOCATION.example.json",
+      "blob": "f6cc91a228083b1afde6a4da54232702ba13027b",
+      "bytes": 719,
+      "sha256": "8b7eb7fad3acb57478dbd0d3985cc9e9b713e004bcb3870878ecca5f40b7329d"
+    },
+    {
+      "path": "README.md",
+      "blob": "7d13e2b99855890f6d6a9ef8b6426d80a083b72d",
+      "bytes": 4070,
+      "sha256": "e2315547e6c8d47879392c3b994de610904f0771341dcd57cbfc1d6991881f0e"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "bfed7a0b94674ad65bb55dc5d57584011a26515e",
+      "bytes": 1268,
+      "sha256": "0ee3fb4127452a11dda9632177bf070f89c17c4c572cf6581af72f9e65b3e6f2"
+    }
+  ],
+  "future_flow": "claim -> transport -> normalize -> persist v2 -> strict readback -> terminal",
+  "runtime_result_dir": "/var/lib/wellbeing/openai-booster-live-child-r01/review-results",
+  "tests": {
+    "inherited_v2": 24,
+    "integration": 7,
+    "total": 31,
+    "failures": 0,
+    "errors": 0
+  },
+  "boundaries": {
+    "provider_calls": 0,
+    "credential_accesses": 0,
+    "production_deployment": 0,
+    "canonical_secretref_change": 0,
+    "project_acceptance": "NOT_GRANTED",
+    "project_state_mutation": false,
+    "historical_r03_requester_review": "BLOCKED"
+  },
+  "next_verifier": "SIS"
+}
