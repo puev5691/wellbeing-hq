@@ -1,0 +1,49 @@
+{
+  "schema": "wb.openai_booster.result_persistence.tests.v1",
+  "verdict": "PASS_KOD_OPENAI_BOOSTER_RESULT_PERSISTENCE_R01_FINAL_BYTES",
+  "tests": {
+    "count": 14,
+    "failures": 0,
+    "errors": 0
+  },
+  "coverage": [
+    "synthetic/replay result persists bounded reviewable assistant text",
+    "persisted payload correlates exact attempt/request/task/writer/provider/model",
+    "later requester review reads persisted artifact with provider_calls delta 0",
+    "credential-like material absent from review artifact",
+    "rename/persistence failure blocks technical PASS",
+    "write failure blocks technical PASS",
+    "fsync failure blocks technical PASS",
+    "oversized provider result fail-closed",
+    "malformed provider result fail-closed",
+    "model mismatch fail-closed",
+    "unexpected tool/action output fail-closed",
+    "retries=0 fallback=none and authority boundaries preserved",
+    "persisted identity tamper fail-closed",
+    "consumed one-shot cannot replay to reconstruct deleted/missing review content"
+  ],
+  "reused": {
+    "live_worker": {
+      "commit": "716637bb0e18319fa8f3151253ed5c71b8c1aad7",
+      "blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+      "sis_pass": "18af0b778d5b30f15c20da989a39006f503dcff3"
+    },
+    "live_child_sis_pass": "5723ef15ecd76f2c5a0c401d262619c634015c96"
+  },
+  "execution": {
+    "provider_calls": 0,
+    "credential_accesses": 0,
+    "credential_creates": 0,
+    "billing_account_mutation": 0,
+    "production_deployment": 0,
+    "project_state_mutation": false,
+    "project_acceptance": "NOT_GRANTED"
+  },
+  "historical_r03": {
+    "reconstruction_attempted": false,
+    "technical_correlation": "PASS",
+    "substantive_requester_review": "BLOCKED",
+    "project_acceptance": "NOT_GRANTED"
+  }
+}
