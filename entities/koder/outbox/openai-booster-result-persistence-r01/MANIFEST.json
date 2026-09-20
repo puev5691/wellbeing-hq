@@ -1,0 +1,76 @@
+{
+  "schema": "wb.openai_booster.result_persistence.manifest.v1",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task": {
+    "path": "entities/koordinator/outbox/KOO__openai-booster-result-persistence-r01__KOD.md",
+    "commit": "b07dc8983b8242927a31088450f613be5ab0384e",
+    "blob": "0c153a7a53c898c0f35875d479c002cbba4d448e"
+  },
+  "blocker_basis": {
+    "path": "entities/koder/outbox/KOD__openai-booster-d0-r03-requester-review-blocker__KOO.md",
+    "commit": "fecac6da59aa1ba4648aeb674017b59f037425b8",
+    "blob": "f4c6d58b1d6d4e683c150561fd42be96366f36c9"
+  },
+  "files": [
+    {
+      "path": "review_result_store.py",
+      "blob": "f7689ec1889c5ac38ab15337d02c732ff90f9dc9",
+      "bytes": 7387,
+      "sha256": "7802100a130f71b5fddaa9e487dbe22651c423a9a5ce9a5e02c2fbeac6d00f1c"
+    },
+    {
+      "path": "reviewable_live_worker.py",
+      "blob": "00ec03caf18bc9f144c25dc648285aa38b6aee7a",
+      "bytes": 5615,
+      "sha256": "2b942045e3734e5683ef0aac9e6763579c957f940d26a8750e3dab187ae2d033"
+    },
+    {
+      "path": "test_result_persistence.py",
+      "blob": "8fdca33d9c0ea800d816d5059b816c9f43d81715",
+      "bytes": 10740,
+      "sha256": "14f5c480755ddeb4580c44893c085ab6353b0809d031baf64a3b6d250c07c8cf"
+    },
+    {
+      "path": "README.md",
+      "blob": "1240fa21b79724bafe141bdf0de496757045a4e3",
+      "bytes": 3738,
+      "sha256": "a34b20b071444c2b5bc48da6e75a75000002ffd1a6a12c3f57a2ebe5c54a6981"
+    },
+    {
+      "path": "REVIEW-RESULT-SCHEMA.example.json",
+      "blob": "ae8e0e5f84a7bda3ba85465c1c3a5b01f929fb22",
+      "bytes": 876,
+      "sha256": "83561fe2a661353a0bd343ae779acf67e5c5c6759c2157c005fab2cfe2a11799"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "89c24a1f392fe20dc424032aa602f71c9fb49a25",
+      "bytes": 1862,
+      "sha256": "f0baa61246df24057a56752a8b5c12c44d2f4a1e06263d26c43e9acb66f551f8"
+    }
+  ],
+  "review_result_schema": "wb.openai.booster.review_result.v1",
+  "persistence_semantics": "same-directory temp 0600 -> full write -> file fsync -> atomic replace -> parent directory fsync -> readback identity validation",
+  "reused": {
+    "final_live_worker": {
+      "commit": "716637bb0e18319fa8f3151253ed5c71b8c1aad7",
+      "tree": "2737ae65789e6608ad71631e074cc67602a182ab",
+      "blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+      "sis_pass": "18af0b778d5b30f15c20da989a39006f503dcff3"
+    },
+    "live_child_sis_pass": "5723ef15ecd76f2c5a0c401d262619c634015c96"
+  },
+  "boundaries": {
+    "provider_calls": 0,
+    "credential_accesses": 0,
+    "credential_creates": 0,
+    "canonical_secretref_change": 0,
+    "billing_account_mutation": 0,
+    "production_deployment": 0,
+    "project_acceptance": "NOT_GRANTED",
+    "project_state_mutation": false,
+    "historical_r03_reconstruction": false
+  },
+  "next_verifier": "SIS"
+}
