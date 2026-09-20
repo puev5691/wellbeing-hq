@@ -1,0 +1,56 @@
+{
+  "schema": "wb.entity_booster.tests.v2",
+  "verdict": "PASS_KOD_ENTITY_BOOSTER_RUNTIME_R02_FINAL_BYTES",
+  "candidate_tests": {
+    "tests": 11,
+    "failures": 0,
+    "errors": 0
+  },
+  "covered": [
+    "OpenAI replay end-to-end",
+    "Anthropic replay end-to-end",
+    "authority binding before ledger creation",
+    "privacy fail-closed",
+    "tools fail-closed",
+    "response model mismatch with no fallback",
+    "durable duplicate one-shot rejection",
+    "six-thread exactly-one claimant",
+    "live-worker policy safety readback",
+    "bounded result authority/review boundary",
+    "input schema blocks credential/live shortcuts"
+  ],
+  "reused_verified_evidence": {
+    "resource_gateway": {
+      "commit": "fd49601948827cc43e46331ae98ab1f680101c0a",
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "live_calls": 0,
+      "credential_reads": 0
+    },
+    "live_worker": {
+      "commit": "18af0b778d5b30f15c20da989a39006f503dcff3",
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "live_calls": 0,
+      "credential_reads": 0
+    },
+    "anthropic_adapter": {
+      "commit": "d92b3a9ba5abc0c4d1f03169425fb2dcb6e6cd6a",
+      "assertions": 231,
+      "live_calls": 0,
+      "credential_reads": 0
+    }
+  },
+  "execution": {
+    "network_denied": true,
+    "live_provider_calls": 0,
+    "credential_reads": 0,
+    "credential_creates": 0,
+    "billing_mutation": 0,
+    "production_deployment": 0
+  },
+  "final_runtime_blob": "1fb1ffc49f82e473e523709118e49b0603366fb4",
+  "final_test_blob": "34e69adc313f2ca521c578f85bdd272123b0417c"
+}
