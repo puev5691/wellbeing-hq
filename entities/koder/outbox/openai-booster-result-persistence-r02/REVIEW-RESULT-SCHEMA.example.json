@@ -28,14 +28,14 @@
       }
     ]
   },
-  "response_bytes": 133,
-  "response_sha256": "<sha256-of-canonical-response_evidence-bytes>",
+  "response_bytes": 130,
+  "response_sha256": "62d8fe76277bc43a951fdfc6319a1b9e68b84793a9d99b252700d2d4b63d20df",
   "parser_status": "NORMALIZED_ASSISTANT_TEXT_EXACT_FROM_RESPONSE_EVIDENCE",
   "review_payload": {
     "kind": "assistant_text",
     "text": "SYNTHETIC_OK",
     "bytes": 12,
-    "sha256": "<sha256-of-utf8-review-text>"
+    "sha256": "83f580fdf1bf331ee5b07f0563e3456af09901467dbef67051cf59793356dc7d"
   },
   "requester_review_required": true,
   "project_acceptance": "NOT_GRANTED",
