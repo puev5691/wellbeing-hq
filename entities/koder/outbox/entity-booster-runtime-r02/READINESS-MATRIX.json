@@ -1,0 +1,79 @@
+{
+  "schema": "wb.entity_booster.readiness.v2",
+  "candidate_mode": "REPLAY_ONLY_NON_LIVE",
+  "current_task_live_execution_authority": "NOT_GRANTED",
+  "rows": [
+    {
+      "area": "Resource Gateway MVP",
+      "status": "VERIFIED_READY",
+      "evidence": "fd49601948827cc43e46331ae98ab1f680101c0a",
+      "note": "Synthetic/replay OpenAI+Anthropic path, authority/result boundaries."
+    },
+    {
+      "area": "Live-worker technical safety",
+      "status": "VERIFIED_READY_NOT_ACTIVATED",
+      "evidence": "18af0b778d5b30f15c20da989a39006f503dcff3",
+      "note": "Ledger/exactly-one/retries=0/no fallback/hard timeout/response bound/redirect/secret-ref boundaries."
+    },
+    {
+      "area": "OpenAI replay path",
+      "status": "READY_IN_CANDIDATE",
+      "evidence": "fd49601948827cc43e46331ae98ab1f680101c0a",
+      "note": "Uses gateway's independently verified pinned OpenAI dependency set; current r0.2 tests Luna replay."
+    },
+    {
+      "area": "Anthropic replay path",
+      "status": "READY_IN_CANDIDATE",
+      "evidence": "d92b3a9ba5abc0c4d1f03169425fb2dcb6e6cd6a",
+      "note": "Independently verified adapter; r0.2 replay E2E uses synthetic contract model."
+    },
+    {
+      "area": "OpenAI account/billing",
+      "status": "FRESH_EVIDENCE_PASS",
+      "evidence": "04a9633d7657afcf37f2ea9b4fb936ae1789e88f",
+      "note": "Dedicated project/prepaid gate recorded; no credential read in this task."
+    },
+    {
+      "area": "OpenAI model entitlement Luna/Terra/Sol/Astra",
+      "status": "FRESH_EVIDENCE_PASS",
+      "evidence": "4744028f96d6453abaf4a7987a6328ad43b619d8",
+      "note": "Four bounded completed attempts, retries=0/fallback none. This evidence does not authorize current task live calls."
+    },
+    {
+      "area": "OpenAI current booster LIVE_EXECUTION_AUTHORITY",
+      "status": "NOT_GRANTED",
+      "evidence": "e75e2af9b445e5772aa749d49e79c98c56a43c75",
+      "note": "Current task explicitly forbids live provider calls."
+    },
+    {
+      "area": "Anthropic account/billing",
+      "status": "NOT_VERIFIED",
+      "evidence": null,
+      "note": "Required before any future live Anthropic path."
+    },
+    {
+      "area": "Anthropic credential reference",
+      "status": "NOT_VERIFIED_FOR_LIVE",
+      "evidence": null,
+      "note": "No credential read/create allowed here."
+    },
+    {
+      "area": "Anthropic model entitlement",
+      "status": "NOT_VERIFIED_FOR_LIVE",
+      "evidence": "d92b3a9ba5abc0c4d1f03169425fb2dcb6e6cd6a",
+      "note": "Adapter contract verified; entitlement explicitly not established."
+    },
+    {
+      "area": "Anthropic LIVE_EXECUTION_AUTHORITY",
+      "status": "NOT_GRANTED",
+      "evidence": "e75e2af9b445e5772aa749d49e79c98c56a43c75",
+      "note": "Current task forbids live provider calls."
+    }
+  ],
+  "historical_cost_probe": {
+    "blocker_commit": "96db3ab4ba6ecf9952b60a7fffcad4d69f6f29f0",
+    "status": "PARTIALLY_SUPERSEDED_BY_FRESH_OPENAI_EVIDENCE",
+    "explanation": "OpenAI account/billing and four-model entitlement gaps now have fresh PASS evidence. The blocker remains binding with respect to any distinct LIVE_EXECUTION_AUTHORITY and for Anthropic account/billing/credential/entitlement/live gates."
+  },
+  "next_verifier": "SIS"
+}
