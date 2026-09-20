@@ -1,0 +1,70 @@
+{
+  "schema": "wb.openai_entity_booster.live_path_prep.manifest.v1",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task_commit": "b77b7abaf28a1064f7fd5137d016272d4d6a739b",
+  "operator_authority_commit": "d33d44ae593443a94029868692de83f787202654",
+  "files": [
+    {
+      "path": "live_path_prep.py",
+      "blob": "e34932446cbc5983bff216c8e3e337e1e02a2cda",
+      "bytes": 9774,
+      "sha256": "51f7592881f7af5d4448093509c8f5b428b9eed9a6b66738d0ed220894dbf0d4"
+    },
+    {
+      "path": "test_live_path_prep.py",
+      "blob": "fb5d6079c5ab8a3dc3cd678cccadbdd065551618",
+      "bytes": 7960,
+      "sha256": "249fe71d75687f706b0cb2ecc4b61012de59d1d5d218b0c270fff7010d6a68f4"
+    },
+    {
+      "path": "README.md",
+      "blob": "b4955e51acbcc353a428be71bde3b7584f403712",
+      "bytes": 3961,
+      "sha256": "8c4c331fb0586371522a98bb54c29ba778aae93a5849c76988e6e728b9b9a58d"
+    },
+    {
+      "path": "FUTURE-D0-PROFILE.json",
+      "blob": "69e9bb196d51cbed7952510ba640fec22354872d",
+      "bytes": 1258,
+      "sha256": "93aac0e425977beb21b8b1af7119401fdcc432737b95cd36a11645580539f36d"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "f1d78f9c0d9515a75a6975dca567297b316891b4",
+      "bytes": 1173,
+      "sha256": "bf3184647eda551e042b3fc049793312d416f3f8841329df1442a2e2cc5c6d24"
+    }
+  ],
+  "reused": {
+    "booster_runtime": {
+      "commit": "4ac08228960c2bbb8aa00bf607a0f0bdb13485f3",
+      "blob": "1fb1ffc49f82e473e523709118e49b0603366fb4",
+      "sha256": "c0b64fd44879c6c2395c02f66ee79c641a36c768372513ed35d149289ff2d941",
+      "sis_pass": "b0b858d18ef518fa336d3eea9441b392922697c3"
+    },
+    "live_worker": {
+      "commit": "716637bb0e18319fa8f3151253ed5c71b8c1aad7",
+      "blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+      "sis_pass": "18af0b778d5b30f15c20da989a39006f503dcff3"
+    }
+  },
+  "future_d0": {
+    "provider": "openai",
+    "model": "gpt-5.6-luna",
+    "calls": 1,
+    "retries": 0,
+    "fallback": "none",
+    "tools": [],
+    "project_acceptance": "NOT_GRANTED"
+  },
+  "boundaries": {
+    "live_calls": 0,
+    "credential_accesses": 0,
+    "credential_creates": 0,
+    "billing_mutation": 0,
+    "production_deployment": 0,
+    "project_acceptance": "NOT_GRANTED"
+  },
+  "next_verifier": "SIS"
+}
