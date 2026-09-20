@@ -1,0 +1,31 @@
+[Unit]
+Description=Wellbeing OpenAI booster live-child with verified review-result v2 candidate
+ConditionPathExists=/etc/credstore.encrypted/openai-wellbeing-entity-boosters-restricted.cred
+ConditionPathExists=/opt/wellbeing/openai-booster-live-child-r01/live_worker.py
+ConditionPathExists=/opt/wellbeing/openai-booster-result-v2-integration-r01/integrated_live_child_runner.py
+ConditionPathExists=/opt/wellbeing/openai-booster-result-v2-integration-r01/reviewable_live_worker.py
+ConditionPathExists=/opt/wellbeing/openai-booster-result-v2-integration-r01/review_result_store.py
+ConditionPathExists=/var/lib/wellbeing/openai-booster-live-child-r01/invocation.json
+
+[Service]
+Type=oneshot
+User=pev5691
+Group=pev5691
+LoadCredentialEncrypted=openai-wellbeing-entity-boosters-restricted:/etc/credstore.encrypted/openai-wellbeing-entity-boosters-restricted.cred
+ExecStart=/usr/bin/python3 -I -B /opt/wellbeing/openai-booster-result-v2-integration-r01/integrated_live_child_runner.py --worker /opt/wellbeing/openai-booster-live-child-r01/live_worker.py --integration /opt/wellbeing/openai-booster-result-v2-integration-r01/reviewable_live_worker.py --store /opt/wellbeing/openai-booster-result-v2-integration-r01/review_result_store.py --invocation /var/lib/wellbeing/openai-booster-live-child-r01/invocation.json --ledger /var/lib/wellbeing/openai-booster-live-child-r01/ledger.sqlite --result-dir /var/lib/wellbeing/openai-booster-live-child-r01/review-results
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+ReadWritePaths=/var/lib/wellbeing/openai-booster-live-child-r01
+
+[Install]
+WantedBy=multi-user.target
