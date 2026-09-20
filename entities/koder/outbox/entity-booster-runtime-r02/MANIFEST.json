@@ -1,0 +1,68 @@
+{
+  "schema": "wb.entity_booster.runtime.manifest.v2",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task_commit": "e75e2af9b445e5772aa749d49e79c98c56a43c75",
+  "package_files": [
+    {
+      "path": "booster_runtime.py",
+      "blob": "1fb1ffc49f82e473e523709118e49b0603366fb4",
+      "bytes": 9694,
+      "sha256": "c0b64fd44879c6c2395c02f66ee79c641a36c768372513ed35d149289ff2d941"
+    },
+    {
+      "path": "test_booster_runtime.py",
+      "blob": "34e69adc313f2ca521c578f85bdd272123b0417c",
+      "bytes": 7442,
+      "sha256": "a2f783b58e3f08afcc465451e831a49db786267990ffacdd56242cd15d0b31c8"
+    },
+    {
+      "path": "README.md",
+      "blob": "922ed80f351f5561d22b3d397d57a58dd6998eb8",
+      "bytes": 4359,
+      "sha256": "9a5f05fccba314175a046919a3b970158403ab333d1cc37d7d4f6759c689f11a"
+    },
+    {
+      "path": "READINESS-MATRIX.json",
+      "blob": "fcb233599344ea75d85ab3713a2bdc9d221c8248",
+      "bytes": 3254,
+      "sha256": "c76a7b05cc57cbe3c43531e11d15d7c8531cd3ada6350382cb2c734f0d9dd0c6"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "9af73281478b3119a6f8d72496e2fcdcfbfe94e1",
+      "bytes": 1583,
+      "sha256": "4a245da376106f06583306ffd1669b3ac0b504623dded567e8bff1e81902a003"
+    }
+  ],
+  "reused": {
+    "gateway": {
+      "commit": "f4807a5f2e3231fda3e4ba0f258de647b055c6e4",
+      "tree": "0160558fc173b52b20ac055e81112910091a2fd1",
+      "blob": "e93ac320468dfeed84a7342b4e9dc5c597f48fc2",
+      "sha256": "703f9e4a72ab043063ff74f636ec6c3fa85de1a8fc8b89ac1859623f46a17d7a",
+      "sis_pass": "fd49601948827cc43e46331ae98ab1f680101c0a"
+    },
+    "live_worker": {
+      "commit": "716637bb0e18319fa8f3151253ed5c71b8c1aad7",
+      "tree": "2737ae65789e6608ad71631e074cc67602a182ab",
+      "blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+      "sis_pass": "18af0b778d5b30f15c20da989a39006f503dcff3"
+    },
+    "orchestrator_blob": "55939b2e4c91f7af1159a60b2f4ee8fa961196f2",
+    "openai_policy_blob": "f04676995d63e6e5eadb9474aaf2d15e5153ab43",
+    "openai_adapter_blob": "47c2c2e8bd361a2dafad3e66457c95de9a11d5e0",
+    "anthropic_adapter_blob": "985746909772900d9c72257dc53478aa34861d91"
+  },
+  "safety": {
+    "mode": "REPLAY_ONLY",
+    "live_calls": 0,
+    "credential_reads": 0,
+    "credential_creates": 0,
+    "retries": 0,
+    "fallback": "none",
+    "project_acceptance": "NOT_GRANTED",
+    "review_required": true
+  },
+  "next_verifier": "SIS"
+}
