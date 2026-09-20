@@ -1,0 +1,30 @@
+{
+  "schema": "wb.openai.booster.review_result.v1",
+  "attempt_key": "<sha256>",
+  "request_sha256": "<sha256>",
+  "task_commit": "<git-commit>",
+  "task_blob": "<git-blob>",
+  "writer_blob": "<git-blob>",
+  "plan_sha256": "<sha256>",
+  "authority_sha256": "<sha256>",
+  "provider": "openai",
+  "model": "gpt-5.6-luna",
+  "http_status": 200,
+  "provider_calls": 1,
+  "retries": 0,
+  "fallback": "none",
+  "response_bytes": 1234,
+  "response_sha256": "<sha256>",
+  "parser_status": "NORMALIZED_ASSISTANT_TEXT_EXACT_FROM_OUTPUT_MESSAGES",
+  "review_payload": {
+    "kind": "assistant_text",
+    "text": "<bounded normalized assistant output>",
+    "bytes": 37,
+    "sha256": "<sha256>"
+  },
+  "requester_review_required": true,
+  "project_acceptance": "NOT_GRANTED",
+  "project_state_mutation": false,
+  "provider_writer_authority": false,
+  "gateway_writer_authority": false
+}
