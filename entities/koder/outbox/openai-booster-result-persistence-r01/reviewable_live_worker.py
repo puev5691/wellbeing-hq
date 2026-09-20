@@ -4,7 +4,7 @@ from pathlib import Path
 import hashlib, importlib.util, json, sys
 
 WORKER_SHA256="175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3"
-STORE_SHA256="PLACEHOLDER_STORE_SHA256"
+STORE_SHA256="7802100a130f71b5fddaa9e487dbe22651c423a9a5ce9a5e02c2fbeac6d00f1c"
 
 class IntegrationError(RuntimeError): pass
 
