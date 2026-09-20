@@ -1,0 +1,37 @@
+{
+  "schema": "wb.openai_entity_booster.live_path_prep.tests.v1",
+  "verdict": "PASS_KOD_OPENAI_ENTITY_BOOSTER_LIVE_PATH_PREP_R01_FINAL_BYTES",
+  "candidate_tests": {
+    "tests": 11,
+    "failures": 0,
+    "errors": 0
+  },
+  "covered": [
+    "valid authority reaches sentinel live-worker boundary",
+    "missing/wrong authority blocks",
+    "wrong Entity/task/writer blocks",
+    "wrong provider/model blocks",
+    "tools non-empty blocks",
+    "privacy/data-class mismatch blocks",
+    "duplicate use-once blocks",
+    "resolver failure blocks without transport",
+    "redirect/malformed/oversized/model-mismatch responses block",
+    "project_acceptance remains NOT_GRANTED",
+    "no writer/project-state mutation"
+  ],
+  "reused": {
+    "booster_runtime": {
+      "commit": "4ac08228960c2bbb8aa00bf607a0f0bdb13485f3",
+      "sis_pass": "b0b858d18ef518fa336d3eea9441b392922697c3"
+    },
+    "live_worker": {
+      "commit": "716637bb0e18319fa8f3151253ed5c71b8c1aad7",
+      "sis_pass": "18af0b778d5b30f15c20da989a39006f503dcff3"
+    }
+  },
+  "live_calls": 0,
+  "credential_accesses": 0,
+  "credential_creates": 0,
+  "billing_mutation": 0,
+  "production_deployment": 0
+}
