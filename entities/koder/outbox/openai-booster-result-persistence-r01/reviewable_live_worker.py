@@ -55,7 +55,15 @@ class ReviewableLiveWorker:
         expected_attempt=self.worker.sha({"authority":local_plan.authority_sha256,
                                           "request":local_plan.request_sha256,
                                           "plan":local_plan.plan_sha256})
-        live=self.worker.LiveWorker(self.worker.DurableOneShotLedger(self.ledger_path),self.resolver,self.client)
+        outer=self
+        class ResolverAdapter:
+            def resolve(self,ref):
+                try:
+                    resolved=outer.resolver.resolve(ref)
+                    return outer.worker.ResolvedSecret(resolved.provider,resolved.value)
+                except Exception:
+                    raise outer.worker.WorkerError("BLOCKED_CREDENTIAL_RESOLUTION") from None
+        live=self.worker.LiveWorker(self.worker.DurableOneShotLedger(self.ledger_path),ResolverAdapter(),self.client)
         try:
             reply=live.invoke_once(local_plan,now_tick=now_tick)
         except self.worker.WorkerError as exc:
