@@ -37,19 +37,27 @@ class ReviewableLiveWorker:
         self.client=client
 
     def invoke_once_and_persist(self,plan,identity:ResultIdentity,*,now_tick:int):
-        if not isinstance(plan,self.worker.WorkerPlan):
-            raise IntegrationError("BLOCKED_PLAN")
-        if plan.provider!="openai":
+        try:
+            local_plan=self.worker.WorkerPlan(
+                local_plan.request_sha256,local_plan.plan_sha256,local_plan.authority_sha256,plan.requester_sha256,
+                plan.provider,plan.model,plan.native_plan_json,
+                self.worker.SecretRef(plan.secret_ref.provider,plan.secret_ref.locator),
+                self.worker.WorkerPolicy(plan.policy.timeout_seconds,plan.policy.max_response_bytes,
+                                         plan.policy.max_calls,plan.policy.automatic_retries),
+                plan.valid_until_tick)
+        except Exception:
+            raise IntegrationError("BLOCKED_PLAN") from None
+        if local_plan.provider!="openai":
             raise IntegrationError("BLOCKED_PROVIDER_MISMATCH")
-        expected_attempt=self.worker.sha({"authority":plan.authority_sha256,
-                                          "request":plan.request_sha256,
-                                          "plan":plan.plan_sha256})
+        expected_attempt=self.worker.sha({"authority":local_local_plan.authority_sha256,
+                                          "request":local_local_plan.request_sha256,
+                                          "plan":local_local_plan.plan_sha256})
         live=self.worker.LiveWorker(self.worker.DurableOneShotLedger(self.ledger_path),self.resolver,self.client)
         try:
-            reply=live.invoke_once(plan,now_tick=now_tick)
+            reply=live.invoke_once(local_plan,now_tick=now_tick)
         except self.worker.WorkerError as exc:
             raise IntegrationError(str(exc)) from None
-        if reply.attempt_key!=expected_attempt or reply.request_sha256!=plan.request_sha256:
+        if reply.attempt_key!=expected_attempt or reply.request_sha256!=local_plan.request_sha256:
             raise IntegrationError("BLOCKED_RESULT_IDENTITY_MISMATCH")
         try:
             record=self.store.normalize_openai_result(
@@ -66,14 +74,14 @@ class ReviewableLiveWorker:
                 retries=reply.automatic_retries,
                 fallback="none")
             record["plan_sha256"]=reply.plan_sha256
-            record["authority_sha256"]=plan.authority_sha256
+            record["authority_sha256"]=local_plan.authority_sha256
             target=self.result_dir/(reply.attempt_key+".review.json")
             self.store.persist_atomic(target,record)
             persisted=self.store.read_and_validate(
                 target,attempt_key=reply.attempt_key,request_sha256=reply.request_sha256,
                 task_commit=identity.task_commit,task_blob=identity.task_blob,writer_blob=identity.writer_blob,
                 provider=reply.provider,model=reply.model)
-            if persisted.get("plan_sha256")!=reply.plan_sha256 or persisted.get("authority_sha256")!=plan.authority_sha256:
+            if persisted.get("plan_sha256")!=reply.plan_sha256 or persisted.get("authority_sha256")!=local_plan.authority_sha256:
                 raise self.store.PersistenceError("BLOCKED_RESULT_IDENTITY_MISMATCH")
         except self.store.PersistenceError as exc:
             raise IntegrationError("BLOCKED_REVIEW_RESULT_PERSISTENCE:"+str(exc)) from None
