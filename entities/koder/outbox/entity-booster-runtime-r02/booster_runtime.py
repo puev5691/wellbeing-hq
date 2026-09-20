@@ -3,7 +3,7 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 from types import ModuleType
 from typing import Any
-import argparse, hashlib, importlib.util, json, re, sys
+import argparse, hashlib, importlib.util, json, re, sys, threading
 
 VERSION="entity-booster-runtime-r02"
 GATEWAY_SHA256="703f9e4a72ab043063ff74f636ec6c3fa85de1a8fc8b89ac1859623f46a17d7a"
@@ -131,9 +131,17 @@ class Runtime:
         self.gateway=load_pinned(gateway_path,GATEWAY_SHA256,"_booster_gateway_r01")
         self.worker=load_pinned(live_worker_path,LIVE_WORKER_SHA256,"_booster_live_worker_r01")
         self.deps=Path(deps)
-        self.ledger=self.worker.DurableOneShotLedger(Path(ledger_path))
+        self.ledger_path=Path(ledger_path)
+        self.ledger=None
+        self._ledger_lock=threading.Lock()
         p=self.worker.WorkerPolicy()
         require(p.max_calls==1 and p.automatic_retries==0 and 1<=p.timeout_seconds<=60 and p.max_response_bytes<=65536,"FAIL_WORKER_POLICY")
+    def _ledger(self):
+        if self.ledger is None:
+            with self._ledger_lock:
+                if self.ledger is None:
+                    self.ledger=self.worker.DurableOneShotLedger(self.ledger_path)
+        return self.ledger
     def run(self,req:BoosterRequest,auth:Authority,replay:dict)->BoosterResult:
         validate_request(req,auth)
         g=self.gateway
@@ -149,7 +157,7 @@ class Runtime:
                       "tools":req.tools,"max_output_tokens":req.max_output_tokens,"mode":"REPLAY_ONLY"})
         attempt_key=sha({"authority":auth.identity,"request":er.identity,"plan":plan_sha})
         try:
-            self.ledger.claim(attempt_key,er.identity,plan_sha,auth.identity)
+            self._ledger().claim(attempt_key,er.identity,plan_sha,auth.identity)
         except self.worker.WorkerError as exc:
             raise BoosterError(str(exc)) from None
         gateway=g.Gateway(self.deps,verifier=lambda candidate: candidate.identity==er.identity)
