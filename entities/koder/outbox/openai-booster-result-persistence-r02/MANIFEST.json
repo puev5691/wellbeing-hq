@@ -1,0 +1,96 @@
+{
+  "schema": "wb.openai_booster.result_persistence.manifest.v2",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "correction_task": {
+    "path": "entities/koordinator/outbox/KOO__openai-booster-result-persistence-r02-fix__KOD.md",
+    "commit": "2902f1d8104a63f561cea739f0c0b20efd379f55",
+    "blob": "44aceddfdca2a68fa71a82f78dc63894e2ce8b90"
+  },
+  "sis_blocker": {
+    "path": "entities/sisadmin/outbox/SIS__openai-booster-result-persistence-r01-independent-verify__KOO-KOD.md",
+    "commit": "fd312d09bb0ee4a16ed85f7f75d86540e87c9b24",
+    "verdict": "BLOCKED_SIS_OPENAI_BOOSTER_RESULT_PERSISTENCE_R01: READBACK_VALIDATION_DOES_NOT_BIND_RESPONSE_IDENTITY_FIELDS"
+  },
+  "predecessor": {
+    "package": "entities/koder/outbox/openai-booster-result-persistence-r01/",
+    "commit": "13243aa2a0cf9bc667248c7f8ae7f8e4872898cd",
+    "tree": "29fbc01f07f337c1d2488b6f278fdab0a23099f0",
+    "immutable": true
+  },
+  "files": [
+    {
+      "path": "review_result_store.py",
+      "blob": "1f216d9625095d817e4cafb8eea8dacb7cb4b9af",
+      "bytes": 10592,
+      "sha256": "cd01972b7045d4f84583fb5470d4c0012e09c12b954ea65221107eaa01385d7e"
+    },
+    {
+      "path": "reviewable_live_worker.py",
+      "blob": "604f73453ad78fdbc933b1ff7399d5e8c5a0da91",
+      "bytes": 5479,
+      "sha256": "6a81a0c08ffd961e3b22d2d1de4948ebce780555cfe40b8c669e96e47cb07751"
+    },
+    {
+      "path": "test_result_persistence.py",
+      "blob": "667be662fe06caf82361c22adad7c5abe32ed368",
+      "bytes": 11706,
+      "sha256": "849f664ba4cf909836a6b815327a9ba7eec00c8f3bec484b95016898561d814d"
+    },
+    {
+      "path": "README.md",
+      "blob": "11e47bec49f971b8686afe32eddbc744183daf35",
+      "bytes": 4092,
+      "sha256": "249b94427331ad63c011d93c1d79fccb3231124c246fda77e3696875a7c6da26"
+    },
+    {
+      "path": "REVIEW-RESULT-SCHEMA.example.json",
+      "blob": "6a401dcc4fc711a05ee3a0e6cd59f184a4ca9000",
+      "bytes": 1554,
+      "sha256": "c9a5a2fe640988421dca5532f3c1b6d3e8a1f21f9ad3e887878d4355af07f176"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "878eac7f0766a69f0ab3bd82db4ca7cdd6a92ee9",
+      "bytes": 2834,
+      "sha256": "32974f38a745171507a17833a053d95310425abd2056383efc85aac8d173a26e"
+    }
+  ],
+  "review_result_schema": {
+    "id": "wb.openai.booster.review_result.v2",
+    "top_level_key_set": "EXACT",
+    "response_evidence_key_set": "EXACT",
+    "review_payload_key_set": "EXACT",
+    "response_bytes": "canonical UTF-8 JSON byte length of response_evidence",
+    "response_sha256": "SHA-256 of same canonical response_evidence bytes",
+    "parser_status": "NORMALIZED_ASSISTANT_TEXT_EXACT_FROM_RESPONSE_EVIDENCE",
+    "plan_sha256": "exact external expected identity bound on readback",
+    "authority_sha256": "exact external expected identity bound on readback"
+  },
+  "persistence_semantics": "same-directory temp 0600 -> full write -> file fsync -> atomic replace -> parent-directory fsync -> exact key/type/cross-field/identity readback",
+  "tests": {
+    "count": 24,
+    "failures": 0,
+    "errors": 0
+  },
+  "reused": {
+    "final_live_worker": {
+      "commit": "716637bb0e18319fa8f3151253ed5c71b8c1aad7",
+      "tree": "2737ae65789e6608ad71631e074cc67602a182ab",
+      "blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+      "sis_pass": "18af0b778d5b30f15c20da989a39006f503dcff3"
+    },
+    "live_child_sis_pass": "5723ef15ecd76f2c5a0c401d262619c634015c96"
+  },
+  "boundaries": {
+    "provider_calls": 0,
+    "credential_accesses": 0,
+    "credential_creates": 0,
+    "production_deployment": 0,
+    "canonical_secretref_change": 0,
+    "historical_r03_reconstruction": false,
+    "historical_r03_requester_review": "BLOCKED",
+    "project_acceptance": "NOT_GRANTED"
+  },
+  "next_verifier": "SIS"
+}
