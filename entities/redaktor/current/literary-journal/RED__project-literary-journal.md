@@ -76,6 +76,21 @@ Evidence:
 - `entities/kancelar/outbox/KAN__manual-activation-handoff-materialization-r01__KOO.md`;
 - materialized successor set records the approved rule and its safe fallback on KOO.
 
+
+### Журнал оказался живым только на бумаге
+
+После активации литературного журнала выяснилось простое, но важное: сам факт существования файла и даже ясные критерии значимости ещё не создают поток новых записей. В действующих источниках проекта уже были правила human-facing результата и manual activation handoff, а в самом журнале было написано, какие события достойны сохранения. Но никто не был обязан донести до RED сигнал: «вот это событие действительно стоит сохранить в человеческой памяти проекта».
+
+Результат получился очень человеческий: механизм памяти существовал, но вспоминать о нём всё равно должен был кто-то вручную.
+
+В ответ RED ввёл внутренний bounded journal-delta check и подготовил межсущностный candidate сигнала `JOURNAL_CANDIDATE`. Идея проста: routine-задачи молчат, а действительно значимый terminal result может передать короткий смысл и exact evidence. KOO затем не плодит отдельную задачу на каждый эпизод, а собирает небольшой batch для одного редакторского journal-sweep.
+
+Так журнал получает шанс оставаться редким и содержательным, не превращаясь в ещё один обязательный лог.
+
+Evidence:
+- `entities/redaktor/current/literary-journal/RED__literary-journal-maintenance-r01.md`, activation commit `347e331c19faa3449f33e1be49e6523187a28b4a`;
+- `entities/redaktor/outbox/RED__literary-journal-feed-candidate-r01__KAN-KOO.md`, commit `ca5b7999f8cf4f0f632a521fe487d5fa7918cbf8`.
+
 ---
 
 ## Рабочая граница
