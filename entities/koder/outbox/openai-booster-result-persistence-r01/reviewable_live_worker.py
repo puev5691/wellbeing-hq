@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
-import hashlib, importlib.util, json, sys
+import hashlib, importlib.util, sys
 
 WORKER_SHA256="175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3"
 STORE_SHA256="7802100a130f71b5fddaa9e487dbe22651c423a9a5ce9a5e02c2fbeac6d00f1c"
@@ -36,10 +36,10 @@ class ReviewableLiveWorker:
         self.resolver=resolver
         self.client=client
 
-    def invoke_once_and_persist(self,plan,identity:ResultIdentity,*,now_tick:int):
+    def _local_plan(self,plan):
         try:
-            local_plan=self.worker.WorkerPlan(
-                local_plan.request_sha256,local_plan.plan_sha256,local_plan.authority_sha256,plan.requester_sha256,
+            return self.worker.WorkerPlan(
+                plan.request_sha256,plan.plan_sha256,plan.authority_sha256,plan.requester_sha256,
                 plan.provider,plan.model,plan.native_plan_json,
                 self.worker.SecretRef(plan.secret_ref.provider,plan.secret_ref.locator),
                 self.worker.WorkerPolicy(plan.policy.timeout_seconds,plan.policy.max_response_bytes,
@@ -47,11 +47,14 @@ class ReviewableLiveWorker:
                 plan.valid_until_tick)
         except Exception:
             raise IntegrationError("BLOCKED_PLAN") from None
+
+    def invoke_once_and_persist(self,plan,identity:ResultIdentity,*,now_tick:int):
+        local_plan=self._local_plan(plan)
         if local_plan.provider!="openai":
             raise IntegrationError("BLOCKED_PROVIDER_MISMATCH")
-        expected_attempt=self.worker.sha({"authority":local_local_plan.authority_sha256,
-                                          "request":local_local_plan.request_sha256,
-                                          "plan":local_local_plan.plan_sha256})
+        expected_attempt=self.worker.sha({"authority":local_plan.authority_sha256,
+                                          "request":local_plan.request_sha256,
+                                          "plan":local_plan.plan_sha256})
         live=self.worker.LiveWorker(self.worker.DurableOneShotLedger(self.ledger_path),self.resolver,self.client)
         try:
             reply=live.invoke_once(local_plan,now_tick=now_tick)
