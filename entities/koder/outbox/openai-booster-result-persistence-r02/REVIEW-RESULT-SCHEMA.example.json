@@ -1,0 +1,45 @@
+{
+  "schema": "wb.openai.booster.review_result.v2",
+  "attempt_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "request_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "task_commit": "1111111111111111111111111111111111111111",
+  "task_blob": "2222222222222222222222222222222222222222",
+  "writer_blob": "3333333333333333333333333333333333333333",
+  "plan_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "authority_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "provider": "openai",
+  "model": "gpt-5.6-luna",
+  "http_status": 200,
+  "provider_calls": 1,
+  "retries": 0,
+  "fallback": "none",
+  "response_evidence": {
+    "model": "gpt-5.6-luna",
+    "output": [
+      {
+        "type": "message",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "output_text",
+            "text": "SYNTHETIC_OK"
+          }
+        ]
+      }
+    ]
+  },
+  "response_bytes": 133,
+  "response_sha256": "<sha256-of-canonical-response_evidence-bytes>",
+  "parser_status": "NORMALIZED_ASSISTANT_TEXT_EXACT_FROM_RESPONSE_EVIDENCE",
+  "review_payload": {
+    "kind": "assistant_text",
+    "text": "SYNTHETIC_OK",
+    "bytes": 12,
+    "sha256": "<sha256-of-utf8-review-text>"
+  },
+  "requester_review_required": true,
+  "project_acceptance": "NOT_GRANTED",
+  "project_state_mutation": false,
+  "provider_writer_authority": false,
+  "gateway_writer_authority": false
+}
