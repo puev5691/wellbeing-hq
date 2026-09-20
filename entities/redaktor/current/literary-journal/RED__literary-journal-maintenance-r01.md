@@ -45,10 +45,12 @@ Initial journal activation:
 - journal commit `f8029d9a7847244a7fb6190331a8541fcea26398`;
 - journal blob `100fe794309b82d485f48bd786b623516e9cbff3`.
 
-Текущий fresh preflight при создании этой guideline:
-`acc488ec786465050afc58765c6036f840776194`.
+Последний завершённый journal-delta review:
+`4d86f2b20db6d19f63ebf0ca737b3611031f2249`.
 
-Следующая journal-delta проверка должна начинаться после этой точки, а не перечитывать всю историю.
+В этом review журнал получил post-seed update commit `5f0cb60ae8202ef0293f2cc10936e39b7e1a3720`.
+
+Следующая journal-delta проверка должна начинаться после `4d86f2b20db6d19f63ebf0ca737b3611031f2249`, а не перечитывать всю историю.
 
 ## Входящие сигналы
 
