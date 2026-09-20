@@ -1,0 +1,75 @@
+{
+  "schema": "wb.openai_booster.result_persistence.tests.v2",
+  "verdict": "PASS_KOD_OPENAI_BOOSTER_RESULT_PERSISTENCE_R02_FINAL_BYTES",
+  "suite": {
+    "tests": 24,
+    "failures": 0,
+    "errors": 0
+  },
+  "exact_readback_contract": {
+    "schema": "wb.openai.booster.review_result.v2",
+    "top_level_key_set": "EXACT",
+    "nested_response_evidence_key_set": "EXACT",
+    "nested_review_payload_key_set": "EXACT",
+    "parser_status": "NORMALIZED_ASSISTANT_TEXT_EXACT_FROM_RESPONSE_EVIDENCE",
+    "response_bytes_semantics": "byte length of canonical UTF-8 JSON serialization of response_evidence",
+    "response_sha256_semantics": "SHA-256 of the same canonical response_evidence bytes",
+    "review_payload_bytes_semantics": "UTF-8 byte length of exact reconstructed assistant text",
+    "review_payload_sha256_semantics": "SHA-256 of the same exact UTF-8 review text bytes"
+  },
+  "tamper_results": {
+    "response_bytes": "BLOCKED",
+    "response_sha256": "BLOCKED",
+    "http_status": "BLOCKED",
+    "parser_status": "BLOCKED",
+    "plan_sha256": "BLOCKED",
+    "authority_sha256": "BLOCKED",
+    "missing_required_key": "BLOCKED",
+    "unexpected_extra_key": "BLOCKED",
+    "wrong_type": "BLOCKED",
+    "schema_version": "BLOCKED",
+    "review_payload_text": "BLOCKED",
+    "review_payload_bytes": "BLOCKED",
+    "review_payload_sha256": "BLOCKED",
+    "response_evidence_without_hash_update": "BLOCKED",
+    "response_evidence_with_hash_update": "BLOCKED_BY_REVIEW_PAYLOAD_CROSS_FIELD_BINDING",
+    "task_commit": "BLOCKED",
+    "task_blob": "BLOCKED",
+    "writer_blob": "BLOCKED",
+    "provider": "BLOCKED",
+    "model": "BLOCKED",
+    "request_sha256": "BLOCKED",
+    "attempt_key": "BLOCKED",
+    "authority_flags": "BLOCKED",
+    "retry_fallback_calls": "BLOCKED"
+  },
+  "durability": {
+    "write_failure": "BLOCKED",
+    "file_or_directory_fsync_failure": "BLOCKED",
+    "atomic_rename_failure": "BLOCKED",
+    "persistence_failure_after_transport": "NO_FALSE_PASS_LEDGER_REMAINS_CONSUMED",
+    "replay_missing_content_after_consumed_one_shot": "BLOCKED_DUPLICATE_CALL"
+  },
+  "reused": {
+    "final_live_worker": {
+      "commit": "716637bb0e18319fa8f3151253ed5c71b8c1aad7",
+      "blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "sha256": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+      "sis_pass": "18af0b778d5b30f15c20da989a39006f503dcff3"
+    },
+    "live_child_sis_pass": "5723ef15ecd76f2c5a0c401d262619c634015c96"
+  },
+  "execution": {
+    "real_provider_calls": 0,
+    "credential_accesses": 0,
+    "credential_creates": 0,
+    "production_deployment": 0,
+    "canonical_secretref_changes": 0
+  },
+  "historical_r03": {
+    "technical_correlation": "PASS",
+    "requester_review": "BLOCKED",
+    "project_acceptance": "NOT_GRANTED",
+    "body_reconstructed": false
+  }
+}
