@@ -1,0 +1,37 @@
+{
+  "schema": "wb.openai_booster.result_v2_integration.tests.v1",
+  "verdict": "PASS_KOD_BOOSTER_RESULT_V2_INTEGRATION_FINAL_BYTES",
+  "inherited_v2_suite": {
+    "tests": 24,
+    "failures": 0,
+    "errors": 0
+  },
+  "integration_suite": {
+    "tests": 7,
+    "failures": 0,
+    "errors": 0
+  },
+  "integration_coverage": [
+    "success path creates exact schema v2 review artifact",
+    "terminal PASS only after durable persistence plus strict readback",
+    "later requester review reads artifact with provider calls delta 0",
+    "exact attempt/request/task/writer/provider/model/plan/authority correlation",
+    "v2 tamper protection remains active on integrated artifact",
+    "secret/privacy exclusions preserved",
+    "persistence failure after simulated transport leaves one-shot consumed and replay blocked",
+    "retries=0 fallback=none project_acceptance=NOT_GRANTED project_state_mutation=false"
+  ],
+  "execution": {
+    "real_provider_calls": 0,
+    "credential_accesses": 0,
+    "credential_creates": 0,
+    "production_deployment": 0,
+    "canonical_secretref_changes": 0
+  },
+  "historical_r03": {
+    "technical_correlation": "PASS",
+    "requester_review": "BLOCKED",
+    "project_acceptance": "NOT_GRANTED",
+    "body_reconstructed": false
+  }
+}
