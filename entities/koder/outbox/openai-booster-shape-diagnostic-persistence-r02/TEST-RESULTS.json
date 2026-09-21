@@ -1,0 +1,78 @@
+{
+  "schema": "wb.openai_booster.response_shape_diag.tests.v2",
+  "verdict": "PASS_KOD_BOOSTER_V2_SHAPE_DIAG_PERSIST_R02_FINAL_BYTES",
+  "suite": {
+    "tests": 39,
+    "failures": 0,
+    "errors": 0
+  },
+  "positive_suite": {
+    "tests": 9,
+    "failures": 0,
+    "errors": 0
+  },
+  "strict_tamper_suite": {
+    "tests": 30,
+    "failures": 0,
+    "errors": 0
+  },
+  "binding_design": {
+    "schema": "wb.openai.booster.response_shape_diag.v2",
+    "canonical_snapshot_identity": "SHA-256 of complete canonical diagnostic evidence excluding snapshot_sha256",
+    "readback": "persisted hash recomputation plus externally supplied expected_snapshot_sha256"
+  },
+  "tamper_coverage": [
+    "response_bytes",
+    "response_sha256",
+    "http_status",
+    "top_level_keys",
+    "output_count",
+    "output item type",
+    "output item exact key set",
+    "output item classification",
+    "output item role",
+    "output item content_count",
+    "content item type",
+    "content item exact key set",
+    "content item classification",
+    "requester_review_required",
+    "project_acceptance",
+    "project_state_mutation",
+    "provider_writer_authority",
+    "gateway_writer_authority",
+    "attempt_key",
+    "request_sha256",
+    "task_commit",
+    "task_blob",
+    "writer_blob",
+    "plan_sha256",
+    "authority_sha256",
+    "provider",
+    "model",
+    "snapshot_sha256",
+    "self-consistent output_items plus output_count plus recomputed internal hash",
+    "self-consistent response evidence fields plus recomputed internal hash"
+  ],
+  "preserved": {
+    "privacy_content_exclusion": true,
+    "diagnostic_classification_only": true,
+    "review_result_v2_normalizer_fail_closed": true,
+    "consumed_one_shot_semantics": true,
+    "retries": 0,
+    "fallback": "none",
+    "tools": "none",
+    "project_acceptance": "NOT_GRANTED",
+    "project_state_mutation": false
+  },
+  "execution": {
+    "provider_calls": 0,
+    "credential_accesses": 0,
+    "production_deployment": 0,
+    "parser_correction": 0
+  },
+  "historical": {
+    "live_acceptance": "BLOCKED",
+    "shape_reconstructed": false,
+    "authority_reused": false
+  }
+}
