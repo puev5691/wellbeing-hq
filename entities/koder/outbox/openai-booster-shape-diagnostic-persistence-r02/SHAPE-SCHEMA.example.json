@@ -1,0 +1,72 @@
+{
+  "schema": "wb.openai.booster.response_shape_diag.v2",
+  "provider": "openai",
+  "model": "gpt-5.6-luna",
+  "attempt_key": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "request_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+  "task_commit": "1111111111111111111111111111111111111111",
+  "task_blob": "2222222222222222222222222222222222222222",
+  "writer_blob": "3333333333333333333333333333333333333333",
+  "plan_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+  "authority_sha256": "6666666666666666666666666666666666666666666666666666666666666666",
+  "http_status": 200,
+  "response_bytes": 373,
+  "response_sha256": "c5530b6a1c803eca769e4512094bafe4555a9b701c0419a8a379ad07ea9fe684",
+  "top_level_keys": [
+    "id",
+    "model",
+    "object",
+    "output",
+    "status",
+    "usage"
+  ],
+  "output_count": 2,
+  "output_items": [
+    {
+      "index": 0,
+      "type": "reasoning",
+      "keys": [
+        "id",
+        "status",
+        "summary",
+        "type"
+      ],
+      "classification": "benign_metadata_or_reasoning_container",
+      "role": null,
+      "content_count": null,
+      "content_items": []
+    },
+    {
+      "index": 1,
+      "type": "message",
+      "keys": [
+        "content",
+        "id",
+        "role",
+        "status",
+        "type"
+      ],
+      "classification": "assistant_text",
+      "role": "assistant",
+      "content_count": 1,
+      "content_items": [
+        {
+          "index": 0,
+          "type": "output_text",
+          "keys": [
+            "annotations",
+            "text",
+            "type"
+          ],
+          "classification": "assistant_text"
+        }
+      ]
+    }
+  ],
+  "requester_review_required": true,
+  "project_acceptance": "NOT_GRANTED",
+  "project_state_mutation": false,
+  "provider_writer_authority": false,
+  "gateway_writer_authority": false,
+  "snapshot_sha256": "c7bbef7446179b5d1023ceb929119bfd67fd0a10e3ba7258fcd05c00ae05e4d8"
+}
