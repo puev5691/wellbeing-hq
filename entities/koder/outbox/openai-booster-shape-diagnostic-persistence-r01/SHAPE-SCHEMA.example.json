@@ -1,0 +1,68 @@
+{
+  "schema": "wb.openai.booster.response_shape_diag.v1",
+  "provider": "openai",
+  "model": "gpt-5.6-luna",
+  "attempt_key": "<sha256>",
+  "request_sha256": "<sha256>",
+  "task_commit": "<git-commit>",
+  "task_blob": "<git-blob>",
+  "writer_blob": "<git-blob>",
+  "plan_sha256": "<sha256>",
+  "authority_sha256": "<sha256>",
+  "http_status": 200,
+  "response_bytes": 1234,
+  "response_sha256": "<sha256-of-raw-provider-body>",
+  "top_level_keys": [
+    "id",
+    "model",
+    "object",
+    "output",
+    "status",
+    "usage"
+  ],
+  "output_count": 2,
+  "output_items": [
+    {
+      "index": 0,
+      "type": "reasoning",
+      "keys": [
+        "id",
+        "status",
+        "summary",
+        "type"
+      ],
+      "classification": "benign_metadata_or_reasoning_container",
+      "role": null,
+      "content_count": null,
+      "content_items": []
+    },
+    {
+      "index": 1,
+      "type": "message",
+      "keys": [
+        "content",
+        "id",
+        "role",
+        "status",
+        "type"
+      ],
+      "classification": "assistant_text",
+      "role": "assistant",
+      "content_count": 1,
+      "content_items": [
+        {
+          "index": 0,
+          "type": "output_text",
+          "keys": [
+            "annotations",
+            "text",
+            "type"
+          ],
+          "classification": "assistant_text"
+        }
+      ]
+    }
+  ],
+  "project_acceptance": "NOT_GRANTED",
+  "project_state_mutation": false
+}
