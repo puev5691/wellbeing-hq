@@ -1,0 +1,80 @@
+--- entity-state-preservation-and-recovery-canon-v1_6-approved.md
++++ entity-state-preservation-and-recovery-canon-v1_7-candidate.md
+@@ -1,4 +1,4 @@
+-# Канон сохранения состояния, инициации и восстановления Сущностей — v1.6 approved
++# Канон сохранения состояния, инициации и восстановления Сущностей — v1.7 candidate
+ 
+ ## Смысл
+ 
+@@ -304,6 +304,24 @@
+ 
+ Этот раздел сохраняет reviewed r0.4 Wake/Writer layer; conveyor-specific recovery delta ниже его не отменяет и не расширяет.
+ 
++### Проверка физического экземпляра при замене чата
++
++Если причиной замены является исчерпание длины, деградация или утрата пригодности конкретного чата, логическая смена writer identity внутри этого же физического чата не считается физической заменой. Сохраняющий работоспособность предшественник может подготовить handoff и checkpoint в пределах своих полномочий, но не объявляет себя собственным физическим replacement.
++
++До назначения writer заменяющий экземпляр должен иметь отдельно зафиксированное основание, что инициация выполнена в другом пригодном для работы физическом чате. Основанием может служить явное подтверждение ОПЕРАТОРА, связывающее новый чат и регистрационную метку экземпляра, либо проверяемые идентификаторы среды, когда они действительно доступны. Способ и предел проверки указываются прямо. Отсутствующий платформенный chat ID не выдумывается.
++
++Регистрационная метка экземпляра нужна для однозначной ссылки на него, но произвольный UUID, новое имя, commit, файл current-writer или успешный readback сами по себе не доказывают появления другого физического чата. При неизвестном или противоречивом различии экземпляров замена не считается подтверждённой; назначение writer для этой замены останавливается с точным blocker до разрешения критичного ввода.
++
++Плановая замена опирается на предусмотренные preservation и handoff предшественника. При аварийной недоступности предшественника невозможность свежего self-snapshot фиксируется как failure-state: разрешённый emergency failover использует последний externally verified recovery/current-state, явно сохраняет его stale/unknown границы и не требует невозможного snapshot как условия самого аварийного запуска.
++
++Новый физический экземпляр отдельно проходит проверяемую initiation. Успешная initiation не назначает writer. Writer Gate опирается на уже существующее допустимое authority, свежую проверку recovery/источников, явное состояние предшественника и проверку competing writers. Назначение однозначно связывает новую writer identity с меткой именно этого физического экземпляра и с exact initiation result; неоднозначное «текущий чат» без этой связи недостаточно.
++
++Документ назначения предшественника остаётся evidence предшественника и не переносит authority на новый чат. Действие successor relation устанавливается допустимым решением о передаче/failover, а не временем commit или технической доступностью. Подтверждённый competing writer не устраняется произвольным переименованием.
++
++После назначения writer новый current-writer выполняет предусмотренный recovery-каноном checkpoint собственного подтверждённого состояния; АРХИВАРИУС независимо проверяет и сохраняет пакет. Publication/readback не равны practical recoverability. Historical PROMPT/tasks и скрытое состояние предшественника не воспроизводятся.
++
++Эта проверка применяется к физической замене чата. Она не вводит обязательный новый чат для обычного Resume-First того же проверенного экземпляра, не переносит chat-specific требования механически на non-chat runtime и не создаёт automation, task или writer authority.
++
+ ### Recovery task conveyor
+ 
+ Recovery восстанавливает состояние конвейера, но не делает старый PROMPT действующим поручением. После установления допустимого current-writer replacement KOO обязан fresh-reconcile информационное поле и только затем, если задача остаётся current, сформировать новый актуальный PROMPT по task-conveyor canon.
+@@ -559,23 +577,26 @@
+ 
+ ## Служебная карточка
+ 
+-Документ: канон сохранения состояния, инициации и восстановления Сущностей  
+-Версия: v1.6  
+-Статус: candidate_for_operator_approval  
+-Область: все Сущности проекта «БЛАГОПОЛУЧИЕ»  
+-Основа active: `entity-state-preservation-and-recovery-canon-v1_4-approved.md`  
+-Reviewed predecessor candidate: `entities/koordinator/outbox/entity-recovery-canon-v1_5-wake-initiation-resume-amendment-candidate-r04.md@aea341e30d5d5297a491e7320674f2587d66d1e5`  
+-Reviewed predecessor blob: `99b1ef3428330fa2e43d76a373b79cb8d3d663c5`  
+-Open OPERATOR gate for predecessor: `entities/koordinator/outbox/KOO__entity-recovery-canon-v1_5-operator-gate__OPERATOR.md@17190f729eef6537f0404af387253c9c11eb3a21`  
+-Predecessor gate status: resolved_by_operator_successor_selection  
+-Lineage resolution: OPERATOR selected v1.6 r0.3 as successor; predecessor v1.5 r0.4 gate resolved by d07a843f57f962a02c5ee34ba8713ad08e4ef416.  
+-Supersedes after activation barrier pass: active v1.4 and any predecessor candidate explicitly withdrawn/rejected by OPERATOR  
+-Изменены разделы: файл инициации; recovery-пакет; обязательная процедура инициации; integrated Wake/Writer layer; Recovery task conveyor; связь с политикой источников  
+-Основание изменения: preserve reviewed r0.4 authority/recovery work, add task-conveyor recovery state and prohibit historical PROMPT replay  
+-Current-writer / Writer Gate / exact task authority / immutable identity / verified initiation: preserved and not weakened  
+-Automation authority: capability does not create authority; `activation != processing_started`  
+-Approval status: requires_operator_review  
+-Effective: false  
+-Responsibility boundary: полный алгоритм task conveyor не дублируется; recovery canon owns continuity, initiation, writer and recoverability boundaries
+-
+-Approval decision: entities/koordinator/current/KOO__source-rebuild-r03-operator-decision.md@c1e44243eb57ef0e667d0b9c4e93c1991cbf1899
++document_type: entity-state-preservation-and-recovery-canon
++version: v1.7
++status: candidate_for_controlled_source_review
++effective: false
++active_source_unchanged: entity-state-preservation-and-recovery-canon-v1_6-approved.md
++author: KAN-current-writer-v02
++physical_instance: KAN-physical-v02-1caebedc-d9bd-4a59-8317-b9c78bfca857
++proposed_scope: physical chat replacement evidence only
++approval_boundary: OPERATOR approved direction/delta for integration preparation; complete successor source not approved or activated
++operator_decision: APPROVE_KAN_PHYSICAL_REPLACEMENT_GUARD_R01_FOR_CANON_INTEGRATION
++integration_task: puev5691/wellbeing-hq@6bf5e3917fb08ec4a582b91cd25d21622cc73a33:entities/koordinator/outbox/KOO__KAN-physical-replacement-canon-integration-r01__KAN.md
++integration_task_blob: bf708f36e54067fe0ecf1671501a88d801051d43
++base_locator: puev5691/wellbeing-hq@6bf5e3917fb08ec4a582b91cd25d21622cc73a33:entities/koordinator/outbox/source-set-r03-approved/entity-state-preservation-and-recovery-canon-v1_6-approved.md
++base_blob: 233117e1c9509d730e1f5ec532b1cabe3f786609
++base_sha256: 82e3117570a9ecd73be2dae1279ebb3e0a2d6125556de98d5c1ede14a9236ae5
++delta_locator: puev5691/wellbeing-hq@854bb368035deaca67160e8127f342c80fbb1c28:entities/kancelar/outbox/KAN__physical-replacement-guard-r01__KOO.md
++delta_blob: 5c752c946b3152d35e9a5c76a1fbb7d442f991cd
++delta_sha256: 7105370e1f69dc6215fc7d3f5ed313c52f881b9e8aa3ee29fb967898bfb82ec4
++changes: title/version; exact approved physical-replacement insertion; successor service card
++excluded: KOO instance-admission guard candidate; unrelated editorial cleanup; active source mutation
++effectivity: only after applicable approval and complete controlled source-set activation/readback
++responsibility_boundary: candidate preparation does not appoint writers, activate sources, authorize automation or replay tasks
++project_time: omitted
