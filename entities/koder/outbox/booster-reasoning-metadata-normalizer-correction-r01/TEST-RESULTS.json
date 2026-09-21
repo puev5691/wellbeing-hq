@@ -1,0 +1,17 @@
+{
+  "tests": 24,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "provider_calls": 0,
+  "real_credential_value_reads": 0,
+  "host_systemd_mutation": 0,
+  "deployment": 0,
+  "retries": 0,
+  "fallback": "none",
+  "tools": "none",
+  "project_acceptance": "NOT_GRANTED",
+  "production_acceptance": "NOT_GRANTED",
+  "fixtures": "synthetic resolver/client only; socket connections forbidden",
+  "success": true
+}

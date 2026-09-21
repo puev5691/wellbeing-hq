@@ -1,0 +1,102 @@
+--- base/review_result_store.py
++++ successor/review_result_store.py
+@@ -59,6 +59,10 @@
+     normalized=[]
+     for item in output:
+         require(type(item) is dict,"BLOCKED_PROVIDER_RESPONSE")
++        # APPROVE_BOOSTER_REASONING_AS_IGNORED_METADATA_R01:
++        # Ignore this exact output container; never copy its payload to evidence.
++        if item.get("type")=="reasoning":
++            continue
+         require(item.get("type")=="message" and item.get("role")=="assistant","BLOCKED_UNEXPECTED_PROVIDER_ACTION")
+         content=item.get("content")
+         require(type(content) is list and content,"BLOCKED_PROVIDER_RESPONSE")
+--- base/reviewable_live_worker.py
++++ successor/reviewable_live_worker.py
+@@ -4,7 +4,7 @@
+ import hashlib, importlib.util, sys
+ 
+ WORKER_SHA256="175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3"
+-STORE_SHA256="cd01972b7045d4f84583fb5470d4c0012e09c12b954ea65221107eaa01385d7e"
++STORE_SHA256="72a3374bdebd1cd0f37951507dd8cd3cf271b8a7924335a6e61f707fcc33e3ba"
+ 
+ class IntegrationError(RuntimeError): pass
+ 
+--- base/diagnostic_reviewable_live_worker.py
++++ successor/diagnostic_reviewable_live_worker.py
+@@ -4,8 +4,8 @@
+ import hashlib, importlib.util, sys
+ 
+ WORKER_SHA256="175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3"
+-RESULT_INTEGRATION_SHA256="6a81a0c08ffd961e3b22d2d1de4948ebce780555cfe40b8c669e96e47cb07751"
+-RESULT_STORE_SHA256="cd01972b7045d4f84583fb5470d4c0012e09c12b954ea65221107eaa01385d7e"
++RESULT_INTEGRATION_SHA256="54f8ac0c52b8a6f14c22f69a0dd837506f9054aada0a353ac4f09cd473700c95"
++RESULT_STORE_SHA256="72a3374bdebd1cd0f37951507dd8cd3cf271b8a7924335a6e61f707fcc33e3ba"
+ SHAPE_STORE_SHA256="bc68a15f1dd288ef7092eaf1013e5b825432bb519da4cba4b355c1feb7118e8f"
+ 
+ class ShapeIntegrationError(RuntimeError): pass
+--- base/shape_diag_successor_runner.py
++++ successor/shape_diag_successor_runner.py
+@@ -3,17 +3,17 @@
+ from pathlib import Path
+ import argparse, hashlib, importlib.util, json, os, sys
+ 
+-DIAG_INTEGRATION_SHA256="b06588123f795a2e8181af0d6b1a4be2e90472c5974bbbab70eb5f7fcb9024be"
++DIAG_INTEGRATION_SHA256="ab9e254a34151ed53e36160c4d63ff0b361774f8340bbfc34c56594e550b0deb"
+ SHAPE_STORE_SHA256="bc68a15f1dd288ef7092eaf1013e5b825432bb519da4cba4b355c1feb7118e8f"
+-RESULT_INTEGRATION_SHA256="6a81a0c08ffd961e3b22d2d1de4948ebce780555cfe40b8c669e96e47cb07751"
+-RESULT_STORE_SHA256="cd01972b7045d4f84583fb5470d4c0012e09c12b954ea65221107eaa01385d7e"
++RESULT_INTEGRATION_SHA256="54f8ac0c52b8a6f14c22f69a0dd837506f9054aada0a353ac4f09cd473700c95"
++RESULT_STORE_SHA256="72a3374bdebd1cd0f37951507dd8cd3cf271b8a7924335a6e61f707fcc33e3ba"
+ WORKER_SHA256="175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3"
+ 
+ SECRETREF="secretref:openai:wellbeing-entity-boosters-restricted"
+ OBJECT="openai-wellbeing-entity-boosters-restricted"
+-TASK_COMMIT="b988066e0e018627cc24b95f409f3ccd0a416990"
+-TASK_BLOB="691af722274bc51f87d5eeda6e7054d21ee3c9c3"
+-WRITER_BLOB="ba08fe21d0b01cf1f7f5f3e181cd4af4cdfc5391"
++TASK_COMMIT="c751b3e22c4df45ec74aed995096516ecee8a689"
++TASK_BLOB="ce56ff61413af96494b3332b35684008eac2684e"
++WRITER_BLOB="cf1c84f9df7c90509703e4885844d0cf871ff412"
+ MODEL="gpt-5.6-luna"
+ PAYLOAD="Synthetic bounded request."
+ ENDPOINT="https://api.openai.com/v1/responses"
+--- base/SENTINEL-INVOCATION.example.json
++++ successor/SENTINEL-INVOCATION.example.json
+@@ -1,9 +1,9 @@
+ {
+   "mode": "SENTINEL",
+-  "authority_id": "synthetic-successor-readiness",
+-  "task_commit": "b988066e0e018627cc24b95f409f3ccd0a416990",
+-  "task_blob": "691af722274bc51f87d5eeda6e7054d21ee3c9c3",
+-  "writer_blob": "ba08fe21d0b01cf1f7f5f3e181cd4af4cdfc5391",
++  "authority_id": "NON_LIVE_CORRECTION_R01_SENTINEL_ONLY",
++  "task_commit": "c751b3e22c4df45ec74aed995096516ecee8a689",
++  "task_blob": "ce56ff61413af96494b3332b35684008eac2684e",
++  "writer_blob": "cf1c84f9df7c90509703e4885844d0cf871ff412",
+   "provider": "openai",
+   "model": "gpt-5.6-luna",
+   "privacy_class": "synthetic_only",
+--- base/test_successor_wiring.py
++++ successor/test_successor_wiring.py
+@@ -71,15 +71,16 @@
+         self.assertEqual(out["provider_calls"],1)
+         self.assertEqual((out["retries"],out["fallback"]),(0,"none"))
+ 
+-    def test_reasoning_shape_saved_before_normalizer_block(self):
++    def test_reasoning_shape_saved_and_review_created(self):
+         self.live_invocation(); r=Resolver(); c=Client(body([REASON,MSG]))
+-        with self.assertRaisesRegex(runner.E,"BLOCKED_REVIEW_RESULT_PERSISTENCE_AFTER_SHAPE_SAVED"):
+-            self.execute(r,c)
++        result=self.execute(r,c)
+         self.assertEqual(c.calls,1)
+         shapes=list(self.shape.glob("*.shape.json")); self.assertEqual(len(shapes),1)
+         rec=json.loads(shapes[0].read_text())
+         self.assertEqual([x["type"] for x in rec["output_items"]],["reasoning","message"])
+-        self.assertEqual(list(self.review.glob("*.review.json")),[])
++        review=json.loads(Path(result["result_path"]).read_text())
++        self.assertEqual(review["review_payload"]["text"],"SYNTHETIC_OK")
++        self.assertEqual([x["type"] for x in review["response_evidence"]["output"]],["message"])
+ 
+     def test_no_secret_material_in_shape_or_review(self):
+         self.live_invocation(); self.execute(Resolver(),Client(body([MSG])))

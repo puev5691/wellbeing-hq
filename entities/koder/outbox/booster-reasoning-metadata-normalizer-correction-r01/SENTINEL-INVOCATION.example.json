@@ -1,0 +1,22 @@
+{
+  "mode": "SENTINEL",
+  "authority_id": "NON_LIVE_CORRECTION_R01_SENTINEL_ONLY",
+  "task_commit": "c751b3e22c4df45ec74aed995096516ecee8a689",
+  "task_blob": "ce56ff61413af96494b3332b35684008eac2684e",
+  "writer_blob": "cf1c84f9df7c90509703e4885844d0cf871ff412",
+  "provider": "openai",
+  "model": "gpt-5.6-luna",
+  "privacy_class": "synthetic_only",
+  "data_class": "D0_SYNTHETIC",
+  "tools": [],
+  "credential_ref": "secretref:openai:wellbeing-entity-boosters-restricted",
+  "calls": 1,
+  "retries": 0,
+  "fallback": "none",
+  "max_output_tokens": 64,
+  "max_response_bytes": 16384,
+  "timeout_seconds": 30,
+  "payload": "Synthetic bounded request.",
+  "project_acceptance": "NOT_GRANTED",
+  "project_state_mutation": false
+}

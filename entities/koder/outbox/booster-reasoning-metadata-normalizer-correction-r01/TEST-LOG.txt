@@ -1,0 +1,29 @@
+test_persistence_and_strict_readback_order (test_reasoning_policy.Ordering.test_persistence_and_strict_readback_order) ... ok
+test_reasoning_payload_not_in_persisted_artifacts (test_reasoning_policy.Ordering.test_reasoning_payload_not_in_persisted_artifacts) ... ok
+test_replay_rejected_before_second_transport (test_reasoning_policy.Ordering.test_replay_rejected_before_second_transport) ... ok
+test_review_readback_failure_blocks_terminal_pass (test_reasoning_policy.Ordering.test_review_readback_failure_blocks_terminal_pass) ... ok
+test_shape_readback_failure_blocks_normalization (test_reasoning_policy.Ordering.test_shape_readback_failure_blocks_normalization) ... ok
+test_tool_action_keeps_shape_but_never_review (test_reasoning_policy.Ordering.test_tool_action_keeps_shape_but_never_review) ... ok
+test_disallowed_message_content_stays_blocked (test_reasoning_policy.Policy.test_disallowed_message_content_stays_blocked) ... ok
+test_no_valid_prefix_acceptance_with_later_invalid_message (test_reasoning_policy.Policy.test_no_valid_prefix_acceptance_with_later_invalid_message) ... ok
+test_nonassistant_roles_stay_blocked (test_reasoning_policy.Policy.test_nonassistant_roles_stay_blocked) ... ok
+test_plain_assistant_and_existing_multiple_text_semantics (test_reasoning_policy.Policy.test_plain_assistant_and_existing_multiple_text_semantics) ... ok
+test_reasoning_before_between_after_is_not_result (test_reasoning_policy.Policy.test_reasoning_before_between_after_is_not_result) ... ok
+test_reasoning_only_does_not_produce_result (test_reasoning_policy.Policy.test_reasoning_only_does_not_produce_result) ... ok
+test_review_readback_detects_tampered_text (test_reasoning_policy.Policy.test_review_readback_detects_tampered_text) ... ok
+test_review_readback_rejects_reasoning_in_evidence (test_reasoning_policy.Policy.test_review_readback_rejects_reasoning_in_evidence) ... ok
+test_tools_actions_unknown_and_metadata_aliases_stay_blocked (test_reasoning_policy.Policy.test_tools_actions_unknown_and_metadata_aliases_stay_blocked) ... ok
+test_no_secret_material_in_shape_or_review (test_successor_wiring.T.test_no_secret_material_in_shape_or_review) ... ok
+test_plain_message_full_success (test_successor_wiring.T.test_plain_message_full_success) ... ok
+test_reasoning_shape_saved_and_review_created (test_successor_wiring.T.test_reasoning_shape_saved_and_review_created) ... ok
+test_scope_is_exact (test_successor_wiring.T.test_scope_is_exact) ... ok
+test_sentinel_zero_provider_zero_credential_value_read (test_successor_wiring.T.test_sentinel_zero_provider_zero_credential_value_read) ... ok
+test_exact_credential_mapping_and_write_boundary (test_unit_contract.T.test_exact_credential_mapping_and_write_boundary) ... ok
+test_execstart_exact_successor_wiring (test_unit_contract.T.test_execstart_exact_successor_wiring) ... ok
+test_no_listener_or_credential_environment (test_unit_contract.T.test_no_listener_or_credential_environment) ... ok
+test_oneshot_disabled_by_default_contract (test_unit_contract.T.test_oneshot_disabled_by_default_contract) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests (duration omitted)
+
+OK
