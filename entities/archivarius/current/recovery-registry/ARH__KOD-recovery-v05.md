@@ -1,0 +1,22 @@
+# ARH recovery registry — KOD recovery v0.5
+
+status: EXTERNALLY_PRESERVED_READBACK_PASS
+entity: KOD / КОДЕР
+source_writer: entities/koder/current/KOD__replacement-current-writer-v04.md
+source_writer_commit: 62dabf1a8ee0c25a35697ac5675a3cfe47ca225b
+source_writer_blob: ba08fe21d0b01cf1f7f5f3e181cd4af4cdfc5391
+source_candidate: puev5691/wellbeing-hq@9ae556f84a912fb446bf9f8e559fe76f7dfe6a6e:entities/koder/outbox/kod-recovery-v05-candidate
+external_locator: puev5691/wellbeing-entity-bootstrap@214d4347cd2aabc48eae51a43181d04a1d9e7744:entities/kod/recovery/versions/kod-recovery-v05
+composition: 5/5 PASS
+publication_readback: 5/5 PASS
+manifest_blob: 4d4473a1059c1019ffc578388d4156b72ac791dc
+manifest_sha256: d69602e59fd318b60f79701b2a583bc23879ba6fb957268526d1f02d0993a6ca
+checksums_blob: 09eda63ea36922824aae97b962ed9b675dfe5846
+checksums_sha256: d081f1412f0ffb8ad41d957a40a44ec726dceea4f8a911619342cfd72d1504c7
+substantive_sha256_check: 3/3 PASS
+secret_scan: PASS_NO_SECRET_VALUE_PATTERN_FOUND
+historical_replay: forbidden
+replacement_writer_appointed: no
+writer_freeze_performed: no
+
+Recoverability: READY_FOR_REPLACEMENT_COLD_START_AFTER_SEPARATE_HANDOFF_FREEZE_AUTHORITY. Fresh HQ/task/route reconciliation remains mandatory.
