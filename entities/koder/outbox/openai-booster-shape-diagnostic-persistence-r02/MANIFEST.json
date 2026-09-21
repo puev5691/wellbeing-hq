@@ -1,0 +1,118 @@
+{
+  "schema": "wb.openai_booster.response_shape_diag.manifest.v2",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "correction_task": {
+    "path": "entities/koordinator/outbox/KOO__booster-v2-shape-bind-fix__KOD.md",
+    "commit": "de77603053e9d844534e2af102b6496c425fad8b",
+    "blob": "bfc7d20234d6b279e320ea3d216d65a420ef5bad"
+  },
+  "sis_blocker": {
+    "path": "entities/sisadmin/outbox/SIS__booster-v2-shape-diag-persist-r01-verify__KOO-KOD.md",
+    "commit": "21113c0851ec6ed03b295dedd5da40857e056873",
+    "verdict": "BLOCKED_SIS_BOOSTER_V2_SHAPE_DIAG_PERSIST_R01: READBACK_DOES_NOT_BIND_RESPONSE_SHAPE_EVIDENCE_FIELDS"
+  },
+  "predecessor": {
+    "package": "entities/koder/outbox/openai-booster-shape-diagnostic-persistence-r01/",
+    "commit": "8114606922db6cf69aeb9157639d7ba408972a03",
+    "tree": "6777a5f4ba0d6294ed9d147ac3c74b3875107e24",
+    "immutable": true
+  },
+  "files": [
+    {
+      "path": "response_shape_store.py",
+      "blob": "55178dc51715f67c5115ec5c616b808a833ad618",
+      "bytes": 9893,
+      "sha256": "bc68a15f1dd288ef7092eaf1013e5b825432bb519da4cba4b355c1feb7118e8f"
+    },
+    {
+      "path": "diagnostic_reviewable_live_worker.py",
+      "blob": "de686ff7b57082cec27fda5ef62bd2dee5e616f4",
+      "bytes": 6631,
+      "sha256": "b06588123f795a2e8181af0d6b1a4be2e90472c5974bbbab70eb5f7fcb9024be"
+    },
+    {
+      "path": "test_shape_diagnostic_r02.py",
+      "blob": "3669398d2a034165a98a65a902fe4d6e1c3a3c82",
+      "bytes": 14240,
+      "sha256": "cc45fef2a16a62cc1527aff55b810300cd40086bb17e1536d50a0e76eb08c0a0"
+    },
+    {
+      "path": "README.md",
+      "blob": "542e19983483d68709991e689ae945933897cf38",
+      "bytes": 4405,
+      "sha256": "0a00191d5858d453197950c6d46be6e1da7d7200078d6d9702f26909fa55de00"
+    },
+    {
+      "path": "SHAPE-SCHEMA.example.json",
+      "blob": "21ac0992ae80138ff0fadabf872e05ff4e461873",
+      "bytes": 1999,
+      "sha256": "7cebb47b1a6cd6f81440b563440214daf433885748bd3595df017ad9409955a2"
+    },
+    {
+      "path": "TEST-RESULTS.json",
+      "blob": "fda87d89895473604a73f823ec2b7b450fe98fb0",
+      "bytes": 2142,
+      "sha256": "ef1bdc62c596bf14cacaf108a0720ae6d99e3b9d3cd25e52dc3e87734440b0e2"
+    }
+  ],
+  "schema_id": "wb.openai.booster.response_shape_diag.v2",
+  "binding": {
+    "canonical_evidence": "all persisted diagnostic fields except snapshot_sha256",
+    "identity": "SHA-256(canonical UTF-8 diagnostic evidence)",
+    "strict_readback": "persisted snapshot_sha256 must equal recomputed hash AND recomputed hash must equal externally supplied expected_snapshot_sha256",
+    "external_anchor": "computed before persistence and surfaced by integration terminal/blocker"
+  },
+  "newly_bound": [
+    "response_bytes",
+    "response_sha256",
+    "http_status",
+    "top_level_keys",
+    "output_count",
+    "output item type/key set/classification/role/content_count",
+    "content item type/key set/classification",
+    "requester_review_required",
+    "project_acceptance",
+    "project_state_mutation",
+    "provider_writer_authority",
+    "gateway_writer_authority",
+    "attempt_key",
+    "request_sha256",
+    "task_commit",
+    "task_blob",
+    "writer_blob",
+    "plan_sha256",
+    "authority_sha256",
+    "provider",
+    "model"
+  ],
+  "tests": {
+    "total": 39,
+    "positive": 9,
+    "strict_tamper": 30,
+    "failures": 0,
+    "errors": 0
+  },
+  "preserved": {
+    "privacy_content_exclusion": true,
+    "structure_only": true,
+    "diagnostic_only_classification": true,
+    "review_result_v2_normalizer_fail_closed": true,
+    "ordering": "claim -> transport -> JSON parse -> persist diagnostic shape -> normalize -> persist review-result v2 -> strict readback -> terminal",
+    "atomic_persistence": true,
+    "consumed_one_shot_semantics": true,
+    "retries": 0,
+    "fallback": "none",
+    "tools": "none",
+    "project_acceptance": "NOT_GRANTED",
+    "project_state_mutation": false
+  },
+  "boundaries": {
+    "provider_calls": 0,
+    "credential_accesses": 0,
+    "production_deployment": 0,
+    "parser_correction": 0,
+    "historical_shape_reconstructed": false,
+    "historical_live_acceptance": "BLOCKED"
+  },
+  "next_verifier": "SIS"
+}
