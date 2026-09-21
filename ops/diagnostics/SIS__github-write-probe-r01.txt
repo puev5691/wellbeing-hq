@@ -1,0 +1,2 @@
+SIS GitHub write-path diagnostic probe.
+No execution authority. No external-system action.
