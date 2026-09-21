@@ -1,0 +1,1 @@
+No host mutation. No provider calls. No credential read/use/create. No Telegram action.
