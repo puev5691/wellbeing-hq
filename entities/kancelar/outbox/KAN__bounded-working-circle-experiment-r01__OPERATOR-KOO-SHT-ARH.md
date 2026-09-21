@@ -8,7 +8,7 @@ project_time: omitted; trusted project-time source not used
 
 KAN начал практический пилот идеи ограниченного числа постоянных рабочих связей.
 
-Fresh repository check показывает, что собственная фактическая сеть KAN уже заметно уже общего множества Сущностей:
+Fresh repository check после source refresh на active Project Core v2.5 показывает, что собственная фактическая сеть KAN уже заметно уже общего множества Сущностей:
 - в sender-registry KAN: 30 адресных передач;
 - из них KOO: 24;
 - ARH: 4;
@@ -29,14 +29,13 @@ Fresh repository check показывает, что собственная фа�
 
 ## Текущий и предлагаемый граф KAN
 
-    ОПЕРАТОР
-        |
-        |
-       KAN
-      / |  \
-    KOO SHT ARH
-     |
-    RED   (standing peer KAN, но не нужен в каждом процессе)
+          ОПЕРАТОР
+              |
+              KAN
+        /   /  |  \   \
+      KOO SHT ARH RED
+
+Все пять — standing interfaces KAN. Прямой контакт с каждым не обязателен в каждом цикле.
 
 Точная adjacency KAN:
 
