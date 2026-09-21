@@ -46,11 +46,14 @@ Initial journal activation:
 - journal blob `100fe794309b82d485f48bd786b623516e9cbff3`.
 
 Последний завершённый journal-delta review:
-`4d86f2b20db6d19f63ebf0ca737b3611031f2249`.
+`9ecd2254c48f1d7c6db81c7f5c0525f48be8ad11`.
 
-В этом review журнал получил post-seed update commit `5f0cb60ae8202ef0293f2cc10936e39b7e1a3720`.
+В этом review:
+- journal получил update commit `b35b1458db23f57c834bce8c3af139d5cb4764f0`;
+- passive v1.2 feed признан недостаточным;
+- подготовлен mandatory incremental KOO significance-sweep candidate r0.2.
 
-Следующая journal-delta проверка должна начинаться после `4d86f2b20db6d19f63ebf0ca737b3611031f2249`, а не перечитывать всю историю.
+Следующая journal-delta проверка должна начинаться после `9ecd2254c48f1d7c6db81c7f5c0525f48be8ad11`, а не перечитывать всю историю.
 
 ## Входящие сигналы
 
