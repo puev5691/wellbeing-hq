@@ -1,0 +1,31 @@
+{
+  "schema": "wb.openai_booster.response_shape_diag.tests.v1",
+  "verdict": "PASS_KOD_BOOSTER_V2_SHAPE_DIAG_PERSIST_R01_FINAL_BYTES",
+  "tests": {
+    "count": 9,
+    "failures": 0,
+    "errors": 0
+  },
+  "coverage": [
+    "plain message/output_text persists structure and normal review path succeeds",
+    "reasoning plus assistant message persists shape while unchanged normalizer still blocks",
+    "tool/action request persists structural evidence while normalizer blocks",
+    "unknown output item persists structural evidence while normalizer blocks",
+    "malformed JSON leaves one-shot consumed but no fabricated shape",
+    "post-transport diagnostic persistence failure leaves one-shot consumed and replay blocked",
+    "diagnostic identity tamper fails strict readback",
+    "write/fsync/rename failures fail closed",
+    "credential-like and response-content material absent"
+  ],
+  "execution": {
+    "provider_calls": 0,
+    "credential_accesses": 0,
+    "production_deployment": 0
+  },
+  "historical": {
+    "consumed_acceptance": "BLOCKED",
+    "body_reconstructed": false,
+    "authority_reused": false,
+    "project_acceptance": "NOT_GRANTED"
+  }
+}
