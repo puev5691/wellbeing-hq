@@ -1,0 +1,2 @@
+Failure-state: PREVIOUS_WRITER_TECHNICALLY_UNAVAILABLE
+Writer Gate was not performed.
