@@ -46,14 +46,14 @@ Initial journal activation:
 - journal blob `100fe794309b82d485f48bd786b623516e9cbff3`.
 
 Последний завершённый journal-delta review:
-`9ecd2254c48f1d7c6db81c7f5c0525f48be8ad11`.
+`dcbb9069c4dc4e7ab29192ad8238a2f34ee629ba`.
 
 В этом review:
-- journal получил update commit `b35b1458db23f57c834bce8c3af139d5cb4764f0`;
-- passive v1.2 feed признан недостаточным;
-- подготовлен mandatory incremental KOO significance-sweep candidate r0.2.
+- проверены новые journal-source материалы от SHT, SIS, ARH и KOD;
+- journal получил три новые объединённые записи: рабочие круги, Booster fail-closed arc, continuity/entity-chat arc;
+- новый journal blob: `77c67124a5f127e5a770b87610e5a4448fe93b2d`.
 
-Следующая journal-delta проверка должна начинаться после `9ecd2254c48f1d7c6db81c7f5c0525f48be8ad11`, а не перечитывать всю историю.
+Следующая journal-delta проверка должна начинаться после `dcbb9069c4dc4e7ab29192ad8238a2f34ee629ba`, а не перечитывать всю историю.
 
 ## Входящие сигналы
 
