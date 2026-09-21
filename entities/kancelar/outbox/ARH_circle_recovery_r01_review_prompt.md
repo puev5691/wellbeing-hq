@@ -4,6 +4,8 @@
 
 Сделай fresh GitHub-preflight `puev5691/wellbeing-hq`.
 
+Если у текущего экземпляра уже есть незавершённая exact профильная задача, не вытесняй её этим экспериментом: либо обработай запрос после её terminal result, либо верни точный `WAITING_ACTIVE_TASK` с locator текущей задачи.
+
 Exact experiment:
 `entities/kancelar/outbox/KAN__bounded-working-circle-experiment-r01__OPERATOR-KOO-SHT-ARH.md`
 
