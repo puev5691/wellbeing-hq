@@ -1,0 +1,101 @@
+{
+  "schema": "wb.openai.booster.shape_diag_successor.manifest.v1",
+  "status": "CANDIDATE_NOT_DEPLOYED",
+  "task": {
+    "path": "entities/koordinator/outbox/KOO__booster-v2-shape-diag-successor-wiring-r01__KOD.md",
+    "commit": "dba85477d63203060717d7fbf4c4964c0f16979b",
+    "blob": "d0906bd2f6d95e5b94a953de3b18ff16da04924b"
+  },
+  "blocker": {
+    "commit": "17865e1ad7bd72cfd41145b7e9f22f55e617492c",
+    "verdict": "BLOCKED_SIS_BOOSTER_V2_SHAPE_DIAG_R02_HOST_UPDATE_READINESS: NO_EXECUTABLE_SUCCESSOR_WIRING_ARTIFACT"
+  },
+  "runtime_root": "/opt/wellbeing/openai-booster-shape-diag-successor-r01",
+  "state_root": "/var/lib/wellbeing/openai-booster-live-child-r01",
+  "shape_dir": "/var/lib/wellbeing/openai-booster-live-child-r01/response-shapes",
+  "review_dir": "/var/lib/wellbeing/openai-booster-live-child-r01/review-results",
+  "files": [
+    [
+      "shape_diag_successor_runner.py",
+      "34cd177fad2496581ecc802776463c4cb9dae576",
+      "918a4cd1f64970839bb0704941ccdc01f4eda5ce3e39024322d625abd5abeb50"
+    ],
+    [
+      "wellbeing-openai-booster-shape-diag-successor.service.candidate",
+      "d31fb3fd729ecafbbe69e75642328ee2de9eef22",
+      "8a268d5d2ae9f51d3fb7613101935274dc2a55eeb351d50fa20f06c80905f3b6"
+    ],
+    [
+      "diagnostic_reviewable_live_worker.py",
+      "de686ff7b57082cec27fda5ef62bd2dee5e616f4",
+      "b06588123f795a2e8181af0d6b1a4be2e90472c5974bbbab70eb5f7fcb9024be"
+    ],
+    [
+      "response_shape_store.py",
+      "55178dc51715f67c5115ec5c616b808a833ad618",
+      "bc68a15f1dd288ef7092eaf1013e5b825432bb519da4cba4b355c1feb7118e8f"
+    ],
+    [
+      "reviewable_live_worker.py",
+      "604f73453ad78fdbc933b1ff7399d5e8c5a0da91",
+      "6a81a0c08ffd961e3b22d2d1de4948ebce780555cfe40b8c669e96e47cb07751"
+    ],
+    [
+      "review_result_store.py",
+      "1f216d9625095d817e4cafb8eea8dacb7cb4b9af",
+      "cd01972b7045d4f84583fb5470d4c0012e09c12b954ea65221107eaa01385d7e"
+    ],
+    [
+      "SENTINEL-INVOCATION.example.json",
+      "d76d9c86ff8d5462b6982ccc8655cd421368a03b",
+      "b6d27defbd96c5079e081ab7a3b1897894ac00139201aa46a46dab6dd1515732"
+    ],
+    [
+      "test_successor_wiring.py",
+      "f84628ae907da5c6002c2988a2cc67182219d932",
+      "0605ad544de4ea4419518d9b9b0a34b572548897977c4202efc880dfe5555de3"
+    ],
+    [
+      "test_unit_contract.py",
+      "7cfce590306aa384c07ef60f63ce10343c9e34fe",
+      "7a6c417d1ee4448b757d65d5c6da0dac26c5f03460b2060569830157ad88ffe6"
+    ],
+    [
+      "README.md",
+      "81aba2bc4c1167671568e649ae719d72d1e49f4c",
+      "7d059b3a58591ec205450eea386d3700ecf0a74e79d852bf81b53af9c71707a6"
+    ],
+    [
+      "TEST-RESULTS.json",
+      "de6050c7c9ca7a6f05f5ed48423f7bd97a1dc46d",
+      "0fa5cfc68cec956edfa7d8c95c9d7bd6e8491882718de4df1a21e3f37ca3dcb6"
+    ]
+  ],
+  "ordering": "claim -> transport -> JSON parse -> persist diagnostic shape -> normalize -> persist review-result v2 -> strict readback -> terminal",
+  "sentinel": {
+    "provider_calls": 0,
+    "credential_value_read": false,
+    "status": "READY"
+  },
+  "tests": {
+    "runtime": 5,
+    "unit": 4,
+    "systemd_analyze_verify": "PASS",
+    "failures": 0,
+    "errors": 0
+  },
+  "boundaries": {
+    "provider_calls": 0,
+    "credential_value_reads": 0,
+    "host_mutation": 0,
+    "systemd_mutation": 0,
+    "deployment": 0,
+    "historical_authority_replay": 0,
+    "retries": 0,
+    "fallback": "none",
+    "tools": "none",
+    "project_acceptance": "NOT_GRANTED",
+    "production_acceptance": "NOT_GRANTED"
+  },
+  "next_verifier": "SIS"
+}
