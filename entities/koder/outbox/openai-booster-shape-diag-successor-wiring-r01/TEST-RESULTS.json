@@ -1,0 +1,43 @@
+{
+  "schema": "wb.openai.booster.shape_diag_successor.tests.v1",
+  "verdict": "PASS_KOD_BOOSTER_V2_SHAPE_DIAG_SUCCESSOR_WIRING_R01_FINAL_BYTES",
+  "runtime_suite": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0
+  },
+  "unit_suite": {
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  "systemd_analyze_verify": {
+    "result": "PASS",
+    "note": "same candidate bytes copied to temporary .service filename; no install/daemon-reload"
+  },
+  "sentinel": {
+    "status": "READY",
+    "provider_calls": 0,
+    "credential_value_read": false,
+    "credential_loaded_for_child": true,
+    "shape_schema": "wb.openai.booster.response_shape_diag.v2",
+    "review_schema": "wb.openai.booster.review_result.v2",
+    "ledger_created": false,
+    "shape_files": 0,
+    "review_files": 0
+  },
+  "ordering_evidence": "reasoning-like synthetic response persisted one shape artifact before unchanged review-result v2 normalizer failed closed",
+  "boundaries": {
+    "real_provider_calls": 0,
+    "credential_value_reads": 0,
+    "host_mutations": 0,
+    "systemd_mutations": 0,
+    "deployment": 0,
+    "historical_authority_replay": 0,
+    "tools": "none",
+    "retries": 0,
+    "fallback": "none",
+    "project_acceptance": "NOT_GRANTED",
+    "production_acceptance": "NOT_GRANTED"
+  }
+}
