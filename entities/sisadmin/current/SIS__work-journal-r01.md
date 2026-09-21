@@ -34,3 +34,36 @@ Operational rule:
 КТО: replacement SIS / СИСАДМИН
 ДЛЯ ЧЕГО: continuity journal after avoidable host-locator/handoff regression
 СТАТУС: NON_AUTHORITATIVE_CONTINUITY_JOURNAL
+
+
+## Эпизод: human-facing ответ началcя с machine summary вместо человеческого смысла
+
+Симптом:
+после технической проверки SIS выдал ОПЕРАТОРУ machine verdict, перечни PASS/FAIL, hashes, commits и technical boundaries раньше нормального объяснения того, что произошло и зачем это важно.
+
+Это нарушает действующую approved-норму project core v2.5.
+
+Fresh verified normative basis:
+- `entities/koordinator/outbox/project-core-v2_5-approved/project-instructions-core-v2_5-approved.md`;
+- status: approved;
+- раздел `Человекочитаемый интерфейс проекта`;
+- human-facing слой является обязательным первичным интерфейсом;
+- сначала: `что произошло → почему это важно / что это означает → что теперь возможно, разрешено или требуется`;
+- machine statuses, paths, commits, blobs, hashes и locators не являются основным человеческим текстом;
+- human-facing terminal result не должен начинаться с технической служебной сводки, если она не является непосредственным предметом решения ОПЕРАТОРА.
+
+Дополнительная current working directive:
+`entities/koordinator/current/KOO__operator-facing-language-rule-v01.md`
+требует русский основной текст, human-readable summary before service metadata и пояснение необходимых English technical terms.
+
+Operational rule:
+`HUMAN MEANING FIRST → CAUSAL CONTEXT → NEXT PRACTICAL CONSEQUENCE → ONLY THEN NECESSARY MACHINE EVIDENCE → ACTIVATION HANDOFF`.
+
+Самоконтроль перед каждым terminal reply:
+1. Можно ли понять результат, не читая machine verdict?
+2. Объяснено ли, что изменилось по сути?
+3. Объяснено ли, почему это важно для общей цепочки?
+4. Понятно ли, что теперь можно/нужно делать?
+5. Убраны ли ненужные hashes/statuses из основной прозы?
+6. Если нужен другой чат, есть ли готовый АДРЕСАТ/PROMPT/ДЕЙСТВИЕ ОПЕРАТОРА?
+
