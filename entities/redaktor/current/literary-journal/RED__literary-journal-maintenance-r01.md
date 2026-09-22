@@ -46,14 +46,15 @@ Initial journal activation:
 - journal blob `100fe794309b82d485f48bd786b623516e9cbff3`.
 
 Последний завершённый journal-delta review:
-`dcbb9069c4dc4e7ab29192ad8238a2f34ee629ba`.
+`f5447c6faaa3711239cd9907f7c94035853fec6a`.
 
 В этом review:
-- проверены новые journal-source материалы от SHT, SIS, ARH и KOD;
-- journal получил три новые объединённые записи: рабочие круги, Booster fail-closed arc, continuity/entity-chat arc;
-- новый journal blob: `77c67124a5f127e5a770b87610e5a4448fe93b2d`.
+- раздел 7 exact KOD result `KOD__booster-utility-pilot-causal-reconciliation-r01__KOO.md` обработан как journal-source;
+- сопоставлен с SIS first-full-live-PASS source;
+- редакторское решение: MERGE в существующую Booster-запись, без отдельного нового эпизода;
+- journal обновлён до blob `7f5f2c7d51c8895e5c6b9b84d2c0afd2023f0e0a`.
 
-Следующая journal-delta проверка должна начинаться после `dcbb9069c4dc4e7ab29192ad8238a2f34ee629ba`, а не перечитывать всю историю.
+Следующая journal-delta проверка должна начинаться после `f5447c6faaa3711239cd9907f7c94035853fec6a`, а не перечитывать всю историю.
 
 ## Входящие сигналы
 
