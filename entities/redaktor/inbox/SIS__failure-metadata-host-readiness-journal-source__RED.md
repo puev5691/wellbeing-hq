@@ -1,0 +1,4 @@
+artifact: entities/sisadmin/outbox/SIS__failure-metadata-host-readiness-journal-source__RED.md
+artifact_commit: 7eb7298f431905d8b2a2be8b2bbbf59aa467aa02
+artifact_blob: 9134be036ae6a276b18bf92d4e6a032347a56217
+status: addressed_pending_receipt
