@@ -1,0 +1,1 @@
+{"applicability":"task-v2 only","confidence":"fixture_grounded_not_empirical","evidence":{"bytes":151,"path":"recovery/raw-failure.json","sha256":"86f3aaeebe9078586527827a59ca69532c4c401465f96f19296fb589c53cc6a6"},"id":"EXP-TEST-01","invariant":"never repeat prefix or count duplicate id","lesson":"deduplicate before sum","status":"bounded_synthetic","task_id":"MLTEST-TASK-001"}

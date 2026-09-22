@@ -1,0 +1,1 @@
+{"cursor":3,"entity_id":"MLTEST-READER","next":"continue_from_cursor_3","old_instance":"OLD-01","seen":{"a":{"amount":4,"key":"red"},"b":{"amount":3,"key":"blue"}},"source_timezone":null,"source_timezone_status":"unknown","spec":"task-v2","status":"ACTIVE","task_id":"MLTEST-TASK-001","totals":{"blue":3,"red":4}}

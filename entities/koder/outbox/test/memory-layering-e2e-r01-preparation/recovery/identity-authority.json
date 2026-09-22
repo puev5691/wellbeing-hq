@@ -1,0 +1,1 @@
+{"entity_id":"MLTEST-READER","inherit_authority":false,"main_execution_authority":null,"namespace":"MLTEST","new_instance":"NEW-01","old_instance":"OLD-01","preparation_authority":"AUTHORIZE_MEMORY_LAYERING_E2E_R01_EXECUTION_PREPARATION","project_writer":false,"role":"worker","task_id":"MLTEST-TASK-001"}
