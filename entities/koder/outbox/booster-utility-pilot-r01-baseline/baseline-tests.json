@@ -1,0 +1,151 @@
+{
+  "cases": [
+    {
+      "input": "",
+      "result": [],
+      "exact": true,
+      "valid": true,
+      "roundtrip": true,
+      "greedy": true,
+      "input_unchanged": true
+    },
+    {
+      "input": "a",
+      "result": [
+        [
+          "a",
+          1
+        ]
+      ],
+      "exact": true,
+      "valid": true,
+      "roundtrip": true,
+      "greedy": true,
+      "input_unchanged": true
+    },
+    {
+      "input": "aaa",
+      "result": [
+        [
+          "a",
+          3
+        ]
+      ],
+      "exact": true,
+      "valid": true,
+      "roundtrip": true,
+      "greedy": true,
+      "input_unchanged": true
+    },
+    {
+      "input": "aaaa",
+      "result": [
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          1
+        ]
+      ],
+      "exact": true,
+      "valid": true,
+      "roundtrip": true,
+      "greedy": true,
+      "input_unchanged": true
+    },
+    {
+      "input": "aaaaaaa",
+      "result": [
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          1
+        ]
+      ],
+      "exact": true,
+      "valid": true,
+      "roundtrip": true,
+      "greedy": true,
+      "input_unchanged": true
+    },
+    {
+      "input": "abbaa",
+      "result": [
+        [
+          "a",
+          1
+        ],
+        [
+          "b",
+          2
+        ],
+        [
+          "a",
+          2
+        ]
+      ],
+      "exact": true,
+      "valid": true,
+      "roundtrip": true,
+      "greedy": true,
+      "input_unchanged": true
+    },
+    {
+      "input": "яяяя🙂🙂",
+      "result": [
+        [
+          "я",
+          3
+        ],
+        [
+          "я",
+          1
+        ],
+        [
+          "🙂",
+          2
+        ]
+      ],
+      "exact": true,
+      "valid": true,
+      "roundtrip": true,
+      "greedy": true,
+      "input_unchanged": true
+    },
+    {
+      "input": "  \n\n\n\n",
+      "result": [
+        [
+          " ",
+          2
+        ],
+        [
+          "\n",
+          3
+        ],
+        [
+          "\n",
+          1
+        ]
+      ],
+      "exact": true,
+      "valid": true,
+      "roundtrip": true,
+      "greedy": true,
+      "input_unchanged": true
+    }
+  ],
+  "passed": 8,
+  "total": 8,
+  "source_policy": "reviewed_local_no_imports_no_external_calls",
+  "check_duration_ns": 1150042
+}

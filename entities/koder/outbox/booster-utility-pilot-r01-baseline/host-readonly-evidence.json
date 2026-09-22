@@ -1,0 +1,13 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Process started with PID 305568 (shell: /bin/bash)\nInitial output:\nshell-init: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\njob-working-directory: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\nchdir: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n{\"host\": \"ruvds-xnqc6\", \"runner_sha256\": \"83a189fe53f1b3b56bf8c90c3533af0210d1e06fff5607241e03cd2e6bade433\", \"utility_bridge_dirs\": [], \"historical_attempt_count\": 4}\n"
+    },
+    {
+      "type": "text",
+      "text": "\n[executed on device: ruvds-xnqc6 (dd09a197-f716-4dd6-80bb-7f8e5d8260ff)]"
+    }
+  ],
+  "isError": false
+}
