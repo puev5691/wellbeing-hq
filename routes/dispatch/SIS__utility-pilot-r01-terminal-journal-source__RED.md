@@ -1,0 +1,8 @@
+sender: sisadmin
+recipient: redaktor
+artifact: entities/sisadmin/outbox/SIS__utility-pilot-r01-terminal-journal-source__RED.md
+artifact_commit: b76d1c42aaa0d527c88d97ea9baaf91b69a61efe
+artifact_blob: 390abe1438eb0497e3520090926c33c8899da83a
+inbox_pointer: entities/redaktor/inbox/SIS__utility-pilot-r01-terminal-journal-source__RED.md
+status: dispatched
+receipt:
