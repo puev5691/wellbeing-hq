@@ -1,0 +1,120 @@
+{
+  "task_id": "D0_RUNS_MAX3_R01",
+  "specification": "Implement Python runs(s) for a str s. Return a list of (character, count) tuples in input order. Each tuple represents a nonempty maximal consecutive run, split greedily into chunks of at most 3. Characters mean Python Unicode code points. Preserve every character exactly; empty input returns []. Input is always str; no type validation required. No imports, tools, network or project data.",
+  "cases": [
+    [
+      "",
+      []
+    ],
+    [
+      "a",
+      [
+        [
+          "a",
+          1
+        ]
+      ]
+    ],
+    [
+      "aaa",
+      [
+        [
+          "a",
+          3
+        ]
+      ]
+    ],
+    [
+      "aaaa",
+      [
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          1
+        ]
+      ]
+    ],
+    [
+      "aaaaaaa",
+      [
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          1
+        ]
+      ]
+    ],
+    [
+      "abbaa",
+      [
+        [
+          "a",
+          1
+        ],
+        [
+          "b",
+          2
+        ],
+        [
+          "a",
+          2
+        ]
+      ]
+    ],
+    [
+      "яяяя🙂🙂",
+      [
+        [
+          "я",
+          3
+        ],
+        [
+          "я",
+          1
+        ],
+        [
+          "🙂",
+          2
+        ]
+      ]
+    ],
+    [
+      "  \n\n\n\n",
+      [
+        [
+          " ",
+          2
+        ],
+        [
+          "\n",
+          3
+        ],
+        [
+          "\n",
+          1
+        ]
+      ]
+    ]
+  ],
+  "rubric": [
+    "all_8_expected_outputs",
+    "roundtrip_preserves_input",
+    "counts_1_to_3",
+    "greedy_run_boundaries",
+    "does_not_mutate_input",
+    "no_imports_or_external_actions"
+  ],
+  "stop_criterion": "One submitted candidate followed by the common test suite; record failure without second Booster call or corrective candidate. Baseline rework only if its first tests fail, recorded before request.",
+  "comparison_design": "sequential_exploratory_N1; baseline familiarity may bias assisted review; no general acceleration claim",
+  "timing_method": "monotonic baseline window starts immediately after spec persistence, includes drafting and local tooling/wait; true model active inference time unavailable. Report window as elapsed, active requester time unknown rather than substitute wall time."
+}

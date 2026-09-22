@@ -1,0 +1,30 @@
+{
+  "LIVE_GATE_exists": false,
+  "attempts.sqlite": [
+    [
+      "c615ca63da17b9accd8de757c3c89177aa502a6473dd422a1fa67482f4644ca4",
+      "45dfd35e5ef9888caaf9a7b8d4b48d3ff5f66aede354eca94f5562b369ba5bc2",
+      "4fa2a4b48c233be8c550bf5a5516ab29e9fd2cff080a6427599733c2653893d7",
+      "1feb7252b8382931280b17c9b96784ca3799f08a1002d7ffd67d38eb6f047b7b",
+      "consumed"
+    ]
+  ],
+  "authority.sqlite": [
+    [
+      "95e2853c6bdafdda9a69517a3f8efc6bc5a0b8281c78c26d4897d8dd2c285c26",
+      "45dfd35e5ef9888caaf9a7b8d4b48d3ff5f66aede354eca94f5562b369ba5bc2",
+      "4fa2a4b48c233be8c550bf5a5516ab29e9fd2cff080a6427599733c2653893d7",
+      "1feb7252b8382931280b17c9b96784ca3799f08a1002d7ffd67d38eb6f047b7b",
+      "consumed"
+    ]
+  ],
+  "module_sha256": {
+    "bridge.py": "dcce503a5c2054815a2833a5cabce9d8aac7dff42e88eaf4ff16996f2612c8fa",
+    "deps/diagnostic_reviewable_live_worker.py": "c9ad1c2719ba4738a1490315ab55977758adbe1202a71286e30acd9826489d6a",
+    "deps/failure_metadata_store.py": "dc0d842467f81bf520d13362123b133c6dcc7836389e85193ce9852067e2e125",
+    "deps/live_worker.py": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3",
+    "deps/review_result_store.py": "72a3374bdebd1cd0f37951507dd8cd3cf271b8a7924335a6e61f707fcc33e3ba"
+  },
+  "reservation_r01": "95e2853c6bdafdda9a69517a3f8efc6bc5a0b8281c78c26d4897d8dd2c285c26",
+  "reservation_r02": "7a67e2844d6bfe666a5ece946a1bbfaa8a45be12113f1f7fbb515bd84d0cc396"
+}

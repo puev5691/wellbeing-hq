@@ -1,0 +1,11 @@
+test_body_policy_and_identity (test_r02.R02Tests.test_body_policy_and_identity) ... ok
+test_exact_metadata_dependencies (test_r02.R02Tests.test_exact_metadata_dependencies) ... ok
+test_exact_single_parameter_delta (test_r02.R02Tests.test_exact_single_parameter_delta) ... ok
+test_fresh_consumed_ledger_evidence (test_r02.R02Tests.test_fresh_consumed_ledger_evidence) ... ok
+test_offline_reasoning_only_metadata_no_candidate_and_no_replay (test_r02.R02Tests.test_offline_reasoning_only_metadata_no_candidate_and_no_replay) ... ok
+test_old_authority_and_other_bounds_rejected (test_r02.R02Tests.test_old_authority_and_other_bounds_rejected) ... ok
+test_saved_artifacts_recompute_exactly (test_r02.R02Tests.test_saved_artifacts_recompute_exactly) ... ok
+
+----------------------------------------------------------------------
+
+OK

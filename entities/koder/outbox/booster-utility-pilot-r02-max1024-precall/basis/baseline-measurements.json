@@ -1,0 +1,19 @@
+{
+  "baseline_elapsed_seconds": 40.071600699,
+  "active_requester_seconds": null,
+  "active_requester_status": "not_independently_observable; elapsed includes drafting and tool waits",
+  "test_execution_seconds": 0.001150042,
+  "cycles": 1,
+  "rework_count": 0,
+  "rework_seconds": 0,
+  "baseline_tests": "8/8 PASS",
+  "booster_output_seen": false,
+  "provider_requests_submitted": 0,
+  "rubric_frozen_before_solution": true,
+  "hashes": {
+    "task.json": "5909c197b40e9b5641ddec17ea91ab700b71f7f58d9323adbe48a2f76d0d67a2",
+    "baseline.py": "811a6c903145a544ba326e91307e16f2310e2bed1c8de96d40b61b641de507ae",
+    "check_candidate.py": "2223773658dc5c7be53f866056d7df2b00af2dff1f4e77fa1cf344c6ca8d934e",
+    "baseline-tests.json": "e1579900bbbc9863b5577047036df60517f9a16585934567fdedd8e60651c178"
+  }
+}

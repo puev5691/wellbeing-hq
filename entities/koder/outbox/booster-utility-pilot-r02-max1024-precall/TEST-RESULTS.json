@@ -1,0 +1,10 @@
+{
+  "errors": 0,
+  "evidence_class": "OFFLINE_TEST_ONLY",
+  "failures": 0,
+  "forbidden_attempts": 0,
+  "real_authority_consumption": 0,
+  "real_provider_calls": 0,
+  "skipped": 0,
+  "tests": 7
+}

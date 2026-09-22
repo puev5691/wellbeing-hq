@@ -1,0 +1,33 @@
+{
+  "authority_id": "AUTHORIZE_BOOSTER_UTILITY_PILOT_R01_ONE_SHOT",
+  "baseline_sha256": "f90a3e9fd20ae24cdff4c86e71e0215888e3befc5831bbf26ce4681bbb3d75a2",
+  "calls": 1,
+  "credential_ref": "secretref:openai:wellbeing-entity-boosters-restricted",
+  "data_class": "D0_SYNTHETIC",
+  "execution_mode": "REAL_PILOT",
+  "fallback": "none",
+  "max_output_tokens": 64,
+  "max_response_bytes": 16384,
+  "model": "gpt-5.6-luna",
+  "privacy_class": "synthetic_only",
+  "project_acceptance": "NOT_GRANTED",
+  "project_state_mutation": false,
+  "provider": "openai",
+  "request_sha256": "45dfd35e5ef9888caaf9a7b8d4b48d3ff5f66aede354eca94f5562b369ba5bc2",
+  "retries": 0,
+  "task": {
+    "blob": "b830a16fb2be1dd581abd9b753785a63b8280365",
+    "commit": "d074ffd92a2794af954e27a8a809a3c6335ce14a",
+    "path": "entities/koder/outbox/booster-utility-pilot-r01-baseline/task.json",
+    "repository": "puev5691/wellbeing-hq"
+  },
+  "timeout_seconds": 30,
+  "tools": [],
+  "valid_until_tick": 2,
+  "writer": {
+    "blob": "cf1c84f9df7c90509703e4885844d0cf871ff412",
+    "commit": "df92a8bfcce29294332f6e4de3391a3e7966adfd",
+    "path": "entities/koder/current/KOD__replacement-current-writer-v05.md",
+    "repository": "puev5691/wellbeing-hq"
+  }
+}
