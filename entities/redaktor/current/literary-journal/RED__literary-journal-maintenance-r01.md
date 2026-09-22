@@ -46,15 +46,15 @@ Initial journal activation:
 - journal blob `100fe794309b82d485f48bd786b623516e9cbff3`.
 
 Последний завершённый journal-delta review:
-`f5447c6faaa3711239cd9907f7c94035853fec6a`.
+`7d856fe18075af40515d1ff0843882896ccad6aa`.
 
 В этом review:
-- раздел 7 exact KOD result `KOD__booster-utility-pilot-causal-reconciliation-r01__KOO.md` обработан как journal-source;
-- сопоставлен с SIS first-full-live-PASS source;
-- редакторское решение: MERGE в существующую Booster-запись, без отдельного нового эпизода;
-- journal обновлён до blob `7f5f2c7d51c8895e5c6b9b84d2c0afd2023f0e0a`.
+- обработан exact KOO task `KOO__booster-development-episode-consolidation-r01__RED.md`;
+- существующая Booster-запись сведена в одну причинную линию от full-path PASS до первого честного utility measurement;
+- original requester `needs_rework`, token-budget uncertainty, post-hoc 8/8 и N=1/N=2 границы сохранены;
+- journal обновлён до blob `37bf61e6cdb58a31a0afb2a914792c83634b5f30`.
 
-Следующая journal-delta проверка должна начинаться после `f5447c6faaa3711239cd9907f7c94035853fec6a`, а не перечитывать всю историю.
+Следующая journal-delta проверка должна начинаться после `7d856fe18075af40515d1ff0843882896ccad6aa`, а не перечитывать всю историю.
 
 ## Входящие сигналы
 
