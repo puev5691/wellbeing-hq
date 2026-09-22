@@ -116,3 +116,32 @@ status: historical_experience_extraction
 current_truth_claimed: no
 active_sources_changed: no
 project_time: generated_without_trusted_project_time
+
+## Booster experience-layer reconciliation r0.1
+
+Existing layer was reconciled in place; no new experience contour was created.
+
+### Existing coverage before reconciliation
+The pre-existing generic cards already covered provenance/status discipline, routing-state separation, recovery integrity and activation boundaries. They did not encode the Booster-specific utility/evaluator/measurement/authority lessons below as reusable operational cards.
+
+### Added operational lessons
+1. Technical PASS and demonstrated utility are separate evidence states.
+2. Evaluator/checker policy must match the exact published specification.
+3. Unknown measurement or cost remains unknown; absence is not zero.
+4. Allowed causal failure metadata must survive a later normalization failure when otherwise observability would be destroyed.
+5. Consumed one-shot authority is immutable lifecycle evidence and cannot be reset/replayed.
+6. Post-hoc evaluator correction creates a successor interpretation and does not rewrite the original result.
+7. Small-task overhead may dominate a utility benchmark, but current Booster evidence is only N=1/N=2 and cannot support a universal conclusion.
+
+These are represented as ARH-EXP-007..013 in the existing `ARH_experience-cards.jsonl`.
+
+### Explicit unknown
+The r0.1 token-budget cause remains `UNCONFIRMED`. The persisted evidence proves a local no-assistant-text failure and an observability gap, not that token exhaustion caused the provider response.
+
+### Operational versus literary boundary
+The operational cards above are causal/behavioral reuse material. Narrative chronology, engineering drama and human-facing episode construction remain in the existing RED literary-journal flow. Existing editorial task `entities/koordinator/outbox/KOO__booster-development-episode-consolidation-r01__RED.md` already asks RED to consolidate the Booster episode while preserving N=1/N=2 and unconfirmed token-causality boundaries. ARH does not duplicate that prose into operational cards.
+
+### Ingest contract decision
+Bounded ingest is compatible with the existing ARH-owned experience layer: prior history shows append/update of `ARH_experience-cards.jsonl` and `ARH_experience-extraction.md` as preservation work. This reconciliation adds evidence-bound cards only; it does not modify approved Project Sources, introduce a new norm, or create a new experience subsystem.
+
+status: BOOSTER_EXPERIENCE_RECONCILED_IN_EXISTING_LAYER
