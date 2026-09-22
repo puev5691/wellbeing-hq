@@ -1,0 +1,26 @@
+test_all_requester_decisions (test_pilot_adapter.AdapterTests.test_all_requester_decisions) ... ok
+test_card_cannot_promote_unknown_cost_to_zero (test_pilot_adapter.AdapterTests.test_card_cannot_promote_unknown_cost_to_zero) ... ok
+test_card_hash_and_semantic_tamper (test_pilot_adapter.AdapterTests.test_card_hash_and_semantic_tamper) ... ok
+test_cli_only_offline (test_pilot_adapter.AdapterTests.test_cli_only_offline) ... ok
+test_dependency_tamper (test_pilot_adapter.AdapterTests.test_dependency_tamper) ... ok
+test_deterministic_explicit_mapping (test_pilot_adapter.AdapterTests.test_deterministic_explicit_mapping) ... ok
+test_disallowed_outputs_stay_fail_closed (test_pilot_adapter.AdapterTests.test_disallowed_outputs_stay_fail_closed) ... ok
+test_duplicate_keys_rejected (test_pilot_adapter.AdapterTests.test_duplicate_keys_rejected) ... ok
+test_injected_readback_failure_cannot_pass (test_pilot_adapter.AdapterTests.test_injected_readback_failure_cannot_pass) ... ok
+test_known_synthetic_cost_reuses_estimator (test_pilot_adapter.AdapterTests.test_known_synthetic_cost_reuses_estimator) ... ok
+test_metric_consistency_and_rubric (test_pilot_adapter.AdapterTests.test_metric_consistency_and_rubric) ... ok
+test_missing_or_wrong_requester_evidence (test_pilot_adapter.AdapterTests.test_missing_or_wrong_requester_evidence) ... ok
+test_other_bindings (test_pilot_adapter.AdapterTests.test_other_bindings) ... ok
+test_pair_save_readback (test_pilot_adapter.AdapterTests.test_pair_save_readback) ... ok
+test_pending_review (test_pilot_adapter.AdapterTests.test_pending_review) ... ok
+test_persisted_evidence_unknown_type_rejected (test_pilot_adapter.AdapterTests.test_persisted_evidence_unknown_type_rejected) ... ok
+test_request_privacy_scope_hash_and_forbidden_fields (test_pilot_adapter.AdapterTests.test_request_privacy_scope_hash_and_forbidden_fields) ... ok
+test_review_file_hash (test_pilot_adapter.AdapterTests.test_review_file_hash) ... ok
+test_review_internal_tamper (test_pilot_adapter.AdapterTests.test_review_internal_tamper) ... ok
+test_unknown_cost_not_zero (test_pilot_adapter.AdapterTests.test_unknown_cost_not_zero) ... ok
+test_wrong_attempt_identity (test_pilot_adapter.AdapterTests.test_wrong_attempt_identity) ... ok
+test_wrong_request_identity (test_pilot_adapter.AdapterTests.test_wrong_request_identity) ... ok
+
+----------------------------------------------------------------------
+
+OK

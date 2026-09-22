@@ -1,0 +1,20 @@
+test_card_tamper_and_readback_failure (test_bridge.BridgeTests.test_card_tamper_and_readback_failure) ... ok
+test_cost_partial_unknown_and_billing (test_bridge.BridgeTests.test_cost_partial_unknown_and_billing) ... ok
+test_end_to_end_identity_readbacks (test_bridge.BridgeTests.test_end_to_end_identity_readbacks) ... ok
+test_expiry_and_bounds (test_bridge.BridgeTests.test_expiry_and_bounds) ... ok
+test_failed_transport_stays_consumed (test_bridge.BridgeTests.test_failed_transport_stays_consumed) ... ok
+test_fake_client_not_admitted_to_real_execution (test_bridge.BridgeTests.test_fake_client_not_admitted_to_real_execution) ... ok
+test_fixture_cannot_relabel_to_real (test_bridge.BridgeTests.test_fixture_cannot_relabel_to_real) ... ok
+test_invalid_authority_no_ledger (test_bridge.BridgeTests.test_invalid_authority_no_ledger) ... ok
+test_missing_review_pending (test_bridge.BridgeTests.test_missing_review_pending) ... ok
+test_real_card_schema_with_simulated_trusted_receipt (test_bridge.BridgeTests.test_real_card_schema_with_simulated_trusted_receipt) ... ok
+test_replay_and_named_authority_rebind (test_bridge.BridgeTests.test_replay_and_named_authority_rebind) ... ok
+test_review_internal_identity_even_with_new_external_hash (test_bridge.BridgeTests.test_review_internal_identity_even_with_new_external_hash) ... ok
+test_shape_readback_failure_stops_before_review (test_bridge.BridgeTests.test_shape_readback_failure_stops_before_review) ... ok
+test_tools_and_unknown_delegate_to_corrected_validator (test_bridge.BridgeTests.test_tools_and_unknown_delegate_to_corrected_validator) ... ok
+test_wrong_attempt_and_tampered_review (test_bridge.BridgeTests.test_wrong_attempt_and_tampered_review) ... ok
+test_wrong_refs_and_request_binding (test_bridge.BridgeTests.test_wrong_refs_and_request_binding) ... ok
+
+----------------------------------------------------------------------
+
+OK

@@ -1,0 +1,34 @@
+{
+  "evidence_class": "D0_SYNTHETIC_FIXTURE",
+  "actual_provider_calls": 0,
+  "measured_real_utility": false,
+  "task": "Review first(xs): return xs[0] for the empty-list edge case and suggest one bounded test",
+  "rubric_before_result": ["identifies_empty_list", "proposes_bounded_test"],
+  "stop_criterion": "Both rubric criteria addressed and requester records decision",
+  "baseline": {
+    "evidence": "fixture://utility-r01/baseline-trace",
+    "first_candidate": "Empty list is an edge case; test unspecified",
+    "revision": "Empty list raises IndexError; add a test asserting that current behavior",
+    "cycles": 2,
+    "rework_count": 1,
+    "active_seconds": 120,
+    "elapsed_seconds": 120,
+    "phase_seconds": {"preparation": 10, "work": 50, "review": 30, "rework": 30}
+  },
+  "assisted": {
+    "evidence": "fixture://utility-r01/assisted-trace",
+    "candidate": "Synthetic assistant text stored in review.synthetic.json",
+    "cycles": 1,
+    "rework_count": 0,
+    "active_seconds": 95,
+    "elapsed_seconds": 105,
+    "phase_seconds": {"preparation": 25, "work": 30, "review": 40, "rework": 0}
+  },
+  "requester_check": {
+    "evidence": "fixture://utility-r01/requester-check",
+    "decision": "accept_as_candidate",
+    "meaning": "Fabricated review assertion for exercising the adapter, not project acceptance"
+  },
+  "timings": "All durations explicitly assigned for arithmetic tests; not measured",
+  "provider_cost": "unknown; no real provider usage or billing evidence"
+}
