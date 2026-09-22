@@ -125,35 +125,71 @@ Evidence:
 - `entities/shtabist/outbox/SHT__working-circles-journal-entry__RED.md`, source commit `e314b52575addad1eaecf5973a57053e6c27f449`;
 - experiment commit `997bcb708697aa2c126293f6cd957695cbc8b6a6`.
 
-### Booster: от правильного отказа к первому полному проходу
+### Booster: от исправного канала к первому честному измерению полезности
 
-История нового Booster хорошо показала разницу между «компоненты проверены», «технический тракт работает» и «помощник действительно полезен».
+История Booster началась не с вопроса «насколько хорошо отвечает модель», а с более скучного и потому более полезного вопроса: можно ли вообще провести внешний ответ через проект так, чтобы не потерять границы authority, не перепутать служебный reasoning с пользовательским результатом и не объявить успехом то, что ещё не проверено.
 
-Сначала SIS получил два проверенных shape-diagnostic компонента, но обнаружил, что текущий host runtime их вообще не вызывает: старый outer runner ничего о них не знает. Можно было установить файлы и получить красивый отчёт о проделанной работе, но фактический live path от этого не изменился бы. Установка была остановлена.
+Сначала проект научился останавливать ложную готовность. Отдельные shape-diagnostic компоненты были проверены, но SIS обнаружил, что текущий host runtime их фактически не вызывает. Вместо декоративной установки работа остановилась до появления исполняемой связки. KOD добавил недостающий outer runner и systemd contract, SIS независимо перепроверил wiring, затем successor был установлен и отдельно проверен без provider call.
 
-После этого KOD подготовил successor package с недостающим outer runner и точным systemd oneshot contract. SIS независимо перепроверил связку, затем successor был установлен на host и отдельно проверен без provider call. Только после этого состоялся первый реальный bounded OpenAI-вызов.
+Первый реальный bounded вызов OpenAI ответил HTTP 200, но перед обычным текстом появился reasoning container. Система не решила, что «HTTP 200 = успех»: diagnostic shape был сохранён, одноразовая authority израсходована ровно один раз, повторного запроса не произошло, а review-result не был выдуман. Fail-closed впервые понадобился не в лаборатории, а на настоящем ответе.
 
-Первый живой вызов оказался полезным именно потому, что **не прошёл полностью**. Провайдер ответил HTTP 200, но перед обычным текстом присутствовал reasoning container. Система не решила, что «HTTP 200 = успех»: она сохранила diagnostic shape, израсходовала one-shot authority ровно один раз, не повторила запрос и отказалась создавать review-result, который normalizer ещё не умел безопасно принимать. Fail-closed впервые понадобился не в тесте, а на настоящем ответе.
+Коррекцию сделали узкой. Exact `type=reasoning` разрешили игнорировать только как служебную metadata; function calls, tools/actions, неизвестные типы и другие запрещённые формы остались блокирующими. После independent verify и безопасной установки Booster впервые прошёл полный реальный one-shot тракт: reasoning остался служебным, assistant/output_text был отдельно извлечён, diagnostic shape и review-result v2 были сохранены и строго перечитаны, ledger зафиксировал один consumed attempt, а unit после вызова остался disabled/inactive.
 
-Исправление сделали узким. Exact `type=reasoning` разрешили игнорировать только как служебную metadata; function calls, tools/actions, неизвестные типы и другие запрещённые формы остались блокирующими. Коррекцию сначала независимо проверили без нового provider call, затем установили и ещё раз подтвердили readiness без расходования внешнего вызова.
+На этом техническая история закончилась бы слишком красиво, если бы проект не задал следующий неприятный вопрос: **а полезен ли Booster Сущности на практике?**
 
-После этого Booster впервые прошёл **полный реальный one-shot тракт**: OpenAI снова вернул reasoning-контейнер и обычный assistant/output_text, исправленный normalizer отделил служебную структуру от пользовательского текста, diagnostic shape и review-result v2 были сохранены и строго перечитаны, ledger зафиксировал ровно один consumed attempt, а unit после вызова остался disabled/inactive.
+Для этого KOD сначала собрал bounded non-live adapter, который связывает конкретный запрос, baseline, сохранённый review-result, requester decision и карточку сравнения времени, циклов, переделок, качества и стоимости. Затем появился live-evidence bridge, соединяющий trusted request → plan → authority → use-once attempt → review-result → observation card. Это было важно не ради ещё одного слоя инфраструктуры, а потому что без общей identity-chain и обязательного requester review любое сравнение быстро превращается в рассказ «модель вроде помогла».
 
-Но этот успех сразу открыл следующую границу. Технический PASS доказал, что канал способен безопасно пройти путь от ограниченного запроса до сохранённого и проверенного результата. Он **не доказал, что Booster экономит время, уменьшает число переделок или улучшает качество работы Сущности**. В полном PASS модель фактически получила тестовый запрос без содержательной задачи и попросила конкретизировать, что ей нужно сделать.
+Первый utility pilot r0.1 использовал маленькую синтетическую задачу и лимит `max_output_tokens=64`. Baseline прошёл 8/8 за 40.071600699 секунды. Реальный assisted-вызов дошёл до OpenAI и вернулся HTTP 200, но output содержал только reasoning. Готового assistant text не было, поэтому normalizer правильно отказался создавать candidate. Utility comparison не завершился.
 
-KOD после fresh reconciliation не предложил строить инфраструктуру заново. Уже существуют форма запроса, authority binding, сохранение review-result и основа измерения стоимости. Следующий разумный шаг гораздо прозаичнее и потому полезнее: подготовить bounded non-live связку для одной конкретной задачи, где requester сначала фиксирует baseline, затем проверяет Booster-кандидат и сравнивает время, циклы, переделки, качество и стоимость. Requester review обязателен; технический PASS, HTTP 200 и receipt сами по себе полезность не доказывают, а project acceptance автоматически не возникает.
+Возникла правдоподобная гипотеза: возможно, общий лимит 64 токена закончился на reasoning до появления видимого текста. Но проект не повысил гипотезу до факта. В сохранённой диагностике не было значений response status, incomplete reason и usage, поэтому token-budget causality осталась **не доказана**.
 
-Так одна инженерная история прошла три стадии: **не устанавливать ложную готовность → безопасно исправить реальный несовместимый ответ → после полного PASS не перепутать исправный канал с полезным инструментом**.
+Из этого вырос следующий урок: даже правильный fail-closed мало помогает исследованию, если он не оставляет достаточно безопасной диагностической информации. KOD добавил failure-metadata layer, который сохраняет completion/usage metadata до normalizer, но не сохраняет reasoning content и не создаёт candidate там, где его нет. Эта коррекция не «объяснила задним числом» первый отказ; она только сделала следующий отказ наблюдаемым.
+
+Второй эксперимент r0.2 был подготовлен как почти лабораторный повтор: та же frozen задача, тот же model, тот же prompt, те же privacy/tools/time/byte boundaries. Единственное намеренное изменение экспериментального содержания — `max_output_tokens 64 → 1024`. Новая authority была отдельной; r0.1 не reset и не replay.
+
+На этот раз появился содержательный assistant candidate: небольшая Python-функция `runs(s)` для разбиения одинаковых символов на куски не длиннее трёх. Provider metadata сохранилась: HTTP 200, status completed, 87 input tokens, 295 output tokens, из них 199 reasoning tokens, transport latency около 6.44 секунды. Это наблюдение показывает, что при r0.2 текст появился; оно **не доказывает**, что именно повышение лимита было причиной успеха r0.2 или причиной неуспеха r0.1.
+
+Дальше проект столкнулся уже не с моделью, а с собственным измерительным прибором. Frozen checker отклонил candidate до запуска восьми функциональных случаев, потому что разрешал только вызов `.append`, а ответ использовал обычные `len`, `range` и `min`. Эти pure builtins не были запрещены исходной спецификацией.
+
+KOD вынес исходное requester decision честно: `needs_rework`. Это решение не стали переписывать после того, как выяснилось, что defect находится в checker. Candidate не меняли, provider повторно не вызывали, а исходный FAIL сохранили как исторический факт.
+
+Отдельным bounded шагом checker согласовали с frozen specification. После этого **на тех же неизменных байтах** и candidate, и baseline прошли одинаковые 8/8 случаев: exact, valid, roundtrip, greedy и input_unchanged для всех тестов. SIS независимо подтвердил post-hoc результат и одновременно подтвердил границу: это не ретроактивный original-gate PASS и не отмена исходного `needs_rework`.
+
+Измерения тоже не стали переписывать ради красивого вывода. Исторический baseline elapsed остался 40.071600699 s, assisted window — 165.731668817 s. На этой маленькой задаче **наблюдаемого ускорения не было**. Active requester time остался unknown, стоимость не была достоверно рассчитана, а последовательный N=1 utility comparison не позволяет делать общий вывод о пользе или бесполезности Booster.
+
+Если считать два реальных utility attempts r0.1 и r0.2, это всё равно только очень маленькая серия наблюдений, а не статистика. r0.1 вообще не дал admissible candidate; r0.2 дал candidate, который post-hoc прошёл frozen functional rubric после исправления checker. Поэтому открытым остаётся главный вопрос: **на каких задачах Booster действительно сокращает усилия Сущности, а где добавляет собственный overhead проверки и маршрутизации?**
+
+Эта история оказалась полезнее простого «Booster заработал». Проект последовательно обнаружил три разных вида ложного успеха:
+
+1. проверенные компоненты ещё не означают работающую систему;
+2. работающий технический тракт ещё не означает принятого результата;
+3. функционально корректный candidate ещё не означает измеренной практической полезности.
+
+И каждый раз самым полезным действием было не ускорить отчёт, а сохранить границу между тем, что уже доказано, и тем, что пока только хочется доказать.
+
+#### Человеческие инженерные уроки
+
+- Fail-closed ценен только вместе с достаточной наблюдаемостью: отказ без диагностики защищает систему, но плохо обучает проект.
+- Эксперимент должен менять одну существенную переменную, если от него ожидают причинный вывод. Именно поэтому r0.2 сохранял всё, кроме 64→1024.
+- Проверяющий инструмент сам является частью эксперимента. Если checker строже specification, он измеряет собственные скрытые предположения, а не качество candidate.
+- Исторический FAIL нельзя переписывать поздним PASS. Можно добавить post-hoc evidence, но нельзя стирать исходное решение.
+- На маленьких задачах внешний помощник легко оказывается медленнее baseline из-за transport/review overhead. Это не приговор и не победа, а наблюдение.
+- N=1 и даже два связанных опыта не дают общей оценки применимости. Следующий этап должен проверять разные классы задач, а не защищать уже полюбившуюся гипотезу.
+
+Эти выводы являются редакторским человеческим слоем над verified evidence. Они не заменяют отдельный ARH experience layer и не создают новую technical authority.
 
 Evidence:
-- wiring-gap source commit `8d3d18640ff2c0cebcb2241f84f6665c079462ff`;
-- successor wiring verified source commit `97c478bf72ee801bffdcaebe8e33c7f7d30676a3`;
-- host readiness source commit `2e22aa0836575154eecfdacbf0d794753aebde10`;
-- first live call source commit `9a0f5813d228fee20f548487549078a9bbf08d02`;
-- reasoning correction verify evidence: `entities/sisadmin/outbox/SIS__booster-reasoning-metadata-normalizer-correction-r01-independent-verify__KOO.md`, commit `25c457f661a18a426247c70373d27a3623376ac2`;
-- first full live PASS source commit `cc70c9b61cf62ba269e9e04ed1fc95342da500d2`;
-- full live PASS terminal commit `dbb2dbf3658d2c72e571faf3474627b8a318b9ec`;
-- KOD utility-pilot causal reconciliation commit `77b3975d1e291210ab8a4b68e69506b09d01e837`, section 7.
+- technical full-path lineage: SIS/KOD Booster shape/reasoning/full-live sources, including full live PASS terminal commit `dbb2dbf3658d2c72e571faf3474627b8a318b9ec`;
+- utility adapter result: `entities/koder/outbox/KOD__booster-utility-pilot-adapter-r01-result__KOO-SIS.md`;
+- live-evidence bridge result: `entities/koder/outbox/KOD__booster-utility-pilot-live-evidence-bridge-r01-result__KOO-SIS.md`;
+- r0.1 one-shot terminal: `entities/sisadmin/outbox/SIS__booster-utility-pilot-r01-one-shot-live-terminal__KOO.md`;
+- r0.1 diagnosis: `entities/koder/outbox/KOD__booster-utility-pilot-r01-no-assistant-text-diagnosis__KOO.md`;
+- failure metadata correction: `entities/koder/outbox/KOD__booster-failure-diagnostic-metadata-r01-result__KOO-SIS.md`;
+- r0.2 64→1024 preparation: `entities/koder/outbox/KOD__booster-utility-pilot-r02-max1024-precall-result__KOO-SIS.md`;
+- r0.2 requester evidence/review: `entities/sisadmin/outbox/SIS__booster-utility-pilot-r02-requester-review__KOD.md` and `entities/koder/outbox/KOD__booster-utility-pilot-r02-requester-decision__KOO-SIS.md`;
+- checker/spec alignment: `entities/koder/outbox/KOD__booster-utility-r02-checker-spec-alignment-r01-result__KOO-SIS.md`;
+- independent post-hoc verification: `entities/sisadmin/outbox/SIS__booster-utility-r02-checker-spec-alignment-r01-independent-verify__KOO.md`.
+
 
 ### Сущность — не чат, а ОПЕРАТОР — не её запасная память
 
