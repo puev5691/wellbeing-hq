@@ -1,0 +1,201 @@
+{
+  "consumed_authority_replay": 0,
+  "files": [
+    {
+      "git_blob": "f8a09752e7b7ac455158e2acd626c4de82341cb0",
+      "path": "CONTRACT.md",
+      "sha256": "e834af87eb66d16b31d0f1362020aff9f58b411dcbb3b12fe9246c8b968fbec8"
+    },
+    {
+      "git_blob": "dd727e8a374e633d80aa7ef8da699d9b811db074",
+      "path": "PINS.json",
+      "sha256": "05501fc72160f2e1c1247ccd16e4c7f0867fa257be5be7324ed74c0d64793b3e"
+    },
+    {
+      "git_blob": "1f81e66821b108e1275471e88a476af702211086",
+      "path": "README.md",
+      "sha256": "811a8dfa897e905636f32db5fd8eef2da7483230427f4b7e654109b217ec51b6"
+    },
+    {
+      "git_blob": "ac8742901fcce769fa49f4e828ee3b803a392b8c",
+      "path": "TEST-LOG.txt",
+      "sha256": "dfddffc8b7997ec92c1f78d2571261785b0c67401f59d2ea06018e7c1c3916f8"
+    },
+    {
+      "git_blob": "8a4cfb34d9735d2027d096442391faa6e9de6528",
+      "path": "TEST-RESULTS.json",
+      "sha256": "6fa01b4d2a3707cf9e743d497e0c8e47790f89ab5d7ece3984184376376a8f58"
+    },
+    {
+      "git_blob": "6a931e89b69049260bd580ce523e784e403c408c",
+      "path": "bridge.py",
+      "sha256": "dcce503a5c2054815a2833a5cabce9d8aac7dff42e88eaf4ff16996f2612c8fa"
+    },
+    {
+      "git_blob": "7db94a3382663b950cc36233707680db2da0e17e",
+      "path": "deps/diagnostic_reviewable_live_worker.py",
+      "sha256": "c9ad1c2719ba4738a1490315ab55977758adbe1202a71286e30acd9826489d6a"
+    },
+    {
+      "git_blob": "2882c5236d1be69af9cd7a2de3306ee820aa2335",
+      "path": "deps/failure_metadata_store.py",
+      "sha256": "dc0d842467f81bf520d13362123b133c6dcc7836389e85193ce9852067e2e125"
+    },
+    {
+      "git_blob": "d276de1050fd54e836ed4fc879eb384dba3aa1f1",
+      "path": "deps/live_worker.py",
+      "sha256": "175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3"
+    },
+    {
+      "git_blob": "55178dc51715f67c5115ec5c616b808a833ad618",
+      "path": "deps/response_shape_store.py",
+      "sha256": "bc68a15f1dd288ef7092eaf1013e5b825432bb519da4cba4b355c1feb7118e8f"
+    },
+    {
+      "git_blob": "51af7b8876577c3881019c51e0f2593effd4aa4b",
+      "path": "deps/review_result_store.py",
+      "sha256": "72a3374bdebd1cd0f37951507dd8cd3cf271b8a7924335a6e61f707fcc33e3ba"
+    },
+    {
+      "git_blob": "ad6c31c706f4c47d3d63d429f554559f376140ec",
+      "path": "deps/reviewable_live_worker.py",
+      "sha256": "54f8ac0c52b8a6f14c22f69a0dd837506f9054aada0a353ac4f09cd473700c95"
+    },
+    {
+      "git_blob": "8eec66fce430376cc258242a0cf73c4f54d79d6b",
+      "path": "deps/utility_adapter/MANIFEST.json",
+      "sha256": "ac6b8462f6064fb0d39fb2276238b622a0d813700dea15e662fd8d6285234ff6"
+    },
+    {
+      "git_blob": "7e915ef79122dc3bce8f159b258dbe288e09a3b0",
+      "path": "deps/utility_adapter/README.md",
+      "sha256": "671e7699faa0287045ff0678ae99fa1c210a1204955d2ac0355dd3e8ec771d81"
+    },
+    {
+      "git_blob": "1975e47f51fee25c563e562d90e7f274f895a55e",
+      "path": "deps/utility_adapter/SHA256SUMS.txt",
+      "sha256": "e65e31931aa62321f2b278178fba5384711594f4f9b10d698d900cc7e5a53bf0"
+    },
+    {
+      "git_blob": "aaf91b1ccaa7801b914625f7ed649b7efd68d7a6",
+      "path": "deps/utility_adapter/TEST-LOG.txt",
+      "sha256": "809c75e35f74e7accd2c436411e1a88a9cfff40e0e9b8eea55105b5377328249"
+    },
+    {
+      "git_blob": "12cfac8d868fd2d98648d2e511e3fe85e6c9298a",
+      "path": "deps/utility_adapter/TEST-RESULTS.json",
+      "sha256": "22292b0ab433bae6091c0be6bc66d378c67c2813e1546efd0f926e28130c1f3a"
+    },
+    {
+      "git_blob": "72f4ad6cfb7fea37b640174391c1cbaa16a28146",
+      "path": "deps/utility_adapter/build_fixture.py",
+      "sha256": "25625222e2d33ef45b54b2516d7239746993a86e457270d0e938dca1c1bad993"
+    },
+    {
+      "git_blob": "0b740701ef6bc1367f3273be3ffc98d4a26a5448",
+      "path": "deps/utility_adapter/deps/benchmark_harness.py",
+      "sha256": "becf19820c6ef125d89b121f1b1a2242e315462531e64183ae6e5e6218abc944"
+    },
+    {
+      "git_blob": "1fb1ffc49f82e473e523709118e49b0603366fb4",
+      "path": "deps/utility_adapter/deps/booster_runtime.py",
+      "sha256": "c0b64fd44879c6c2395c02f66ee79c641a36c768372513ed35d149289ff2d941"
+    },
+    {
+      "git_blob": "51af7b8876577c3881019c51e0f2593effd4aa4b",
+      "path": "deps/utility_adapter/deps/review_result_store.py",
+      "sha256": "72a3374bdebd1cd0f37951507dd8cd3cf271b8a7924335a6e61f707fcc33e3ba"
+    },
+    {
+      "git_blob": "ba036e59aabcf4c396d2bd5f2b2bf2df717e6486",
+      "path": "deps/utility_adapter/fixtures/card.synthetic.json",
+      "sha256": "f3a4512bcd216ad3663c8ed211b18d0f82e9f24020c18ce05744c193bc446e7d"
+    },
+    {
+      "git_blob": "5f1c11523de8c6bb7bd3263846b415c5d131fbe9",
+      "path": "deps/utility_adapter/fixtures/case.json",
+      "sha256": "39401621a95187ebc609fb278d65124f8b94d6ee9af3f272617bc07518411a22"
+    },
+    {
+      "git_blob": "5804658f549dd84c709a20c3c4920ac52af2df2c",
+      "path": "deps/utility_adapter/fixtures/protocol.json",
+      "sha256": "46998788b7df7b1961de3ca068f6902aa9da455c96ccf9dbbd899aa5b712586b"
+    },
+    {
+      "git_blob": "3ec195937a9b8ca31de39c3e4aeb75034cc9dea8",
+      "path": "deps/utility_adapter/fixtures/review.synthetic.json",
+      "sha256": "bc01d4c1a553642d6f5f918b1344b4feefa875d6a3b4ee7d4ec7640a1bddfb86"
+    },
+    {
+      "git_blob": "891765634395a4b212ab872d14f915a972d67ee6",
+      "path": "deps/utility_adapter/pilot_adapter.py",
+      "sha256": "233699cac4f3eccdefbdc8fc76b3a88c9dcb2479a40697fbd37c5cbc260d30b7"
+    },
+    {
+      "git_blob": "dd2c5649a80ad27cba40fd55fdfff10148f5447a",
+      "path": "deps/utility_adapter/run_tests.py",
+      "sha256": "5ae5180224de03e6b68bbff72ac56f971135cb1c156997142168945c16f9adef"
+    },
+    {
+      "git_blob": "ef8c9a56c6fca84536c1b066c704d15c17790085",
+      "path": "deps/utility_adapter/test_pilot_adapter.py",
+      "sha256": "e752574151bb5d03f9d142b27da0bbfef081dcfa242c3ee8ca5e390ed428a9ce"
+    },
+    {
+      "git_blob": "2aeef2ef014c90951484e7bf333adf2ea5e9bc68",
+      "path": "run_tests.py",
+      "sha256": "7dd39f9b084c156f5df62cae69e4ff1feee7cce10a2e42d12bb16dcc1ae3da89"
+    },
+    {
+      "git_blob": "dccd803078257e8cc052622f7b4490d9b4137500",
+      "path": "test_bridge.py",
+      "sha256": "3fc604926fa6fc26545c63d5b4affe543c2a2ef652b03a6b0179fb52463ff2c1"
+    },
+    {
+      "git_blob": "72a40a59fbdd935f230281f6966887230f72288c",
+      "path": "test_failure_metadata.py",
+      "sha256": "0af31f00c08692b9eb5035be15d4983d2633b59e9847afe21784749e15d34c3c"
+    }
+  ],
+  "host_deployed": false,
+  "live_authority": "NOT_GRANTED",
+  "predecessor": "puev5691/wellbeing-hq@9aef9ada9b27f6526a0f5326213748ad689c5a8e:entities/koder/outbox/booster-utility-pilot-live-evidence-bridge-r01",
+  "provider_calls": 0,
+  "status": "NON_LIVE_SUCCESSOR_READY_FOR_INDEPENDENT_VERIFY",
+  "task_blob": "7ec70b078547f83d8f863f0bfa7c16841bfc9bdd",
+  "task_commit": "5071514b38c4ec3a81a77d63dfe084ce2dc437fe",
+  "tests": {
+    "errors": 0,
+    "evidence_class": "OFFLINE_TEST_ONLY",
+    "failures": 0,
+    "forbidden_attempts": 0,
+    "real_authority_consumption": 0,
+    "real_provider_calls": 0,
+    "skipped": 0,
+    "tests": 34
+  },
+  "unchanged_predecessor_files": [
+    "deps/live_worker.py",
+    "deps/response_shape_store.py",
+    "deps/review_result_store.py",
+    "deps/reviewable_live_worker.py",
+    "deps/utility_adapter/MANIFEST.json",
+    "deps/utility_adapter/README.md",
+    "deps/utility_adapter/SHA256SUMS.txt",
+    "deps/utility_adapter/TEST-LOG.txt",
+    "deps/utility_adapter/TEST-RESULTS.json",
+    "deps/utility_adapter/build_fixture.py",
+    "deps/utility_adapter/deps/benchmark_harness.py",
+    "deps/utility_adapter/deps/booster_runtime.py",
+    "deps/utility_adapter/deps/review_result_store.py",
+    "deps/utility_adapter/fixtures/card.synthetic.json",
+    "deps/utility_adapter/fixtures/case.json",
+    "deps/utility_adapter/fixtures/protocol.json",
+    "deps/utility_adapter/fixtures/review.synthetic.json",
+    "deps/utility_adapter/pilot_adapter.py",
+    "deps/utility_adapter/run_tests.py",
+    "deps/utility_adapter/test_pilot_adapter.py",
+    "test_bridge.py"
+  ],
+  "writer_blob": "cf1c84f9df7c90509703e4885844d0cf871ff412"
+}

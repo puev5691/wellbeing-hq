@@ -1,0 +1,137 @@
+from __future__ import annotations
+from dataclasses import dataclass
+from pathlib import Path
+import hashlib, importlib.util, sys
+
+WORKER_SHA256="175e95b1cde6fb72d9c473b34e796a93d4c243936ded9f397032a8254ae113a3"
+RESULT_INTEGRATION_SHA256="54f8ac0c52b8a6f14c22f69a0dd837506f9054aada0a353ac4f09cd473700c95"
+RESULT_STORE_SHA256="72a3374bdebd1cd0f37951507dd8cd3cf271b8a7924335a6e61f707fcc33e3ba"
+SHAPE_STORE_SHA256="bc68a15f1dd288ef7092eaf1013e5b825432bb519da4cba4b355c1feb7118e8f"
+
+METADATA_STORE_SHA256="dc0d842467f81bf520d13362123b133c6dcc7836389e85193ce9852067e2e125"
+
+class ShapeIntegrationError(RuntimeError): pass
+
+def _load(path:Path,expected:str,name:str):
+    raw=Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest()!=expected:
+        raise ShapeIntegrationError("BLOCKED_DEPENDENCY_IDENTITY")
+    s=importlib.util.spec_from_file_location(name,path)
+    if s is None or s.loader is None: raise ShapeIntegrationError("BLOCKED_DEPENDENCY_IMPORT")
+    m=importlib.util.module_from_spec(s); sys.modules[name]=m
+    try:s.loader.exec_module(m)
+    except Exception: raise ShapeIntegrationError("BLOCKED_DEPENDENCY_IMPORT") from None
+    return m
+
+@dataclass(frozen=True)
+class Identity:
+    task_commit:str
+    task_blob:str
+    writer_blob:str
+
+class DiagnosticReviewableLiveWorker:
+    def __init__(self,*,worker_path:Path,result_integration_path:Path,result_store_path:Path,
+                 shape_store_path:Path,ledger_path:Path,shape_dir:Path,result_dir:Path,resolver,client,execution_mode):
+        self.worker=_load(worker_path,WORKER_SHA256,"_diag_worker_r02")
+        self.result_integration=_load(result_integration_path,RESULT_INTEGRATION_SHA256,"_diag_result_integration_r02")
+        self.result_store=_load(result_store_path,RESULT_STORE_SHA256,"_diag_result_store_r02")
+        self.shape_store=_load(shape_store_path,SHAPE_STORE_SHA256,"_diag_shape_store_r02")
+        self.ledger_path=Path(ledger_path); self.shape_dir=Path(shape_dir); self.result_dir=Path(result_dir)
+        self.resolver=resolver; self.client=client
+        self.execution_mode=execution_mode
+        self.metadata_store=_load(Path(shape_store_path).with_name("failure_metadata_store.py"),
+                                  METADATA_STORE_SHA256,"_failure_metadata_r01")
+
+    def _local_plan(self,plan):
+        try:
+            return self.worker.WorkerPlan(
+                plan.request_sha256,plan.plan_sha256,plan.authority_sha256,plan.requester_sha256,
+                plan.provider,plan.model,plan.native_plan_json,
+                self.worker.SecretRef(plan.secret_ref.provider,plan.secret_ref.locator),
+                self.worker.WorkerPolicy(plan.policy.timeout_seconds,plan.policy.max_response_bytes,
+                                         plan.policy.max_calls,plan.policy.automatic_retries),
+                plan.valid_until_tick)
+        except Exception:
+            raise ShapeIntegrationError("BLOCKED_PLAN") from None
+
+    def invoke_once_persist_shape_then_normalize(self,plan,identity:Identity,*,now_tick:int):
+        local=self._local_plan(plan)
+        outer=self
+        class ResolverAdapter:
+            def resolve(self,ref):
+                try:
+                    r=outer.resolver.resolve(ref)
+                    return outer.worker.ResolvedSecret(r.provider,r.value)
+                except Exception:
+                    raise outer.worker.WorkerError("BLOCKED_CREDENTIAL_RESOLUTION") from None
+        live=self.worker.LiveWorker(self.worker.DurableOneShotLedger(self.ledger_path),ResolverAdapter(),self.client)
+        try:
+            reply=live.invoke_once(local,now_tick=now_tick)
+        except self.worker.WorkerError as exc:
+            raise ShapeIntegrationError(str(exc)) from None
+
+        shape=self.shape_store.structural_snapshot(
+            body=reply.body,attempt_key=reply.attempt_key,request_sha256=reply.request_sha256,
+            task_commit=identity.task_commit,task_blob=identity.task_blob,writer_blob=identity.writer_blob,
+            plan_sha256=reply.plan_sha256,authority_sha256=local.authority_sha256,
+            provider=reply.provider,model=reply.model,http_status=reply.http_status)
+        expected_shape_sha=shape["snapshot_sha256"]
+        shape_path=self.shape_dir/(reply.attempt_key+".shape.json")
+        try:
+            self.shape_store.persist_atomic(shape_path,shape)
+            self.shape_store.read_and_validate(
+                shape_path,expected_snapshot_sha256=expected_shape_sha,
+                attempt_key=reply.attempt_key,request_sha256=reply.request_sha256,
+                task_commit=identity.task_commit,task_blob=identity.task_blob,writer_blob=identity.writer_blob,
+                plan_sha256=reply.plan_sha256,authority_sha256=local.authority_sha256,
+                provider=reply.provider,model=reply.model)
+        except self.shape_store.DiagnosticError as exc:
+            raise ShapeIntegrationError(
+                "BLOCKED_SHAPE_DIAGNOSTIC_PERSISTENCE:"+str(exc)+
+                ":shape="+str(shape_path)+":snapshot_sha256="+expected_shape_sha
+            ) from None
+
+        # Preserve a separate metadata successor after unchanged v2 shape readback,
+        # before normalization can reject a reasoning-only response.
+        metadata_path=self.shape_dir.parent/"metadata"/(reply.attempt_key+".metadata-v1.json")
+        try:
+            native_body=self.worker.parse_native(local)[3]
+            metadata_identity={
+                "request_sha256":reply.request_sha256,"plan_sha256":reply.plan_sha256,
+                "authority_sha256":local.authority_sha256,"attempt_key":reply.attempt_key,
+                "response_sha256":hashlib.sha256(reply.body).hexdigest(),
+                "native_body_sha256":hashlib.sha256(native_body).hexdigest(),
+                "shape_snapshot_sha256":expected_shape_sha}
+            metadata=self.metadata_store.build(body=reply.body,identity=metadata_identity,
+                execution_mode=self.execution_mode,http_status=reply.http_status,
+                transport_latency_ms=getattr(self.client,"transport_latency_ms",None))
+            metadata_sha=self.metadata_store.persist_and_readback(metadata_path,metadata)
+        except self.metadata_store.MetadataError as exc:
+            raise ShapeIntegrationError("BLOCKED_FAILURE_METADATA:"+str(exc)) from None
+
+        try:
+            rec=self.result_store.normalize_openai_result(
+                body=reply.body,attempt_key=reply.attempt_key,request_sha256=reply.request_sha256,
+                task_commit=identity.task_commit,task_blob=identity.task_blob,writer_blob=identity.writer_blob,
+                plan_sha256=reply.plan_sha256,authority_sha256=local.authority_sha256,
+                provider=reply.provider,model=reply.model,http_status=reply.http_status,
+                provider_calls=reply.attempts,retries=reply.automatic_retries,fallback="none")
+            result_path=self.result_dir/(reply.attempt_key+".review.json")
+            self.result_store.persist_atomic(result_path,rec)
+            self.result_store.read_and_validate(
+                result_path,attempt_key=reply.attempt_key,request_sha256=reply.request_sha256,
+                task_commit=identity.task_commit,task_blob=identity.task_blob,writer_blob=identity.writer_blob,
+                plan_sha256=reply.plan_sha256,authority_sha256=local.authority_sha256,
+                provider=reply.provider,model=reply.model)
+        except self.result_store.PersistenceError as exc:
+            raise ShapeIntegrationError(
+                "BLOCKED_REVIEW_RESULT_PERSISTENCE_AFTER_SHAPE_SAVED:"+str(exc)+
+                ":shape="+str(shape_path)+":snapshot_sha256="+expected_shape_sha
+            ) from None
+        return {"status":"PASS_AFTER_SHAPE_AND_REVIEW_PERSISTENCE","attempt_key":reply.attempt_key,
+                "shape_path":str(shape_path),"shape_snapshot_sha256":expected_shape_sha,
+                "result_path":str(result_path),"provider_calls":1,
+                "metadata_path":str(metadata_path),"metadata_snapshot_sha256":metadata_sha,
+                "retries":0,"fallback":"none","requester_review_required":True,
+                "project_acceptance":"NOT_GRANTED","project_state_mutation":False,
+                "provider_writer_authority":False,"gateway_writer_authority":False}

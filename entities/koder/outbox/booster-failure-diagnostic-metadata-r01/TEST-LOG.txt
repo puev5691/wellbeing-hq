@@ -1,0 +1,38 @@
+test_card_tamper_and_readback_failure (test_bridge.BridgeTests.test_card_tamper_and_readback_failure) ... ok
+test_cost_partial_unknown_and_billing (test_bridge.BridgeTests.test_cost_partial_unknown_and_billing) ... ok
+test_end_to_end_identity_readbacks (test_bridge.BridgeTests.test_end_to_end_identity_readbacks) ... ok
+test_expiry_and_bounds (test_bridge.BridgeTests.test_expiry_and_bounds) ... ok
+test_failed_transport_stays_consumed (test_bridge.BridgeTests.test_failed_transport_stays_consumed) ... ok
+test_fake_client_not_admitted_to_real_execution (test_bridge.BridgeTests.test_fake_client_not_admitted_to_real_execution) ... ok
+test_fixture_cannot_relabel_to_real (test_bridge.BridgeTests.test_fixture_cannot_relabel_to_real) ... ok
+test_invalid_authority_no_ledger (test_bridge.BridgeTests.test_invalid_authority_no_ledger) ... ok
+test_missing_review_pending (test_bridge.BridgeTests.test_missing_review_pending) ... ok
+test_real_card_schema_with_simulated_trusted_receipt (test_bridge.BridgeTests.test_real_card_schema_with_simulated_trusted_receipt) ... ok
+test_replay_and_named_authority_rebind (test_bridge.BridgeTests.test_replay_and_named_authority_rebind) ... ok
+test_review_internal_identity_even_with_new_external_hash (test_bridge.BridgeTests.test_review_internal_identity_even_with_new_external_hash) ... ok
+test_shape_readback_failure_stops_before_review (test_bridge.BridgeTests.test_shape_readback_failure_stops_before_review) ... ok
+test_tools_and_unknown_delegate_to_corrected_validator (test_bridge.BridgeTests.test_tools_and_unknown_delegate_to_corrected_validator) ... ok
+test_wrong_attempt_and_tampered_review (test_bridge.BridgeTests.test_wrong_attempt_and_tampered_review) ... ok
+test_wrong_refs_and_request_binding (test_bridge.BridgeTests.test_wrong_refs_and_request_binding) ... ok
+test_completed_assistant_still_reviewable (test_failure_metadata.MetadataTests.test_completed_assistant_still_reviewable) ... ok
+test_consumed_real_named_authority_fixture_blocks_before_transport (test_failure_metadata.MetadataTests.test_consumed_real_named_authority_fixture_blocks_before_transport) ... ok
+test_exact_native_response_and_all_identity_bindings (test_failure_metadata.MetadataTests.test_exact_native_response_and_all_identity_bindings) ... ok
+test_latency_absent_and_wrong_types (test_failure_metadata.MetadataTests.test_latency_absent_and_wrong_types) ... ok
+test_latency_is_measured_transport_not_processing (test_failure_metadata.MetadataTests.test_latency_is_measured_transport_not_processing) ... ok
+test_missing_metadata_is_absent (test_failure_metadata.MetadataTests.test_missing_metadata_is_absent) ... ok
+test_null_leaf_and_null_parent_are_distinct (test_failure_metadata.MetadataTests.test_null_leaf_and_null_parent_are_distinct) ... ok
+test_numeric_and_enum_boundaries (test_failure_metadata.MetadataTests.test_numeric_and_enum_boundaries) ... ok
+test_original_normalizer_and_worker_exact (test_failure_metadata.MetadataTests.test_original_normalizer_and_worker_exact) ... ok
+test_persistence_is_create_only (test_failure_metadata.MetadataTests.test_persistence_is_create_only) ... ok
+test_raw_json_and_bounds_reject_ambiguity (test_failure_metadata.MetadataTests.test_raw_json_and_bounds_reject_ambiguity) ... ok
+test_readback_failure_stops_review (test_failure_metadata.MetadataTests.test_readback_failure_stops_review) ... ok
+test_readback_rejects_extra_keys_and_invalid_rehashed_values (test_failure_metadata.MetadataTests.test_readback_rejects_extra_keys_and_invalid_rehashed_values) ... ok
+test_reasoning_only_survives_normalization_failure_and_no_leak (test_failure_metadata.MetadataTests.test_reasoning_only_survives_normalization_failure_and_no_leak) ... ok
+test_retry_after_failure_cannot_overwrite_evidence (test_failure_metadata.MetadataTests.test_retry_after_failure_cannot_overwrite_evidence) ... ok
+test_shape_v2_bytes_unchanged_by_metadata (test_failure_metadata.MetadataTests.test_shape_v2_bytes_unchanged_by_metadata) ... ok
+test_strict_readback_and_tamper (test_failure_metadata.MetadataTests.test_strict_readback_and_tamper) ... ok
+test_wrong_types_and_unknown_strings_never_echo (test_failure_metadata.MetadataTests.test_wrong_types_and_unknown_strings_never_echo) ... ok
+
+----------------------------------------------------------------------
+
+OK
