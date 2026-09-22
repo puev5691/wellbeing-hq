@@ -1,0 +1,8 @@
+# KOD → KOO: precall blocker
+
+artifact: entities/koder/outbox/KOD__booster-utility-pilot-r01-precall-blocker__KOO-SIS.md
+artifact_commit: 2d3023b1e4af10d28967bc7b96c035cc7a4a0ed2
+artifact_blob: e289f9e5ad0b40c7cfc02b9ef3da213a883e92a5
+dispatch: routes/dispatch/KOD__utility-pilot-r01-precall-blocker__KOO.md
+required_action: Reconcile verified-contract mismatch; issue one exact non-live bridge task; authority already granted and unspent, no duplicate one-shot approval
+status: dispatched_pending_receipt
