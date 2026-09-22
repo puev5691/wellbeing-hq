@@ -125,26 +125,35 @@ Evidence:
 - `entities/shtabist/outbox/SHT__working-circles-journal-entry__RED.md`, source commit `e314b52575addad1eaecf5973a57053e6c27f449`;
 - experiment commit `997bcb708697aa2c126293f6cd957695cbc8b6a6`.
 
-### Booster: когда осторожность системы впервые понадобилась по-настоящему
+### Booster: от правильного отказа к первому полному проходу
 
-История нового Booster хорошо показала разницу между «компоненты проверены» и «система действительно готова».
+История нового Booster хорошо показала разницу между «компоненты проверены», «технический тракт работает» и «помощник действительно полезен».
 
 Сначала SIS получил два проверенных shape-diagnostic компонента, но обнаружил, что текущий host runtime их вообще не вызывает: старый outer runner ничего о них не знает. Можно было установить файлы и получить красивый отчёт о проделанной работе, но фактический live path от этого не изменился бы. Установка была остановлена.
 
-После этого KOD подготовил successor package с недостающим outer runner и точным systemd oneshot contract. SIS независимо перепроверил связку: wiring присутствует, shape diagnostic выполняется до normalization, sentinel подтверждает zero-provider/zero-secret-value-read readiness, deterministic tests и systemd verification проходят.
+После этого KOD подготовил successor package с недостающим outer runner и точным systemd oneshot contract. SIS независимо перепроверил связку, затем successor был установлен на host и отдельно проверен без provider call. Только после этого состоялся первый реальный bounded OpenAI-вызов.
 
-Затем successor был установлен на host и отдельно проверен без provider call. И только после этого состоялся первый реальный bounded OpenAI-вызов.
+Первый живой вызов оказался полезным именно потому, что **не прошёл полностью**. Провайдер ответил HTTP 200, но перед обычным текстом присутствовал reasoning container. Система не решила, что «HTTP 200 = успех»: она сохранила diagnostic shape, израсходовала one-shot authority ровно один раз, не повторила запрос и отказалась создавать review-result, который normalizer ещё не умел безопасно принимать. Fail-closed впервые понадобился не в тесте, а на настоящем ответе.
 
-Вот тут проект получил награду за всю эту педантичность. Провайдер ответил HTTP 200, но форма ответа оказалась сложнее ожидаемой: перед обычным текстом появился reasoning container. Система не решила, что «HTTP 200 = успех». Она сохранила diagnostic shape, израсходовала one-shot authority ровно один раз, не повторила запрос и отказалась выдумывать review-result, который normalizer не умел безопасно принимать.
+Исправление сделали узким. Exact `type=reasoning` разрешили игнорировать только как служебную metadata; function calls, tools/actions, неизвестные типы и другие запрещённые формы остались блокирующими. Коррекцию сначала независимо проверили без нового provider call, затем установили и ещё раз подтвердили readiness без расходования внешнего вызова.
 
-Это первый живой эпизод, где fail-closed оказался не формальной осторожностью, а реальной защитой от ложного успеха.
+После этого Booster впервые прошёл **полный реальный one-shot тракт**: OpenAI снова вернул reasoning-контейнер и обычный assistant/output_text, исправленный normalizer отделил служебную структуру от пользовательского текста, diagnostic shape и review-result v2 были сохранены и строго перечитаны, ledger зафиксировал ровно один consumed attempt, а unit после вызова остался disabled/inactive.
+
+Но этот успех сразу открыл следующую границу. Технический PASS доказал, что канал способен безопасно пройти путь от ограниченного запроса до сохранённого и проверенного результата. Он **не доказал, что Booster экономит время, уменьшает число переделок или улучшает качество работы Сущности**. В полном PASS модель фактически получила тестовый запрос без содержательной задачи и попросила конкретизировать, что ей нужно сделать.
+
+KOD после fresh reconciliation не предложил строить инфраструктуру заново. Уже существуют форма запроса, authority binding, сохранение review-result и основа измерения стоимости. Следующий разумный шаг гораздо прозаичнее и потому полезнее: подготовить bounded non-live связку для одной конкретной задачи, где requester сначала фиксирует baseline, затем проверяет Booster-кандидат и сравнивает время, циклы, переделки, качество и стоимость. Requester review обязателен; технический PASS, HTTP 200 и receipt сами по себе полезность не доказывают, а project acceptance автоматически не возникает.
+
+Так одна инженерная история прошла три стадии: **не устанавливать ложную готовность → безопасно исправить реальный несовместимый ответ → после полного PASS не перепутать исправный канал с полезным инструментом**.
 
 Evidence:
 - wiring-gap source commit `8d3d18640ff2c0cebcb2241f84f6665c079462ff`;
 - successor wiring verified source commit `97c478bf72ee801bffdcaebe8e33c7f7d30676a3`;
 - host readiness source commit `2e22aa0836575154eecfdacbf0d794753aebde10`;
 - first live call source commit `9a0f5813d228fee20f548487549078a9bbf08d02`;
-- live terminal commit `f066cd8d60b7bb6134ff36480b80e57310793036`.
+- reasoning correction verify evidence: `entities/sisadmin/outbox/SIS__booster-reasoning-metadata-normalizer-correction-r01-independent-verify__KOO.md`, commit `25c457f661a18a426247c70373d27a3623376ac2`;
+- first full live PASS source commit `cc70c9b61cf62ba269e9e04ed1fc95342da500d2`;
+- full live PASS terminal commit `dbb2dbf3658d2c72e571faf3474627b8a318b9ec`;
+- KOD utility-pilot causal reconciliation commit `77b3975d1e291210ab8a4b68e69506b09d01e837`, section 7.
 
 ### Сущность — не чат, а ОПЕРАТОР — не её запасная память
 
