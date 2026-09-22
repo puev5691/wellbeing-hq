@@ -1,0 +1,10 @@
+test_builtin_acceptance_derived_from_task (test_alignment.AlignmentTests.test_builtin_acceptance_derived_from_task) ... ok
+test_expected_cases_and_rubric_unchanged (test_alignment.AlignmentTests.test_expected_cases_and_rubric_unchanged) ... ok
+test_original_failure_unchanged (test_alignment.AlignmentTests.test_original_failure_unchanged) ... ok
+test_preserved_baseline_same_successor (test_alignment.AlignmentTests.test_preserved_baseline_same_successor) ... ok
+test_preserved_candidate_post_hoc (test_alignment.AlignmentTests.test_preserved_candidate_post_hoc) ... ok
+test_prohibited_capabilities_rejected_statically (test_alignment.AlignmentTests.test_prohibited_capabilities_rejected_statically) ... ok
+
+----------------------------------------------------------------------
+
+OK

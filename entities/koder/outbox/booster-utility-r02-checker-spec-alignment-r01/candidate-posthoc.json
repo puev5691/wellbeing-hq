@@ -1,0 +1,155 @@
+{
+  "candidate_sha256": "da69990ad4ca5a3ee5476818403ee105e9004e4d3c6a1bf9cd3d238839a22241",
+  "cases": [
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "",
+      "input_unchanged": true,
+      "result": [],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "a",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          1
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "aaa",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          3
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "aaaa",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          1
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "aaaaaaa",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          1
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "abbaa",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          1
+        ],
+        [
+          "b",
+          2
+        ],
+        [
+          "a",
+          2
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "яяяя🙂🙂",
+      "input_unchanged": true,
+      "result": [
+        [
+          "я",
+          3
+        ],
+        [
+          "я",
+          1
+        ],
+        [
+          "🙂",
+          2
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "  \n\n\n\n",
+      "input_unchanged": true,
+      "result": [
+        [
+          " ",
+          2
+        ],
+        [
+          "\n",
+          3
+        ],
+        [
+          "\n",
+          1
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    }
+  ],
+  "label": "POST_HOC_RECHECK_PASS",
+  "original_functional_cases": "NOT_REACHED",
+  "original_requester_decision": "needs_rework",
+  "original_source_policy": "FAIL",
+  "passed": 8,
+  "source_policy": "STATIC_REVIEW_PURE_BUILTINS_LOCAL_LIST_ONLY",
+  "total": 8
+}

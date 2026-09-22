@@ -1,0 +1,152 @@
+{
+  "baseline_sha256": "811a6c903145a544ba326e91307e16f2310e2bed1c8de96d40b61b641de507ae",
+  "cases": [
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "",
+      "input_unchanged": true,
+      "result": [],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "a",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          1
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "aaa",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          3
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "aaaa",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          1
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "aaaaaaa",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          3
+        ],
+        [
+          "a",
+          1
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "abbaa",
+      "input_unchanged": true,
+      "result": [
+        [
+          "a",
+          1
+        ],
+        [
+          "b",
+          2
+        ],
+        [
+          "a",
+          2
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "яяяя🙂🙂",
+      "input_unchanged": true,
+      "result": [
+        [
+          "я",
+          3
+        ],
+        [
+          "я",
+          1
+        ],
+        [
+          "🙂",
+          2
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    },
+    {
+      "exact": true,
+      "greedy": true,
+      "input": "  \n\n\n\n",
+      "input_unchanged": true,
+      "result": [
+        [
+          " ",
+          2
+        ],
+        [
+          "\n",
+          3
+        ],
+        [
+          "\n",
+          1
+        ]
+      ],
+      "roundtrip": true,
+      "valid": true
+    }
+  ],
+  "label": "POST_HOC_BASELINE_RECHECK_PASS",
+  "passed": 8,
+  "source_policy": "STATIC_REVIEW_PURE_BUILTINS_LOCAL_LIST_ONLY",
+  "total": 8
+}
