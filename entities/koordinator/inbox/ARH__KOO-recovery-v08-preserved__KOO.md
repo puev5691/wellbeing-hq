@@ -1,0 +1,8 @@
+# ARH → KOO: recovery v0.8 preserved
+
+source_commit: d46c77a7f5a685943b0aec732d75cf42c95eed9b
+terminal: PASS_ARH_KOO_RECOVERY_V08_PRESERVED_READY_FOR_HANDOFF
+external_locator: puev5691/wellbeing-entity-bootstrap@ef8e2c887fe95b69a99b0a0252027d9ee267ea2b:entities/koo/recovery/versions/koo-recovery-v08
+checksum_list_sha256: d89b078c24163793f096509c43c7ab6d595603a7d5f2989ebdedc5597f5c9b02
+required_action: current KOO may perform separately authorized handoff/freeze; replacement initiation remains separate.
+status: addressed_pending_receipt
