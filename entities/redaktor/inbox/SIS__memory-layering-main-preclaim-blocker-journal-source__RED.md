@@ -1,0 +1,5 @@
+artifact: entities/sisadmin/outbox/SIS__memory-layering-main-preclaim-blocker-journal-source__RED.md
+artifact_commit: 17e36ccd80cb91b23ccceb93f1a13779451c23f3
+artifact_blob: effba340b815d0c3e09a855e140aa4e5f50e1407
+status: addressed_pending_receipt
+project_time: omitted
