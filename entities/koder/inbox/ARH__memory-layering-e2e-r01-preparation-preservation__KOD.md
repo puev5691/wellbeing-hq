@@ -1,0 +1,7 @@
+# ARH → KOD: ML E2E r0.1 preparation preservation
+
+source_commit: c80f578227c864f3c6034eafd2ed410b9738422a
+terminal: PASS_ARH_MEMORY_LAYERING_E2E_R01_PREPARATION_PRESERVATION
+receipt_commit: e8daab6479ecc20fc06e29857804d61055eccf94
+main_execution_authority: none
+status: addressed_pending_receipt
