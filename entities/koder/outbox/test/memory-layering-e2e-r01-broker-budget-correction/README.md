@@ -1,0 +1,15 @@
+# ML-E2E r0.1 broker budget correction — non-live candidate
+
+Причина: frozen broker source SHA-256 e087c602ede9ce6ef74422be2add1e77f073d7713097344b582d9dfaae8c1b86 завершал сервер после sentinel_request_budget=4, при необходимом числе разрешённых запросов 7. Frozen config SHA-256 0037645f9f43487246b838b7f590a9c42b71a3542dd2a35dcca6798093d10974 содержит неизменные max_reads=32/max_bytes=262144 и allowlist из 11 exact locators.
+
+Successor меняет только условие внешнего цикла на `while reads <= max_reads`. Это обслуживает запросы 1..32 по прежней политике; запрос 33 получает существующий DENY_READ_LIMIT и цикл заканчивается. Четырёхзапросный sentinel budget сохраняется как frozen provenance в config, но больше не ограничивает production candidate loop. SIS потребуется отдельно обновить sentinel expectations при независимой проверке. Других изменений broker code, config, retrieval allowlist, package, design или oracle нет. Весь исходный файл сохранён в frozen/.
+
+Offline verification: `python3 -B offline_verify.py`. Проверяется SHA-256 обоих frozen входов, точный one-hunk successor diff, 7 последовательных ответов (3531 байт), 32 разрешённых ответа и отказ на 33-м, byte-limit при уменьшенном только внутри тестовой копии bound, отказы unknown/full-corpus/oracle/raw-noise, неизменность allowlist. Harness исполняет тот же successor Python source с in-memory моделями UNIX socket, не открывая настоящий OS socket. Он не доказывает host runtime, filesystem/environment isolation, supervisor deadline или корректность будущего исполнения MAIN. Локальный OS AF_UNIX в среде KOD недоступен; это отдельная причина выбрать in-memory offline тест.
+
+Хост p552203.kvmvps остаётся неизменённым. Там исходный admitted broker/config сохраняют прежние SHA-256. Для будущего применения SIS обязан independently verify package, материализовать successor в допустимом новом runtime, повторить полный admission и проверить существующие launcher/policy/attempt gate, сеть, capabilities, filesystem, deadline <=5 s. Этот пакет не предоставляет новой MAIN authority и не меняет one-attempt/retry bounds.
+
+Fresh causal reconciliation обнаружила, что прежний preclaim blocker не является последним host state: точные host evidence/main-attempt.claim.json и evidence/main-terminal.json говорят main_attempts_started=1, main_authority_consumed=true, terminal BLOCKED_SIS_MEMORY_LAYERING_E2E_R01_MAIN_ADMITTED_BROKER_REQUEST_BUDGET_MISMATCH, old/new task executions=0. Это после claim до OLD execution. Оба указанных OPERATOR MAIN tokens нельзя считать неизрасходованными для повторного MAIN. Независимая SIS verification successor всё ещё допустима как non-live; отдельное новое решение КОО/ОПЕРАТОРА понадобится перед любым будущим MAIN.
+
+Достоверность: exact host readback двух файлов и обоих frozen code/config, checksum frozen inputs. У терминального host JSON поле claim_sha256 есть, но отдельная проверка hash файла через CLI в этом цикле не заявляется. GitHub HEAD оставался f5b7cb520a9f357d95292556fe87efd11570b09f на preflight и перед публикацией.
+
+STATUS: OFFLINE_CORRECTION_CANDIDATE; MAIN_NOT_RUN_BY_KOD; HOST_NOT_MUTATED.

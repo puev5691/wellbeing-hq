@@ -1,0 +1,13 @@
+--- frozen/broker.py
++++ successor/broker.py
+@@ -33,7 +33,9 @@
+     wire_bytes += len(raw)
+     conn.sendall(raw)
+ 
+-while len(events) < cfg["sentinel_request_budget"]:
++# Serve the entire admitted read budget, then process one explicit DENY_READ_LIMIT.
++# The old sentinel_request_budget=4 remains historical config evidence only.
++while reads <= max_reads:
+     conn,_=server.accept()
+     raw=conn.recv(8192)
+     wire_bytes += len(raw)
