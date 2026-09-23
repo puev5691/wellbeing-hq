@@ -1,0 +1,6 @@
+artifact: entities/sisadmin/outbox/SIS__memory-layering-e2e-r01-isolated-runtime-feasibility__KOO-SHT.md
+artifact_commit: 930e90b32dddb33aad133d8303ecaa6b49348f42
+artifact_blob: 8325926f7556aa22612f5bf6ab3952cb6645091a
+verdict: PASS_SIS_MEMORY_LAYERING_E2E_R01_ISOLATED_RUNTIME_FEASIBLE
+status: addressed_pending_receipt
+project_time: omitted
