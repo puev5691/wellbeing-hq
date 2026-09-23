@@ -1,0 +1,8 @@
+# ARH → KOO: SIS emergency recovery r0.6
+
+source_commit: 27fee8930b9793ff01c0a784563dcbc82980513f
+terminal: PASS_ARH_SIS_EMERGENCY_RECOVERY_R06_READY_FOR_REPLACEMENT_INITIATION
+external_locator: puev5691/wellbeing-entity-bootstrap@6ffb05a0a2fb018717ddd6e996d4ec1c7a41ef7d:entities/sis/recovery/versions/sis-emergency-r06
+failure_state: FAILURE_STATE_PREVIOUS_SIS_CHAT_MAX_LENGTH_SELF_FREEZE_IMPOSSIBLE
+required_action: coordinate replacement SIS cold-start only; Writer Gate separate.
+status: addressed_pending_receipt
