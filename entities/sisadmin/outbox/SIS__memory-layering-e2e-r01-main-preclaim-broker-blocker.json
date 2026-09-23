@@ -1,0 +1,42 @@
+{
+  "schema": "mltest.main-preclaim-blocker.r01",
+  "terminal": "BLOCKED_SIS_MEMORY_LAYERING_E2E_R01_MAIN_PRECLAIM_BROKER_BUDGET_MISMATCH",
+  "scenario_id": "ML-E2E-DESIGN-R01",
+  "host": "p552203.kvmvps",
+  "host_machine_id_sha256": "8c109d3a8fabdd5dae11510668967ba94ea2314b20374e8218cf76e1dbcba1f4",
+  "runtime_admission_blob": "8d5a3ceaa63767957906e0b1df3fcfe108e725aa",
+  "main_authority": "AUTHORIZE_MEMORY_LAYERING_E2E_R01_MAIN_SYNTHETIC_EXECUTION",
+  "host_bind_authority": "AUTHORIZE_MEMORY_LAYERING_E2E_R01_MAIN_ON_ADMITTED_P552203",
+  "main_attempts_started": 0,
+  "main_authority_consumed": false,
+  "main_claim": false,
+  "broker": {
+    "code_sha256": "e087c602ede9ce6ef74422be2add1e77f073d7713097344b582d9dfaae8c1b86",
+    "config_sha256": "0037645f9f43487246b838b7f590a9c42b71a3542dd2a35dcca6798093d10974",
+    "max_reads": 32,
+    "max_bytes": 262144,
+    "sentinel_request_budget": 4,
+    "actual_loop": "while len(events) < cfg[\"sentinel_request_budget\"]"
+  },
+  "required_main_retrieval": {
+    "reads": 7,
+    "semantic_bytes": 3531,
+    "locators": [
+      "recovery/task-v2.json",
+      "recovery/promotion.json",
+      "recovery/checkpoint.json",
+      "recovery/input.json",
+      "recovery/task-v1.json",
+      "recovery/experience.json",
+      "recovery/raw-failure.json"
+    ]
+  },
+  "task_processes": {
+    "old01": 0,
+    "new01": 0
+  },
+  "provider_calls": 0,
+  "automatic_retries": 0,
+  "project_acceptance": "NOT_GRANTED",
+  "production_acceptance": "NOT_GRANTED"
+}
