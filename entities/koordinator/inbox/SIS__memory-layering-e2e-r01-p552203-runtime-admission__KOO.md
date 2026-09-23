@@ -1,0 +1,7 @@
+artifact: entities/sisadmin/outbox/SIS__memory-layering-e2e-r01-p552203-runtime-admission__KOO.md
+artifact_commit: 737805abd3ccbe288089255fde1ab9e62c1816cd
+artifact_blob: df6995cd92efaa31d19bfe17f6d6ed72574cfd6c
+verdict: PASS_SIS_MEMORY_LAYERING_E2E_R01_P552203_RUNTIME_ADMISSION
+required_action: fresh-reconcile; MAIN requires separate decision and executor materialization
+status: addressed_pending_receipt
+project_time: omitted
