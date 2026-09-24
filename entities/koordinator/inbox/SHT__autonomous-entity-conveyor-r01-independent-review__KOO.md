@@ -1,0 +1,11 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__autonomous-entity-conveyor-r01-independent-review__KOO.md
+artifact_commit: 7b875234b84049294166b082c48519151e46affe
+artifact_blob: e3344d43d3ae819186ccf6836fc7d12e0db40976
+dispatch_commit: 60ae972de9bb262a3d5bf57e751ef7f21a23af73
+terminal: PASS_WITH_EXACT_GOVERNANCE_GAP_SHT_AUTONOMOUS_ENTITY_CONVEYOR_R01
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
+activation: not_proven
+processing_started: not_proven
