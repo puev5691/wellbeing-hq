@@ -1,0 +1,11 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__activation-lineage-f1f2-historical-compatibility-analysis-r01__KOO.md
+artifact_commit: c7d33c466a1cf3af9802a51a3aa81c694086af35
+artifact_blob: a963a44a432af76254e2092cf812d59d5a879807
+dispatch_commit: 0531eeae6bba9459859c84c9d156e3b8d587a55d
+terminal: PASS_SHT_F1F2_HISTORICAL_COMPATIBILITY_OPTIONS_ANALYZED_NO_DECISION
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
+activation: not_proven
+processing_started: not_proven
