@@ -1,0 +1,102 @@
+{
+  "schema": "wb.activation-lineage.f1f2-selfcheck.v1",
+  "method": "ephemeral single-record JSON Schema keyword evaluator; not a collection validator or independently accredited JSON Schema engine",
+  "old_records_pass": 24,
+  "successor_records_pass": 22,
+  "successor_records_fail": [
+    "A-EVT-01",
+    "A-EVT-02"
+  ],
+  "semantic_pass": 6,
+  "semantic_fail": 2,
+  "transport_pass": 16,
+  "focused_cases_total": 14,
+  "focused_cases_pass": 14,
+  "focused_cases": [
+    {
+      "id": "F1-P01",
+      "expected": true,
+      "old": true,
+      "next": true
+    },
+    {
+      "id": "F1-N01",
+      "expected": false,
+      "old": true,
+      "next": false
+    },
+    {
+      "id": "F1-N02",
+      "expected": false,
+      "old": false,
+      "next": false
+    },
+    {
+      "id": "F1-N03",
+      "expected": false,
+      "old": true,
+      "next": false
+    },
+    {
+      "id": "F1-N04",
+      "expected": false,
+      "old": false,
+      "next": false
+    },
+    {
+      "id": "F1-N05",
+      "expected": false,
+      "old": true,
+      "next": false
+    },
+    {
+      "id": "F2-P01",
+      "expected": true,
+      "old": true,
+      "next": true
+    },
+    {
+      "id": "F2-N01",
+      "expected": false,
+      "old": true,
+      "next": false
+    },
+    {
+      "id": "F2-N02",
+      "expected": false,
+      "old": false,
+      "next": false
+    },
+    {
+      "id": "F2-P02",
+      "expected": true,
+      "old": true,
+      "next": true
+    },
+    {
+      "id": "F2-P03",
+      "expected": true,
+      "old": true,
+      "next": true
+    },
+    {
+      "id": "F2-N03",
+      "expected": false,
+      "old": false,
+      "next": false
+    },
+    {
+      "id": "TR-N01",
+      "expected": false,
+      "old": false,
+      "next": false
+    },
+    {
+      "id": "TR-N02",
+      "expected": false,
+      "old": false,
+      "next": false
+    }
+  ],
+  "implementation_or_collection_validation": false
+}

@@ -1,0 +1,118 @@
+{
+  "schema": "wb.activation-lineage.f1f2-fixtures.v1",
+  "base_records": "puev5691/wellbeing-hq@6021bd68861843a3e50a4a35cef82803baed3a76:entities/volonter/outbox/VOL__activation-lineage-events-v02.jsonl",
+  "base_blob": "b25e61a2317290d75078535d546a03ee457bb127",
+  "cases": [
+    {
+      "id": "F1-P01",
+      "base": "A-EVT-03",
+      "changes": {},
+      "expected": true
+    },
+    {
+      "id": "F1-N01",
+      "base": "A-EVT-03",
+      "changes": {
+        "experiment_id": null
+      },
+      "expected": false
+    },
+    {
+      "id": "F1-N02",
+      "base": "A-EVT-03",
+      "changes": {
+        "experiment_id": ""
+      },
+      "expected": false
+    },
+    {
+      "id": "F1-N03",
+      "base": "A-EVT-03",
+      "changes": {
+        "task_id": null
+      },
+      "expected": false
+    },
+    {
+      "id": "F1-N04",
+      "base": "A-EVT-03",
+      "changes": {
+        "task_id": ""
+      },
+      "expected": false
+    },
+    {
+      "id": "F1-N05",
+      "base": "A-EVT-03",
+      "changes": {
+        "experiment_id": null,
+        "task_id": null
+      },
+      "expected": false
+    },
+    {
+      "id": "F2-P01",
+      "base": "A-EVT-06",
+      "changes": {
+        "event_claim_verified": true
+      },
+      "expected": true
+    },
+    {
+      "id": "F2-N01",
+      "base": "A-EVT-06",
+      "changes": {
+        "event_claim_verified": false
+      },
+      "expected": false
+    },
+    {
+      "id": "F2-N02",
+      "base": "A-EVT-06",
+      "changes": {
+        "acceptance_scope": null
+      },
+      "expected": false
+    },
+    {
+      "id": "F2-P02",
+      "base": "A-EVT-04",
+      "changes": {
+        "event_claim_verified": false
+      },
+      "expected": true
+    },
+    {
+      "id": "F2-P03",
+      "base": "T-RECEIPT-01",
+      "changes": {},
+      "expected": true
+    },
+    {
+      "id": "F2-N03",
+      "base": "T-RECEIPT-01",
+      "changes": {
+        "acceptance_status": "PROVEN",
+        "acceptance_scope": "bounded",
+        "event_claim_verified": true
+      },
+      "expected": false
+    },
+    {
+      "id": "TR-N01",
+      "base": "T-DISPATCH-01",
+      "changes": {
+        "experiment_id": "x"
+      },
+      "expected": false
+    },
+    {
+      "id": "TR-N02",
+      "base": "T-DISPATCH-01",
+      "changes": {
+        "task_id": "x"
+      },
+      "expected": false
+    }
+  ]
+}

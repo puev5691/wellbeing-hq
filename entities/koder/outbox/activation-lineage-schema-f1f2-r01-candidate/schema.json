@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:wellbeing:activation-lineage:schema:v0.1-candidate",
+  "title": "Activation Lineage Event Record v0.1 Candidate",
+  "description": "Structural schema for one JSONL event record. Cross-record invariants are intentionally outside this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id", "event_type", "subject_entity", "object_id", "actor_id", "recipient_entity",
+    "source_event_id", "source_artifact", "source_commit", "source_blob",
+    "event_time", "publication_time", "time_semantics", "previous_state", "new_state",
+    "evidence_level", "branch_status", "transport_stage", "acceptance_scope",
+    "activation_evidence_scope", "evidence_boundary", "source_relation",
+    "bridge_reference_event_ids", "event_claim_verified", "verification_scope", "acceptance_status"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "event_type": {
+      "enum": [
+        "boundary_result_published",
+        "organizational_classification_published",
+        "bounded_alternative_authorized",
+        "repository_package_published",
+        "product_prerequisite_blocker_published",
+        "external_product_blocker_routed",
+        "package_reverification_blocker_published",
+        "corroborating_dependency_accepted",
+        "dispatch_published",
+        "inbox_locator_published",
+        "receipt_published",
+        "activation_attempt_recorded"
+      ]
+    },
+    "subject_entity": {"type": "string", "minLength": 1},
+    "object_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": ["string", "null"], "minLength": 1},
+    "task_id": {"type": ["string", "null"], "minLength": 1},
+    "actor_id": {"type": "string", "minLength": 1},
+    "recipient_entity": {"type": "string", "minLength": 1},
+    "source_event_id": {"type": ["string", "null"], "minLength": 1},
+    "source_artifact": {"type": "string", "minLength": 1},
+    "source_commit": {
+      "oneOf": [
+        {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        {"type": "null"}
+      ]
+    },
+    "source_blob": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "event_time": {"type": ["string", "null"], "format": "date-time"},
+    "publication_time": {"type": ["string", "null"], "format": "date-time"},
+    "time_semantics": {
+      "enum": [
+        "github_commit_created_at_is_publication_time_not_domain_event_time",
+        "exact_commit_known_timestamp_not_loaded",
+        "commit_is_cited_by_activation_record_as_source_push",
+        "activation_record_commit_not_loaded"
+      ]
+    },
+    "previous_state": {"type": ["string", "null"], "minLength": 1},
+    "new_state": {"type": "string", "minLength": 1},
+    "evidence_level": {"enum": ["DIRECT", "LINKED", "LINKED_EXCHANGE_GATE"]},
+    "decision_scope": {"type": "string", "minLength": 1},
+    "result_class": {"type": "string", "minLength": 1},
+    "branch_status": {"enum": ["ROOT", "CONTINUATION", "FORK", "BRIDGE", "TRANSPORT"]},
+    "transport_stage": {
+      "enum": ["artifact_publication", "acceptance", "dispatch", "inbox_publication", "receipt", "activation_attempt"]
+    },
+    "acceptance_scope": {"type": ["string", "null"], "minLength": 1},
+    "activation_evidence_scope": {"type": ["string", "null"], "minLength": 1},
+    "evidence_boundary": {"type": "string", "minLength": 1},
+    "source_relation": {"enum": ["causal_parent", "transport_predecessor", "bridge_reference", null]},
+    "bridge_reference_event_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "event_claim_verified": {"type": "boolean"},
+    "verification_scope": {"const": "current_event_record_claim_only"},
+    "acceptance_status": {"enum": ["PROVEN", "UNKNOWN", "NOT_APPLICABLE"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"source_relation": {"type": "null"}}, "required": ["source_relation"]},
+      "then": {"properties": {"source_event_id": {"type": "null"}}},
+      "else": {"properties": {"source_event_id": {"type": "string", "minLength": 1}}}
+    },
+    {
+      "if": {"properties": {"acceptance_status": {"const": "PROVEN"}}, "required": ["acceptance_status"]},
+      "then": {"properties": {"acceptance_scope": {"type": "string", "minLength": 1}, "event_claim_verified": {"const": true}}},
+      "else": {"properties": {"acceptance_scope": {"type": "null"}}}
+    },
+    {
+      "if": {"properties": {"branch_status": {"const": "TRANSPORT"}}, "required": ["branch_status"]},
+      "then": {
+        "properties": {
+          "transport_stage": {"enum": ["dispatch", "inbox_publication", "receipt", "activation_attempt"]},
+          "acceptance_status": {"const": "NOT_APPLICABLE"},
+          "acceptance_scope": {"type": "null"},
+          "source_relation": {"const": "transport_predecessor"},
+          "bridge_reference_event_ids": {"maxItems": 0}
+        },
+        "not": {
+          "anyOf": [
+            {"required": ["experiment_id"]},
+            {"required": ["task_id"]},
+            {"required": ["decision_scope"]},
+            {"required": ["result_class"]}
+          ]
+        }
+      },
+      "else": {
+        "required": ["experiment_id", "task_id", "decision_scope", "result_class"],
+        "properties": {
+          "transport_stage": {"enum": ["artifact_publication", "acceptance"]},
+          "source_relation": {"enum": ["causal_parent", "bridge_reference", null]},
+          "experiment_id": {"type": "string", "minLength": 1},
+          "task_id": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "dispatch_published"}}, "required": ["event_type"]},
+      "then": {"properties": {"branch_status": {"const": "TRANSPORT"}, "transport_stage": {"const": "dispatch"}, "new_state": {"const": "dispatched"}}}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "inbox_locator_published"}}, "required": ["event_type"]},
+      "then": {"properties": {"branch_status": {"const": "TRANSPORT"}, "transport_stage": {"const": "inbox_publication"}, "new_state": {"const": "addressed"}}}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "receipt_published"}}, "required": ["event_type"]},
+      "then": {"properties": {"branch_status": {"const": "TRANSPORT"}, "transport_stage": {"const": "receipt"}, "new_state": {"const": "RECEIVED_AND_REVIEWED"}}}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "activation_attempt_recorded"}}, "required": ["event_type"]},
+      "then": {
+        "properties": {
+          "branch_status": {"const": "TRANSPORT"},
+          "transport_stage": {"const": "activation_attempt"},
+          "new_state": {"const": "activation_failed"},
+          "acceptance_status": {"const": "NOT_APPLICABLE"},
+          "acceptance_scope": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"transport_stage": {"const": "acceptance"}}, "required": ["transport_stage"]},
+      "then": {"properties": {"acceptance_status": {"const": "PROVEN"}, "acceptance_scope": {"type": "string", "minLength": 1}}}
+    },
+    {
+      "if": {"properties": {"time_semantics": {"const": "github_commit_created_at_is_publication_time_not_domain_event_time"}}, "required": ["time_semantics"]},
+      "then": {
+        "properties": {
+          "event_time": {"type": "null"},
+          "publication_time": {"type": "string", "format": "date-time"}
+        }
+      },
+      "else": {
+        "properties": {
+          "event_time": {"type": "null"},
+          "publication_time": {"type": "null"}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+--- a/schema.json
++++ b/schema.json
+@@ -86,7 +86,7 @@
+     },
+     {
+       "if": {"properties": {"acceptance_status": {"const": "PROVEN"}}, "required": ["acceptance_status"]},
+-      "then": {"properties": {"acceptance_scope": {"type": "string", "minLength": 1}}},
++      "then": {"properties": {"acceptance_scope": {"type": "string", "minLength": 1}, "event_claim_verified": {"const": true}}},
+       "else": {"properties": {"acceptance_scope": {"type": "null"}}}
+     },
+     {
+@@ -112,7 +112,9 @@
+         "required": ["experiment_id", "task_id", "decision_scope", "result_class"],
+         "properties": {
+           "transport_stage": {"enum": ["artifact_publication", "acceptance"]},
+-          "source_relation": {"enum": ["causal_parent", "bridge_reference", null]}
++          "source_relation": {"enum": ["causal_parent", "bridge_reference", null]},
++          "experiment_id": {"type": "string", "minLength": 1},
++          "task_id": {"type": "string", "minLength": 1}
+         }
+       }
+     },
