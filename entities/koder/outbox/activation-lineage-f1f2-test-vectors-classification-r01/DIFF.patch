@@ -1,0 +1,63 @@
+--- a/TEST-VECTORS.md
++++ b/TEST-VECTORS.md
+@@ -11,13 +11,19 @@
+ 
+ The following exact records from `VOL__activation-lineage-events-v02.jsonl` are representative valid cases:
+ 
+-1. `A-EVT-01` — historical semantic root with null experiment/task IDs: deliberately rejected after F1; null relation, unknown acceptance, loaded publication time and null domain event time remain unchanged.
+-2. `A-EVT-05` — semantic causal parent plus independent cross-branch bridge reference.
+-3. `A-EVT-06` — semantic acceptance with `acceptance_status=PROVEN` and bounded non-null `acceptance_scope`.
+-4. `T-DISPATCH-01` — transport dispatch, `NOT_APPLICABLE` acceptance.
+-5. `T-RECEIPT-01` — receipt remains transport and does not become acceptance.
+-6. `T-ACT-03` — activation attempt remains transport, state `activation_failed`, no real processing claim.
++1. `A-EVT-05` — semantic causal parent plus independent cross-branch bridge reference.
++2. `A-EVT-06` — semantic acceptance with `acceptance_status=PROVEN` and bounded non-null `acceptance_scope`.
++3. `T-DISPATCH-01` — transport dispatch, `NOT_APPLICABLE` acceptance.
++4. `T-RECEIPT-01` — receipt remains transport and does not become acceptance.
++5. `T-ACT-03` — activation attempt remains transport, state `activation_failed`, no real processing claim.
+ 
++## Historical compatibility failures after F1
++
++- `A-EVT-01` — historical semantic ROOT with experiment_id=null and task_id=null. F1 rejects it; its null relation, UNKNOWN acceptance, loaded publication time and null domain event time remain historical evidence.
++- `A-EVT-02` — historical semantic CONTINUATION with experiment_id=null and task_id=null. F1 rejects it; its causal relation remains historical evidence.
++
++Neither record is a positive structural vector for the successor schema. They are not repaired by guessing identifiers.
++
+ Successor result over unchanged 24 exact v0.2 lines: 22 STRUCTURAL_PASS; A-EVT-01 and A-EVT-02 STRUCTURAL_FAIL solely because both historical semantic identifiers are null. The original candidate was 24/24 PASS. Transport records remain 16/16 PASS. No historical record is silently rewritten.
+ 
+ ## F1/F2 focused positive/negative vectors
+@@ -26,7 +32,7 @@
+ 
+ ## Negative vectors that JSON Schema MUST reject
+ 
+-Apply each mutation independently to the named otherwise-valid record.
++Apply each mutation independently to the named successor-valid record. Mutations of historical F1-incompatible records are classified separately below and do not isolate an additional successor rule.
+ 
+ | Vector | Mutation | Expected reason |
+ |---|---|---|
+@@ -36,15 +42,22 @@
+ | S-N04 | `T-ACT-03.transport_stage = "acceptance"` | Activation attempt event/stage mismatch. |
+ | S-N05 | `A-EVT-06.acceptance_scope = null` | `PROVEN` requires exact non-empty scope. |
+ | S-N06 | `A-EVT-04.acceptance_status = "UNKNOWN"` plus non-null scope | Unknown acceptance must have null scope. |
+-| S-N07 | `A-EVT-02.source_relation = null` while retaining `source_event_id="A-EVT-01"` | Null relation requires null source event. |
+ | S-N08 | `T-INBOX-01.bridge_reference_event_ids=["B-EVT-02"]` | Transport record cannot carry semantic bridge references. |
+ | S-N09 | `T-DISPATCH-01.source_relation="causal_parent"` | Transport must use `transport_predecessor`. |
+ | S-N10 | any record `verification_scope="verified_result_and_downstream"` | Verification scope is fixed to current record claim only. |
+-| S-N11 | `A-EVT-01.event_time = publication_time` | Current Git publication semantic explicitly requires null domain event time. |
+-| S-N12 | `A-EVT-01.source_commit="abc"` | Commit identity shape invalid. |
+ | S-N13 | add undeclared property `processing_started=true` to `T-ACT-03` | `additionalProperties=false`; current activation record cannot smuggle processing proof through an extra field. |
+ | S-N14 | transport record adds `experiment_id` | Transport lifecycle is separated from semantic experiment/task fields. |
+ 
++## Historical negative mutations, not isolated successor tests
++
++S-N07 is based on A-EVT-02; S-N11 and S-N12 are based on A-EVT-01. All three starting records already fail successor F1 because experiment_id/task_id are null. These mutations illustrate additional intended constraints in historical evidence; failure of a mutated record alone does not demonstrate that the additional constraint caused rejection. An isolated successor test would require an independently valid starting record and a separate fixture/review, outside this explanatory correction.
++
++| Vector | Historical mutation | Intended additional rule, not isolated by this baseline |
++|---|---|---|
++| S-N07 | `A-EVT-02.source_relation = null` while retaining `source_event_id="A-EVT-01"` | Null relation requires null source event. |
++| S-N11 | `A-EVT-01.event_time = publication_time` | Current Git publication semantic explicitly requires null domain event time. |
++| S-N12 | `A-EVT-01.source_commit="abc"` | Commit identity shape invalid. |
++
+ ## Negative vectors that ordinary per-record JSON Schema CANNOT prove
+ 
+ These are expected to pass or remain undecidable at the single-record schema layer and MUST be rejected/decided by a future collection-aware validator or immutable evidence lookup.
