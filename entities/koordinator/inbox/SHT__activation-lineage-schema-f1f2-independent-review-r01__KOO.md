@@ -1,0 +1,9 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__activation-lineage-schema-f1f2-independent-review-r01__KOO.md
+artifact_commit: b3b147f83c788f9030a791e471ba9b790a0f6955
+artifact_blob: 7dfd42e47c97905cdc8e6ab4652f8757e4a4deae
+dispatch_commit: 9f32a1a3866c3514033a5599f2d515ccaa9cfb12
+terminal: FAIL_SHT_ACTIVATION_LINEAGE_SCHEMA_F1F2_R01_EXPLANATORY_CLASSIFICATION_DEFECT
+status: addressed_for_processing
+receipt: null
+acceptance: null
