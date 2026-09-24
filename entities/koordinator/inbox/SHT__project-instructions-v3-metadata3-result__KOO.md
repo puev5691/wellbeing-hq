@@ -1,0 +1,10 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__project-instructions-v3-metadata3-result__KOO.md
+artifact_commit: a44e0dd89905dbb1400c48c35bdb065bc21f7816
+artifact_blob: a9b1dacd67e831baeb677437e4077b803398b418
+candidate: entities/shtabist/outbox/SHT__project-instructions-v3-candidate-r03-final-metadata3.md@8582e9205cecf43ba53a2eed652fa5e9aea861c8
+candidate_blob: 79ddc8890d2fb4110b4edd287980ab57c66c2728
+dispatch_commit: 691fd5411f2d691e6a3cae91dd4e471e6937b421
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
