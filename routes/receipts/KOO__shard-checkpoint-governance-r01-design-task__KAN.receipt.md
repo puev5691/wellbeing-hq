@@ -1,0 +1,13 @@
+# КАН: получение exact design task КОО
+sender: koordinator
+recipient: kancelar
+artifact: entities/koordinator/outbox/KOO__shard-checkpoint-governance-r01-design-task__KAN.md
+artifact_commit: 5d32517d525516c358b6dbd198a99e9deb0bd234
+artifact_blob: cf679833141d960e172b2aebe7ef42336ab53319
+activation_input: direct_current_OPERATOR_PROMPT
+status: received_and_processed_in_bounded_nonlive_scope
+identity_readback: PASS_COMPUTED_GIT_BLOB
+result: entities/kancelar/outbox/KAN__shard-checkpoint-governance-r01-result__KOO.md
+result_commit: 9942e848a5c09c3343b09ffd701b9052ef65f99d
+result_blob: b5911496779bf746b34db88146c1ad4f80ecd0de
+candidate_approval: NOT_GRANTED
