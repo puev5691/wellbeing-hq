@@ -1,0 +1,10 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__activation-lineage-f1f2-explanatory-rereview-r01__KOO.md
+artifact_commit: ad00256b35f6bba034e14e8e0f9f8f735b1adf95
+artifact_blob: 0ca50cfa6e45e80b9cd78e93025950612396e92c
+dispatch_commit: 9b9c1202c755bcfc328dd29eefa0c801590710bf
+terminal: PASS_SHT_ACTIVATION_LINEAGE_F1F2_EXPLANATORY_REREVIEW_R01
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
+processing_started: not_proven
