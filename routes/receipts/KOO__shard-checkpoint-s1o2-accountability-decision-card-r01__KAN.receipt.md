@@ -1,0 +1,13 @@
+# KAN receipt: document-only accountability task
+sender: koordinator
+recipient: kancelar
+artifact: entities/koordinator/outbox/KOO__shard-checkpoint-s1o2-accountability-decision-card-r01__KAN.md
+artifact_commit: f1fae01e9019e430c4fe8d740e9781463bccdc9c
+artifact_blob: bf7fe4b8f013e74387004f76a42d0a4ce270f9a4
+activation_input: direct_current_OPERATOR_PROMPT
+status: received_and_processed_document_only
+result: entities/kancelar/outbox/KAN__shard-checkpoint-s1o2-accountability-decision-card-r01__KOO-OPERATOR.md
+result_commit: 230e1d6040717217952a27304caab775bdff2751
+result_blob: 736bd49c8b199717a8029c758e62df01c96e6d11
+writer_metadata_correction: KAN_v02_current_v01_predecessor
+normative_approval: NOT_GRANTED
