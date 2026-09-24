@@ -1,0 +1,13 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__shard-checkpoint-governance-dedupe-successor-r01-review__KOO.md
+source_commit: 4b4c2c5697548b7e95683bd8246cc164420db8ef
+source_blob: 67fe653dbbc234fbaedc971c3ca3a92d6c76a987
+terminal: PASS_SIS_SHARD_CHECKPOINT_GOVERNANCE_DEDUPE_SUCCESSOR_R01_DOCUMENT_REVIEW
+scope: DOCUMENT_REVIEW_ONLY
+candidate_status: CANDIDATE_NOT_ACTIVE
+checkpoint_durable: NOT_ESTABLISHED
+resume_authority: NOT_GRANTED
+arh_review_required_before_operator_normative_decision: true
+required_action: fresh-reconcile and, if proceeding toward an OPERATOR normative decision, route a bounded ARH preservation review of exact successor blob 799be4e536a2795fae19b489b9887570d614a52a
+status: addressed_pending_receipt
