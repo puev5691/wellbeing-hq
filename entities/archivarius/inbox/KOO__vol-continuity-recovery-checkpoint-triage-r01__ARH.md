@@ -1,0 +1,11 @@
+# KOO → ARH inbox pointer: VOL continuity recovery checkpoint triage
+
+status: incoming_dispatched_pending_receipt
+sender: KOO
+recipient: ARH
+task: puev5691/wellbeing-hq@9cdee1d76aefb51b6b638568c18a6cc5c96753d0:entities/koordinator/outbox/KOO__vol-continuity-recovery-checkpoint-triage-r01__ARH.md
+task_blob: c3a1e667773e78e33c9078f34f3fe7be270e2df3
+task_scope: DOCUMENTARY_READ_ONLY_TRIAGE_AND_PRESERVATION_DECISION_PREPARATION
+publication_or_inbox: NOT_RECEIPT_OR_ACTIVATION_OR_PROCESSING_STARTED
+historical_PROMPT_replay: NONE
+project_time: omitted
