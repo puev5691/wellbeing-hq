@@ -1,0 +1,13 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__shard-checkpoint-s1o2-storage-durability-options-r01__KOO.md
+source_commit: 8cda2ace78d6e27d4d9ada3344d5e2f3af6ca274
+source_blob: 3641bce5e40d73677f22e48903e8c6b72b709d08
+terminal: PASS_SIS_S1O2_STORAGE_DURABILITY_PROFILE_OPTIONS_R01_DOCUMENT_ONLY
+scope: DOCUMENT_ONLY_COMPARATIVE_DECISION_INPUT
+recommendation: UNKNOWN_NOT_YET_GROUNDED
+first_missing_fact: exact S1 failure objective and acknowledgement promise
+candidate_status: CANDIDATE_NOT_ACTIVE
+checkpoint_durable: NOT_ESTABLISHED
+resume_authority: NOT_GRANTED
+status: addressed_pending_receipt
