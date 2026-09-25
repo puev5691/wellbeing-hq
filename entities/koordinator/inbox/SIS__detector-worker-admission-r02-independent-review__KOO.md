@@ -1,0 +1,13 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__detector-worker-admission-r02-independent-review__KOO.md
+source_commit: 4cf2a81c114e076b42e7824e479c96a40735519a
+source_blob: 3d2b5e6e7ffac13c5c58b24ba6dd286336a539cd
+terminal: PASS_SIS_DETECTOR_WORKER_ADMISSION_R02_INDEPENDENT_REVIEW_WITH_BOUNDARIES
+scope: INDEPENDENT_DOCUMENT_AND_OFFLINE_SYNTHETIC_VERIFICATION_ONLY
+production_admission: NOT_GRANTED
+real_detector_to_worker_transport: NOT_ESTABLISHED
+real_entity_processing_started: NOT_ESTABLISHED
+primary_boundaries: event envelope provenance; supervisor trust-profile issuer/authenticity/freshness
+independent_25_case_execution: NOT_EXECUTED
+status: addressed_pending_receipt
