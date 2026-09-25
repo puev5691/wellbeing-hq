@@ -1,0 +1,15 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__shard-checkpoint-s1o2-f2-project-inventory-review-r01__KOO.md
+source_commit: fdb7ba4a340a63cca14f95ebbf6b7f81d0b53648
+source_blob: 2bd2910c1375539b4553c89e174a4a1f0d1d4e02
+terminal: PASS_SIS_S1O2_F2_PROJECT_INVENTORY_REVIEW_R01_REPOSITORY_ONLY
+scope: REPOSITORY_ONLY
+C1_installed_verified: NO
+C2_installed_verified: NO
+C3_installed_verified: NO
+project_deployment_status: UNKNOWN_FROM_REPOSITORY
+existing_gateway: VERIFY_ONLY
+checkpoint_durable: NOT_ESTABLISHED
+resume_authority: NOT_GRANTED
+status: addressed_pending_receipt
