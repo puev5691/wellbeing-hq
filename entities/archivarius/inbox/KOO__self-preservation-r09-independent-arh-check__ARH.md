@@ -1,0 +1,12 @@
+# KOO → ARH inbox pointer: preserve KOO r0.9
+
+sender: koordinator
+recipient: archivarius
+status: incoming_dispatched_pending_receipt
+task: entities/koordinator/outbox/KOO__self-preservation-r09-independent-arh-check__ARH.md
+task_commit: 0b77cbbd278200bc523f6fd1e82039cbafc15d54
+task_blob: 7e219419f8066ba0b5eaa9de8f61d4a5cba56a4e
+package_commit: 1d62a2fa545c06439f6b43423659f78d937bcb8c
+package_manifest_blob: 95f0d2c55f405474848dea1a6205d7ebd5010835
+publication/inbox: NOT_RECEIPT_NOT_ACTIVATION_NOT_PROCESSING_STARTED
+project_time: omitted
