@@ -1,0 +1,115 @@
+{
+  "changed_digest_event": {
+    "commit": "cc9f750313b1ebc3f1c8106ed67e2325c9345ca9",
+    "digest": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "inbox_path": "entities/synthetic/inbox/SYN__task__TEST.md",
+    "recipient": "synthetic",
+    "source_event": "synthetic_github_push"
+  },
+  "event": {
+    "commit": "cc9f750313b1ebc3f1c8106ed67e2325c9345ca9",
+    "digest": "f05677e964788cb49636fbe170e84b271f1cc72cf1faafa87afbf62ee634f761",
+    "inbox_path": "entities/synthetic/inbox/SYN__task__TEST.md",
+    "recipient": "synthetic",
+    "source_event": "synthetic_github_push"
+  },
+  "results": {
+    "01_valid": {
+      "exit": 0,
+      "handler_exit": null,
+      "marker": true,
+      "reason": null,
+      "state": "result_dispatched",
+      "synthetic_result": true
+    },
+    "02_commit_blob_mismatch": {
+      "exit": 21,
+      "handler_exit": null,
+      "marker": false,
+      "reason": "artifact_blob_mismatch",
+      "state": "activation_failed",
+      "synthetic_result": false
+    },
+    "03_wrong_recipient": {
+      "exit": 21,
+      "handler_exit": null,
+      "marker": false,
+      "reason": "dispatch_recipient_mismatch",
+      "state": "activation_failed",
+      "synthetic_result": false
+    },
+    "04_duplicate_same_digest_initial": {
+      "exit": 0,
+      "handler_exit": null,
+      "marker": true,
+      "reason": null,
+      "state": "result_dispatched",
+      "synthetic_result": true
+    },
+    "04_duplicate_same_digest_repeat": {
+      "exit": 23,
+      "handler_exit": null,
+      "marker": true,
+      "reason": "immutable_item_already_processed_explicit_retry_required",
+      "state": "activation_failed",
+      "synthetic_result": false
+    },
+    "05_duplicate_id_changed_digest_observed": {
+      "exit": 23,
+      "handler_exit": null,
+      "marker": true,
+      "reason": "immutable_item_already_processed_explicit_retry_required",
+      "state": "activation_failed",
+      "synthetic_result": false
+    },
+    "06_missing_task_authority_observed": {
+      "exit": 0,
+      "handler_exit": null,
+      "marker": true,
+      "reason": null,
+      "state": "result_dispatched",
+      "synthetic_result": true
+    },
+    "07_missing_approved_source_observed": {
+      "exit": 0,
+      "handler_exit": null,
+      "marker": true,
+      "reason": null,
+      "state": "result_dispatched",
+      "synthetic_result": true
+    },
+    "07_missing_recovery_ref": {
+      "exit": 22,
+      "handler_exit": null,
+      "marker": false,
+      "reason": "recovery_missing_fields:recovery_identity",
+      "state": "activation_failed",
+      "synthetic_result": false
+    },
+    "08_provider_unavailable": {
+      "exit": 21,
+      "handler_exit": null,
+      "marker": false,
+      "reason": "provider_unavailable_or_unreadable",
+      "state": "activation_failed",
+      "synthetic_result": false
+    },
+    "09_handler_failure": {
+      "exit": 0,
+      "handler_exit": 9,
+      "marker": true,
+      "reason": null,
+      "state": "processing_failed",
+      "synthetic_result": false
+    },
+    "10_marker_no_entity": {
+      "exit": 0,
+      "handler_exit": null,
+      "marker": true,
+      "reason": null,
+      "state": "result_dispatched",
+      "synthetic_result": true
+    }
+  },
+  "worker_git_blob": "c680878806fd2fb6d20df8b6e8938d3f3ead5053"
+}
