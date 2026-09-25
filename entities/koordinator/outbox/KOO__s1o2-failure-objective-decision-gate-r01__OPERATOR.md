@@ -28,7 +28,7 @@ authority AUTHORIZE_SIS_S1O2_STORAGE_DURABILITY_PROFILE_OPTIONS_R01_DOCUMENT_ONL
 
 Fresh observed HQ main HEAD before this write: f966bc125d8389adbfaf022f356faafad61f7740. The recent chain after KOO task contains SIS result 8cda2ace78d6e27d4d9ada3344d5e2f3af6ca274, addressed inbox 3ffa3ef70dd2f481c4f31526ddd57f4d100d285d and dispatch f966bc125d8389adbfaf022f356faafad61f7740; no newer competing S1+O2 options result or KOO writer handoff found at this boundary.
 KOO current writer: entities/koordinator/current/KOO__replacement-current-writer-v08.md; blob ca7ed0ed4e539dcdbe783e122cea409a77ab10cd; WRITER_ESTABLISHED.
-Six attached approved Sources checked by Git blobs: recovery 233117e1c9509d730e1f5ec532b1cabe3f786609; roles 1772339cb74dae8550bfbd2e33401c34a929e911; source-loading 69eb657f260a019f76e8e707c880ea88c1dfa0bf; file-work e9c29d62057f34e4f771d6057a36d9b7f72e74c2; task-conveyor df7896d867eeeffff506319538fedad938856686; core a42f7dca6a7469a54fa2da4e549c9d33.
+Six attached approved Sources checked by Git blobs: recovery 233117e1c9509d730e1f5ec532b1cabe3f786609; roles 1772339cb74dae8550bfbd2e33401c34a929e911; source-loading 69eb657f260a019f76e8e707c880ea88c1dfa0bf; file-work e9c29d62057f34e4f771d6057a36d9b7f72e74c2; task-conveyor df7896d867eeeffff506319538fedad938856686; core a42f7dca6a7469a54fa2da24aae0da4e549c9d33.
 
 ## Bounded disposition
 
