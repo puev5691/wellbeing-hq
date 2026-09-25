@@ -34,7 +34,7 @@ puev5691/wellbeing-entity-bootstrap@f6ff070313caff5d7b5d12779d4bb8d8eb0eec01:ent
 Git blob e2c1547b826fc0f5cae5f58e80838f2a068dcc8b.
 At bootstrap HEAD 3a1945ac0e954a419ac9156d14776ecdaadbe91e the current VOL recovery directory blob identities are unchanged; comparison from f6ff070 shows zero entities/vol/ changes.
 Previous independent ARH preservation result:
-puev5691/wellbeing-hq@HEAD:entities/archivarius/outbox/ARH__VOL-emergency-recovery-verification__VOL.md
+puev5691/wellbeing-hq@25f5f38a8cca0a65be02979089b107e598827944:entities/archivarius/outbox/ARH__VOL-emergency-recovery-verification__VOL.md
 Git blob 1d8370e3fa052dd7b01a430458855ae38abd8eab
 status PRESERVATION_CHECKPOINT_VERIFIED; 6/6 checksum PASS. It does not prove practical cold-start or current VOL instance continuity.
 HQ current VOL directory at 58ab882b8e80b3ff321ac3dd4fac59b138c4c57a contains EXCHANGE-GATE.md and coop-meeting directory, no established VOL writer artifact at that directory; absence there does not prove writer unavailability. Later VOL work and HQ evidence may make old recovery stale for task replay.
