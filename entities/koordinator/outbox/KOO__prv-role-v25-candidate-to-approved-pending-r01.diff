@@ -1,0 +1,30 @@
+--- candidate-blob-b7efcb983cd45c9b098ef9d937b897224a838aa8
++++ entity-roles-short-v2_5-approved-pending-activation.md
+@@ -1,4 +1,4 @@
+-# Краткие роли Сущностей — v2.5 candidate r0.1
++# Краткие роли Сущностей — v2.5 approved (ожидает активации)
+ 
+ Кратко: Сущности проекта БЛАГОПОЛУЧИЕ — специализированные режимы инструмента. Они не заменяют ОПЕРАТОРА и не образуют самостоятельный аппарат управления.
+ 
+@@ -142,13 +142,15 @@
+ ## Служебная карточка
+ 
+ document_type: entity-roles
+-version: v2.5-candidate-r01
+-status: CANDIDATE_NOT_ACTIVE
++version: v2.5
++status: approved_pending_source_set_activation
+ base_source_blob: 1772339cb74dae8550bfbd2e33401c34a929e911
+-change_basis: explicit OPERATOR request to introduce PRV role concept; role-source replacement remains an independent approval and activation gate
+-changed_sections: new PRV section before technical-components boundary; service card
+-approval_status: NOT_APPROVED
+-effectivity_rule: active_only_after_explicit_operator_approval_and_applicable_source_set_activation_barrier
++change_basis: explicit OPERATOR approval of exact PRV role text; source-set activation remains a separate gate
++changed_sections: document heading; new PRV section before technical-components boundary; service card
++approval_status: operator_approved
++approval_decision: puev5691/wellbeing-hq@a58f8bb51202ef9b4b6ddfbd75e14f03bbb22e9f:entities/koordinator/outbox/KOO__prv-role-source-v25-exact-text-approval-and-activation-gate-r01__OPERATOR.md
++approved_candidate_blob: b7efcb983cd45c9b098ef9d937b897224a838aa8
++effectivity_rule: active_only_after_complete_source_set_activation_barrier_pass
+ responsibility_boundary: PRV first visitor dialogue; RED publications; PROV published-material navigation; KON substantive option analysis; KOO internal coordination
+ recovery_runtime_authority: NOT_GRANTED
+ telegram_provider_host_automation_authority: NOT_GRANTED
