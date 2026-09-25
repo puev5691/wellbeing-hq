@@ -1,0 +1,11 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__telegram-readonly-bot-api-bridge-r01-independent-review__KOO.md
+source_commit: 124cc535f562e53570690a8b93ae18b0d77440fe
+source_blob: 6d8228cca029c67797e7d417fb13847ebbe5cc44
+terminal: PASS_SIS_TELEGRAM_READONLY_BOT_API_BRIDGE_R01_DOCUMENT_REVIEW_WITH_BOUNDARIES
+scope: INDEPENDENT_DOCUMENT_REVIEW_ONLY
+prior_blocker: UNCHANGED
+bridge_created: NO
+bot_api_calls: 0
+status: addressed_pending_receipt
