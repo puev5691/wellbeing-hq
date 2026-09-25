@@ -1,0 +1,433 @@
+{
+  "cases": {
+    "01_exact_event": {
+      "actual": {
+        "exit": 0,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": null,
+        "state": "result_dispatched",
+        "synthetic_result": true
+      },
+      "executed": true,
+      "expected": {
+        "exit": 0,
+        "reason": null,
+        "state": "result_dispatched"
+      },
+      "verdict": "PASS"
+    },
+    "02_blob_mismatch": {
+      "actual": {
+        "exit": 21,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "artifact_blob_mismatch",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 21,
+        "reason": "artifact_blob_mismatch",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "02_commit_mismatch": {
+      "actual": {
+        "exit": 21,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "artifact_commit_not_found",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 21,
+        "reason": "artifact_commit_not_found",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "03_wrong_dispatch": {
+      "actual": {
+        "exit": 21,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "dispatch_commit_not_found",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 21,
+        "reason": "dispatch_commit_not_found",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "03_wrong_recipient": {
+      "actual": {
+        "exit": 21,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "dispatch_recipient_mismatch",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 21,
+        "reason": "dispatch_recipient_mismatch",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "04_initial": {
+      "actual": {
+        "exit": 0,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": null,
+        "state": "result_dispatched",
+        "synthetic_result": true
+      },
+      "executed": true,
+      "expected": {
+        "exit": 0,
+        "reason": null,
+        "state": "result_dispatched"
+      },
+      "verdict": "PASS"
+    },
+    "04_interrupted_reservation_unknown": {
+      "actual": {
+        "exit": 27,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "event_state_unknown_requires_reconcile",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 27,
+        "reason": "event_state_unknown_requires_reconcile",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "04_same_id_digest": {
+      "actual": {
+        "exit": 23,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "duplicate_event_same_digest",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 23,
+        "reason": "duplicate_event_same_digest",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "05_same_id_changed_valid_digest": {
+      "actual": {
+        "exit": 24,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "event_id_digest_conflict",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 24,
+        "reason": "event_id_digest_conflict",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "06_missing_authority": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "authority_not_trusted",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "authority_not_trusted",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "06_wrong_authority": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "authority_not_trusted",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "authority_not_trusted",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "07_missing_recovery": {
+      "actual": {
+        "exit": 22,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "recovery_missing_fields:recovery_identity",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 22,
+        "reason": "recovery_missing_fields:recovery_identity",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "07_missing_sources": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "approved_source_set_missing_or_untrusted",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "approved_source_set_missing_or_untrusted",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "07_missing_writer": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "writer_not_trusted",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "writer_not_trusted",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "07_wrong_source": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "approved_source_set_missing_or_untrusted",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "approved_source_set_missing_or_untrusted",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "08_unavailable_provider": {
+      "actual": {
+        "exit": 21,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "provider_unavailable_or_unreadable",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 21,
+        "reason": "provider_unavailable_or_unreadable",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "09_handler_failure": {
+      "actual": {
+        "exit": 30,
+        "handler_exit": 9,
+        "real_entity_observed": false,
+        "reason": null,
+        "state": "processing_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 30,
+        "reason": null,
+        "state": "processing_failed"
+      },
+      "verdict": "PASS"
+    },
+    "10_local_marker_no_entity": {
+      "actual": {
+        "exit": 0,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": null,
+        "state": "result_dispatched",
+        "synthetic_result": true
+      },
+      "executed": true,
+      "expected": {
+        "exit": 0,
+        "reason": null,
+        "state": "result_dispatched"
+      },
+      "verdict": "PASS"
+    },
+    "event_commit_mismatch": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "event_commit_missing",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "event_commit_missing",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "event_digest_tamper": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "event_digest_mismatch",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "event_digest_mismatch",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "event_inbox_binding_mismatch": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "event_inbox_binding_mismatch:artifact_path",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "event_inbox_binding_mismatch:artifact_path",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "event_inbox_blob_mismatch": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "event_inbox_blob_mismatch",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "event_inbox_blob_mismatch",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "missing_trusted_profile": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "trusted_profile_missing_or_invalid",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "trusted_profile_missing_or_invalid",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "superseded_authority": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "authority_not_current_or_valid",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "authority_not_current_or_valid",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    },
+    "superseded_writer": {
+      "actual": {
+        "exit": 25,
+        "handler_exit": null,
+        "real_entity_observed": false,
+        "reason": "writer_not_current_or_valid",
+        "state": "activation_failed",
+        "synthetic_result": false
+      },
+      "executed": true,
+      "expected": {
+        "exit": 25,
+        "reason": "writer_not_current_or_valid",
+        "state": "activation_failed"
+      },
+      "verdict": "PASS"
+    }
+  },
+  "passed": 25,
+  "scope": "synthetic_offline_only",
+  "total": 25,
+  "worker_baseline_blob": "c680878806fd2fb6d20df8b6e8938d3f3ead5053"
+}
