@@ -1,0 +1,14 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__telegram-direct-message-path-diagnostic-r01__KOO.md
+source_commit: b080637a3b7a58e4645b89ea030a06c34d888e28
+source_blob: 734146576f35942c6b584b898c83129521a7bc2a
+terminal: BLOCKED_SIS_TELEGRAM_DIRECT_MESSAGE_DIAGNOSTIC_NO_VERIFIED_READONLY_BOT_API_ACCESS
+scope: BOUNDED_READ_ONLY_DIAGNOSTIC
+service_status: disabled_inactive
+listener_127_0_0_1_8782: absent
+webhook_status: UNKNOWN
+allowed_updates: UNKNOWN
+can_manage_direct_messages: UNKNOWN
+bot_api_calls_executed: 0
+status: addressed_pending_receipt
