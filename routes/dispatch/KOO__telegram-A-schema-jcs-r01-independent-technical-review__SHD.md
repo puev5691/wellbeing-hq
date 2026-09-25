@@ -1,0 +1,17 @@
+# Dispatch KOO → SHD: independent review of Telegram A schema/JCS r0.1
+
+exchange_gate: v1
+sender: koordinator
+recipient: shardovik
+task: entities/koordinator/outbox/KOO__telegram-A-schema-jcs-r01-shd-independent-technical-review__SHD.md
+task_commit: 2fcb9d1b2e0714841d573b1237d088ed3e976f6a
+task_blob: eaa04ca08a88b5a0d4f3b7101eefbf6fd814ab2e
+inbox_pointer: entities/shardovik/inbox/KOO__telegram-A-schema-jcs-r01-independent-technical-review__SHD.md
+inbox_pointer_commit: ad9179d82ca0e0c836fa4066cb149751798149d8
+inbox_pointer_blob: 2125ae9b9dc9326d4adbdb5d3063adf3a08fc1b6
+KAN_candidate_commit: bde5e6caf988b255e52aaa191de41e1f6b354572
+KAN_candidate_blob: a0fa6d972dc26aa009c55318f03347515bbb7982
+status: dispatched_pending_receipt_and_manual_activation
+failure_mode: stop_on_unavailable_or_mismatched_immutable_input_or_competing_writer_task_result
+publication/inbox/dispatch: NOT_RECEIPT_NOT_ACTIVATION_NOT_PROCESSING_STARTED
+project_time: omitted
