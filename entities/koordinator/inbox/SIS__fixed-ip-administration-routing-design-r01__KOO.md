@@ -1,0 +1,10 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__fixed-ip-administration-routing-design-r01__KOO.md
+source_commit: 2d61ac65616b7b30e3a11b6c682ec027094e11dd
+source_blob: 399afd89134f877e61d68d0bb2047efd168067dc
+terminal: PASS_SIS_FIXED_IP_ADMINISTRATION_ROUTING_DESIGN_R01_DOCUMENT_ONLY
+scope: BOUNDED_DOCUMENT_ONLY_ROUTING_DESIGN
+deployment: NOT_AUTHORIZED
+automatic_failover: NOT_AUTHORIZED
+status: addressed_pending_receipt
