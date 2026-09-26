@@ -1,0 +1,10 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__s1o2-f2-z1-evidence-plan-r01__KOO.md
+source_commit: 79d0bd884e603e6026732d8f692959f9d1327fbf
+source_blob: 5c4d0de51c24301583b6eb32ca955bd43a838d70
+terminal: PASS_SIS_S1O2_F2_Z1_EVIDENCE_PLAN_R01_DOCUMENT_ONLY
+scope: BOUNDED_DOCUMENT_ONLY_EVIDENCE_PLAN
+Z1_documentary_proof: NOT_ESTABLISHED
+runtime_test: NOT_AUTHORIZED
+status: addressed_pending_receipt
