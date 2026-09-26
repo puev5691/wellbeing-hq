@@ -1,0 +1,10 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__fixed-ip-commander-live-proof-r01__KOO.md
+source_commit: c732d3df298418f302bec67f5efda4bdbabaa0f9
+source_blob: c8057e6c868bbbd93757bdc6acf5c0d47305732a
+terminal: PASS_SIS_FIXED_IP_COMMANDER_LIVE_PROOF_R01_BURZH_IDENTITY_READ_ONLY
+scope: EXACT_ONE_COMMAND_READ_ONLY_LIVE_PROOF
+attempt_count: 1
+host_mutation: 0
+status: addressed_pending_receipt
