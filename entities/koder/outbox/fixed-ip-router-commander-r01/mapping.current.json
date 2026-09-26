@@ -1,0 +1,25 @@
+{
+  "schema_version": "fixed-ip-commander-mapping-v1",
+  "status": "IDENTITY_FROM_PUBLISHED_EVIDENCE_CURRENT_AVAILABILITY_UNKNOWN",
+  "router_package_tree": "fc1bb2751cc5d662037a037fdecf3ece69f07adb",
+  "router_profile_sha256": "b459ea79e31ddba2d36b96872c64a201c001ed6ba4bac8f4f05dd019d7df17ac",
+  "node_priority": ["burzh", "mazhor", "erefia"],
+  "ip_order": ["104.18.32.47", "172.64.155.209"],
+  "devices": [
+    {
+      "node": "burzh", "host": "ruvds-xnqc6",
+      "commander_device_id": "dd09a197-f716-4dd6-80bb-7f8e5d8260ff",
+      "evidence_ref": "puev5691/wellbeing-hq@b080637a3b7a58e4645b89ea030a06c34d888e28:entities/sisadmin/outbox/SIS__telegram-direct-message-path-diagnostic-r01__KOO.md#734146576f35942c6b584b898c83129521a7bc2a"
+    },
+    {
+      "node": "mazhor", "host": "p552203.kvmvps",
+      "commander_device_id": "830038a0-232b-4d83-b52d-0e9973126165",
+      "evidence_ref": "puev5691/wellbeing-hq@56c3cb110eed778bb69c81bd42102c931553d473:entities/sisadmin/outbox/SIS__mazhor-host-access-pilot-r01__ARH-KOO.md#c895f72b6cb6cd99d4d7abe93f49201f965f56ec"
+    },
+    {
+      "node": "erefia", "host": "ruvds-ygo0w",
+      "commander_device_id": "c55d5659-f2c8-416d-8b40-9bac8c80c30d",
+      "evidence_ref": "puev5691/wellbeing-hq@56c3cb110eed778bb69c81bd42102c931553d473:entities/sisadmin/outbox/SIS__erefia-access-readiness__KOO.md#424bfba42d385e056552ef3528205d61cb9c3447"
+    }
+  ]
+}

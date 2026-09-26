@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Fixed-IP router to Commander mapping candidate v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "router_package_tree", "router_profile_sha256", "node_priority", "ip_order", "devices"],
+  "properties": {
+    "schema_version": {"const": "fixed-ip-commander-mapping-v1"},
+    "status": {"const": "IDENTITY_FROM_PUBLISHED_EVIDENCE_CURRENT_AVAILABILITY_UNKNOWN"},
+    "router_package_tree": {"const": "fc1bb2751cc5d662037a037fdecf3ece69f07adb"},
+    "router_profile_sha256": {"const": "b459ea79e31ddba2d36b96872c64a201c001ed6ba4bac8f4f05dd019d7df17ac"},
+    "node_priority": {"const": ["burzh", "mazhor", "erefia"]},
+    "ip_order": {"const": ["104.18.32.47", "172.64.155.209"]},
+    "devices": {
+      "type": "array", "minItems": 3, "maxItems": 3,
+      "prefixItems": [
+        {"type": "object", "additionalProperties": false, "required": ["node", "host", "commander_device_id", "evidence_ref"], "properties": {"node": {"const": "burzh"}, "host": {"const": "ruvds-xnqc6"}, "commander_device_id": {"const": "dd09a197-f716-4dd6-80bb-7f8e5d8260ff"}, "evidence_ref": {"type": "string", "minLength": 1}}},
+        {"type": "object", "additionalProperties": false, "required": ["node", "host", "commander_device_id", "evidence_ref"], "properties": {"node": {"const": "mazhor"}, "host": {"const": "p552203.kvmvps"}, "commander_device_id": {"const": "830038a0-232b-4d83-b52d-0e9973126165"}, "evidence_ref": {"type": "string", "minLength": 1}}},
+        {"type": "object", "additionalProperties": false, "required": ["node", "host", "commander_device_id", "evidence_ref"], "properties": {"node": {"const": "erefia"}, "host": {"const": "ruvds-ygo0w"}, "commander_device_id": {"const": "c55d5659-f2c8-416d-8b40-9bac8c80c30d"}, "evidence_ref": {"type": "string", "minLength": 1}}}
+      ],
+      "items": false
+    }
+  }
+}

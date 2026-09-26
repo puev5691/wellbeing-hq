@@ -1,0 +1,26 @@
+{
+  "selected_node": "burzh",
+  "route_evidence": {
+    "router_package_tree": "fc1bb2751cc5d662037a037fdecf3ece69f07adb",
+    "profile_sha256": "b459ea79e31ddba2d36b96872c64a201c001ed6ba4bac8f4f05dd019d7df17ac",
+    "selected_node": "burzh",
+    "selected_ip": "104.18.32.47",
+    "outcome": "HTTP_APPLICATION_RESPONSE",
+    "http_status": 403,
+    "evidence_ref": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "manual_node_selection": true,
+    "trace": [
+      {"node": "burzh", "target_ip": "104.18.32.47", "outcome": "HTTP_APPLICATION_RESPONSE", "http_status": 403}
+    ]
+  },
+  "inventory": {
+    "device_id": "dd09a197-f716-4dd6-80bb-7f8e5d8260ff",
+    "host": "ruvds-xnqc6",
+    "available": true,
+    "evidence_ref": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "manual_marker": "OPERATOR_SELECTED:burzh",
+  "action_id": "READ_ONLY_ADMIN_CHECK_R01",
+  "verified_task_authority": null,
+  "operator_confirmation": false
+}
