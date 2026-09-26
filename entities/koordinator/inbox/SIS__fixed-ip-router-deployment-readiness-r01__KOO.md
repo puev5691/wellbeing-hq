@@ -1,0 +1,9 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__fixed-ip-router-deployment-readiness-r01__KOO.md
+source_commit: b86e2ddfa7d592c6e478bed7717516e693af7e86
+source_blob: d14d5fcc589e33c12712a78c73637f0e04f50e85
+terminal: PASS_SIS_FIXED_IP_ROUTER_DEPLOYMENT_READINESS_R01_READY_FOR_ACTIVATION_GATE
+scope: BOUNDED_DEPLOYMENT_READINESS_NO_AUTO_ACTIVATION
+activation: NOT_AUTHORIZED
+status: addressed_pending_receipt
