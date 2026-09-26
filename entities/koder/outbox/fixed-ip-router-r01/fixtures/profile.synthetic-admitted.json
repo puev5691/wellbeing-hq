@@ -1,0 +1,19 @@
+{
+  "schema_version": "fixed-ip-router-profile-v1",
+  "profile_id": "SYNTHETIC_ADMITTED_FOR_OFFLINE_TEST_ONLY",
+  "revision": 1,
+  "status": "ADMITTED",
+  "logical_target": "chatgpt.com",
+  "tls_sni": "chatgpt.com",
+  "http_host": "chatgpt.com",
+  "certificate_name": "chatgpt.com",
+  "ip_set": ["104.18.32.47", "172.64.155.209"],
+  "nodes": [
+    {"name": "burzh", "host_identity": "ruvds-xnqc6"},
+    {"name": "mazhor", "host_identity": "p552203.kvmvps"},
+    {"name": "erefia", "host_identity": "ruvds-ygo0w"}
+  ],
+  "source_evidence_refs": ["SYNTHETIC_OFFLINE_ONLY"],
+  "validation_evidence_refs": ["SYNTHETIC_OFFLINE_ONLY"],
+  "supersedes": null
+}

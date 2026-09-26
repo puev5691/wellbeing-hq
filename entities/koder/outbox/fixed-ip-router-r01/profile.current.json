@@ -1,0 +1,19 @@
+{
+  "schema_version": "fixed-ip-router-profile-v1",
+  "profile_id": "CHATGPT_FIXED_IP_MEASURED_R01",
+  "revision": 1,
+  "status": "DOCUMENTED_CURRENT_MEASURED_SET",
+  "logical_target": "chatgpt.com",
+  "tls_sni": "chatgpt.com",
+  "http_host": "chatgpt.com",
+  "certificate_name": "chatgpt.com",
+  "ip_set": ["104.18.32.47", "172.64.155.209"],
+  "nodes": [
+    {"name": "burzh", "host_identity": "ruvds-xnqc6"},
+    {"name": "mazhor", "host_identity": "p552203.kvmvps"},
+    {"name": "erefia", "host_identity": "ruvds-ygo0w"}
+  ],
+  "source_evidence_refs": ["puev5691/wellbeing-hq@2d61ac65616b7b30e3a11b6c682ec027094e11dd:entities/sisadmin/outbox/SIS__fixed-ip-administration-routing-design-r01__KOO.md#399afd89134f877e61d68d0bb2047efd168067dc"],
+  "validation_evidence_refs": ["puev5691/wellbeing-hq@4f07ba64212a78d7e18d44089292b5838475649e:entities/sisadmin/outbox/SIS__three-node-chatgpt-https-latency-by-ip-r01__KOO.md#a9285466f6541d347309902d21537d2e3c77a0f4"],
+  "supersedes": null
+}

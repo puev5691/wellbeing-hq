@@ -1,0 +1,8 @@
+[
+  {"node": "burzh", "ip": "104.18.32.47", "outcome": "TARGET_IP_FAILURE", "http_status": null},
+  {"node": "burzh", "ip": "172.64.155.209", "outcome": "HTTP_APPLICATION_RESPONSE", "http_status": 403},
+  {"node": "mazhor", "ip": "104.18.32.47", "outcome": "HEALTHY", "http_status": null},
+  {"node": "mazhor", "ip": "172.64.155.209", "outcome": "HEALTHY", "http_status": null},
+  {"node": "erefia", "ip": "104.18.32.47", "outcome": "HEALTHY", "http_status": null},
+  {"node": "erefia", "ip": "172.64.155.209", "outcome": "HEALTHY", "http_status": null}
+]
