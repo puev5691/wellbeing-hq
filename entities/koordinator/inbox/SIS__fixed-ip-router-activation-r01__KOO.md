@@ -1,0 +1,9 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__fixed-ip-router-activation-r01__KOO.md
+source_commit: 67b41196a9bf96b15e28622e62ed4098d0a3e28d
+source_blob: 06866aea4402a956d8aff6a36862f7121a27ea88
+terminal: PASS_SIS_FIXED_IP_ROUTER_ACTIVATION_R01_OPERATOR_ASSISTED_ACTIVE_NO_AUTO_FAILOVER
+scope: OPERATOR_ASSISTED_ACTIVATION_NO_AUTO_FAILOVER
+automatic_failover: NOT_ACTIVE
+status: addressed_pending_receipt
