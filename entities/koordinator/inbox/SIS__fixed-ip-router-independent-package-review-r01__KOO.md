@@ -1,0 +1,9 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__fixed-ip-router-independent-package-review-r01__KOO.md
+source_commit: d4b2afc3bd9fa05ddade9d2e8a273d18a69badd4
+source_blob: 63ff89a3116e377ecb68c56a181a86ff94308f6e
+terminal: PASS_SIS_FIXED_IP_ROUTER_INDEPENDENT_PACKAGE_REVIEW_R01_READY_FOR_DEPLOYMENT_GATE
+scope: INDEPENDENT_PACKAGE_ONLY_REVIEW_NO_DEPLOYMENT_NO_LIVE
+deployment: NOT_AUTHORIZED
+status: addressed_pending_receipt
