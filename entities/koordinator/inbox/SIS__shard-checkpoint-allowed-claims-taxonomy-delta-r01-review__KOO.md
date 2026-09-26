@@ -1,0 +1,13 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__shard-checkpoint-allowed-claims-taxonomy-delta-r01-review__KOO.md
+source_commit: 5efae104b56c69ce7b4e627e28f72cbe6bded6da
+source_blob: 00043cda61717a09323fe951968f807981b76864
+terminal: PASS_SIS_SHARD_CHECKPOINT_ALLOWED_CLAIMS_TAXONOMY_DELTA_R01_DOCUMENT_REVIEW
+scope: BOUNDED_DOCUMENTARY_TECHNICAL_REVIEW
+candidate: CANDIDATE_NOT_ACTIVE
+deployed_CHECKPOINT_DURABLE: NOT_ESTABLISHED
+deployed_RECOVERY_READY: NOT_ESTABLISHED
+runtime_storage_CAS_implementation: UNVERIFIED
+resume_authority: NOT_GRANTED
+status: addressed_pending_receipt
