@@ -1,0 +1,9 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__fixed-ip-router-commander-independent-review-r01__KOO.md
+source_commit: c3ce11348b3f8583ea3df7571c56b34d4bef1a3c
+source_blob: 8759157bb30a94587e2a28fbcb789a15932e3d91
+terminal: PASS_SIS_FIXED_IP_ROUTER_COMMANDER_INDEPENDENT_REVIEW_R01_READY_FOR_LIVE_CONTROL_PATH_GATE
+scope: INDEPENDENT_PACKAGE_AND_CONTROL_PATH_EVIDENCE_REVIEW_NO_DEPLOYMENT
+live_control_path_gate: SEPARATE_DECISION_REQUIRED
+status: addressed_pending_receipt
