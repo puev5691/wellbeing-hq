@@ -1,0 +1,13 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__operational-shard-store-offline-r02-rereview__KOO.md
+source_commit: 92038724366a4fb7e54c2e3014b70445bf28ae16
+source_blob: a40eb295b7d8c31b5d0655b712773662173c7260
+terminal: PASS_SIS_OPERATIONAL_SHARD_STORE_OFFLINE_R02_REREVIEW
+scope: INDEPENDENT_CORRECTION_REREVIEW
+live_write: NOT_AUTHORIZED
+deployment: NOT_AUTHORIZED
+checkpoint_durable: NOT_ESTABLISHED
+eom_pilot: BLOCKED
+memory_layering_attempt_3: NOT_AUTHORIZED
+status: addressed_pending_receipt
