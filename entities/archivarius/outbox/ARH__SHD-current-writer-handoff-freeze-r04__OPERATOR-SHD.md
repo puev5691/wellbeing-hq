@@ -1,0 +1,11 @@
+status: CURRENT_WRITER_HANDOFF_FREEZE_AUTHORIZED
+entity: SHD
+operator_decision: AUTHORIZE_SHD_CURRENT_WRITER_HANDOFF_FREEZE_FOR_R04_REPLACEMENT
+writer_path: entities/shardovik/current/SHD__replacement-initiation-current-writer.md
+writer_blob: 88473e85feab1ae5482ff33268ca488abc42f8a4
+writer_disposition: FROZEN_FOR_NEW_AUTHORITATIVE_MUTATIONS_PENDING_R04_REPLACEMENT
+recovery: puev5691/wellbeing-entity-bootstrap@6a5b09807bb8a6b4525620a1cbd7d6a4561f0817:entities/shd/recovery/versions/shd-recovery-r04
+preservation_terminal: PASS_ARH_SHD_GRACEFUL_SELF_PRESERVATION_R04_EXTERNALLY_PRESERVED
+writer_gate: NOT_AUTHORIZED
+profile_work: NOT_AUTHORIZED
+memory_layering_attempt_3: NOT_AUTHORIZED
