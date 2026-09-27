@@ -1,0 +1,21 @@
+test_cas_exact_prior_generation_parent_and_ledger (__main__.CandidateTests.test_cas_exact_prior_generation_parent_and_ledger) ... ok
+test_concurrency_one_cas_winner (__main__.CandidateTests.test_concurrency_one_cas_winner) ... ok
+test_corrupt_pointer_and_ledger_fail_closed (__main__.CandidateTests.test_corrupt_pointer_and_ledger_fail_closed) ... ok
+test_crash_cas_atomic_tuple_and_lost_response (__main__.CandidateTests.test_crash_cas_atomic_tuple_and_lost_response) ... ok
+test_crash_put_stages_and_reopen (__main__.CandidateTests.test_crash_put_stages_and_reopen) ... ok
+test_crash_second_cas_writer_epoch_rollover (__main__.CandidateTests.test_crash_second_cas_writer_epoch_rollover) ... ok
+test_frozen_superseded_unadmitted_and_stale_fence (__main__.CandidateTests.test_frozen_superseded_unadmitted_and_stale_fence) ... ok
+test_generation_parent_and_missing_object_block (__main__.CandidateTests.test_generation_parent_and_missing_object_block) ... ok
+test_noncanonical_duplicate_key_float_bom_and_payload (__main__.CandidateTests.test_noncanonical_duplicate_key_float_bom_and_payload) ... ok
+test_orphan_pointer_missing_corrupt_and_anchor_mismatch (__main__.CandidateTests.test_orphan_pointer_missing_corrupt_and_anchor_mismatch) ... ok
+test_pointer_ledger_and_fence_divergence (__main__.CandidateTests.test_pointer_ledger_and_fence_divergence) ... ok
+test_published_deterministic_vector (__main__.CandidateTests.test_published_deterministic_vector) ... ok
+test_put_idempotency_and_conflicting_bytes (__main__.CandidateTests.test_put_idempotency_and_conflicting_bytes) ... ok
+test_record_namespace_and_path_reject (__main__.CandidateTests.test_record_namespace_and_path_reject) ... ok
+test_unavailable_resolve_unknown_and_invalid_root (__main__.CandidateTests.test_unavailable_resolve_unknown_and_invalid_root) ... ok
+test_vector_canonical_identity_and_reparse (__main__.CandidateTests.test_vector_canonical_identity_and_reparse) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 1.084s
+
+OK
