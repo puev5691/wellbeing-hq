@@ -1,0 +1,8 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__STP-C-per-seat-key-storage-design-r01__KOO.md
+source_commit: 8181f3db69f2b9f71989497fee30f58b25c3c244
+source_blob: 0af7b4e3786206ea3d20b22c8dfca73f15f76110
+terminal: PASS_SIS_STP_C_PER_SEAT_KEY_STORAGE_DESIGN_R01_READY_FOR_OPERATOR_DECISION
+scope: DOCUMENT_ONLY_SECURITY_STORAGE_RECOVERY_DESIGN
+status: addressed_pending_receipt
