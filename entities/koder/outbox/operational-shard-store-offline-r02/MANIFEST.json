@@ -1,0 +1,62 @@
+{
+  "files": [
+    {
+      "bytes": 23979,
+      "path": "PREDECESSOR.diff",
+      "sha256": "d411ecd7f8d78b3d10f0c485d03c0e68f60d015c030b9d03b5f4a1b132b100d4"
+    },
+    {
+      "bytes": 4284,
+      "path": "README.md",
+      "sha256": "7df14a0c10fc780629392e24858bf5853d2ad9402252eb286432a943b2e62a60"
+    },
+    {
+      "bytes": 2533,
+      "path": "SCHEMA.json",
+      "sha256": "8d14af3decea6b1a1e46f72e4be1c400c8f2648140e575f5a2586df66055ea19"
+    },
+    {
+      "bytes": 814,
+      "path": "SHA256SUMS",
+      "sha256": "57b129203e12aee2db3bfcf3328fa24bbce118363ff98de6463fcf67cee83d7b"
+    },
+    {
+      "bytes": 826,
+      "path": "crash_worker.py",
+      "sha256": "04f72e1416698f3cb177e7e492be8333346c53d140728de58d5d6bfe40f8e63c"
+    },
+    {
+      "bytes": 866,
+      "path": "evidence.json",
+      "sha256": "3b02a737441e53678ea3581e03876243980b50773367cef50301c931e9c5e9ae"
+    },
+    {
+      "bytes": 28482,
+      "path": "offline_store.py",
+      "sha256": "bb6a16fae7aeb6fd8e920806e9d694b50754469f0aa7aa29dc65e340b4c11cd7"
+    },
+    {
+      "bytes": 98,
+      "path": "test.stderr.txt",
+      "sha256": "8b38719d1e3250b7c58d592c52022c60f955aa9c7902efd03dabc3f3af009078"
+    },
+    {
+      "bytes": 173,
+      "path": "test.stdout.json",
+      "sha256": "ed09b9b27ab3e150cf08a23832a38bc9bfb5fc9ea0a1bd188e8701982cd9d56a"
+    },
+    {
+      "bytes": 23188,
+      "path": "test_offline_store.py",
+      "sha256": "e8654d98ab3e2c0431d5500f0d3e9989633e16d9980f310b57aa73833daa7d2b"
+    },
+    {
+      "bytes": 2326,
+      "path": "vectors.json",
+      "sha256": "41e8a6535c853c4295963381ae62791b5e1981c2baf4725c3b045578c6004f46"
+    }
+  ],
+  "predecessor_tree": "d70d1eeff3843674ee31e75b86e2b2220e119614",
+  "schema": "immutable-offline-correction-package-r02",
+  "self_exclusion": "MANIFEST.json excludes itself; SHA256SUMS lists all other files"
+}

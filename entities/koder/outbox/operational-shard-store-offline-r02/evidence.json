@@ -1,0 +1,24 @@
+{
+  "bounds": {
+    "CHECKPOINT_DURABLE": "NOT_ESTABLISHED",
+    "EOM_pilot": "BLOCKED",
+    "deployment": 0,
+    "live_shard_writes": 0,
+    "memory_layering_attempt_3": "NOT_AUTHORIZED",
+    "provider_calls": 0
+  },
+  "corrections": [
+    "CAS CONFLICT exact request and observed actual committed to operation ledger before return; resolve after pointer advance",
+    "closed PUT/CAS outcome schemas and fail-closed semantic binding, including pointer/object/generation/parent"
+  ],
+  "predecessor": "puev5691/wellbeing-hq@a972227813ba2e2e495ea1e9d37f86a0028492d7:entities/koder/outbox/operational-shard-store-offline-r01",
+  "tests": {
+    "conflict_crash_stages": [
+      "after_conflict_ledger",
+      "after_conflict_commit"
+    ],
+    "count": 19,
+    "result": "PASS",
+    "semantic_corruption": "valid JSON mutations return UNKNOWN/BLOCKED_INTEGRITY"
+  }
+}

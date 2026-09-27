@@ -1,0 +1,22 @@
+{
+  "schema": "operational-store-offline-schema-r02",
+  "record_schema": "operational-record-v1",
+  "encoding": "UTF-8 JSON; no BOM; sorted object keys; compact separators; one terminal LF; integer-only numbers; reject duplicate keys, floats, NaN, unknown fields and surrogate characters",
+  "record_identity": "sha256:<lowercase hex SHA-256 of exact canonical envelope bytes>; raw payload bound by payload_sha256 and payload_bytes",
+  "namespace": ["entity_id", "task_id", "task_version", "stream_id"],
+  "record_fields": ["schema", "record_kind", "entity_id", "task_id", "task_version", "stream_id", "writer_id", "writer_epoch", "authority_ref", "trust_profile_ref", "approved_sources_ref", "generation", "parent_digest", "payload_sha256", "payload_bytes", "payload_media_type", "state_class", "source_refs", "supersedes_refs", "policy_ref", "expiry_class"],
+  "record_kinds": ["WORKING_NOTE", "STEP_EVIDENCE", "CHECKPOINT_CANDIDATE", "PROMOTION_RECEIPT", "CONFLICT_EVIDENCE"],
+  "state_classes": ["PROVISIONAL", "SEALED_CANDIDATE", "PROMOTION_EVIDENCE"],
+  "pointer_fields": ["generation", "record_id", "parent_record_id", "writer_epoch", "writer_id", "authority_ref", "trust_profile_ref", "operation_id", "operation_request_digest", "receipt_id"],
+  "operation_keys": ["kind", "namespace", "op_id"],
+  "operation_kinds": ["PUT", "CAS"],
+  "outcome_statuses": ["APPLIED", "NOT_APPLIED", "CONFLICT", "UNKNOWN"],
+  "persisted_put_outcome_fields": ["status", "operation", "namespace", "op_id", "record_id", "request_digest", "receipt_id"],
+  "persisted_cas_applied_fields": ["status", "operation", "namespace", "op_id", "pointer", "expected_pointer", "approved_sources_ref", "request_digest", "receipt_id"],
+  "persisted_cas_conflict_fields": ["status", "operation", "namespace", "op_id", "reason", "actual", "expected_pointer", "requested_record_id", "writer_id", "writer_epoch", "authority_ref", "trust_profile_ref", "approved_sources_ref", "request_digest", "receipt_id"],
+  "conflict_linearization": "actual pointer observation, exact request digest and CONFLICT outcome are committed together before returning; resolve preserves the observed actual pointer after a later advancement",
+  "ledger_validation": "closed schema and recomputed semantic linkages before dedupe, resolve or verified local state; invalid ledger is UNKNOWN/BLOCKED_INTEGRITY",
+  "authority_semantics": "none; SyntheticAdmission is a fixture, not an issuer/verifier of real credentials",
+  "project_state_semantics": "none",
+  "durability_claim": "none"
+}
