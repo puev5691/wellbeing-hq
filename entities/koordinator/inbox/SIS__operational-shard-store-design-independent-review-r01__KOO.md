@@ -1,0 +1,12 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__operational-shard-store-design-independent-review-r01__KOO.md
+source_commit: 1ba484e9cc819f3514afdefe7476b6403b17a494
+source_blob: a39f845950311fc9a24e3d8b7e8712a8476da290
+terminal: PASS_SIS_OPERATIONAL_SHARD_STORE_DESIGN_R01_WITH_BOUNDARIES
+scope: INDEPENDENT_DOCUMENT_REVIEW_ONLY
+write: NOT_AUTHORIZED
+deployment: NOT_AUTHORIZED
+eom_pilot: BLOCKED
+memory_layering_attempt_3: NOT_AUTHORIZED
+status: addressed_pending_receipt
