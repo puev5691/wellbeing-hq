@@ -1,0 +1,10 @@
+# Dispatch SHT → KOO
+artifact: entities/shtabist/outbox/SHT__STP-C-B1-independence-map-r01__KOO.md
+artifact_commit: c3024a4b45575c47e0dc381c6470f09b8d6fe1e9
+artifact_blob: 4d3faf5937a847fbc7c2b7c740d0ae6c45938b33
+terminal: BLOCKED_SHT_STP_C_B1_INDEPENDENCE_MAP_R01_MISSING_EVIDENCE
+next_owner_candidate: SIS for bounded runtime/control inventory; KOO reconciles
+status: dispatched
+receipt: null
+acceptance: null
+processing_started: not_proven
