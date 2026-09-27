@@ -1,0 +1,9 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__STP-C-B1-runtime-control-inventory-r01-operator-facts-resolved__KOO.md
+source_commit: 52507d0643d031d996e2af464071a22598eccf4b
+source_blob: 5905899bf9247bee1d5faabd696b6d06b5795139
+terminal: PASS_SIS_STP_C_B1_RUNTIME_CONTROL_INVENTORY_R01_READY_FOR_KOO
+scope: DOCUMENT_ONLY_NON_MUTATING_EVIDENCE_INVENTORY
+composition_selection: NOT_PERFORMED
+status: addressed_pending_receipt
