@@ -1,0 +1,8 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__STP-C-B1-runtime-control-inventory-r01__KOO.md
+source_commit: f94cdd2e7f75bca5ff14eab9d2d6f8eaff83d90b
+source_blob: f81e703a015d76c9ddc0c77deb52370e357cdb24
+terminal: BLOCKED_SIS_STP_C_B1_RUNTIME_CONTROL_INVENTORY_R01_MISSING_OPERATOR_FACT
+scope: DOCUMENT_ONLY_NON_MUTATING_EVIDENCE_INVENTORY
+status: addressed_pending_receipt
