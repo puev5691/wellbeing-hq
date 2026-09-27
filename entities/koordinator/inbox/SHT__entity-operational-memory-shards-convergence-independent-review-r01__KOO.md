@@ -1,0 +1,11 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__entity-operational-memory-shards-convergence-independent-review-r01__KOO.md
+artifact_commit: a9ea81332d2e9164bb836984fe8989567bbfa46d
+artifact_blob: 949a7ec8158c20a52c0815aa38c3f1e36566f100
+dispatch_commit: 9545b89a731062a4e0d4384ab68f7d294cad6832
+terminal: BLOCKED_SHT_EOM_SHARD_PILOT_R01_CAUSALLY_OVERLAPS_UNAUTHORIZED_MEMORY_LAYERING_ATTEMPT_3
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
+activation: not_proven
+processing_started: not_proven
