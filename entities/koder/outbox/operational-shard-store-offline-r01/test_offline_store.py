@@ -122,6 +122,7 @@ class CandidateTests(unittest.TestCase):
         cas2 = self.store.cas(NS, cas["pointer"], put2["record_id"], "cas-2", admission())
         self.assertEqual(cas2["pointer"]["generation"], 2)
         self.assertEqual(self.store.resolve("CAS", NS, "cas-2", cas2["request_digest"]), cas2)
+        self.assertEqual(self.store.resolve("CAS", NS, "cas-1", cas["request_digest"]), cas)
         self.assertEqual(self.store.resolve("CAS", NS, "cas-2", sha(b"wrong"))["status"], "CONFLICT")
         self.assertEqual(self.store.resolve("CAS", NS, "missing", sha(b"missing"))["status"], "NOT_APPLIED")
 

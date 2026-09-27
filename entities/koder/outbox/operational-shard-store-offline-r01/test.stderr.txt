@@ -16,6 +16,6 @@ test_unavailable_resolve_unknown_and_invalid_root (__main__.CandidateTests.test_
 test_vector_canonical_identity_and_reparse (__main__.CandidateTests.test_vector_canonical_identity_and_reparse) ... ok
 
 ----------------------------------------------------------------------
-Ran 16 tests in 1.084s
+Ran 16 tests in 1.064s
 
 OK
