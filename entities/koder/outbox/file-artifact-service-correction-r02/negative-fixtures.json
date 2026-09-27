@@ -1,0 +1,14 @@
+{
+  "schema": "file-artifact-service-negative-fixtures-r02",
+  "basis": "example-request.json",
+  "cases": [
+    {"id": "reserved-exact", "replace": {"inputs[0].target_path": "MANIFEST.json"}, "expected_error": "RESERVED_TARGET_PATH", "output_written": false},
+    {"id": "reserved-normalized", "replace": {"inputs[0].target_path": "./MANIFEST.json"}, "expected_error": "RESERVED_TARGET_PATH", "output_written": false},
+    {"id": "reserved-descendant", "replace": {"inputs[0].target_path": "MANIFEST.json/child"}, "expected_error": "RESERVED_TARGET_PATH", "output_written": false},
+    {"id": "prior-parent", "replace": {"prior_manifest_path": "../outside.json"}, "expected_error": "BAD_PRIOR_MANIFEST_PATH", "output_written": false},
+    {"id": "prior-absolute", "replace": {"prior_manifest_path": "/tmp/outside.json"}, "expected_error": "BAD_PRIOR_MANIFEST_PATH", "output_written": false},
+    {"id": "prior-symlink", "setup": "symlink to outside source root", "replace": {"prior_manifest_path": "linked/prior.json"}, "expected_error": "BAD_PRIOR_MANIFEST_PATH", "output_written": false},
+    {"id": "archive-string", "replace": {"create_archive": "false"}, "expected_error": "BAD_CREATE_ARCHIVE_TYPE", "output_written": false},
+    {"id": "prior-bool", "replace": {"prior_manifest_path": false}, "expected_error": "BAD_PRIOR_MANIFEST_TYPE", "output_written": false}
+  ]
+}

@@ -1,0 +1,170 @@
+--- file_artifact_r02_predecessor/file_service.py	2026-09-26 22:56:17.395676592 -0700
++++ file_artifact_r02/file_service.py	2026-09-26 22:54:50.488138077 -0700
+@@ -1,10 +1,11 @@
+ #!/usr/bin/env python3
+ from __future__ import annotations
+-from dataclasses import dataclass, asdict
++from dataclasses import dataclass
+ from pathlib import Path
+ import hashlib, json, tarfile, io, gzip, shutil
+ 
+-PASS="PASS_FILE_ARTIFACT_SERVICE_MVP_R01_READY_FOR_VERIFY"
++PASS="PASS_FILE_ARTIFACT_SERVICE_CORRECTION_R02_READY_FOR_SHD_REVIEW"
++GENERATED_PATHS=frozenset({"MANIFEST.json"})
+ 
+ class ServiceError(RuntimeError): pass
+ def require(ok, code):
+@@ -12,6 +13,13 @@
+ def sha256_bytes(data:bytes)->str: return hashlib.sha256(data).hexdigest()
+ def canon(obj)->bytes: return (json.dumps(obj,ensure_ascii=False,sort_keys=True,separators=(",",":"))+"\n").encode()
+ 
++def safe_relative(value, code):
++    require(type(value) is str and bool(value) and not Path(value).is_absolute()
++            and ".." not in Path(value).parts and "\\" not in value, code)
++    normalized=Path(value).as_posix()
++    require(normalized not in ("", ".") and not normalized.startswith("/"),code)
++    return normalized
++
+ @dataclass(frozen=True)
+ class InputIdentity:
+     source_id:str
+@@ -21,8 +29,8 @@
+     size:int
+     def __post_init__(self):
+         require(type(self.source_id) is str and self.source_id,"BAD_INPUT_ID")
+-        require(type(self.source_path) is str and self.source_path and not self.source_path.startswith("/") and ".." not in Path(self.source_path).parts,"BAD_SOURCE_PATH")
+-        require(type(self.target_path) is str and self.target_path and not self.target_path.startswith("/") and ".." not in Path(self.target_path).parts,"BAD_TARGET_PATH")
++        safe_relative(self.source_path,"BAD_SOURCE_PATH")
++        safe_relative(self.target_path,"BAD_TARGET_PATH")
+         require(type(self.sha256) is str and len(self.sha256)==64 and all(c in "0123456789abcdef" for c in self.sha256),"BAD_SHA256")
+         require(type(self.size) is int and not isinstance(self.size,bool) and self.size>=0,"BAD_SIZE")
+ 
+@@ -38,8 +46,14 @@
+         require(type(self.request_id) is str and self.request_id,"BAD_REQUEST_ID")
+         require(type(self.package_id) is str and self.package_id,"BAD_PACKAGE_ID")
+         require(type(self.inputs) is tuple and len(self.inputs)>0,"BAD_INPUTS")
+-        targets=[x.target_path for x in self.inputs]
++        targets=[safe_relative(x.target_path,"BAD_TARGET_PATH") for x in self.inputs]
+         require(len(targets)==len(set(targets)),"DUPLICATE_TARGET")
++        require(all(t not in GENERATED_PATHS and not any(t.startswith(g+"/") for g in GENERATED_PATHS)
++                    for t in targets),"RESERVED_TARGET_PATH")
++        require(type(self.create_archive) is bool,"BAD_CREATE_ARCHIVE_TYPE")
++        require(self.prior_manifest_path is None or type(self.prior_manifest_path) is str,"BAD_PRIOR_MANIFEST_TYPE")
++        if self.prior_manifest_path is not None:
++            safe_relative(self.prior_manifest_path,"BAD_PRIOR_MANIFEST_PATH")
+         require(self.git_adapter_enabled is False,"GIT_ADAPTER_DISABLED")
+ 
+ class GitAdapter:
+@@ -67,6 +81,18 @@
+     require(sha256_bytes(data)==ident.sha256,"SOURCE_HASH_MISMATCH")
+     return data
+ 
++def _read_prior_manifest(source_root:Path, relative:str|None)->dict|None:
++    if relative is None: return None
++    root=source_root.resolve(strict=True)
++    p=root
++    for component in Path(relative).parts:
++        p=p/component
++        require(not p.is_symlink(),"BAD_PRIOR_MANIFEST_PATH")
++    require(p.is_file(),"PRIOR_MANIFEST_MISSING")
++    require(p.resolve(strict=True).is_relative_to(root),"BAD_PRIOR_MANIFEST_PATH")
++    try: return json.loads(p.read_text(encoding="utf-8"))
++    except Exception: raise ServiceError("BAD_PRIOR_MANIFEST") from None
++
+ def _manifest(package_id, inventory):
+     return {"schema":"file-artifact-manifest-r01","package_id":package_id,"files":inventory,
+             "authority_semantics":"none","project_state_semantics":"none","canonical_state":"not_claimed"}
+@@ -91,23 +117,19 @@
+ 
+ def execute(request_bytes:bytes, source_root:Path, output_root:Path)->dict:
+     req=parse_request(request_bytes)
++    old=_read_prior_manifest(source_root,req.prior_manifest_path)
+     package_dir=output_root/"package"
+     if package_dir.exists(): shutil.rmtree(package_dir)
+     package_dir.mkdir(parents=True)
+     inventory=[]
+     for ident in sorted(req.inputs,key=lambda x:x.target_path):
+         data=_read_verified(source_root,ident)
+-        dst=package_dir/ident.target_path;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(data)
+-        inventory.append({"path":ident.target_path,"sha256":sha256_bytes(data),"size":len(data),"source_id":ident.source_id})
++        target=safe_relative(ident.target_path,"BAD_TARGET_PATH")
++        dst=package_dir/target;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(data)
++        inventory.append({"path":target,"sha256":sha256_bytes(data),"size":len(data),"source_id":ident.source_id})
+     manifest=_manifest(req.package_id,inventory)
+     manifest_bytes=canon(manifest)
+     (package_dir/"MANIFEST.json").write_bytes(manifest_bytes)
+-    old=None
+-    if req.prior_manifest_path:
+-        p=source_root/req.prior_manifest_path
+-        require(p.is_file(),"PRIOR_MANIFEST_MISSING")
+-        try: old=json.loads(p.read_text(encoding="utf-8"))
+-        except Exception: raise ServiceError("BAD_PRIOR_MANIFEST") from None
+     diff=package_diff(old,manifest)
+     (output_root/"diff.json").write_bytes(canon(diff))
+     names=[x["path"] for x in inventory]+["MANIFEST.json"]
+@@ -130,4 +152,4 @@
+ if __name__=="__main__":
+     import argparse
+     ap=argparse.ArgumentParser();ap.add_argument("--request",type=Path,required=True);ap.add_argument("--source-root",type=Path,required=True);ap.add_argument("--out",type=Path,required=True)
+-    a=ap.parse_args();print(json.dumps(execute(a.request.read_bytes(),a.source_root,a.out),sort_keys=True))
+\ No newline at end of file
++    a=ap.parse_args();print(json.dumps(execute(a.request.read_bytes(),a.source_root,a.out),sort_keys=True))
+--- file_artifact_r02_predecessor/test_file_service.py	2026-09-26 22:56:17.395972127 -0700
++++ file_artifact_r02/test_file_service.py	2026-09-26 22:55:11.500513271 -0700
+@@ -66,7 +66,54 @@
+     subprocess.Popen=deny
+     try:self.execute_service(q,s,o)
+     finally:subprocess.Popen=old
++  def test_reserved_manifest_exact_and_normalized_before_write(self):
++    for target in ("MANIFEST.json","./MANIFEST.json","sub/../MANIFEST.json","MANIFEST.json/child"):
++      with self.subTest(target=target):
++        r,s,o,q=self.fixture();q["inputs"][0]["target_path"]=target
++        with self.assertRaisesRegex(m.ServiceError,"RESERVED_TARGET_PATH|BAD_TARGET_PATH"):
++          self.execute_service(q,s,o)
++        self.assertEqual(list(o.iterdir()),[])
++  def test_normalized_duplicate_before_write(self):
++    r,s,o,q=self.fixture();q["inputs"][0]["target_path"]="./bin/z.bin"
++    with self.assertRaisesRegex(m.ServiceError,"DUPLICATE_TARGET"):self.execute_service(q,s,o)
++    self.assertEqual(list(o.iterdir()),[])
++  def test_prior_path_escape_absolute_and_parent(self):
++    for prior in ("../outside.json","a/../prior.json","/tmp/foreign.json"):
++      with self.subTest(prior=prior):
++        r,s,o,q=self.fixture();q["prior_manifest_path"]=prior
++        with self.assertRaisesRegex(m.ServiceError,"BAD_PRIOR_MANIFEST_PATH"):
++          self.execute_service(q,s,o)
++        self.assertEqual(list(o.iterdir()),[])
++  def test_prior_symlink_file_and_parent_escape(self):
++    for path,link_parent in (("link.json",False),("linked/prior.json",True)):
++      with self.subTest(path=path):
++        r,s,o,q=self.fixture();outside=r/"outside";outside.mkdir();(outside/"prior.json").write_text("{}")
++        if link_parent:(s/"linked").symlink_to(outside,target_is_directory=True)
++        else:(s/"link.json").symlink_to(outside/"prior.json")
++        q["prior_manifest_path"]=path
++        with self.assertRaisesRegex(m.ServiceError,"BAD_PRIOR_MANIFEST_PATH"):
++          self.execute_service(q,s,o)
++        self.assertEqual(list(o.iterdir()),[])
++  def test_prior_missing_fails_before_write(self):
++    r,s,o,q=self.fixture();q["prior_manifest_path"]="missing.json"
++    with self.assertRaisesRegex(m.ServiceError,"PRIOR_MANIFEST_MISSING"):self.execute_service(q,s,o)
++    self.assertEqual(list(o.iterdir()),[])
++  def test_type_closure_boolean_and_prior(self):
++    for value in ("false",0,1,None,[],{}):
++      with self.subTest(create_archive=value):
++        r,s,o,q=self.fixture();q["create_archive"]=value
++        with self.assertRaisesRegex(m.ServiceError,"BAD_CREATE_ARCHIVE_TYPE"):self.execute_service(q,s,o)
++        self.assertEqual(list(o.iterdir()),[])
++    for value in (False,True,0,[],{}):
++      with self.subTest(prior_manifest_path=value):
++        r,s,o,q=self.fixture();q["prior_manifest_path"]=value
++        with self.assertRaisesRegex(m.ServiceError,"BAD_PRIOR_MANIFEST_TYPE"):self.execute_service(q,s,o)
++        self.assertEqual(list(o.iterdir()),[])
++  def test_create_archive_false_is_exact_bool(self):
++    r,s,o,q=self.fixture();q["create_archive"]=False
++    x=self.execute_service(q,s,o);self.assertIsNone(x["archive_sha256"])
++    self.assertFalse((o/"package.tar.gz").exists())
+ if __name__=="__main__":
+  r=unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(T))
+  print(json.dumps({"verdict":m.PASS if r.wasSuccessful() else "FAIL_FILE_ARTIFACT_SERVICE_TESTS","tests":r.testsRun,"failures":len(r.failures),"errors":len(r.errors),"skipped":len(r.skipped),"network_calls":0,"git_publications":0,"credentials":0,"authority_semantics":"none","project_state_semantics":"none"},sort_keys=True))
+- raise SystemExit(0 if r.wasSuccessful() else 1)
+\ No newline at end of file
++ raise SystemExit(0 if r.wasSuccessful() else 1)
