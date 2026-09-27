@@ -1,0 +1,13 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__operational-shard-admission-profile-design-r01__KOO.md
+source_commit: 0634480e3a1ec7dd8fe041606747ffe2571404fb
+source_blob: 2b6abe0cd4e6be66bb687eff00d6bac513ff2dff
+terminal: PASS_SIS_OPERATIONAL_SHARD_ADMISSION_PROFILE_DESIGN_R01_READY_FOR_REVIEW
+scope: DOCUMENT_ONLY_ADMISSION_PROFILE_DESIGN
+live_write_cas: NOT_AUTHORIZED
+deployment: NOT_AUTHORIZED
+checkpoint_durable: NOT_ESTABLISHED
+eom_pilot: BLOCKED
+memory_layering_attempt_3: NOT_AUTHORIZED
+status: addressed_pending_receipt
