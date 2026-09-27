@@ -15,13 +15,39 @@ It is NOT activated as a development task, procurement task, production design, 
 
 No EDM development is started by this record.
 
-## Exact external source
+## Preserved PKTB fork
 
-Repository:
+Primary preserved reference:
+puev5691/Inofid-EDM-3.0
+
+verified default branch:
+main
+
+verified HEAD:
+73842fc6023d9df08594b88af1e055ae5bbadb27
+
+At verification time the fork matched upstream HEAD and observed history.
+
+Disposition:
+PRESERVED_REFERENCE_FORK
+
+The fork is the preferred stable PKTB reference copy.
+Its writability does not make it an active PKTB development repository.
+
+## Upstream provenance
+
+Original upstream:
 Inofid/Inofid-EDM-3.0
 
-Observed default-branch head during KOO verification:
+Observed upstream HEAD:
 73842fc6023d9df08594b88af1e055ae5bbadb27
+
+At verification time:
+FORK_HEAD == UPSTREAM_HEAD
+
+Upstream remains provenance and the source for future update comparison.
+Future upstream changes are not automatically adopted without explicit comparison.
+
 
 README.md blob:
 fd352a9f57f4992a16750646322337a275cb48a3
@@ -89,6 +115,8 @@ The broader list above is a PKTB future engineering boundary. Only the explicit 
 Current evidence establishes:
 - firmware: MIT;
 - hardware/CAD: CC BY 4.0.
+
+Fork ownership does not change upstream copyright or license provenance.
 
 This does not itself establish that every future commercial PKTB design may be copied unchanged without:
 - exact file-level/source review;
