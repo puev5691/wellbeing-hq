@@ -1,0 +1,11 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__current-instance-initiation-gate-r01-completion__KOO.md
+artifact_commit: f5f6a2ed9c3c1820dace6fd7dfdd15d55d39c60b
+artifact_blob: 0d64e2622b94cb58ac76f97aa10e6b115303704f
+dispatch_commit: 1e3076a1b4659bd6b7140dbef60e5f755b8a1010
+outcome: initiation_verified_waiting_writer_gate
+writer_gate: NOT_YET_PERFORMED
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
+processing_started: not_proven
