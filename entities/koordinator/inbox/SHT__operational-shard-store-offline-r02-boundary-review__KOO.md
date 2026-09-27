@@ -1,0 +1,11 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__operational-shard-store-offline-r02-boundary-review__KOO.md
+artifact_commit: 79a351255020a4a94b007117abefbb087bb59880
+artifact_blob: 1515612a00feb1e5a4ebe03f8ef5d5aca324d490
+dispatch_commit: a387acb055a8f879e7e7e3435026f816a9351157
+terminal: PASS_SHT_OPERATIONAL_SHARD_STORE_OFFLINE_R02_BOUNDARY_REVIEW
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
+activation: not_proven
+processing_started: not_proven
