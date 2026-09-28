@@ -1,0 +1,7 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__STP-C-p552203-preservation-disposition-plan-r01__KOO.md
+source_commit: cdfcc3186b404584c4d6c2a726dd4f853e73e99b
+source_blob: 99857883d03bff78a97bd8aea7d1ee20425f7bf0
+terminal: PASS_SIS_STP_C_P552203_PRESERVATION_DISPOSITION_PLAN_R01_READY_FOR_OPERATOR_DECISION
+status: addressed_pending_receipt
