@@ -1,0 +1,10 @@
+# Dispatch SHT → KOO
+artifact: entities/shtabist/outbox/SHT__entity-operational-continuity-r02-stress-review__KOO.md
+artifact_commit: 95af8ba20f3df48a23e32bca59ffb774410bae58
+artifact_blob: 48816569ecff0f744b3ad3e34724e06c63537213
+terminal: PASS_SHT_ENTITY_OPERATIONAL_CONTINUITY_R02_STRESS_REVIEW_READY_FOR_BOUNDED_EFFECTIVITY_DECISION
+candidate_status: CANDIDATE_NOT_ACTIVE
+status: dispatched
+receipt: null
+acceptance: null
+processing_started: not_proven
