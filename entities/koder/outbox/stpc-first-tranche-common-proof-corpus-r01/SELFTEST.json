@@ -1,0 +1,1 @@
+{"backend_tests_executed":0,"candidate_adapters":0,"command":"python -B -m unittest -q test_oracle","errors":0,"failures":0,"schema":"STPC_ORACLE_SELFTEST_R01","status":"PASS_ORACLE_SELFTEST_ONLY","tests":10}
