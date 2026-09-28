@@ -1,0 +1,13 @@
+b45563fdccde8b5c2c023c09e42395e60be504d3f3d62ea48522acde2346fa24  source/data/wellbeing-lab/backups/shd-pre-reinit-v01/README.md
+5db43dee7350defbb97faeff529339ad01b4da8394723bd0acf418630d72ae78  source/data/wellbeing-lab/backups/shd-pre-reinit-v01/host-state.txt
+dd229b72c4160af2d2ab0a6c689624d65861d13c6fe67ce0ccd4382ac7081dd6  source/data/wellbeing-lab/backups/shd-pre-reinit-v01/lab-tree.txt
+a2854f299dd42cff0175d947a148b952861fbfbe9508c87e988e26cb496c880c  source/data/wellbeing-lab/backups/shd-pre-reinit-v01/lab-workfiles.tar.gz
+1b56890749458552db5eca68edb65e3d57bfe73e3cadc2fe6005f186fa71cdbb  source/data/wellbeing-lab/backups/shd-pre-reinit-v01/repo-state.txt
+9314c0b522fcf4511583c6dd9dd1221d6728846b4b7f2d40efefb2a8932d1a6f  source/data/wellbeing-lab/backups/shd-pre-reinit-v01/sha256sums.txt
+c1329555ed3e0341cbe3d37fed5e2739774f2195eb4916be0852f37a4f89d64e  source/data/wellbeing-lab/reports/LAB01_MARKER.txt
+5ad32dd091e3dbbac1b102fc2fcbd465d5844613e7bdf1491bd8bfbb3011cfb7  source/data/wellbeing-lab/reports/SHD_FAILOVER_MARKER.md
+cb1a5728287d23cf7e3d3fa484b6a44d5ef7a2e7937d45dd87d42320349797d3  source/data/wellbeing-lab/reports/host_inventory.txt
+da07b14201491995cde0a20e9211871c247b6e79c21acddb6da504ae4971e218  source/opt/wb-shard-gateway/INVOCATION.json
+5e50e09f01eec3ec5daf8063c4100837375ae89f91f4dda67a5a63990e9e4d88  source/opt/wb-shard-gateway/audit_sink.py
+9c443bbfb45c5804a7f375ea42904f99de98b2b07ffe86e53a67d5483166e881  source/opt/wb-shard-gateway/gateway.py
+6dbf10acd41105e2491262d6745f4ac9574742ca6a11eb09f933dcaf80ec4465  source/opt/wb-shard-gateway/harness.py

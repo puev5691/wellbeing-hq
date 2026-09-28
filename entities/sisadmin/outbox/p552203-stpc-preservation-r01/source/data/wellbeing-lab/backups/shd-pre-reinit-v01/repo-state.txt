@@ -1,0 +1,11 @@
+# repository state
+
+REPO=/data/wellbeing-lab/repos/wellbeing-hq
+origin	https://github.com/puev5691/wellbeing-hq.git (fetch)
+origin	https://github.com/puev5691/wellbeing-hq.git (push)
+HEAD=6c5bbfc1f54ce7b66463d71d9326075de60d9774
+STATUS_BEGIN
+STATUS_END
+LAST5_BEGIN
+6c5bbfc SHD: record Mazhor lab marker inventory v0.1
+LAST5_END

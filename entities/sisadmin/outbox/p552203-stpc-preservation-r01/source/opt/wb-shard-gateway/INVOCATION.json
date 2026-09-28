@@ -1,0 +1,30 @@
+{
+  "schema": "wb.shard_gateway.supervisor_invocation.v1",
+  "argv_template": [
+    "{python}",
+    "-I",
+    "-B",
+    "{harness}",
+    "--adapter",
+    "{adapter}",
+    "--audit-module",
+    "{audit_module}",
+    "--request-file",
+    "{request_file}",
+    "--audit",
+    "{audit}"
+  ],
+  "production": {
+    "python": "/usr/bin/python3",
+    "harness": "/opt/wb-shard-gateway/harness.py",
+    "adapter": "/opt/wb-shard-gateway/gateway.py",
+    "audit_module": "/opt/wb-shard-gateway/audit_sink.py",
+    "request_file": "/run/wb-shard-gateway/request.json",
+    "audit": "/var/log/wb-shard-gateway/audit.jsonl"
+  },
+  "working_directory_required": false,
+  "minimal_environment": {
+    "PATH": "/usr/bin:/bin",
+    "LC_ALL": "C"
+  }
+}

@@ -1,0 +1,40 @@
+# SHD pre-reinit host state
+scope: local non-secret preservation only
+secret contents: excluded
+
+## identity
+p552203.kvmvps
+shd
+uid=1000(shd) gid=1000(shd) groups=1000(shd),27(sudo),100(users)
+Linux p552203.kvmvps 6.8.0-51-generic #52-Ubuntu SMP PREEMPT_DYNAMIC Thu Dec  5 13:09:44 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 24.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.1 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+
+## storage
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        30G  4.0G   25G  14% /
+/dev/sda1        30G  4.0G   25G  14% /
+
+## memory
+               total        used        free      shared  buff/cache   available
+Mem:           1.9Gi       515Mi       132Mi       1.0Mi       1.5Gi       1.4Gi
+Swap:             0B          0B          0B
+
+## desktop commander processes
+12866 tmux new-session -d -s desktop-commander export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"; nvm use 22 >/dev/null; exec npx -y @wonderwhy-er/desktop-commander@latest remote
+12867 npm exec @wonderwhy-er/desktop-commander@latest remote
+13188 sh -c desktop-commander remote
+13189 node /home/shd/.npm/_npx/4b4c857f6efdfb61/node_modules/.bin/desktop-commander remote
+13215 /home/shd/.nvm/versions/node/v22.23.2/bin/node /home/shd/.npm/_npx/4b4c857f6efdfb61/node_modules/@wonderwhy-er/desktop-commander/dist/index.js
+16645 /bin/bash -l -c set -e B=/data/wellbeing-lab/backups/shd-pre-reinit-v01 mkdir -p "$B" {   echo '# SHD pre-reinit host state'   echo 'scope: local non-secret preservation only'   echo 'secret contents: excluded'   echo   echo '## identity'   hostname   whoami   id   uname -a   cat /etc/os-release   echo   echo '## storage'   df -h / /data 2>/dev/null || df -h /   echo   echo '## memory'   free -h   echo   echo '## desktop commander processes'   pgrep -af 'desktop-commander|node' || true } > "$B/host-state.txt"  find /data/wellbeing-lab -maxdepth 4 \   \( -path '/data/wellbeing-lab/secrets' -o -path '/data/wellbeing-lab/logs' -o -path '/data/wellbeing-lab/tmp' -o -path '/data/wellbeing-lab/backups' \) -prune \   -o -printf '%M %u:%g %s %p\n' > "$B/lab-tree.txt"  {   echo '# repository state'   for d in /data/wellbeing-lab/repos/*; do     [ -d "$d/.git" ] || continue     echo     echo "REPO=$d"     git -C "$d" remote -v | sed -E 's#(https?://)[^/@]+@#\1REDACTED@#g'     echo "HEAD=$(git -C "$d" rev-parse HEAD 2>/dev/null || true)"     echo 'STATUS_BEGIN'     git -C "$d" status --short || true     echo 'STATUS_END'     echo 'LAST5_BEGIN'     git -C "$d" log -5 --oneline || true     echo 'LAST5_END'   done } > "$B/repo-state.txt"  cat > "$B/README.md" <<'EOF' # SHD pre-reinit local backup  Purpose: preserve non-secret MAZHOR/lab-01 state before emergency chat replacement.  Included: - host-state.txt - lab-tree.txt - repo-state.txt - lab-workfiles.tar.gz - sha256sums.txt  Explicitly excluded from archive/readback: - /data/wellbeing-lab/secrets - /data/wellbeing-lab/logs - /data/wellbeing-lab/tmp - /data/wellbeing-lab/backups - Git repository object database; repo identity is recorded separately and can be re-cloned.  This backup is not a writer handoff, recovery acceptance, or production snapshot. EOF  tar -C /data/wellbeing-lab -czf "$B/lab-workfiles.tar.gz" reports scripts artifacts cd "$B" sha256sum README.md host-state.txt lab-tree.txt repo-state.txt lab-workfiles.tar.gz > sha256sums.txt sha256sum -c sha256sums.txt printf '\nBACKUP_DIR=%s\n' "$B" ls -lh "$B" 
