@@ -1,0 +1,9 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__STP-C-ledger-backend-candidate-comparison-r01__KOO.md
+source_commit: 9f401ffef3b3d90ec28a2786ec076d87d36f7e74
+source_blob: da9dedea095bc245f03d19b0e595c27740aa3464
+terminal: PASS_SIS_STP_C_LEDGER_BACKEND_CANDIDATE_COMPARISON_R01_READY_FOR_DECISION_OR_PROOF
+gate: READY_FOR_BOUNDED_EMPIRICAL_BACKEND_PROOF
+scope: DOCUMENT_ONLY_BACKEND_CANDIDATE_DISCOVERY_COMPARISON
+status: addressed_pending_receipt
