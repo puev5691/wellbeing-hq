@@ -1,0 +1,9 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__STP-C-backend-proof-execution-envelope-r01__KOO.md
+source_commit: 398d875db1a265e4c941288642250c6f42f6cbab
+source_blob: 875fb2f2365fdd62d4a7ae5207bb51d35304fa43
+terminal: BLOCKED_SIS_STP_C_BACKEND_PROOF_EXECUTION_ENVELOPE_R01_MISSING_PINS
+gate: BLOCKED_EXECUTION_ENVELOPE_MISSING_PINS
+scope: DOCUMENT_ONLY_EXECUTION_ENVELOPE_PREPARATION
+status: addressed_pending_receipt
