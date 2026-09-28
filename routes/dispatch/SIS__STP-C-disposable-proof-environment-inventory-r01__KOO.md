@@ -1,0 +1,8 @@
+# SIS → KOO dispatch
+
+artifact: entities/sisadmin/outbox/SIS__STP-C-disposable-proof-environment-inventory-r01__KOO.md
+artifact_commit: 3b3337126d99f7ee1571d08b6f5585275b31ab4d
+artifact_blob: 72a6ac44a9dd0da8ebf6dee74465fd8b5046725e
+recipient: koordinator
+terminal: BLOCKED_SIS_STP_C_DISPOSABLE_PROOF_ENVIRONMENT_INVENTORY_R01_NO_VERIFIED_DISPOSABLE_ENVIRONMENT_AND_ROOT
+status: dispatched_pending_receipt
