@@ -1,0 +1,8 @@
+# SIS → KOO
+
+source_artifact: entities/sisadmin/outbox/SIS__STP-C-degraded-freshness-currentness-design-r02__KOO.md
+source_commit: ca13d99e6bfe385d184f2e5ebfbe40309bd35e2f
+source_blob: ecbeeda215fd3418503bdf947f79ddc8bbc7c3a8
+terminal: PASS_SIS_STP_C_DEGRADED_FRESHNESS_CURRENTNESS_DESIGN_R02_RECOVERY_DRIVEN_READY_FOR_KOO
+scope: DOCUMENT_ONLY_SECURITY_POLICY_CORRECTION
+status: addressed_pending_receipt
