@@ -1,0 +1,9 @@
+# Dispatch SHT → KOO
+artifact: entities/shtabist/outbox/SHT__semantic-dialogue-engine-r01-semantic-process-model__KOO.md
+artifact_commit: 588f9b1baccc7ddc46a3d3bdd7b2f7c14d2c5e1f
+artifact_blob: 9e875478fae0d4ea5ac469d3ad771e86ef780b98
+terminal: PASS_SHT_SEMANTIC_DIALOGUE_ENGINE_R01_SEMANTIC_PROCESS_MODEL_READY_FOR_RECONCILIATION
+status: dispatched
+receipt: null
+acceptance: null
+processing_started: not_proven
