@@ -1,0 +1,852 @@
+diff --git predecessor-r01/README.md successor-r02/README.md
+index 06fc16f..c9cae08 100644
+--- predecessor-r01/README.md
++++ successor-r02/README.md
+@@ -1,138 +1,121 @@
+-# Telegram single-provider Entity dialogue MVP r0.1
++# Telegram single-Entity discussion admission correction r0.2
+ 
+-Status: implementation candidate for independent review. It has not been deployed and has made no Telegram or OpenAI call.
++Status: immutable offline correction candidate for independent SIS review. It has not been deployed, the service was not started, and no Telegram or OpenAI call was made.
+ 
+-## Purpose and exact flow
++## Human result
+ 
+-`Telegram getUpdates long polling → closed tester admission → replay claim → per-chat/thread history → bounded Entity bootstrap + OpenAI Responses API → Telegram sendMessage → committed turn`
++This successor keeps the already reviewed dialogue MVP but moves its admission boundary from a private chat to the one verified linked discussion supergroup. It still serves only explicitly allowlisted testers and does not answer ambient group traffic.
+ 
+-The candidate serves one provider (`OpenAI`) and one Entity bootstrap. It is intentionally smaller than the Semantic Engine. It supports private text chats admitted by both exact `user_id` and exact `chat_id`.
++A turn is accepted only when all of these are true:
+ 
+-## Reused project evidence
++1. the update contains a text `message`;
++2. `chat.type` is exactly `supergroup`;
++3. `chat.id` is exactly `-1002429106148`;
++4. `from.id` is present in the root-controlled tester allowlist;
++5. the text is explicitly addressed to the verified bot by reply, exact mention, or exact `/ask` command.
+ 
+-- Telegram facilitator core independent PASS: commit `947ea4b76d367774fbc2ae37b61d49e0e89d55bc`. Its authority and privacy boundaries are preserved; this MVP does not treat generated text as project authority.
+-- Normalized-event bridge independent PASS: commit `c0ed7057da344bf6b10b0718960c36962b8d9536`. That bridge is aggregate-only and is not used as raw dialogue ingress.
+-- Phase1B threading fix: commit `62f82c3322f28adc55b47b1a7064fccb23e4c351`, `gateway.py` blob `c870616f119fa3198a50db31898ad9ba4ad4bafc`. This package reuses its exact-thread routing and replay principles without modifying or importing the publication gateway.
+-- Phase1B runtime boundary: commit `b939a238f757be0bcfaf1bb4164b0362eafc088f`, `runtime_app.py` blob `f2987f880a25b5e295fd94eadb6447fd2438054d`. This package reuses its systemd credential and privacy-safe logging patterns.
+-- Bounded OpenAI D0 live evidence: commit `80a87f5920bb26c06c31006b3ccb7a9eabd62bfa`. It proved one exact historical call only. It is not standing provider authority.
+-- Fresh SIS host/runtime preflight: commit `f8fbde559a7964ac774ce28b5200dce9b66a2fda`, terminal `READY_FOR_BOUNDED_LIVE_PILOT_PROVISIONING`. This package adopts its recommended polling route, service identity, principal and exact paths.
+-- SHT portable bootstrap candidate: commit `1574c8dd0f688a693a4d870ae65aa6ac9fa262bd`. It remains `CANDIDATE_NOT_ACTIVE`; this package does not silently activate it.
++Ordinary group messages are acknowledged locally as `ignored_not_addressed`; they cause no provider or Telegram send effect.
+ 
+-The provider request follows the official Responses API contract: `instructions`, message-array `input`, `max_output_tokens`, `store=false`, and `tools=[]`. The adapter accepts only completed assistant `output_text`. A reasoning-only response triggers the visible fallback.
++## Exact basis
+ 
+-Multi-turn state is the bounded visible user/assistant transcript managed locally. Provider-side conversation storage and hidden reasoning items are not reused across calls.
++- Exact KOO task: `puev5691/wellbeing-hq@e37673b7a3b25facf910039cc9229eac11052118:entities/koordinator/outbox/KOO__telegram-single-entity-discussion-chat-admission-correction-r01__KOD.md`, blob `57cdf456d2bc300c694a5eb351f61f95f851c805`.
++- Current KOD writer: `puev5691/wellbeing-hq@df92a8bfcce29294332f6e4de3391a3e7966adfd:entities/koder/current/KOD__replacement-current-writer-v05.md`, blob `cf1c84f9df7c90509703e4885844d0cf871ff412`.
++- Immutable predecessor: `puev5691/wellbeing-hq@9ccfdd4210ea2d6d6f0dd2eb71a483d18f33153e:entities/koder/outbox/telegram-single-provider-entity-dialogue-mvp-r01/`, tree `df57623dd7c69e1b06c95d297000a7a52a37ab3f`.
++- Independent predecessor review/provisioning PASS: `puev5691/wellbeing-hq@8c28a4c43fda96d5fc4da7a268eac1475b1feba2:entities/sisadmin/outbox/SIS__telegram-single-entity-mvp-independent-review-provisioning-r01__KOO.md`.
++- Verified Telegram mapping: `puev5691/wellbeing-hq@3f8e04d143320f1957ea7e491222a5c4d0f6d037:entities/webmaster/outbox/WEB__telegram-media-reconciliation-r01__KOO.md`.
+ 
+-Official references used for this candidate:
++Frozen target identities:
+ 
+-- <https://developers.openai.com/api/reference/cli/resources/responses/methods/create>
+-- <https://developers.openai.com/api/docs/guides/conversation-state>
+-- <https://core.telegram.org/bots/api>
++- bot username: `WBNP_Media_Bot`;
++- bot user ID: `8866633840`;
++- channel ID: `-1003606547591` (mapping evidence only, not admitted for dialogue);
++- linked discussion ID: `-1002429106148`;
++- linked discussion type: `supergroup`.
+ 
+-## Files
+-
+-- `dialogue_mvp.py`: polling runtime, closed config, SQLite ledger/history, provider and Telegram adapters.
+-- `test_dialogue_mvp.py`: offline fake-transport tests.
+-- `config.example.json`: non-secret closed-pilot configuration.
+-- `testers.allow.example`: synthetic root-controlled tester identifier fixture.
+-- `entity_bootstrap.txt`: bounded initial Entity instructions.
+-- `wellbeing-telegram-single-entity-pilot.service`: systemd candidate.
+-- `MANIFEST.json`, `SHA256SUMS`, `SELFTEST.json`: immutable package evidence.
++## Exact flow
+ 
+-## Admission and state
++`Telegram getUpdates polling → exact discussion/tester/trigger admission → replay claim → per-discussion-thread history → bounded Entity bootstrap + OpenAI Responses API → Telegram sendMessage to the same chat/thread → committed turn`
+ 
+-Admission requires all of the following:
++The provider request remains the predecessor contract: `instructions`, visible message-array `input`, `max_output_tokens`, `store=false`, and `tools=[]`. Only completed assistant `output_text` is accepted. A reasoning-only response produces the configured visible fallback.
+ 
+-1. `message` update with bounded non-empty text;
+-2. chat type `private`;
+-3. exact numeric `user_id` in root-controlled `testers.allow`;
+-4. exact numeric `chat_id` in the same allowlist;
+-5. `user_id == chat_id`.
++## Trigger semantics
+ 
+-Conversation identity is a SHA-256 projection of `chat_id`, `message_thread_id` and `direct_messages_topic.topic_id`. SQLite stores the bounded user/assistant text required for multi-turn context and the opaque conversation key. It does not store the raw Telegram update, username, display name, provider response body or secret values.
++An allowlisted tester turn is explicit when at least one condition is true:
+ 
+-The poll cursor is committed after each handled Telegram update. The transcript is pruned to the configured message-count bound per conversation, and terminal replay records are pruned to their configured count bound. Unresolved records are never removed automatically. This is count-bounded retention; no wall-clock retention claim is made.
++- `reply_to_message.from.id == 8866633840`;
++- a Telegram `message.entities` item of type `mention` resolves by Telegram UTF-16 offsets to exact `@WBNP_Media_Bot`, case-insensitively;
++- a `bot_command` entity resolves to exact `/ask` or `/ask@WBNP_Media_Bot`, case-insensitively.
+ 
+-`update_id` is reserved with the exact canonical update digest before either external call. An identical committed replay is acknowledged without a second provider/send effect. The same `update_id` with different bytes is a conflict. An in-progress or uncertain replay stops with `manual_reconciliation_required`.
++The accepted mention/command token is removed before the visible user text is added to dialogue history. Empty addressed text is rejected. Reply-to-someone-else, a lookalike username, malformed entity offsets and ambient text do not open a provider call.
+ 
+-Telegram `sendMessage` has no transaction shared with the local SQLite ledger. A crash after the external send and before local commit therefore becomes `OUTCOME_UNKNOWN`; the runtime will not resend blindly. This is a deliberate fail-closed MVP limit, not an exactly-once claim.
++The implementation deliberately does not infer a trigger from arbitrary substring matching.
+ 
+-## Offline verification
++## Preserved behavior
+ 
+-From the package directory:
+-
+-```sh
+-python3 -I -B test_dialogue_mvp.py
+-python3 -m py_compile dialogue_mvp.py test_dialogue_mvp.py
+-```
++- Long polling only; no public listener or webhook runtime.
++- Root-controlled numeric tester allowlist.
++- Conversation key derived from exact chat, `message_thread_id`, and direct-topic ID when supplied.
++- Same thread retains bounded visible multi-turn history; distinct topics/threads remain isolated.
++- Exact update replay creates no second provider/send effect.
++- Same `update_id` with changed canonical bytes is a conflict.
++- In-progress or uncertain effect remains `manual_reconciliation_required` / `OUTCOME_UNKNOWN`; no blind retry.
++- SQLite stores bounded visible transcript, opaque conversation key, replay state and poll cursor.
++- No raw update, username, display name, provider raw response/error, token or API key persistence/logging.
++- Dialogue output creates no project, task, writer, production or acceptance authority.
++- Existing systemd `LoadCredential` mechanism is unchanged.
+ 
+-The tests use injected provider and Telegram fakes. They cover one-turn and multi-turn dialogue, chat/thread isolation, exact replay, collision, allowlist and non-message rejection, input bounds, fallback, unknown send outcome, durable poll cursor, exact polling request shape, absence of raw content/identity in logs, exact OpenAI request shape, and reasoning-only rejection.
++## Files
+ 
+-## Future deployment procedure
++- `dialogue_mvp.py` — corrected exact discussion admission and explicit trigger parser plus preserved runtime.
++- `test_dialogue_mvp.py` — offline fake-transport suite.
++- `config.example.json` — closed r0.2 config with frozen bot/discussion identities.
++- `UPGRADE.md` — exact install/verify/rollback delta from installed r0.1.
++- `PREDECESSOR-DIFF.patch` — exact non-generated file diff against immutable r0.1.
++- `entity_bootstrap.txt` — unchanged bounded Entity bootstrap.
++- `testers.allow.example` — unchanged synthetic numeric tester fixture.
++- `wellbeing-telegram-single-entity-pilot.service` — same service/credential contour, versioned package path.
++- `MANIFEST.json`, `SHA256SUMS`, `SELFTEST.json` — package integrity and test evidence.
+ 
+-These commands are a reviewable runbook for a separately authorized SIS deployment. Before use, SIS must substitute an independently approved live config containing the exact tester IDs and preserve any predecessor bytes/state.
++## Offline verification
+ 
+-### Pre-state and install
++Run only from a disposable package copy:
+ 
+ ```sh
+-sudo systemctl status wellbeing-telegram-single-entity-pilot.service --no-pager || true
+-sudo install -d -o root -g wellbeing-tg-dialog -m 0750 /opt/wellbeing/telegram-single-entity-mvp-r01
+-sudo install -d -o root -g wellbeing-tg-dialog -m 0750 /etc/wellbeing/telegram-single-entity-pilot
+-sudo install -d -o root -g root -m 0700 /etc/wellbeing/telegram-single-entity-pilot/secrets
+-sudo install -d -o wellbeing-tg-dialog -g wellbeing-tg-dialog -m 0750 /var/lib/wellbeing/telegram-single-entity-pilot
+-sudo install -o root -g wellbeing-tg-dialog -m 0755 dialogue_mvp.py /opt/wellbeing/telegram-single-entity-mvp-r01/dialogue_mvp.py
+-sudo install -o root -g wellbeing-tg-dialog -m 0644 entity_bootstrap.txt /opt/wellbeing/telegram-single-entity-mvp-r01/entity_bootstrap.txt
+-sudo install -o root -g wellbeing-tg-dialog -m 0640 LIVE.runtime.json /etc/wellbeing/telegram-single-entity-pilot/runtime.json
+-sudo install -o root -g wellbeing-tg-dialog -m 0640 LIVE.testers.allow /etc/wellbeing/telegram-single-entity-pilot/testers.allow
+-sudo install -o root -g root -m 0644 wellbeing-telegram-single-entity-pilot.service /etc/systemd/system/wellbeing-telegram-single-entity-pilot.service
+-sudo systemd-analyze verify /etc/systemd/system/wellbeing-telegram-single-entity-pilot.service
+-sudo -u wellbeing-tg-dialog /usr/bin/python3 -I -B /opt/wellbeing/telegram-single-entity-mvp-r01/dialogue_mvp.py check-config --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json
+-sudo systemctl daemon-reload
++python3 -I -B test_dialogue_mvp.py
++python3 -m py_compile dialogue_mvp.py test_dialogue_mvp.py
++systemd-analyze verify wellbeing-telegram-single-entity-pilot.service
++sha256sum -c SHA256SUMS
+ ```
+ 
+-The service account, two systemd credential sources and state-directory ownership must exist before the config check/start. Credential values must never be put in `runtime.json`, `testers.allow`, shell history, Git or logs.
++The 24 fake-transport tests cover the exact discussion chat, foreign chat rejection, tester rejection, ambient ignore, mention, command, reply-to-bot, UTF-16 entity offsets, multi-turn same-thread state, thread isolation, replay, collision, bounded input/history, fallback, `OUTCOME_UNKNOWN`, privacy-safe logs, poll cursor/request and unchanged OpenAI response-shape rules.
+ 
+-### Run and verify
++These are offline implementation tests. They do not prove live Bot API delivery, Telegram privacy-mode behavior, provider success, deployment or user acceptance.
+ 
+-```sh
+-sudo systemctl enable --now wellbeing-telegram-single-entity-pilot.service
+-sudo systemctl is-active wellbeing-telegram-single-entity-pilot.service
+-sudo systemctl status wellbeing-telegram-single-entity-pilot.service --no-pager
+-sudo journalctl -u wellbeing-telegram-single-entity-pilot.service --no-pager -n 50
+-```
++## Deployment boundary
+ 
+-The polling service opens no inbound listener. Before live start, the current webhook state must be checked and, if present, removed under separate Telegram API authority because `getUpdates` and an active webhook cannot be used together.
++The independently reviewed predecessor is installed on `ruvds-xnqc6`, inactive and disabled. This package does not mutate that host.
+ 
+-### Stop
++The next SIS step may independently review exact bytes and prepare/install the versioned package in **install/verify-only** mode. Starting or enabling the service, checking/removing a webhook, reading credentials, calling Telegram/OpenAI, changing Telegram rights or running a live turn require separate exact authority.
+ 
+-```sh
+-sudo systemctl stop wellbeing-telegram-single-entity-pilot.service
+-sudo systemctl is-active wellbeing-telegram-single-entity-pilot.service || true
+-```
+-
+-### Rollback
++The exact target changes are documented in `UPGRADE.md`. In summary:
+ 
+-```sh
+-sudo systemctl disable --now wellbeing-telegram-single-entity-pilot.service
+-sudo systemctl is-enabled wellbeing-telegram-single-entity-pilot.service || true
+-sudo systemctl is-active wellbeing-telegram-single-entity-pilot.service || true
+-sudo systemctl status wellbeing-telegram-phase1b-sandbox.service --no-pager || true
+-```
++- new immutable code root: `/opt/wellbeing/telegram-single-entity-mvp-r02`;
++- existing state DB, allowlist, protected credential slots and service name remain unchanged;
++- runtime schema becomes `TELEGRAM_ENTITY_DIALOGUE_MVP_R02` and adds exact bot/discussion/trigger bindings;
++- systemd `WorkingDirectory` and `ExecStart` move from the r0.1 code root to the r0.2 code root;
++- rollback restores the preserved r0.1 unit/config bytes and leaves state/secrets untouched.
+ 
+-The new pilot is a separate contour, so rollback stops and disables it while preserving package, config, secrets and SQLite state for inspection. Removing any of those objects requires a separate exact cleanup task. The old Phase1B service is not changed by this package.
++## Next causal gate
+ 
+-## Remaining live dependencies and next gate
++`SIS_TELEGRAM_DISCUSSION_ADMISSION_CORRECTION_R02_INDEPENDENT_REVIEW_AND_INSTALL_VERIFY`
+ 
+-The candidate cannot enter a live pilot until one exact task establishes all of these:
++Scope: exact package/readback, 24-test reproduction, config/unit/diff review, and install/verify-only preparation or execution under a NEW exact SIS task. No service start and no live call.
+ 
+-1. independent SIS review of exact package bytes, service boundary and test reproduction;
+-2. exact provisioning task binding the package to SIS-preflighted host `ruvds-xnqc6`, service principal `wellbeing-tg-dialog`, Python 3.12.3 and exact paths above;
+-3. protected credential slots bound to the verified `@WBNP_Media_Bot` token and approved OpenAI account/key without revealing values;
+-4. exact closed tester `user_id` and `chat_id` allowlist accepted by OPERATOR;
+-5. read-only webhook-state check and, if required, separately authorized webhook removal before polling;
+-6. explicit authority to install/verify the service without starting it;
+-7. separate explicit bounded live authority to start polling, call OpenAI and send Telegram replies, with call/turn/tester/time/cost stop limits;
+-8. OPERATOR acceptance of count-bounded transcript/replay retention and a procedure for `OUTCOME_UNKNOWN` reconciliation;
+-9. informed tester acceptance that their admitted dialogue text is sent to OpenAI and retained locally within the stated bounds;
+-10. live success criteria: admitted tester receives same-dialogue replies for at least two turns, replay causes no duplicate effect, rejected tester causes no provider call, and fallback is observed under a controlled provider failure.
++Only after that PASS may KOO return a separately bounded live-activation decision to OPERATOR.
+ 
+-The exact next causal gate is `SIS_INDEPENDENT_REVIEW_AND_LIVE_DEPENDENCY_ADMISSION_R01`. No deployment or live call is implied by this package.
++---
++КТО: KOD / КОДЕР v0.5
++ДЛЯ ЧЕГО: correction-only linked-discussion admission successor
++СТАТУС: READY_FOR_INDEPENDENT_SIS_REVIEW; NOT_DEPLOYED; LIVE_CALLS_ZERO
++approval_status: candidate_only
++responsibility_boundary: offline code/package correction; no host, credential, Telegram, provider or governance mutation
+diff --git successor-r02/UPGRADE.md successor-r02/UPGRADE.md
+new file mode 100644
+index 0000000..f46c513
+--- /dev/null
++++ successor-r02/UPGRADE.md
+@@ -0,0 +1,98 @@
++# Upgrade contract: installed dialogue MVP r0.1 → discussion admission r0.2
++
++Status: reviewable procedure only. Not executed by KOD.
++
++## Preconditions for a future SIS task
++
++- exact host is `ruvds-xnqc6`;
++- service `wellbeing-telegram-single-entity-pilot.service` is inactive and disabled before mutation;
++- immutable r0.2 package identity and checksums pass independent readback;
++- current r0.1 unit and runtime config bytes are preserved before replacement;
++- a NEW exact SIS task authorizes only the named install/verify mutations;
++- no service start, credential read, Telegram call or OpenAI call is implied.
++
++Any mismatch stops the upgrade.
++
++## Exact target delta
++
++| Object | r0.1 | r0.2 | Action |
++|---|---|---|---|
++| code root | `/opt/wellbeing/telegram-single-entity-mvp-r01` | `/opt/wellbeing/telegram-single-entity-mvp-r02` | create versioned root; do not overwrite r0.1 |
++| runtime schema | `TELEGRAM_ENTITY_DIALOGUE_MVP_R01` | `TELEGRAM_ENTITY_DIALOGUE_MVP_R02` | replace config only after preserved pre-state |
++| admitted chat type | `private` | `supergroup` | exact replacement |
++| admitted chat | tester ID reused as chat ID | `-1002429106148` | add frozen `discussion_chat_id` |
++| bot identity | absent | ID `8866633840`, username `WBNP_Media_Bot` | add frozen fields |
++| activation | any admitted private text | reply-to-bot, exact mention, or exact `/ask` command | add explicit trigger gate |
++| service code path | r0.1 root | r0.2 root | replace only `WorkingDirectory` and `ExecStart` paths |
++| service name | unchanged | unchanged | no new service |
++| state DB | existing path | unchanged | preserve; no delete/reset |
++| tester allowlist | existing protected file | unchanged | preserve; contains user IDs, not chat ID |
++| credential slots | existing systemd sources | unchanged | preserve; values must not be read or printed |
++
++No migration of the SQLite schema is required: tables and state encoding remain compatible. r0.2 changes the conversation-key domain label, so new discussion turns do not collide with old private-chat transcript keys.
++
++## Runtime config delta
++
++Apply these semantic changes to the independently read-back current config:
++
++```diff
++-  "allowed_chat_types": ["private"],
+++  "activation_command": "ask",
+++  "allowed_chat_types": ["supergroup"],
+++  "bot_user_id": 8866633840,
+++  "bot_username": "WBNP_Media_Bot",
+++  "discussion_chat_id": -1002429106148,
++-  "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r01/entity_bootstrap.txt",
+++  "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r02/entity_bootstrap.txt",
++-  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R01",
+++  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R02",
++```
++
++All other keys and bounds remain unchanged. Unknown keys, another chat/bot identity, another command or a missing field fail config validation.
++
++## Unit delta
++
++```diff
++-Description=Wellbeing Telegram single-Entity closed pilot r0.1
+++Description=Wellbeing Telegram single-Entity discussion pilot r0.2
++-WorkingDirectory=/opt/wellbeing/telegram-single-entity-mvp-r01
++-ExecStart=/usr/bin/python3 -I -B /opt/wellbeing/telegram-single-entity-mvp-r01/dialogue_mvp.py poll --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json
+++WorkingDirectory=/opt/wellbeing/telegram-single-entity-mvp-r02
+++ExecStart=/usr/bin/python3 -I -B /opt/wellbeing/telegram-single-entity-mvp-r02/dialogue_mvp.py poll --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json
++```
++
++`LoadCredential`, principal, hardening, state directory, network families, restart policy and service name remain unchanged.
++
++## Future install/verify-only sequence
++
++The exact SIS implementation may use equivalent fail-closed operations, but it must prove the same states:
++
++1. Read service active/enabled state and stop on any unexpected activity.
++2. Read and preserve exact current unit/config bytes plus their SHA-256 identities without reading credential values.
++3. Create `/opt/wellbeing/telegram-single-entity-mvp-r02` with the existing owner/group/mode contract.
++4. Install only `dialogue_mvp.py` and `entity_bootstrap.txt` from the verified package.
++5. Materialize the exact r0.2 runtime config while preserving the tester allowlist, state DB and credential slots.
++6. Install the reviewed r0.2 unit bytes.
++7. Run package checksum verification, 24 offline tests, `py_compile`, `systemd-analyze verify`, and unprivileged `check-config`.
++8. Run `systemctl daemon-reload` only if exact task authority permits this named unit mutation.
++9. Verify service remains inactive and disabled.
++10. Publish a sanitized result with pre/post identities. Do not start the service.
++
++## Rollback contract
++
++Rollback is a separate named action within the future exact SIS authority. It restores the preserved r0.1 unit/config bytes, runs `daemon-reload`, verifies the r0.1 config against the preserved r0.1 code root, and confirms the service remains inactive/disabled.
++
++Rollback must not:
++
++- delete either versioned code root;
++- delete/reset the SQLite state;
++- read, rewrite or expose credential values;
++- change the tester allowlist;
++- start or enable the service.
++
++If exact predecessor bytes were not preserved or do not match their recorded identities, rollback is `BLOCKED_PRESTATE_MISMATCH`, not guessed reconstruction.
++
++---
++КТО: KOD / КОДЕР v0.5
++ДЛЯ ЧЕГО: exact install/verify/rollback delta for SIS review
++СТАТУС: DOCUMENTED_NOT_EXECUTED
+diff --git predecessor-r01/config.example.json successor-r02/config.example.json
+index 6c76f01..949620a 100644
+--- predecessor-r01/config.example.json
++++ successor-r02/config.example.json
+@@ -1,7 +1,11 @@
+ {
+-  "allowed_chat_types": ["private"],
++  "activation_command": "ask",
++  "allowed_chat_types": ["supergroup"],
++  "bot_user_id": 8866633840,
++  "bot_username": "WBNP_Media_Bot",
+   "database_path": "/var/lib/wellbeing/telegram-single-entity-pilot/dialogue.sqlite3",
+-  "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r01/entity_bootstrap.txt",
++  "discussion_chat_id": -1002429106148,
++  "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r02/entity_bootstrap.txt",
+   "environment": "closed_pilot",
+   "fallback_text": "Сейчас не получилось ответить. Попробуйте позднее.",
+   "max_history_bytes": 32768,
+@@ -13,7 +17,7 @@
+   "poll_retry_seconds": 5,
+   "poll_timeout_seconds": 25,
+   "provider_timeout_seconds": 30,
+-  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R01",
++  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R02",
+   "telegram_timeout_seconds": 10,
+   "testers_allow_path": "/etc/wellbeing/telegram-single-entity-pilot/testers.allow"
+ }
+diff --git predecessor-r01/dialogue_mvp.py successor-r02/dialogue_mvp.py
+index 5d48488..0ea2cb8 100644
+--- predecessor-r01/dialogue_mvp.py
++++ successor-r02/dialogue_mvp.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""Closed-pilot Telegram -> Entity -> OpenAI dialogue runtime candidate r0.1.
++"""Closed-pilot Telegram discussion -> Entity -> OpenAI runtime candidate r0.2.
+ 
+ Python 3.10+, standard library only. Network transports are dependency-injected;
+ offline tests use fakes and perform no network or credential access.
+@@ -22,10 +22,14 @@ from dataclasses import dataclass
+ from pathlib import Path
+ from typing import Any, Protocol, TextIO
+ 
+-SCHEMA = "TELEGRAM_ENTITY_DIALOGUE_MVP_R01"
++SCHEMA = "TELEGRAM_ENTITY_DIALOGUE_MVP_R02"
+ MAX_PROVIDER_RESPONSE_BYTES = 65_536
+ TELEGRAM_TEXT_LIMIT = 4096
+ CREDENTIAL_SLOTS = ("telegram_bot_token", "openai_api_key")
++VERIFIED_DISCUSSION_CHAT_ID = -1002429106148
++VERIFIED_BOT_USER_ID = 8866633840
++VERIFIED_BOT_USERNAME = "WBNP_Media_Bot"
++ACTIVATION_COMMAND = "ask"
+ 
+ 
+ class BoundaryError(RuntimeError):
+@@ -36,6 +40,10 @@ class InputRejected(ValueError):
+     pass
+ 
+ 
++class InputIgnored(ValueError):
++    pass
++
++
+ class ProviderFailure(RuntimeError):
+     pass
+ 
+@@ -73,6 +81,10 @@ class Config:
+     allowed_user_ids: tuple[int, ...]
+     allowed_chat_ids: tuple[int, ...]
+     allowed_chat_types: tuple[str, ...]
++    discussion_chat_id: int
++    bot_user_id: int
++    bot_username: str
++    activation_command: str
+     model: str
+     max_output_tokens: int
+     provider_timeout_seconds: int
+@@ -90,6 +102,7 @@ class Config:
+     def from_dict(cls, raw: Any, allowed_ids: tuple[int, ...]) -> "Config":
+         expected = {
+             "schema", "environment", "database_path", "testers_allow_path", "allowed_chat_types",
++            "discussion_chat_id", "bot_user_id", "bot_username", "activation_command",
+             "model", "max_output_tokens", "provider_timeout_seconds", "telegram_timeout_seconds",
+             "poll_timeout_seconds", "poll_retry_seconds", "max_input_bytes", "max_history_messages",
+             "max_history_bytes", "max_update_records_per_conversation", "fallback_text", "entity_bootstrap_path",
+@@ -104,10 +117,16 @@ class Config:
+             raise BoundaryError("testers_allow_path_must_be_absolute")
+         if type(allowed_ids) is not tuple or not allowed_ids or any(type(x) is not int for x in allowed_ids) or len(allowed_ids) != len(set(allowed_ids)):
+             raise BoundaryError("tester_allowlist_invalid")
+-        if (type(raw["allowed_chat_types"]) is not list or not raw["allowed_chat_types"]
+-                or any(type(x) is not str for x in raw["allowed_chat_types"])
+-                or set(raw["allowed_chat_types"]) - {"private"}):
++        if raw["allowed_chat_types"] != ["supergroup"]:
+             raise BoundaryError("allowed_chat_types_invalid")
++        if type(raw["discussion_chat_id"]) is not int or raw["discussion_chat_id"] != VERIFIED_DISCUSSION_CHAT_ID:
++            raise BoundaryError("discussion_chat_id_invalid")
++        if type(raw["bot_user_id"]) is not int or raw["bot_user_id"] != VERIFIED_BOT_USER_ID:
++            raise BoundaryError("bot_user_id_invalid")
++        if type(raw["bot_username"]) is not str or raw["bot_username"] != VERIFIED_BOT_USERNAME:
++            raise BoundaryError("bot_username_invalid")
++        if type(raw["activation_command"]) is not str or raw["activation_command"] != ACTIVATION_COMMAND:
++            raise BoundaryError("activation_command_invalid")
+         if type(raw["model"]) is not str or not raw["model"].strip():
+             raise BoundaryError("model_invalid")
+         limits = {
+@@ -127,8 +146,10 @@ class Config:
+             raise BoundaryError("entity_bootstrap_path_must_be_absolute")
+         return cls(
+             environment=raw["environment"], database_path=raw["database_path"], testers_allow_path=raw["testers_allow_path"],
+-            allowed_user_ids=allowed_ids, allowed_chat_ids=allowed_ids,
+-            allowed_chat_types=tuple(raw["allowed_chat_types"]), model=raw["model"],
++            allowed_user_ids=allowed_ids, allowed_chat_ids=(raw["discussion_chat_id"],),
++            allowed_chat_types=tuple(raw["allowed_chat_types"]),
++            discussion_chat_id=raw["discussion_chat_id"], bot_user_id=raw["bot_user_id"],
++            bot_username=raw["bot_username"], activation_command=raw["activation_command"], model=raw["model"],
+             max_output_tokens=raw["max_output_tokens"], provider_timeout_seconds=raw["provider_timeout_seconds"],
+             telegram_timeout_seconds=raw["telegram_timeout_seconds"], poll_timeout_seconds=raw["poll_timeout_seconds"],
+             poll_retry_seconds=raw["poll_retry_seconds"], max_input_bytes=raw["max_input_bytes"],
+@@ -141,7 +162,7 @@ class Config:
+ class SafeLogger:
+     """Allowlisted operational events only: no content, identity, token, URL or exception text."""
+     EVENTS = {"request", "provider", "telegram", "runtime"}
+-    OUTCOMES = {"accepted", "rejected", "complete", "fallback", "duplicate", "conflict", "uncertain", "ready", "stopped"}
++    OUTCOMES = {"accepted", "rejected", "ignored", "complete", "fallback", "duplicate", "conflict", "uncertain", "ready", "stopped"}
+ 
+     def __init__(self, stream: TextIO | None = None):
+         self.stream = stream if stream is not None else io.StringIO()
+@@ -167,7 +188,61 @@ class InboundMessage:
+ 
+     @property
+     def conversation_key(self) -> str:
+-        return hashlib.sha256(f"tg-dialogue-r01\0{self.chat_id}\0{self.thread_id}\0{self.direct_topic_id}".encode()).hexdigest()
++        return hashlib.sha256(f"tg-dialogue-r02\0{self.chat_id}\0{self.thread_id}\0{self.direct_topic_id}".encode()).hexdigest()
++
++
++def _utf16_entity_slice(text: str, offset: Any, length: Any) -> tuple[str, tuple[int, int]]:
++    if type(offset) is not int or type(length) is not int or offset < 0 or length <= 0:
++        raise InputRejected("message_entity_invalid")
++    encoded = text.encode("utf-16-le")
++    start, end = offset * 2, (offset + length) * 2
++    if end > len(encoded):
++        raise InputRejected("message_entity_invalid")
++    try:
++        return encoded[start:end].decode("utf-16-le"), (start, end)
++    except UnicodeDecodeError as exc:
++        raise InputRejected("message_entity_invalid") from exc
++
++
++def _remove_utf16_span(text: str, span: tuple[int, int]) -> str:
++    encoded = text.encode("utf-16-le")
++    return (encoded[:span[0]] + encoded[span[1]:]).decode("utf-16-le").strip()
++
++
++def addressed_text(msg: dict[str, Any], text: str, config: Config) -> str:
++    reply = msg.get("reply_to_message")
++    reply_to_bot = False
++    if reply is not None:
++        if type(reply) is not dict:
++            raise InputRejected("reply_to_message_invalid")
++        reply_sender = reply.get("from")
++        if type(reply_sender) is dict and type(reply_sender.get("id")) is int:
++            reply_to_bot = reply_sender["id"] == config.bot_user_id
++
++    entities = msg.get("entities", [])
++    if type(entities) is not list:
++        raise InputRejected("message_entities_invalid")
++    trigger_span: tuple[int, int] | None = None
++    target_mention = "@" + config.bot_username.casefold()
++    bare_command = "/" + config.activation_command.casefold()
++    targeted_command = bare_command + target_mention
++    for entity in entities:
++        if type(entity) is not dict or type(entity.get("type")) is not str:
++            raise InputRejected("message_entity_invalid")
++        value, span = _utf16_entity_slice(text, entity.get("offset"), entity.get("length"))
++        folded = value.casefold()
++        if entity["type"] == "mention" and folded == target_mention:
++            trigger_span = span
++            break
++        if entity["type"] == "bot_command" and folded in (bare_command, targeted_command):
++            trigger_span = span
++            break
++    if not reply_to_bot and trigger_span is None:
++        raise InputIgnored("group_message_not_addressed")
++    cleaned = _remove_utf16_span(text, trigger_span) if trigger_span is not None else text.strip()
++    if not cleaned:
++        raise InputRejected("addressed_text_missing")
++    return cleaned
+ 
+ 
+ def parse_update(raw: Any, config: Config) -> InboundMessage:
+@@ -182,13 +257,15 @@ def parse_update(raw: Any, config: Config) -> InboundMessage:
+     user_id = _require_exact_int(sender.get("id"), "user_id_invalid")
+     message_id = _require_exact_int(msg.get("message_id"), "message_id_invalid")
+     chat_type = chat.get("type")
+-    if chat_type not in config.allowed_chat_types or chat_id not in config.allowed_chat_ids or user_id not in config.allowed_user_ids:
++    if chat_type not in config.allowed_chat_types or chat_id != config.discussion_chat_id:
++        raise InputRejected("discussion_chat_not_admitted")
++    if user_id not in config.allowed_user_ids:
+         raise InputRejected("tester_not_admitted")
+-    # The r0.1 closed pilot is private-chat only. This closes sender/chat ambiguity.
+-    if chat_type == "private" and chat_id != user_id:
+-        raise InputRejected("private_identity_mismatch")
+-    text = msg["text"].strip()
+-    if not text or len(text.encode("utf-8")) > config.max_input_bytes:
++    raw_text = msg["text"].strip()
++    if not raw_text or len(raw_text.encode("utf-8")) > config.max_input_bytes:
++        raise InputRejected("text_size_invalid")
++    text = addressed_text(msg, raw_text, config)
++    if len(text.encode("utf-8")) > config.max_input_bytes:
+         raise InputRejected("text_size_invalid")
+     thread_id = msg.get("message_thread_id", 0)
+     if type(thread_id) is not int or thread_id < 0:
+@@ -463,6 +540,9 @@ class DialogueApplication:
+     def process_update(self, raw: Any) -> tuple[int, dict[str, Any]]:
+         try:
+             event = parse_update(raw, self.config)
++        except InputIgnored:
++            self.logger.emit("request", "ignored", 200)
++            return 200, {"ok": True, "outcome": "ignored_not_addressed"}
+         except (InputRejected, ValueError):
+             self.logger.emit("request", "rejected", 422)
+             return 422, {"ok": False, "outcome": "rejected"}
+diff --git predecessor-r01/test_dialogue_mvp.py successor-r02/test_dialogue_mvp.py
+index e48d355..49b0209 100644
+--- predecessor-r01/test_dialogue_mvp.py
++++ successor-r02/test_dialogue_mvp.py
+@@ -19,30 +19,60 @@ ProviderFailure = dialogue_mvp.ProviderFailure
+ SafeLogger = dialogue_mvp.SafeLogger
+ Store = dialogue_mvp.Store
+ 
++DISCUSSION_ID = -1002429106148
++BOT_ID = 8866633840
++BOT_USERNAME = "WBNP_Media_Bot"
++
+ 
+ def config(path: str) -> Config:
+     return Config.from_dict({
+-        "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R01", "environment": "test",
++        "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R02", "environment": "test",
+         "database_path": path, "testers_allow_path": "/etc/wellbeing/telegram-single-entity-pilot/testers.allow",
+-        "allowed_chat_types": ["private"], "model": "gpt-5.6-luna", "max_output_tokens": 512,
++        "allowed_chat_types": ["supergroup"], "discussion_chat_id": DISCUSSION_ID,
++        "bot_user_id": BOT_ID, "bot_username": BOT_USERNAME, "activation_command": "ask",
++        "model": "gpt-5.6-luna", "max_output_tokens": 512,
+         "provider_timeout_seconds": 30, "telegram_timeout_seconds": 10,
+         "poll_timeout_seconds": 25, "poll_retry_seconds": 5, "max_input_bytes": 4096,
+         "max_history_messages": 12, "max_history_bytes": 32768, "max_update_records_per_conversation": 256,
+         "fallback_text": "Сейчас не получилось ответить. Попробуйте позднее.",
+-        "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r01/entity_bootstrap.txt",
++        "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r02/entity_bootstrap.txt",
+     }, (101, 202))
+ 
+ 
+-def update(uid=1, chat=101, text="Привет", thread=0):
+-    msg = {"message_id": uid + 100, "chat": {"id": chat, "type": "private"},
+-           "from": {"id": chat, "first_name": "SHOULD_NOT_PERSIST"}, "text": text}
++def utf16_units(value: str) -> int:
++    return len(value.encode("utf-16-le")) // 2
++
++
++def update(uid=1, user=101, chat=DISCUSSION_ID, text="Привет", thread=0, trigger="mention", chat_type="supergroup"):
++    msg = {"message_id": uid + 100, "chat": {"id": chat, "type": chat_type},
++           "from": {"id": user, "first_name": "SHOULD_NOT_PERSIST"}}
++    if trigger == "mention":
++        token = "@" + BOT_USERNAME
++        msg["text"] = token + " " + text
++        msg["entities"] = [{"type": "mention", "offset": 0, "length": utf16_units(token)}]
++    elif trigger == "mention_after_emoji":
++        token = "@" + BOT_USERNAME
++        prefix = "🙂 "
++        msg["text"] = prefix + token + " " + text
++        msg["entities"] = [{"type": "mention", "offset": utf16_units(prefix), "length": utf16_units(token)}]
++    elif trigger == "command":
++        token = "/ask@" + BOT_USERNAME
++        msg["text"] = token + " " + text
++        msg["entities"] = [{"type": "bot_command", "offset": 0, "length": utf16_units(token)}]
++    elif trigger == "reply":
++        msg["text"] = text
++        msg["reply_to_message"] = {"message_id": 77, "from": {"id": BOT_ID, "is_bot": True}}
++    elif trigger == "ambient":
++        msg["text"] = text
++    else:
++        raise AssertionError("unknown synthetic trigger")
+     if thread:
+         msg["message_thread_id"] = thread
+     return {"update_id": uid, "message": msg}
+ 
+ 
+ class FakeProvider:
+-    def __init__(self, fail=False): self.calls=[]; self.fail=fail
++    def __init__(self, fail=False): self.calls = []; self.fail = fail
+     def respond(self, instructions, history):
+         self.calls.append((instructions, history))
+         if self.fail: raise ProviderFailure("synthetic")
+@@ -50,81 +80,160 @@ class FakeProvider:
+ 
+ 
+ class FakeTelegram:
+-    def __init__(self, fail=False): self.calls=[]; self.fail=fail
++    def __init__(self, fail=False): self.calls = []; self.fail = fail
+     def send_text(self, chat_id, thread_id, direct_topic_id, text):
+         self.calls.append((chat_id, thread_id, direct_topic_id, text))
+-        if self.fail:
+-            raise dialogue_mvp.TelegramFailure("synthetic")
++        if self.fail: raise dialogue_mvp.TelegramFailure("synthetic")
+         return 700 + len(self.calls)
+ 
+ 
+ class FakeHTTP:
+-    def __init__(self, result): self.result=result; self.calls=[]
++    def __init__(self, result): self.result = result; self.calls = []
+     def post(self, *args): self.calls.append(args); return self.result
+ 
+ 
+ class Tests(unittest.TestCase):
+     def setUp(self):
+-        self.tmp=tempfile.TemporaryDirectory(); self.cfg=config(str(Path(self.tmp.name)/"state.sqlite"))
+-        self.provider=FakeProvider(); self.telegram=FakeTelegram(); self.log=io.StringIO()
+-        self.store=Store(self.cfg.database_path)
+-        self.app=DialogueApplication(self.cfg,self.store,self.provider,self.telegram,"Ты тестовая Сущность.",SafeLogger(self.log))
+-    def tearDown(self): self.store.db.close(); self.tmp.cleanup()
++        self.tmp = tempfile.TemporaryDirectory()
++        self.cfg = config(str(Path(self.tmp.name) / "state.sqlite"))
++        self.provider = FakeProvider(); self.telegram = FakeTelegram(); self.log = io.StringIO()
++        self.store = Store(self.cfg.database_path)
++        self.app = DialogueApplication(self.cfg, self.store, self.provider, self.telegram,
++                                       "Ты тестовая Сущность.", SafeLogger(self.log))
++
++    def tearDown(self):
++        self.store.db.close(); self.tmp.cleanup()
++
+     def call(self, payload):
+         return self.app.process_update(payload)
+-    def test_one_turn(self):
+-        code,out=self.call(update()); self.assertEqual((code,out["outcome"]),(200,"replied")); self.assertEqual(len(self.provider.calls),1); self.assertEqual(len(self.telegram.calls),1)
+-    def test_multi_turn_context(self):
+-        self.call(update(1,text="Меня зовут А.")); self.call(update(2,text="Как меня зовут?"))
+-        history=self.provider.calls[1][1]; self.assertEqual([x["role"] for x in history],["user","assistant","user"]); self.assertEqual(history[0]["content"],"Меня зовут А.")
+-    def test_thread_isolation(self):
+-        self.call(update(1,thread=11)); self.call(update(2,thread=22)); self.assertEqual(len(self.provider.calls[1][1]),1)
+-    def test_chat_isolation(self):
+-        self.call(update(1,chat=101)); self.call(update(2,chat=202)); self.assertEqual(len(self.provider.calls[1][1]),1)
++
++    def test_correct_discussion_chat_admitted(self):
++        code, out = self.call(update())
++        self.assertEqual((code, out["outcome"]), (200, "replied"))
++        self.assertEqual(self.telegram.calls[0][0], DISCUSSION_ID)
++
++    def test_explicit_mention_accepted_and_removed_from_prompt(self):
++        self.call(update(text="Содержательный вопрос"))
++        self.assertEqual(self.provider.calls[0][1][-1]["content"], "Содержательный вопрос")
++
++    def test_reply_to_bot_accepted(self):
++        code, out = self.call(update(trigger="reply"))
++        self.assertEqual((code, out["outcome"]), (200, "replied"))
++
++    def test_explicit_command_accepted(self):
++        code, out = self.call(update(trigger="command", text="Вопрос"))
++        self.assertEqual((code, out["outcome"]), (200, "replied"))
++        self.assertEqual(self.provider.calls[0][1][-1]["content"], "Вопрос")
++
++    def test_utf16_mention_offset(self):
++        code, out = self.call(update(trigger="mention_after_emoji"))
++        self.assertEqual((code, out["outcome"]), (200, "replied"))
++
++    def test_ambient_nonaddressed_message_ignored(self):
++        code, out = self.call(update(trigger="ambient"))
++        self.assertEqual((code, out["outcome"]), (200, "ignored_not_addressed"))
++        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
++
++    def test_other_chat_rejected_before_effect(self):
++        code, out = self.call(update(chat=-1009999999999))
++        self.assertEqual((code, out["outcome"]), (422, "rejected"))
++        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
++
++    def test_unlisted_tester_rejected_before_effect(self):
++        code, _ = self.call(update(user=303))
++        self.assertEqual(code, 422)
++        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
++
++    def test_multi_turn_same_thread_context(self):
++        self.call(update(1, text="Меня зовут А.", thread=11))
++        self.call(update(2, text="Как меня зовут?", thread=11))
++        history = self.provider.calls[1][1]
++        self.assertEqual([x["role"] for x in history], ["user", "assistant", "user"])
++        self.assertEqual(history[0]["content"], "Меня зовут А.")
++
++    def test_different_thread_isolation(self):
++        self.call(update(1, thread=11)); self.call(update(2, thread=22))
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
+     def test_exact_replay_no_second_effect(self):
+-        payload=update(); self.call(payload); code,out=self.call(payload); self.assertEqual((code,out["outcome"]),(200,"duplicate")); self.assertEqual(len(self.provider.calls),1); self.assertEqual(len(self.telegram.calls),1)
++        payload = update(); self.call(payload)
++        code, out = self.call(payload)
++        self.assertEqual((code, out["outcome"]), (200, "duplicate"))
++        self.assertEqual(len(self.provider.calls), 1); self.assertEqual(len(self.telegram.calls), 1)
++
+     def test_update_id_collision(self):
+-        self.call(update(1,text="A")); code,out=self.call(update(1,text="B")); self.assertEqual((code,out["outcome"]),(409,"update_id_conflict"))
+-    def test_allowlist_rejects_before_effect(self):
+-        code,_=self.call(update(chat=303)); self.assertEqual(code,422); self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
++        self.call(update(1, text="A")); code, out = self.call(update(1, text="B"))
++        self.assertEqual((code, out["outcome"]), (409, "update_id_conflict"))
++
+     def test_non_message_update_rejects_before_effect(self):
+-        code,_=self.call({"update_id":1,"channel_post":{"text":"x"}}); self.assertEqual(code,422); self.assertFalse(self.provider.calls)
++        code, _ = self.call({"update_id": 1, "channel_post": {"text": "x"}})
++        self.assertEqual(code, 422); self.assertFalse(self.provider.calls)
++
+     def test_provider_failure_visible_fallback(self):
+-        self.provider.fail=True; code,out=self.call(update()); self.assertEqual((code,out["outcome"]),(200,"fallback_sent")); self.assertEqual(self.telegram.calls[0][3],self.cfg.fallback_text)
++        self.provider.fail = True
++        code, out = self.call(update())
++        self.assertEqual((code, out["outcome"]), (200, "fallback_sent"))
++        self.assertEqual(self.telegram.calls[0][3], self.cfg.fallback_text)
++
+     def test_send_failure_is_uncertain_and_no_blind_retry(self):
+-        self.telegram.fail=True; payload=update(); code,out=self.call(payload); self.assertEqual((code,out["outcome"]),(503,"manual_reconciliation_required"));
+-        code2,out2=self.call(payload); self.assertEqual((code2,out2["outcome"]),(503,"manual_reconciliation_required")); self.assertEqual(len(self.provider.calls),1)
++        self.telegram.fail = True; payload = update()
++        code, out = self.call(payload)
++        self.assertEqual((code, out["outcome"]), (503, "manual_reconciliation_required"))
++        code2, out2 = self.call(payload)
++        self.assertEqual((code2, out2["outcome"]), (503, "manual_reconciliation_required"))
++        self.assertEqual(len(self.provider.calls), 1)
++
+     def test_input_bound(self):
+-        code,_=self.call(update(text="я"*5000)); self.assertEqual(code,422); self.assertFalse(self.provider.calls)
++        code, _ = self.call(update(text="я" * 5000))
++        self.assertEqual(code, 422); self.assertFalse(self.provider.calls)
++
+     def test_raw_identity_and_text_not_logged(self):
+-        self.call(update(text="СЕКРЕТНЫЙ_ТЕКСТ")); log=self.log.getvalue(); self.assertNotIn("СЕКРЕТНЫЙ",log); self.assertNotIn("101",log); self.assertNotIn("SHOULD_NOT_PERSIST",log)
++        self.call(update(text="СЕКРЕТНЫЙ_ТЕКСТ")); log = self.log.getvalue()
++        self.assertNotIn("СЕКРЕТНЫЙ", log); self.assertNotIn("101", log)
++        self.assertNotIn("SHOULD_NOT_PERSIST", log)
++
+     def test_openai_shape_and_output(self):
+-        response={"status":"completed","output":[{"type":"reasoning"},{"type":"message","role":"assistant","content":[{"type":"output_text","text":"OK"}]}]}
+-        http=FakeHTTP(response); adapter=OpenAIResponsesAdapter(b"key","gpt-5.6-luna",512,30,http)
+-        self.assertEqual(adapter.respond("sys",[{"role":"user","content":"hi"}]),"OK")
+-        body=http.calls[0][2]; self.assertEqual(body["tools"],[]); self.assertIs(body["store"],False); self.assertEqual(body["max_output_tokens"],512)
++        response = {"status": "completed", "output": [{"type": "reasoning"}, {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "OK"}]}]}
++        http = FakeHTTP(response); adapter = OpenAIResponsesAdapter(b"key", "gpt-5.6-luna", 512, 30, http)
++        self.assertEqual(adapter.respond("sys", [{"role": "user", "content": "hi"}]), "OK")
++        body = http.calls[0][2]
++        self.assertEqual(body["tools"], []); self.assertIs(body["store"], False)
++        self.assertEqual(body["max_output_tokens"], 512)
++
+     def test_reasoning_only_is_not_candidate(self):
+-        http=FakeHTTP({"status":"completed","output":[{"type":"reasoning","summary":[]} ]})
+-        adapter=OpenAIResponsesAdapter(b"key","gpt-5.6-luna",512,30,http)
+-        with self.assertRaises(ProviderFailure): adapter.respond("sys",[{"role":"user","content":"hi"}])
++        http = FakeHTTP({"status": "completed", "output": [{"type": "reasoning", "summary": []}]})
++        adapter = OpenAIResponsesAdapter(b"key", "gpt-5.6-luna", 512, 30, http)
++        with self.assertRaises(ProviderFailure):
++            adapter.respond("sys", [{"role": "user", "content": "hi"}])
++
+     def test_closed_config_unknown_field(self):
+-        raw=json.loads(Path(__file__).with_name("config.example.json").read_text()); raw["surprise"]=1
+-        with self.assertRaises(Exception): Config.from_dict(raw,(101,))
++        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
++        raw["surprise"] = 1
++        with self.assertRaises(Exception): Config.from_dict(raw, (101,))
++
++    def test_exact_mapping_cannot_be_reconfigured(self):
++        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
++        raw["discussion_chat_id"] = -1001
++        with self.assertRaises(Exception): Config.from_dict(raw, (101,))
+ 
+     def test_poll_shape(self):
+-        http=FakeHTTP({"ok":True,"result":[update(5)]})
+-        adapter=dialogue_mvp.TelegramBotAdapter(b"token",10,http)
+-        self.assertEqual(adapter.get_updates(5,25)[0]["update_id"],5)
+-        body=http.calls[0][2]; self.assertEqual(body,{"offset":5,"limit":10,"timeout":25,"allowed_updates":["message"]})
++        http = FakeHTTP({"ok": True, "result": [update(5)]})
++        adapter = dialogue_mvp.TelegramBotAdapter(b"token", 10, http)
++        self.assertEqual(adapter.get_updates(5, 25)[0]["update_id"], 5)
++        body = http.calls[0][2]
++        self.assertEqual(body, {"offset": 5, "limit": 10, "timeout": 25, "allowed_updates": ["message"]})
+ 
+     def test_poll_offset_is_durable(self):
+-        self.assertEqual(self.store.poll_offset(),0); self.store.set_poll_offset(42); self.assertEqual(self.store.poll_offset(),42)
++        self.assertEqual(self.store.poll_offset(), 0)
++        self.store.set_poll_offset(42)
++        self.assertEqual(self.store.poll_offset(), 42)
+ 
+     def test_transcript_is_pruned_and_request_is_bounded(self):
+-        for n in range(1,9): self.call(update(n,text="turn"+str(n)))
+-        count=self.store.db.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
+-        self.assertLessEqual(count,self.cfg.max_history_messages)
+-        self.assertLessEqual(len(self.provider.calls[-1][1]),self.cfg.max_history_messages)
++        for n in range(1, 9): self.call(update(n, text="turn" + str(n)))
++        count = self.store.db.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
++        self.assertLessEqual(count, self.cfg.max_history_messages)
++        self.assertLessEqual(len(self.provider.calls[-1][1]), self.cfg.max_history_messages)
+ 
+ 
+-if __name__ == "__main__": unittest.main(verbosity=2)
++if __name__ == "__main__":
++    unittest.main(verbosity=2)
+diff --git predecessor-r01/wellbeing-telegram-single-entity-pilot.service successor-r02/wellbeing-telegram-single-entity-pilot.service
+index 3d76eef..44b80e7 100644
+--- predecessor-r01/wellbeing-telegram-single-entity-pilot.service
++++ successor-r02/wellbeing-telegram-single-entity-pilot.service
+@@ -1,5 +1,5 @@
+ [Unit]
+-Description=Wellbeing Telegram single-Entity closed pilot r0.1
++Description=Wellbeing Telegram single-Entity discussion pilot r0.2
+ After=network-online.target
+ Wants=network-online.target
+ 
+@@ -8,8 +8,8 @@ Type=simple
+ User=wellbeing-tg-dialog
+ Group=wellbeing-tg-dialog
+ UMask=0077
+-WorkingDirectory=/opt/wellbeing/telegram-single-entity-mvp-r01
+-ExecStart=/usr/bin/python3 -I -B /opt/wellbeing/telegram-single-entity-mvp-r01/dialogue_mvp.py poll --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json
++WorkingDirectory=/opt/wellbeing/telegram-single-entity-mvp-r02
++ExecStart=/usr/bin/python3 -I -B /opt/wellbeing/telegram-single-entity-mvp-r02/dialogue_mvp.py poll --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json
+ LoadCredential=telegram_bot_token:/etc/wellbeing/telegram-single-entity-pilot/secrets/telegram_bot_token
+ LoadCredential=openai_api_key:/etc/wellbeing/telegram-single-entity-pilot/secrets/openai_api_key
+ StateDirectory=wellbeing/telegram-single-entity-pilot

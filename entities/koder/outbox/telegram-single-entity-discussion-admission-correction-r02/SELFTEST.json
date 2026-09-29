@@ -1,0 +1,14 @@
+{
+  "external_network_calls": 0,
+  "failures": 0,
+  "live_openai_calls": 0,
+  "live_telegram_calls": 0,
+  "production_deployments": 0,
+  "predecessor_diff": "PASS_GENERATED_FROM_IMMUTABLE_R01_BYTES",
+  "py_compile": "PASS",
+  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_SELFTEST_R02",
+  "status": "PASS_OFFLINE_FAKE_TRANSPORT",
+  "test_command": "python3 -I -B test_dialogue_mvp.py",
+  "systemd_verify": "PASS",
+  "tests_run": 24
+}

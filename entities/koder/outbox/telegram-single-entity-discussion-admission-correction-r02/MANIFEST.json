@@ -1,0 +1,29 @@
+{
+  "exact_task_commit": "e37673b7a3b25facf910039cc9229eac11052118",
+  "ingress": "telegram_getUpdates_long_polling",
+  "live_openai_calls": 0,
+  "live_telegram_calls": 0,
+  "package_identity": "d126d3748cf3c96e564bd991ca9c4fc4b39fc6ea6b9c7d1ca0e30df1dc76a5c1",
+  "package_identity_construction": "SHA-256(domain UTF-8 bytes + NUL + sorted sha256sum-compatible payload inventory bytes)",
+  "package_identity_domain": "TELEGRAM-ENTITY-DISCUSSION-ADMISSION-R02",
+  "payload_files": [
+    {"bytes": 53623, "path": "PREDECESSOR-DIFF.patch", "sha256": "c10de30d4c811eda0fbe4eb577b8a0d3c3ddcd25800f0984aacf64fa947014be"},
+    {"bytes": 7803, "path": "README.md", "sha256": "592139e491816cef63f0ff524feb6747712500f6edf52235696f5f9d30edde27"},
+    {"bytes": 428, "path": "SELFTEST.json", "sha256": "84cf0ed3a039608f3291ab431a58de01be3ae82d02ddcef4a68e4f2c09a063c2"},
+    {"bytes": 5420, "path": "UPGRADE.md", "sha256": "9cea240310464804a0cc48991be6a72872ef22dd569d4bbd2d0b068fe4106ead"},
+    {"bytes": 958, "path": "config.example.json", "sha256": "5737bd42abd092e3adf0f690f8928348a0df104a6a649d67cb1abb4064a91e6d"},
+    {"bytes": 32728, "path": "dialogue_mvp.py", "sha256": "1c09d060cb79af230deddff3efff48d348a914d4017cd6fec7226dd717964dbe"},
+    {"bytes": 1216, "path": "entity_bootstrap.txt", "sha256": "5e04ed7457c9eeb2f104b1fc9a134d02aa1e801139ddd027bf22df2cb0c934a5"},
+    {"bytes": 11389, "path": "test_dialogue_mvp.py", "sha256": "b84281d5445142d3d26a3a480ef79e8a6a3a2232caea13b812e35d8eb72d1ab1"},
+    {"bytes": 10, "path": "testers.allow.example", "sha256": "4a29a77b4659d41536fdd31ae7ab8e8b8cdbac95e749c54db77dcf8accb2d096"},
+    {"bytes": 1121, "path": "wellbeing-telegram-single-entity-pilot.service", "sha256": "5795b145b3de03af96e45a2dc74b3fe025220e9ad18e76ee322afd91ba936b89"}
+  ],
+  "predecessor_commit": "9ccfdd4210ea2d6d6f0dd2eb71a483d18f33153e",
+  "predecessor_tree": "df57623dd7c69e1b06c95d297000a7a52a37ab3f",
+  "production_deployments": 0,
+  "schema": "TELEGRAM_ENTITY_DISCUSSION_ADMISSION_MANIFEST_R02",
+  "status": "READY_FOR_INDEPENDENT_SIS_REVIEW",
+  "target_bot_user_id": 8866633840,
+  "target_discussion_chat_id": -1002429106148,
+  "tests": {"failures": 0, "mode": "offline_fake_transport", "py_compile": "PASS", "systemd_verify": "PASS", "tests_run": 24}
+}
