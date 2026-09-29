@@ -1,0 +1,19 @@
+{
+  "allowed_chat_types": ["private"],
+  "database_path": "/var/lib/wellbeing/telegram-single-entity-pilot/dialogue.sqlite3",
+  "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r01/entity_bootstrap.txt",
+  "environment": "closed_pilot",
+  "fallback_text": "Сейчас не получилось ответить. Попробуйте позднее.",
+  "max_history_bytes": 32768,
+  "max_history_messages": 12,
+  "max_input_bytes": 4096,
+  "max_output_tokens": 512,
+  "max_update_records_per_conversation": 256,
+  "model": "gpt-5.6-luna",
+  "poll_retry_seconds": 5,
+  "poll_timeout_seconds": 25,
+  "provider_timeout_seconds": 30,
+  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R01",
+  "telegram_timeout_seconds": 10,
+  "testers_allow_path": "/etc/wellbeing/telegram-single-entity-pilot/testers.allow"
+}

@@ -1,0 +1,21 @@
+{
+  "ingress": "telegram_getUpdates_long_polling",
+  "live_openai_calls": 0,
+  "live_telegram_calls": 0,
+  "package_identity": "a94975e6b7dee77d8651b9334b69954262f910d256d82c7da59403e47aca8439",
+  "package_identity_domain": "TELEGRAM-ENTITY-DIALOGUE-MVP-R01",
+  "payload_files": [
+    {"bytes": 10335, "path": "README.md", "sha256": "561401ae298aca21e38559d7570cbd316d9b85d53c62d1fd3b829516264e646f"},
+    {"bytes": 311, "path": "SELFTEST.json", "sha256": "030d5d9a739378d52205058ce5ab96ebb22806c64f86268ec6cb447247e461a2"},
+    {"bytes": 819, "path": "config.example.json", "sha256": "a53b6a13e1bddbb273e3afacc85a856ef590b8b925d65c3779ac136a73281f4c"},
+    {"bytes": 29053, "path": "dialogue_mvp.py", "sha256": "0a593dbdf83ec48896d75ed96412f744ce16ab6b80dbd603a63f4e6d1cd48fc7"},
+    {"bytes": 1216, "path": "entity_bootstrap.txt", "sha256": "5e04ed7457c9eeb2f104b1fc9a134d02aa1e801139ddd027bf22df2cb0c934a5"},
+    {"bytes": 8044, "path": "test_dialogue_mvp.py", "sha256": "05f40f132b7149d730516780c8821345bc9b3e095ef96852232303a2fd3d30b1"},
+    {"bytes": 10, "path": "testers.allow.example", "sha256": "4a29a77b4659d41536fdd31ae7ab8e8b8cdbac95e749c54db77dcf8accb2d096"},
+    {"bytes": 1117, "path": "wellbeing-telegram-single-entity-pilot.service", "sha256": "e1a291a42b1c1d9478859bd839cb713bd1a095054eabf09b2759c10d685fc35c"}
+  ],
+  "production_deployments": 0,
+  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_MANIFEST_R01",
+  "status": "READY_FOR_INDEPENDENT_REVIEW",
+  "tests": {"failures": 0, "mode": "offline_fake_transport", "systemd_verify": "PASS", "tests_run": 18}
+}

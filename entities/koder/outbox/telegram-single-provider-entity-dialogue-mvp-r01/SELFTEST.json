@@ -1,0 +1,11 @@
+{
+  "external_network_calls": 0,
+  "failures": 0,
+  "live_openai_calls": 0,
+  "live_telegram_calls": 0,
+  "production_deployments": 0,
+  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_SELFTEST_R01",
+  "status": "PASS_OFFLINE_FAKE_TRANSPORT",
+  "test_command": "python3 -I -B test_dialogue_mvp.py",
+  "tests_run": 18
+}
