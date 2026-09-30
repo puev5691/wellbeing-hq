@@ -1,0 +1,10 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__entity-operational-semantics-bootstrap-gap-r01__KOO.md
+artifact_commit: 46f04e4f2d89fae93cedcaee0b21b3529d5c68e9
+artifact_blob: 9849752526f971c0730ae2222e227f5c8149438a
+dispatch_commit: 42f43e6899f5851088e1145498d3455a74371f33
+terminal: PASS_SHT_ENTITY_SEMANTIC_BOOTSTRAP_GAP_CONFIRMED_MINIMAL_PROFILE_CANDIDATE_READY_FOR_REVIEW
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
+processing_started: not_proven
