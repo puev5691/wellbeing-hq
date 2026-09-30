@@ -1,0 +1,9 @@
+# Dispatch SHT → KOO
+artifact: entities/shtabist/outbox/SHT__entity-operational-semantics-bootstrap-gap-r01__KOO.md
+artifact_commit: 46f04e4f2d89fae93cedcaee0b21b3529d5c68e9
+artifact_blob: 9849752526f971c0730ae2222e227f5c8149438a
+terminal: PASS_SHT_ENTITY_SEMANTIC_BOOTSTRAP_GAP_CONFIRMED_MINIMAL_PROFILE_CANDIDATE_READY_FOR_REVIEW
+status: dispatched
+receipt: null
+acceptance: null
+processing_started: not_proven
