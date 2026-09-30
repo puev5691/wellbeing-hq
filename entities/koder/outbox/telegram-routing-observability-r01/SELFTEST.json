@@ -1,0 +1,25 @@
+{
+  "external_network_calls": 0,
+  "failures": 0,
+  "live_openai_calls": 0,
+  "live_telegram_calls": 0,
+  "predecessor_tests_preserved": 24,
+  "privacy": "PASS_NO_NEW_RAW_CONTENT_OR_IDENTITY_PERSISTENCE",
+  "production_deployments": 0,
+  "py_compile": "PASS",
+  "routing_matrix": {
+    "T1_same_route_same_key": "PASS",
+    "T2_different_thread_different_key": "PASS",
+    "T3_different_direct_topic_different_key": "PASS",
+    "T4_trigger_class": "PASS",
+    "T5_minimal_send_projection": "PASS",
+    "T6_post_send_persistence_failure": "PASS_OUTCOME_UNKNOWN_NO_RESEND",
+    "T7_privacy": "PASS",
+    "T8_additive_idempotent_migration": "PASS",
+    "T9_bounded_read_only_diagnostic": "PASS"
+  },
+  "schema": "TELEGRAM_ROUTING_OBSERVABILITY_SELFTEST_R01",
+  "status": "PASS_OFFLINE_FAKE_TRANSPORT",
+  "systemd_verify": "PASS",
+  "tests_run": 35
+}

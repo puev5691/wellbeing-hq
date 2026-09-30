@@ -1,0 +1,46 @@
+{
+  "additive_columns": [
+    {"name": "inbound_message_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "Update.message.message_id"},
+    {"name": "message_thread_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "Update.message.message_thread_id or runtime 0 default"},
+    {"name": "direct_topic_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "Update.message.direct_messages_topic.topic_id or runtime 0 default"},
+    {"enum": ["reply-to-bot", "command", "exact-mention"], "name": "trigger_class", "sqlite_type": "TEXT", "nullable_for_legacy": true},
+    {"name": "outbound_message_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.message_id"},
+    {"name": "returned_chat_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.chat.id"},
+    {"name": "returned_message_thread_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.message_thread_id when returned"},
+    {"name": "returned_direct_topic_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.direct_messages_topic.topic_id when returned"},
+    {"name": "returned_is_topic_message", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.is_topic_message when returned"}
+  ],
+  "conversation_key_contract": "SHA256(UTF8('tg-dialogue-r02\\0' + decimal(chat_id) + '\\0' + decimal(message_thread_id) + '\\0' + decimal(direct_topic_id)))",
+  "diagnostic_fields": [
+    "update_id",
+    "inbound_message_id",
+    "message_thread_id",
+    "direct_topic_id",
+    "trigger_class",
+    "conversation_key",
+    "outbound_message_id",
+    "returned_chat_id",
+    "returned_message_thread_id",
+    "returned_direct_topic_id",
+    "returned_is_topic_message",
+    "state",
+    "error_class"
+  ],
+  "forbidden_persistence": [
+    "raw Update JSON",
+    "full Telegram Message object",
+    "usernames",
+    "display names",
+    "unrelated identities",
+    "raw provider response",
+    "credentials"
+  ],
+  "migration": {
+    "destructive_rewrite": false,
+    "idempotent": true,
+    "legacy_rows": "preserved; additive fields remain NULL",
+    "method": "ordered ALTER TABLE ADD COLUMN for missing columns only"
+  },
+  "schema": "TELEGRAM_ROUTING_OBSERVABILITY_R01",
+  "status": "CANDIDATE_NOT_INSTALLED"
+}

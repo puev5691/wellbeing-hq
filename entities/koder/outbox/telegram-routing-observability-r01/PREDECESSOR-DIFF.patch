@@ -1,0 +1,1009 @@
+--- a/dialogue_mvp.py
++++ b/dialogue_mvp.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""Closed-pilot Telegram discussion -> Entity -> OpenAI runtime candidate r0.2.
++"""Closed-pilot Telegram discussion runtime with routing observability candidate r0.1.
+ 
+ Python 3.10+, standard library only. Network transports are dependency-injected;
+ offline tests use fakes and perform no network or credential access.
+@@ -30,6 +30,7 @@
+ VERIFIED_BOT_USER_ID = 8866633840
+ VERIFIED_BOT_USERNAME = "WBNP_Media_Bot"
+ ACTIVATION_COMMAND = "ask"
++TRIGGER_CLASSES = ("reply-to-bot", "command", "exact-mention")
+ 
+ 
+ class BoundaryError(RuntimeError):
+@@ -183,6 +184,7 @@
+     chat_type: str
+     thread_id: int
+     direct_topic_id: int
++    trigger_class: str
+     text: str
+     update_digest: str
+ 
+@@ -209,7 +211,7 @@
+     return (encoded[:span[0]] + encoded[span[1]:]).decode("utf-16-le").strip()
+ 
+ 
+-def addressed_text(msg: dict[str, Any], text: str, config: Config) -> str:
++def addressed_text(msg: dict[str, Any], text: str, config: Config) -> tuple[str, str]:
+     reply = msg.get("reply_to_message")
+     reply_to_bot = False
+     if reply is not None:
+@@ -223,6 +225,7 @@
+     if type(entities) is not list:
+         raise InputRejected("message_entities_invalid")
+     trigger_span: tuple[int, int] | None = None
++    entity_trigger_class: str | None = None
+     target_mention = "@" + config.bot_username.casefold()
+     bare_command = "/" + config.activation_command.casefold()
+     targeted_command = bare_command + target_mention
+@@ -233,16 +236,21 @@
+         folded = value.casefold()
+         if entity["type"] == "mention" and folded == target_mention:
+             trigger_span = span
++            entity_trigger_class = "exact-mention"
+             break
+         if entity["type"] == "bot_command" and folded in (bare_command, targeted_command):
+             trigger_span = span
++            entity_trigger_class = "command"
+             break
+     if not reply_to_bot and trigger_span is None:
+         raise InputIgnored("group_message_not_addressed")
++    trigger_class = "reply-to-bot" if reply_to_bot else entity_trigger_class
++    if trigger_class not in TRIGGER_CLASSES:
++        raise BoundaryError("trigger_class_invalid")
+     cleaned = _remove_utf16_span(text, trigger_span) if trigger_span is not None else text.strip()
+     if not cleaned:
+         raise InputRejected("addressed_text_missing")
+-    return cleaned
++    return cleaned, trigger_class
+ 
+ 
+ def parse_update(raw: Any, config: Config) -> InboundMessage:
+@@ -264,7 +272,7 @@
+     raw_text = msg["text"].strip()
+     if not raw_text or len(raw_text.encode("utf-8")) > config.max_input_bytes:
+         raise InputRejected("text_size_invalid")
+-    text = addressed_text(msg, raw_text, config)
++    text, trigger_class = addressed_text(msg, raw_text, config)
+     if len(text.encode("utf-8")) > config.max_input_bytes:
+         raise InputRejected("text_size_invalid")
+     thread_id = msg.get("message_thread_id", 0)
+@@ -277,7 +285,17 @@
+             raise InputRejected("direct_topic_invalid")
+         direct_topic_id = topic["topic_id"]
+     return InboundMessage(raw["update_id"], message_id, chat_id, user_id, chat_type, thread_id,
+-                          direct_topic_id, text, digest(raw))
++                          direct_topic_id, trigger_class, text, digest(raw))
++
++
++@dataclass(frozen=True)
++class TelegramSendEvidence:
++    """Privacy-safe projection of the Bot API Message returned by sendMessage."""
++    returned_message_id: int
++    returned_chat_id: int
++    returned_message_thread_id: int | None
++    returned_direct_topic_id: int | None
++    returned_is_topic_message: bool | None
+ 
+ 
+ class Provider(Protocol):
+@@ -285,7 +303,7 @@
+ 
+ 
+ class Telegram(Protocol):
+-    def send_text(self, chat_id: int, thread_id: int, direct_topic_id: int, text: str) -> int: ...
++    def send_text(self, chat_id: int, thread_id: int, direct_topic_id: int, text: str) -> TelegramSendEvidence: ...
+ 
+ 
+ class JsonHttpsTransport:
+@@ -376,7 +394,7 @@
+             raise TelegramFailure("get_updates_failed")
+         return result
+ 
+-    def send_text(self, chat_id: int, thread_id: int, direct_topic_id: int, text: str) -> int:
++    def send_text(self, chat_id: int, thread_id: int, direct_topic_id: int, text: str) -> TelegramSendEvidence:
+         body: dict[str, Any] = {"chat_id": chat_id, "text": clip_telegram_text(text)}
+         if thread_id:
+             body["message_thread_id"] = thread_id
+@@ -392,15 +410,59 @@
+         result = response.get("result")
+         if response.get("ok") is not True or type(result) is not dict or type(result.get("message_id")) is not int:
+             raise TelegramFailure("send_message_failed")
+-        return result["message_id"]
++        chat = result.get("chat")
++        if type(chat) is not dict or type(chat.get("id")) is not int:
++            raise TelegramFailure("send_message_routing_evidence_invalid")
++        returned_thread = result.get("message_thread_id")
++        if returned_thread is not None and type(returned_thread) is not int:
++            raise TelegramFailure("send_message_routing_evidence_invalid")
++        returned_topic: int | None = None
++        direct_topic = result.get("direct_messages_topic")
++        if direct_topic is not None:
++            if type(direct_topic) is not dict or type(direct_topic.get("topic_id")) is not int:
++                raise TelegramFailure("send_message_routing_evidence_invalid")
++            returned_topic = direct_topic["topic_id"]
++        returned_is_topic = result.get("is_topic_message")
++        if returned_is_topic is not None and type(returned_is_topic) is not bool:
++            raise TelegramFailure("send_message_routing_evidence_invalid")
++        return TelegramSendEvidence(
++            returned_message_id=result["message_id"], returned_chat_id=chat["id"],
++            returned_message_thread_id=returned_thread, returned_direct_topic_id=returned_topic,
++            returned_is_topic_message=returned_is_topic,
++        )
+ 
+ 
+ class Store:
+-    def __init__(self, path: str):
++    ROUTING_COLUMNS = (
++        ("inbound_message_id", "INTEGER"),
++        ("message_thread_id", "INTEGER"),
++        ("direct_topic_id", "INTEGER"),
++        ("trigger_class", "TEXT"),
++        ("outbound_message_id", "INTEGER"),
++        ("returned_chat_id", "INTEGER"),
++        ("returned_message_thread_id", "INTEGER"),
++        ("returned_direct_topic_id", "INTEGER"),
++        ("returned_is_topic_message", "INTEGER"),
++    )
++    DIAGNOSTIC_FIELDS = (
++        "update_id", "inbound_message_id", "message_thread_id", "direct_topic_id",
++        "trigger_class", "conversation_key", "outbound_message_id", "returned_chat_id",
++        "returned_message_thread_id", "returned_direct_topic_id", "returned_is_topic_message",
++        "state", "error_class",
++    )
++
++    def __init__(self, path: str, *, migrate: bool = True, read_only: bool = False):
+         self.lock = threading.RLock()
+-        self.db = sqlite3.connect(path, isolation_level=None, check_same_thread=False)
++        if read_only:
++            self.db = sqlite3.connect(Path(path).resolve().as_uri() + "?mode=ro", uri=True,
++                                      isolation_level=None, check_same_thread=False)
++        else:
++            self.db = sqlite3.connect(path, isolation_level=None, check_same_thread=False)
+         self.db.row_factory = sqlite3.Row
+         self.db.execute("PRAGMA foreign_keys=ON")
++        if read_only:
++            self._require_routing_schema()
++            return
+         self.db.execute("PRAGMA journal_mode=WAL")
+         self.db.executescript("""
+         CREATE TABLE IF NOT EXISTS updates(
+@@ -416,6 +478,30 @@
+           key TEXT PRIMARY KEY, value INTEGER NOT NULL
+         );
+         """)
++        if migrate:
++            self._migrate_routing_schema()
++
++    def _column_names(self) -> set[str]:
++        return {str(row["name"]) for row in self.db.execute("PRAGMA table_info(updates)").fetchall()}
++
++    def _require_routing_schema(self) -> None:
++        required = {name for name, _ in self.ROUTING_COLUMNS}
++        if not required.issubset(self._column_names()):
++            raise BoundaryError("routing_schema_not_ready")
++
++    def _migrate_routing_schema(self) -> None:
++        """Add only nullable observability columns; safe to run repeatedly."""
++        with self.lock:
++            self.db.execute("BEGIN IMMEDIATE")
++            try:
++                present = self._column_names()
++                for name, sql_type in self.ROUTING_COLUMNS:
++                    if name not in present:
++                        self.db.execute(f"ALTER TABLE updates ADD COLUMN {name} {sql_type}")
++                self.db.execute("COMMIT")
++            except Exception:
++                self.db.execute("ROLLBACK")
++                raise
+ 
+     def poll_offset(self) -> int:
+         with self.lock:
+@@ -442,8 +528,12 @@
+                         return "CONFLICT"
+                     self.db.execute("COMMIT")
+                     return "DUPLICATE" if row["state"] in ("COMMITTED", "FALLBACK_COMMITTED") else "UNCERTAIN"
+-                self.db.execute("INSERT INTO updates(update_id,request_digest,state,conversation_key) VALUES(?,?,?,?)",
+-                                (event.update_id, event.update_digest, "CLAIMED", event.conversation_key))
++                self.db.execute(
++                    "INSERT INTO updates(update_id,request_digest,state,conversation_key,inbound_message_id,"
++                    "message_thread_id,direct_topic_id,trigger_class) VALUES(?,?,?,?,?,?,?,?)",
++                    (event.update_id, event.update_digest, "CLAIMED", event.conversation_key,
++                     event.message_id, event.thread_id, event.direct_topic_id, event.trigger_class),
++                )
+                 self.db.execute("COMMIT")
+                 return "CLAIMED"
+             except Exception:
+@@ -476,7 +566,25 @@
+                 (conversation_key, exclude_update_id),
+             ).fetchone() is not None
+ 
+-    def commit_turn(self, event: InboundMessage, reply: str, telegram_message_id: int) -> None:
++    @staticmethod
++    def _validate_send_evidence(event: InboundMessage, evidence: TelegramSendEvidence) -> None:
++        if evidence.returned_chat_id != event.chat_id:
++            raise BoundaryError("returned_chat_mismatch")
++        if evidence.returned_message_thread_id is not None and evidence.returned_message_thread_id != event.thread_id:
++            raise BoundaryError("returned_thread_mismatch")
++        if evidence.returned_direct_topic_id is not None and evidence.returned_direct_topic_id != event.direct_topic_id:
++            raise BoundaryError("returned_direct_topic_mismatch")
++
++    @staticmethod
++    def _routing_values(evidence: TelegramSendEvidence) -> tuple[Any, ...]:
++        return (
++            evidence.returned_message_id, evidence.returned_message_id, evidence.returned_chat_id,
++            evidence.returned_message_thread_id, evidence.returned_direct_topic_id,
++            None if evidence.returned_is_topic_message is None else int(evidence.returned_is_topic_message),
++        )
++
++    def commit_turn(self, event: InboundMessage, reply: str, evidence: TelegramSendEvidence) -> None:
++        self._validate_send_evidence(event, evidence)
+         with self.lock:
+             self.db.execute("BEGIN IMMEDIATE")
+             try:
+@@ -487,14 +595,51 @@
+                                            (event.conversation_key,)).fetchone()[0]
+                 self.db.execute("INSERT INTO messages VALUES(?,?,?,?)", (event.conversation_key, sequence + 1, "user", event.text))
+                 self.db.execute("INSERT INTO messages VALUES(?,?,?,?)", (event.conversation_key, sequence + 2, "assistant", reply))
+-                self.db.execute("UPDATE updates SET state='COMMITTED',telegram_message_id=? WHERE update_id=?",
+-                                (telegram_message_id, event.update_id))
++                self.db.execute(
++                    "UPDATE updates SET state='COMMITTED',telegram_message_id=?,outbound_message_id=?,"
++                    "returned_chat_id=?,returned_message_thread_id=?,returned_direct_topic_id=?,"
++                    "returned_is_topic_message=?,error_class=NULL WHERE update_id=?",
++                    self._routing_values(evidence) + (event.update_id,),
++                )
+                 self._prune_locked(event.conversation_key, self._active_config)
+                 self.db.execute("COMMIT")
+             except Exception:
+                 self.db.execute("ROLLBACK")
+                 raise
+ 
++    def commit_fallback(self, event: InboundMessage, evidence: TelegramSendEvidence) -> None:
++        self._validate_send_evidence(event, evidence)
++        with self.lock:
++            self.db.execute("BEGIN IMMEDIATE")
++            try:
++                row = self.db.execute("SELECT state FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
++                if not row or row["state"] != "SENDING_FALLBACK":
++                    raise BoundaryError("ledger_state_invalid")
++                self.db.execute(
++                    "UPDATE updates SET state='FALLBACK_COMMITTED',telegram_message_id=?,outbound_message_id=?,"
++                    "returned_chat_id=?,returned_message_thread_id=?,returned_direct_topic_id=?,"
++                    "returned_is_topic_message=?,error_class='provider_failure' WHERE update_id=?",
++                    self._routing_values(evidence) + (event.update_id,),
++                )
++                self._prune_locked(event.conversation_key, self._active_config)
++                self.db.execute("COMMIT")
++            except Exception:
++                self.db.execute("ROLLBACK")
++                raise
++
++    def routing_diagnostic(self, update_id: int) -> dict[str, Any] | None:
++        if type(update_id) is not int or update_id < 0:
++            raise BoundaryError("update_id_invalid")
++        fields = ",".join(self.DIAGNOSTIC_FIELDS)
++        with self.lock:
++            row = self.db.execute(f"SELECT {fields} FROM updates WHERE update_id=?", (update_id,)).fetchone()
++        if row is None:
++            return None
++        result = {name: row[name] for name in self.DIAGNOSTIC_FIELDS}
++        if result["returned_is_topic_message"] is not None:
++            result["returned_is_topic_message"] = bool(result["returned_is_topic_message"])
++        return result
++
+     def bind_config(self, config: Config) -> None:
+         self._active_config = config
+ 
+@@ -565,25 +710,34 @@
+             history.append({"role": "user", "content": event.text})
+             try:
+                 reply = self.provider.respond(self.instructions, history)
+-                self.store.mark(event.update_id, "SENDING")
+-                sent_id = self.telegram.send_text(event.chat_id, event.thread_id, event.direct_topic_id, reply)
+-                self.store.commit_turn(event, reply, sent_id)
+-                self.logger.emit("request", "complete", 200)
+-                return 200, {"ok": True, "outcome": "replied"}
+             except ProviderFailure:
+                 self.store.mark(event.update_id, "SENDING_FALLBACK", "provider_failure")
+                 try:
+-                    sent_id = self.telegram.send_text(event.chat_id, event.thread_id, event.direct_topic_id, self.config.fallback_text)
+-                    with self.store.lock:
+-                        self.store.db.execute("UPDATE updates SET state='FALLBACK_COMMITTED',telegram_message_id=? WHERE update_id=?",
+-                                              (sent_id, event.update_id))
+-                    self.store.prune(event.conversation_key, self.config)
+-                    self.logger.emit("provider", "fallback", 200)
+-                    return 200, {"ok": True, "outcome": "fallback_sent"}
++                    evidence = self.telegram.send_text(event.chat_id, event.thread_id, event.direct_topic_id, self.config.fallback_text)
+                 except TelegramFailure:
+                     self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "fallback_send_unknown")
+-            except (TelegramFailure, BoundaryError):
+-                self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "reply_send_unknown")
++                else:
++                    try:
++                        self.store.commit_fallback(event, evidence)
++                    except (BoundaryError, sqlite3.Error):
++                        self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "fallback_routing_persistence_failed")
++                    else:
++                        self.logger.emit("provider", "fallback", 200)
++                        return 200, {"ok": True, "outcome": "fallback_sent"}
++            else:
++                self.store.mark(event.update_id, "SENDING")
++                try:
++                    evidence = self.telegram.send_text(event.chat_id, event.thread_id, event.direct_topic_id, reply)
++                except TelegramFailure:
++                    self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "reply_send_unknown")
++                else:
++                    try:
++                        self.store.commit_turn(event, reply, evidence)
++                    except (BoundaryError, sqlite3.Error):
++                        self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "reply_routing_persistence_failed")
++                    else:
++                        self.logger.emit("request", "complete", 200)
++                        return 200, {"ok": True, "outcome": "replied"}
+         self.logger.emit("request", "uncertain", 503)
+         return 503, {"ok": False, "outcome": "manual_reconciliation_required"}
+ 
+@@ -659,8 +813,9 @@
+ 
+ def main() -> int:
+     parser = argparse.ArgumentParser()
+-    parser.add_argument("command", choices=("check-config", "poll"))
++    parser.add_argument("command", choices=("check-config", "diagnose-routing", "poll"))
+     parser.add_argument("--config", required=True)
++    parser.add_argument("--update-id", type=int)
+     args = parser.parse_args()
+     try:
+         raw = json.loads(Path(args.config).read_text(encoding="utf-8"))
+@@ -671,6 +826,19 @@
+             Path(config.entity_bootstrap_path).read_text(encoding="utf-8")
+             print(json.dumps({"ok": True, "schema": SCHEMA}, separators=(",", ":")))
+             return 0
++        if args.command == "diagnose-routing":
++            if args.update_id is None or args.update_id < 0:
++                raise BoundaryError("update_id_invalid")
++            diagnostic_store = Store(config.database_path, migrate=False, read_only=True)
++            try:
++                result = diagnostic_store.routing_diagnostic(args.update_id)
++            finally:
++                diagnostic_store.db.close()
++            if result is None:
++                result = {name: None for name in Store.DIAGNOSTIC_FIELDS}
++                result.update({"update_id": args.update_id, "state": "NOT_FOUND", "error_class": "update_not_found"})
++            print(json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
++            return 0
+         config, store, app = load_runtime(args.config, sys.stdout)
+         app.logger.emit("runtime", "ready", 0)
+         try:
+--- a/test_dialogue_mvp.py
++++ b/test_dialogue_mvp.py
+@@ -2,9 +2,11 @@
+ import io
+ import importlib.util
+ import json
++import sqlite3
+ import sys
+ import tempfile
+ import unittest
++from contextlib import redirect_stdout
+ from pathlib import Path
+ 
+ MODULE_PATH = Path(__file__).with_name("dialogue_mvp.py")
+@@ -13,11 +15,14 @@
+ sys.modules["dialogue_mvp"] = dialogue_mvp
+ SPEC.loader.exec_module(dialogue_mvp)
+ Config = dialogue_mvp.Config
++BoundaryError = dialogue_mvp.BoundaryError
+ DialogueApplication = dialogue_mvp.DialogueApplication
+ OpenAIResponsesAdapter = dialogue_mvp.OpenAIResponsesAdapter
+ ProviderFailure = dialogue_mvp.ProviderFailure
+ SafeLogger = dialogue_mvp.SafeLogger
+ Store = dialogue_mvp.Store
++TelegramSendEvidence = dialogue_mvp.TelegramSendEvidence
++parse_update = dialogue_mvp.parse_update
+ 
+ DISCUSSION_ID = -1002429106148
+ BOT_ID = 8866633840
+@@ -43,7 +48,8 @@
+     return len(value.encode("utf-16-le")) // 2
+ 
+ 
+-def update(uid=1, user=101, chat=DISCUSSION_ID, text="Привет", thread=0, trigger="mention", chat_type="supergroup"):
++def update(uid=1, user=101, chat=DISCUSSION_ID, text="Привет", thread=0, direct_topic=0,
++           trigger="mention", chat_type="supergroup"):
+     msg = {"message_id": uid + 100, "chat": {"id": chat, "type": chat_type},
+            "from": {"id": user, "first_name": "SHOULD_NOT_PERSIST"}}
+     if trigger == "mention":
+@@ -68,6 +74,8 @@
+         raise AssertionError("unknown synthetic trigger")
+     if thread:
+         msg["message_thread_id"] = thread
++    if direct_topic:
++        msg["direct_messages_topic"] = {"topic_id": direct_topic, "user": {"id": 999, "first_name": "DO_NOT_PERSIST"}}
+     return {"update_id": uid, "message": msg}
+ 
+ 
+@@ -84,7 +92,12 @@
+     def send_text(self, chat_id, thread_id, direct_topic_id, text):
+         self.calls.append((chat_id, thread_id, direct_topic_id, text))
+         if self.fail: raise dialogue_mvp.TelegramFailure("synthetic")
+-        return 700 + len(self.calls)
++        return TelegramSendEvidence(
++            returned_message_id=700 + len(self.calls), returned_chat_id=chat_id,
++            returned_message_thread_id=thread_id if thread_id else None,
++            returned_direct_topic_id=direct_topic_id if direct_topic_id else None,
++            returned_is_topic_message=True if thread_id else None,
++        )
+ 
+ 
+ class FakeHTTP:
+@@ -234,6 +247,139 @@
+         self.assertLessEqual(count, self.cfg.max_history_messages)
+         self.assertLessEqual(len(self.provider.calls[-1][1]), self.cfg.max_history_messages)
+ 
++    # Routing observability r0.1 matrix T1-T9.
++    def test_t1_same_chat_thread_topic_same_conversation_key(self):
++        first = parse_update(update(41, thread=17, direct_topic=3001), self.cfg)
++        second = parse_update(update(42, thread=17, direct_topic=3001), self.cfg)
++        self.assertEqual(first.conversation_key, second.conversation_key)
++
++    def test_t2_different_thread_changes_conversation_key(self):
++        first = parse_update(update(41, thread=17), self.cfg)
++        second = parse_update(update(42, thread=18), self.cfg)
++        self.assertNotEqual(first.conversation_key, second.conversation_key)
++
++    def test_t3_different_direct_topic_changes_conversation_key(self):
++        first = parse_update(update(41, direct_topic=3001), self.cfg)
++        second = parse_update(update(42, direct_topic=3002), self.cfg)
++        self.assertNotEqual(first.conversation_key, second.conversation_key)
++
++    def test_t4_trigger_class_is_deterministic_and_persisted(self):
++        expected = ((51, "reply", "reply-to-bot"), (52, "command", "command"), (53, "mention", "exact-mention"))
++        for uid, trigger, classification in expected:
++            self.call(update(uid, trigger=trigger))
++            row = self.store.db.execute("SELECT trigger_class FROM updates WHERE update_id=?", (uid,)).fetchone()
++            self.assertEqual(row[0], classification)
++
++    def test_t5_successful_send_persists_only_minimal_routing_projection(self):
++        self.call(update(61, thread=17, direct_topic=3001, text="routing"))
++        diagnostic = self.store.routing_diagnostic(61)
++        self.assertEqual(diagnostic, {
++            "update_id": 61, "inbound_message_id": 161, "message_thread_id": 17,
++            "direct_topic_id": 3001, "trigger_class": "exact-mention",
++            "conversation_key": parse_update(update(61, thread=17, direct_topic=3001, text="routing"), self.cfg).conversation_key,
++            "outbound_message_id": 701, "returned_chat_id": DISCUSSION_ID,
++            "returned_message_thread_id": 17, "returned_direct_topic_id": 3001,
++            "returned_is_topic_message": True, "state": "COMMITTED", "error_class": None,
++        })
++        self.assertEqual(set(diagnostic), set(Store.DIAGNOSTIC_FIELDS))
++
++    def test_t5_bot_api_message_is_projected_not_retained(self):
++        response = {"ok": True, "result": {
++            "message_id": 777, "message_thread_id": 17,
++            "direct_messages_topic": {"topic_id": 3001, "user": {"id": 9, "username": "DROP_ME"}},
++            "chat": {"id": DISCUSSION_ID, "title": "DROP_ME"}, "is_topic_message": True,
++            "text": "DROP_ME", "from": {"username": "DROP_ME"},
++        }}
++        adapter = dialogue_mvp.TelegramBotAdapter(b"token", 10, FakeHTTP(response))
++        evidence = adapter.send_text(DISCUSSION_ID, 17, 3001, "safe")
++        self.assertEqual(evidence, TelegramSendEvidence(777, DISCUSSION_ID, 17, 3001, True))
++        self.assertNotIn("DROP_ME", repr(evidence))
++
++    def test_t6_send_success_metadata_persistence_failure_is_uncertain_no_resend(self):
++        payload = update(71, thread=17)
++        original = self.store.commit_turn
++        def fail_commit(event, reply, evidence):
++            raise BoundaryError("synthetic_routing_metadata_persistence_failure")
++        self.store.commit_turn = fail_commit
++        code, out = self.call(payload)
++        self.assertEqual((code, out["outcome"]), (503, "manual_reconciliation_required"))
++        row = self.store.db.execute("SELECT state,error_class FROM updates WHERE update_id=71").fetchone()
++        self.assertEqual(tuple(row), ("OUTCOME_UNKNOWN", "reply_routing_persistence_failed"))
++        code2, out2 = self.call(payload)
++        self.assertEqual((code2, out2["outcome"]), (503, "manual_reconciliation_required"))
++        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (1, 1))
++        self.store.commit_turn = original
++
++    def test_t7_privacy_no_raw_update_identity_or_provider_response_in_routing_storage_or_logs(self):
++        payload = update(81, text="ALLOWED_DIALOGUE_TEXT", thread=17, direct_topic=3001)
++        payload["message"]["from"]["username"] = "DO_NOT_PERSIST_USERNAME"
++        self.call(payload)
++        update_row = dict(self.store.db.execute("SELECT * FROM updates WHERE update_id=81").fetchone())
++        serialized = json.dumps(update_row, sort_keys=True)
++        self.assertNotIn("DO_NOT_PERSIST", serialized)
++        self.assertNotIn("ALLOWED_DIALOGUE_TEXT", serialized)
++        self.assertNotIn("DO_NOT_PERSIST", self.log.getvalue())
++        self.assertNotIn("raw_update", set(update_row))
++        self.assertNotIn("provider_response", set(update_row))
++
++    def test_t8_r02_database_migration_is_additive_idempotent_and_history_readable(self):
++        old_path = str(Path(self.tmp.name) / "old-r02.sqlite")
++        db = sqlite3.connect(old_path)
++        db.executescript("""
++        CREATE TABLE updates(update_id INTEGER PRIMARY KEY,request_digest TEXT NOT NULL,state TEXT NOT NULL,
++          conversation_key TEXT NOT NULL,telegram_message_id INTEGER,error_class TEXT);
++        CREATE TABLE messages(conversation_key TEXT NOT NULL,sequence INTEGER NOT NULL,role TEXT NOT NULL,
++          content TEXT NOT NULL,PRIMARY KEY(conversation_key,sequence),CHECK(role IN ('user','assistant')));
++        CREATE TABLE runtime_meta(key TEXT PRIMARY KEY,value INTEGER NOT NULL);
++        INSERT INTO updates VALUES(5,'digest','COMMITTED','legacy-key',101,NULL);
++        INSERT INTO messages VALUES('legacy-key',1,'user','legacy-history');
++        """)
++        db.commit(); db.close()
++        migrated = Store(old_path)
++        try:
++            self.assertEqual(migrated.db.execute("SELECT content FROM messages").fetchone()[0], "legacy-history")
++            self.assertEqual(migrated.db.execute("SELECT telegram_message_id FROM updates").fetchone()[0], 101)
++            first_columns = migrated._column_names()
++        finally:
++            migrated.db.close()
++        migrated_again = Store(old_path)
++        try:
++            self.assertEqual(migrated_again._column_names(), first_columns)
++            legacy = migrated_again.routing_diagnostic(5)
++            self.assertEqual(legacy["state"], "COMMITTED")
++            self.assertIsNone(legacy["inbound_message_id"])
++        finally:
++            migrated_again.db.close()
++
++    def test_t9_diagnostic_is_bounded_read_only_projection(self):
++        self.call(update(91, thread=22))
++        diagnostic = self.store.routing_diagnostic(91)
++        self.assertEqual(tuple(diagnostic), Store.DIAGNOSTIC_FIELDS)
++        forbidden = {"request_digest", "telegram_message_id", "text", "username", "display_name", "raw_update", "provider_response"}
++        self.assertFalse(forbidden.intersection(diagnostic))
++
++    def test_t9_cli_diagnostic_needs_no_credentials_and_returns_bounded_json(self):
++        self.call(update(92, thread=23))
++        allow_path = Path(self.tmp.name) / "testers.allow"
++        bootstrap_path = Path(self.tmp.name) / "bootstrap.txt"
++        config_path = Path(self.tmp.name) / "runtime.json"
++        allow_path.write_text("101\n", encoding="ascii")
++        bootstrap_path.write_text("bounded", encoding="utf-8")
++        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
++        raw.update({"database_path": self.cfg.database_path, "testers_allow_path": str(allow_path),
++                    "entity_bootstrap_path": str(bootstrap_path), "environment": "test"})
++        config_path.write_text(json.dumps(raw), encoding="utf-8")
++        stdout, old_argv = io.StringIO(), sys.argv
++        try:
++            sys.argv = ["dialogue_mvp.py", "diagnose-routing", "--config", str(config_path), "--update-id", "92"]
++            with redirect_stdout(stdout):
++                self.assertEqual(dialogue_mvp.main(), 0)
++        finally:
++            sys.argv = old_argv
++        result = json.loads(stdout.getvalue())
++        self.assertEqual(tuple(sorted(result)), tuple(sorted(Store.DIAGNOSTIC_FIELDS)))
++        self.assertEqual(result["update_id"], 92)
++
+ 
+ if __name__ == "__main__":
+     unittest.main(verbosity=2)
+--- a/README.md
++++ b/README.md
+@@ -1,84 +1,119 @@
+-# Telegram single-Entity discussion admission correction r0.2
++# Telegram routing observability r0.1
+ 
+-Status: immutable offline correction candidate for independent SIS review. It has not been deployed, the service was not started, and no Telegram or OpenAI call was made.
++Status: `CANDIDATE_NOT_INSTALLED`.
+ 
+-## Human result
++This is a minimal, privacy-safe successor of the accepted discussion runtime. It closes the evidence gap exposed by the bounded live pilot: after an admitted update and a successful `sendMessage`, the runtime can preserve the exact inbound route and a bounded projection of the returned Telegram `Message`. It does not claim that any reply was visible in the Telegram UI.
+ 
+-This successor keeps the already reviewed dialogue MVP but moves its admission boundary from a private chat to the one verified linked discussion supergroup. It still serves only explicitly allowlisted testers and does not answer ambient group traffic.
++No service was installed or started while this package was built. No Telegram or OpenAI call, credential read, host mutation, allowlist change, provider/model change, or live replay occurred.
+ 
+-A turn is accepted only when all of these are true:
++## Exact lineage
+ 
+-1. the update contains a text `message`;
+-2. `chat.type` is exactly `supergroup`;
+-3. `chat.id` is exactly `-1002429106148`;
+-4. `from.id` is present in the root-controlled tester allowlist;
+-5. the text is explicitly addressed to the verified bot by reply, exact mention, or exact `/ask` command.
++- Task: `puev5691/wellbeing-hq@90b175bd299ea377350faa347307ff10a47b3b9e:entities/koordinator/outbox/KOO__telegram-routing-observability-r01__KOD.md`, blob `09ca88739b067a29174925d84923ff4c96c6629a`.
++- Predecessor source: `puev5691/wellbeing-hq@e3360481959f2076fb53e31390bbdb91bec123ab:entities/koder/outbox/telegram-single-entity-discussion-admission-correction-r02/dialogue_mvp.py`, blob `0ea2cb8c9fe4872bfbfd1ec348ba23bfa9dbce6d`.
++- Live blocker: `BLOCKED_SIS_TELEGRAM_SAME_THREAD_LIVE_R03_REPLY_VISIBILITY_NOT_CONFIRMED`.
++- Diagnostic: `PASS_SIS_TELEGRAM_THREAD_CONVERSATION_KEY_VISIBILITY_DIAGNOSIS_R01`.
++- Current writer basis: `puev5691/wellbeing-hq@df92a8bfcce29294332f6e4de3391a3e7966adfd:entities/koder/current/KOD__replacement-current-writer-v05.md`, blob `cf1c84f9df7c90509703e4885844d0cf871ff412`.
+ 
+-Ordinary group messages are acknowledged locally as `ignored_not_addressed`; they cause no provider or Telegram send effect.
++## Preserved behavior
+ 
+-## Exact basis
++The following predecessor semantics are unchanged:
+ 
+-- Exact KOO task: `puev5691/wellbeing-hq@e37673b7a3b25facf910039cc9229eac11052118:entities/koordinator/outbox/KOO__telegram-single-entity-discussion-chat-admission-correction-r01__KOD.md`, blob `57cdf456d2bc300c694a5eb351f61f95f851c805`.
+-- Current KOD writer: `puev5691/wellbeing-hq@df92a8bfcce29294332f6e4de3391a3e7966adfd:entities/koder/current/KOD__replacement-current-writer-v05.md`, blob `cf1c84f9df7c90509703e4885844d0cf871ff412`.
+-- Immutable predecessor: `puev5691/wellbeing-hq@9ccfdd4210ea2d6d6f0dd2eb71a483d18f33153e:entities/koder/outbox/telegram-single-provider-entity-dialogue-mvp-r01/`, tree `df57623dd7c69e1b06c95d297000a7a52a37ab3f`.
+-- Independent predecessor review/provisioning PASS: `puev5691/wellbeing-hq@8c28a4c43fda96d5fc4da7a268eac1475b1feba2:entities/sisadmin/outbox/SIS__telegram-single-entity-mvp-independent-review-provisioning-r01__KOO.md`.
+-- Verified Telegram mapping: `puev5691/wellbeing-hq@3f8e04d143320f1957ea7e491222a5c4d0f6d037:entities/webmaster/outbox/WEB__telegram-media-reconciliation-r01__KOO.md`.
++- exact linked-discussion admission, tester allowlist and long polling;
++- explicit trigger requirement;
++- provider `OpenAI`, model and request shape;
++- multi-turn transcript bounds and thread/topic isolation;
++- update replay/collision behavior;
++- systemd credential mechanism;
++- conversation key:
++
++```text
++SHA256(
++  "tg-dialogue-r02\0"
++  + chat_id
++  + "\0"
++  + message_thread_id
++  + "\0"
++  + direct_topic_id
++)
++```
+ 
+-Frozen target identities:
++The package does not add a new admission route and does not set `reply_to_message_id`.
+ 
+-- bot username: `WBNP_Media_Bot`;
+-- bot user ID: `8866633840`;
+-- channel ID: `-1003606547591` (mapping evidence only, not admitted for dialogue);
+-- linked discussion ID: `-1002429106148`;
+-- linked discussion type: `supergroup`.
++## Additive routing schema
+ 
+-## Exact flow
++At startup, the existing `updates` table receives only missing nullable columns, in a fixed order:
+ 
+-`Telegram getUpdates polling → exact discussion/tester/trigger admission → replay claim → per-discussion-thread history → bounded Entity bootstrap + OpenAI Responses API → Telegram sendMessage to the same chat/thread → committed turn`
++| Column | Exact source |
++|---|---|
++| `inbound_message_id` | admitted `Update.message.message_id` |
++| `message_thread_id` | admitted `Update.message.message_thread_id`, or runtime default `0` |
++| `direct_topic_id` | admitted `Update.message.direct_messages_topic.topic_id`, or runtime default `0` |
++| `trigger_class` | deterministic bounded classification |
++| `outbound_message_id` | `sendMessage.result.message_id` |
++| `returned_chat_id` | `sendMessage.result.chat.id` |
++| `returned_message_thread_id` | optional `sendMessage.result.message_thread_id` |
++| `returned_direct_topic_id` | optional `sendMessage.result.direct_messages_topic.topic_id` |
++| `returned_is_topic_message` | optional `sendMessage.result.is_topic_message` |
+ 
+-The provider request remains the predecessor contract: `instructions`, visible message-array `input`, `max_output_tokens`, `store=false`, and `tools=[]`. Only completed assistant `output_text` is accepted. A reasoning-only response produces the configured visible fallback.
++The official Bot API defines successful `sendMessage` as returning a `Message`; `Message` contains `message_id`, `chat`, optional `message_thread_id`, optional `direct_messages_topic`, and optional `is_topic_message`. Therefore `returned_direct_topic_id` is a local projection name, not an invented Telegram field: it is read only from `result.direct_messages_topic.topic_id`.
+ 
+-## Trigger semantics
++Migration is deterministic and idempotent. It performs no table replacement, deletion, backfill guess, transcript rewrite, or legacy-state coercion. Existing r0.2 rows and messages remain readable; their new fields remain `NULL` because the original raw routing evidence does not exist.
+ 
+-An allowlisted tester turn is explicit when at least one condition is true:
++The machine-readable field and migration contract is in `ROUTING-OBSERVABILITY-SCHEMA.json`.
+ 
+-- `reply_to_message.from.id == 8866633840`;
+-- a Telegram `message.entities` item of type `mention` resolves by Telegram UTF-16 offsets to exact `@WBNP_Media_Bot`, case-insensitively;
+-- a `bot_command` entity resolves to exact `/ask` or `/ask@WBNP_Media_Bot`, case-insensitively.
++## Trigger classification
+ 
+-The accepted mention/command token is removed before the visible user text is added to dialogue history. Empty addressed text is rejected. Reply-to-someone-else, a lookalike username, malformed entity offsets and ambient text do not open a provider call.
++Persisted enum:
+ 
+-The implementation deliberately does not infer a trigger from arbitrary substring matching.
++- `reply-to-bot`;
++- `command`;
++- `exact-mention`.
+ 
+-## Preserved behavior
++`reply-to-bot` takes classification precedence when present. Otherwise the first valid command/mention entity in Telegram's ordered entity list supplies the class, exactly preserving the predecessor's token-selection behavior. This classifies an already admitted event; it does not widen admission.
+ 
+-- Long polling only; no public listener or webhook runtime.
+-- Root-controlled numeric tester allowlist.
+-- Conversation key derived from exact chat, `message_thread_id`, and direct-topic ID when supplied.
+-- Same thread retains bounded visible multi-turn history; distinct topics/threads remain isolated.
+-- Exact update replay creates no second provider/send effect.
+-- Same `update_id` with changed canonical bytes is a conflict.
+-- In-progress or uncertain effect remains `manual_reconciliation_required` / `OUTCOME_UNKNOWN`; no blind retry.
+-- SQLite stores bounded visible transcript, opaque conversation key, replay state and poll cursor.
+-- No raw update, username, display name, provider raw response/error, token or API key persistence/logging.
+-- Dialogue output creates no project, task, writer, production or acceptance authority.
+-- Existing systemd `LoadCredential` mechanism is unchanged.
++## Effect ordering and uncertainty
+ 
+-## Files
++The sequence remains:
++
++1. claim the exact update;
++2. obtain provider candidate;
++3. durably mark `SENDING`;
++4. call `sendMessage` once;
++5. validate the bounded returned route;
++6. atomically commit transcript plus routing projection.
++
++If Telegram returns success but step 5 or 6 fails, the update becomes `OUTCOME_UNKNOWN` with `reply_routing_persistence_failed` (or the fallback equivalent). An identical replay returns `manual_reconciliation_required`; it cannot call the provider or `sendMessage` again. If even the uncertainty write is unavailable, the pre-send durable `SENDING` state still blocks a blind retry on recovery.
++
++A returned chat mismatch, or a returned thread/direct-topic mismatch when Telegram supplies that optional field, is fail-closed uncertainty rather than a successful commit.
++
++## Privacy boundary
++
++Persisted/logged routing evidence excludes:
++
++- raw Update JSON;
++- the full returned Telegram Message;
++- usernames and display names;
++- unrelated identities;
++- raw provider response;
++- credentials.
++
++The predecessor's bounded visible dialogue transcript remains unchanged; this extension does not add raw content to observability storage.
+ 
+-- `dialogue_mvp.py` — corrected exact discussion admission and explicit trigger parser plus preserved runtime.
+-- `test_dialogue_mvp.py` — offline fake-transport suite.
+-- `config.example.json` — closed r0.2 config with frozen bot/discussion identities.
+-- `UPGRADE.md` — exact install/verify/rollback delta from installed r0.1.
+-- `PREDECESSOR-DIFF.patch` — exact non-generated file diff against immutable r0.1.
+-- `entity_bootstrap.txt` — unchanged bounded Entity bootstrap.
+-- `testers.allow.example` — unchanged synthetic numeric tester fixture.
+-- `wellbeing-telegram-single-entity-pilot.service` — same service/credential contour, versioned package path.
+-- `MANIFEST.json`, `SHA256SUMS`, `SELFTEST.json` — package integrity and test evidence.
++## Read-only diagnostic
++
++After a future reviewed installation/migration, SIS can inspect one update without credentials or network access:
++
++```sh
++python3 -I -B dialogue_mvp.py diagnose-routing \
++  --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json \
++  --update-id 560511152
++```
++
++The SQLite connection uses read-only mode and returns exactly the fields listed in `Store.DIAGNOSTIC_FIELDS`. It does not migrate or mutate the database. Missing update IDs return only the same bounded projection with `state=NOT_FOUND` and `error_class=update_not_found`.
+ 
+ ## Offline verification
+ 
+-Run only from a disposable package copy:
++Commands used on the candidate copy:
+ 
+ ```sh
+ python3 -I -B test_dialogue_mvp.py
+@@ -87,35 +122,25 @@
+ sha256sum -c SHA256SUMS
+ ```
+ 
+-The 24 fake-transport tests cover the exact discussion chat, foreign chat rejection, tester rejection, ambient ignore, mention, command, reply-to-bot, UTF-16 entity offsets, multi-turn same-thread state, thread isolation, replay, collision, bounded input/history, fallback, `OUTCOME_UNKNOWN`, privacy-safe logs, poll cursor/request and unchanged OpenAI response-shape rules.
+-
+-These are offline implementation tests. They do not prove live Bot API delivery, Telegram privacy-mode behavior, provider success, deployment or user acceptance.
++The suite includes all 24 predecessor tests plus T1–T9 coverage for key stability/isolation, all trigger classes, minimal send projection, fail-closed post-send persistence failure, privacy, idempotent r0.2 migration, and the bounded read-only diagnostic. These are fake-transport/offline tests only.
+ 
+-## Deployment boundary
+-
+-The independently reviewed predecessor is installed on `ruvds-xnqc6`, inactive and disabled. This package does not mutate that host.
+-
+-The next SIS step may independently review exact bytes and prepare/install the versioned package in **install/verify-only** mode. Starting or enabling the service, checking/removing a webhook, reading credentials, calling Telegram/OpenAI, changing Telegram rights or running a live turn require separate exact authority.
+-
+-The exact target changes are documented in `UPGRADE.md`. In summary:
+-
+-- new immutable code root: `/opt/wellbeing/telegram-single-entity-mvp-r02`;
+-- existing state DB, allowlist, protected credential slots and service name remain unchanged;
+-- runtime schema becomes `TELEGRAM_ENTITY_DIALOGUE_MVP_R02` and adds exact bot/discussion/trigger bindings;
+-- systemd `WorkingDirectory` and `ExecStart` move from the r0.1 code root to the r0.2 code root;
+-- rollback restores the preserved r0.1 unit/config bytes and leaves state/secrets untouched.
++## Files
+ 
+-## Next causal gate
++- `dialogue_mvp.py` — runtime candidate, additive migration and diagnostic command.
++- `test_dialogue_mvp.py` — predecessor and routing-observability offline tests.
++- `ROUTING-OBSERVABILITY-SCHEMA.json` — exact additive field/migration/privacy contract.
++- `UPGRADE.md` — future SIS install/readiness boundary.
++- `PREDECESSOR-DIFF.patch` — exact diff against immutable r0.2 source/package files.
++- unchanged config/bootstrap/allowlist/unit fixtures.
++- `SELFTEST.json`, `MANIFEST.json`, `SHA256SUMS` — reproducibility evidence.
+ 
+-`SIS_TELEGRAM_DISCUSSION_ADMISSION_CORRECTION_R02_INDEPENDENT_REVIEW_AND_INSTALL_VERIFY`
++## Limits and next gate
+ 
+-Scope: exact package/readback, 24-test reproduction, config/unit/diff review, and install/verify-only preparation or execution under a NEW exact SIS task. No service start and no live call.
++This package proves only offline candidate behavior. It does not prove Telegram UI placement, live returned-message fields, installation, migration on the host, credential availability, service readiness, or a successful live turn.
+ 
+-Only after that PASS may KOO return a separately bounded live-activation decision to OPERATOR.
++Next and only gate: independent SIS review/install-readiness. It must reproduce package identities and offline tests, review additive migration and read-only diagnostics, and decide a separately authorized install/verify task. It must not start the service or perform a live call under this result.
+ 
+ ---
+ КТО: KOD / КОДЕР v0.5
+-ДЛЯ ЧЕГО: correction-only linked-discussion admission successor
+-СТАТУС: READY_FOR_INDEPENDENT_SIS_REVIEW; NOT_DEPLOYED; LIVE_CALLS_ZERO
+-approval_status: candidate_only
+-responsibility_boundary: offline code/package correction; no host, credential, Telegram, provider or governance mutation
++ДЛЯ ЧЕГО: privacy-safe Telegram routing observability candidate
++СТАТУС: CANDIDATE_NOT_INSTALLED; READY_FOR_INDEPENDENT_SIS_REVIEW; LIVE_CALLS_ZERO
+--- a/UPGRADE.md
++++ b/UPGRADE.md
+@@ -1,98 +1,65 @@
+-# Upgrade contract: installed dialogue MVP r0.1 → discussion admission r0.2
++# Future SIS install-readiness contract: discussion runtime r0.2 → routing observability r0.1
+ 
+-Status: reviewable procedure only. Not executed by KOD.
++Status: `DOCUMENTED_NOT_EXECUTED`.
+ 
+-## Preconditions for a future SIS task
++This document is not deployment authority. The KOD task authorized only an offline candidate.
+ 
+-- exact host is `ruvds-xnqc6`;
+-- service `wellbeing-telegram-single-entity-pilot.service` is inactive and disabled before mutation;
+-- immutable r0.2 package identity and checksums pass independent readback;
+-- current r0.1 unit and runtime config bytes are preserved before replacement;
+-- a NEW exact SIS task authorizes only the named install/verify mutations;
+-- no service start, credential read, Telegram call or OpenAI call is implied.
+-
+-Any mismatch stops the upgrade.
+-
+-## Exact target delta
+-
+-| Object | r0.1 | r0.2 | Action |
+-|---|---|---|---|
+-| code root | `/opt/wellbeing/telegram-single-entity-mvp-r01` | `/opt/wellbeing/telegram-single-entity-mvp-r02` | create versioned root; do not overwrite r0.1 |
+-| runtime schema | `TELEGRAM_ENTITY_DIALOGUE_MVP_R01` | `TELEGRAM_ENTITY_DIALOGUE_MVP_R02` | replace config only after preserved pre-state |
+-| admitted chat type | `private` | `supergroup` | exact replacement |
+-| admitted chat | tester ID reused as chat ID | `-1002429106148` | add frozen `discussion_chat_id` |
+-| bot identity | absent | ID `8866633840`, username `WBNP_Media_Bot` | add frozen fields |
+-| activation | any admitted private text | reply-to-bot, exact mention, or exact `/ask` command | add explicit trigger gate |
+-| service code path | r0.1 root | r0.2 root | replace only `WorkingDirectory` and `ExecStart` paths |
+-| service name | unchanged | unchanged | no new service |
+-| state DB | existing path | unchanged | preserve; no delete/reset |
+-| tester allowlist | existing protected file | unchanged | preserve; contains user IDs, not chat ID |
+-| credential slots | existing systemd sources | unchanged | preserve; values must not be read or printed |
+-
+-No migration of the SQLite schema is required: tables and state encoding remain compatible. r0.2 changes the conversation-key domain label, so new discussion turns do not collide with old private-chat transcript keys.
+-
+-## Runtime config delta
+-
+-Apply these semantic changes to the independently read-back current config:
+-
+-```diff
+--  "allowed_chat_types": ["private"],
+-+  "activation_command": "ask",
+-+  "allowed_chat_types": ["supergroup"],
+-+  "bot_user_id": 8866633840,
+-+  "bot_username": "WBNP_Media_Bot",
+-+  "discussion_chat_id": -1002429106148,
+--  "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r01/entity_bootstrap.txt",
+-+  "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r02/entity_bootstrap.txt",
+--  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R01",
+-+  "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R02",
+-```
++## Preconditions for a separate SIS task
+ 
+-All other keys and bounds remain unchanged. Unknown keys, another chat/bot identity, another command or a missing field fail config validation.
++- independently verify the immutable package and all checksums;
++- independently reproduce the offline suite;
++- verify the exact installed predecessor code/config/database identities;
++- verify the service is inactive and disabled;
++- preserve exact pre-state and a rollback source;
++- authorize only named install/migration/readback operations;
++- do not read credential values, start the service, or call Telegram/OpenAI.
+ 
+-## Unit delta
++Any mismatch is a stop.
+ 
+-```diff
+--Description=Wellbeing Telegram single-Entity closed pilot r0.1
+-+Description=Wellbeing Telegram single-Entity discussion pilot r0.2
+--WorkingDirectory=/opt/wellbeing/telegram-single-entity-mvp-r01
+--ExecStart=/usr/bin/python3 -I -B /opt/wellbeing/telegram-single-entity-mvp-r01/dialogue_mvp.py poll --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json
+-+WorkingDirectory=/opt/wellbeing/telegram-single-entity-mvp-r02
+-+ExecStart=/usr/bin/python3 -I -B /opt/wellbeing/telegram-single-entity-mvp-r02/dialogue_mvp.py poll --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json
+-```
++## Intended delta
++
++Only `dialogue_mvp.py` changes at runtime. Configuration schema, provider/model, allowlist, credential slots, admission identities, polling and systemd unit remain unchanged.
+ 
+-`LoadCredential`, principal, hardening, state directory, network families, restart policy and service name remain unchanged.
++The first writable startup on the reviewed candidate performs the additive SQLite migration in `Store._migrate_routing_schema`. It adds missing nullable columns from `ROUTING-OBSERVABILITY-SCHEMA.json`. Re-running the migration is a no-op. It does not rewrite legacy rows or messages.
+ 
+-## Future install/verify-only sequence
++The future SIS verification must prove on a preserved disposable database copy before any installed-state migration:
+ 
+-The exact SIS implementation may use equivalent fail-closed operations, but it must prove the same states:
++1. exact r0.2 schema and history remain readable;
++2. all nine columns are added once;
++3. a second run makes no schema/data change;
++4. legacy values are not guessed or backfilled;
++5. current conversation keys and transcript rows are unchanged;
++6. malformed/unexpected database state fails closed;
++7. the diagnostic command opens the database read-only and needs no credentials;
++8. service remains inactive and disabled.
++
++## Diagnostic command after reviewed migration
++
++```sh
++python3 -I -B /opt/wellbeing/telegram-single-entity-mvp-r02/dialogue_mvp.py \
++  diagnose-routing \
++  --config /etc/wellbeing/telegram-single-entity-pilot/runtime.json \
++  --update-id UPDATE_ID
++```
+ 
+-1. Read service active/enabled state and stop on any unexpected activity.
+-2. Read and preserve exact current unit/config bytes plus their SHA-256 identities without reading credential values.
+-3. Create `/opt/wellbeing/telegram-single-entity-mvp-r02` with the existing owner/group/mode contract.
+-4. Install only `dialogue_mvp.py` and `entity_bootstrap.txt` from the verified package.
+-5. Materialize the exact r0.2 runtime config while preserving the tester allowlist, state DB and credential slots.
+-6. Install the reviewed r0.2 unit bytes.
+-7. Run package checksum verification, 24 offline tests, `py_compile`, `systemd-analyze verify`, and unprivileged `check-config`.
+-8. Run `systemctl daemon-reload` only if exact task authority permits this named unit mutation.
+-9. Verify service remains inactive and disabled.
+-10. Publish a sanitized result with pre/post identities. Do not start the service.
++The existing code-root name may be retained only if SIS proves exact versioned-byte placement and rollback. A new versioned root is preferable but is not selected by this package.
+ 
+-## Rollback contract
++## Rollback
+ 
+-Rollback is a separate named action within the future exact SIS authority. It restores the preserved r0.1 unit/config bytes, runs `daemon-reload`, verifies the r0.1 config against the preserved r0.1 code root, and confirms the service remains inactive/disabled.
++Rollback requires the separately preserved predecessor bytes and database pre-state. Because SQLite `ALTER TABLE ADD COLUMN` is additive, restoring only the predecessor code while leaving added nullable columns is expected to be compatible, but SIS must prove that against an exact disposable copy before relying on it. If exact pre-state or proof is unavailable, rollback is `BLOCKED_PRESTATE_MISMATCH`, not inferred.
+ 
+-Rollback must not:
++Rollback must not delete the state database, transcript, allowlist, credentials, or either code version.
+ 
+-- delete either versioned code root;
+-- delete/reset the SQLite state;
+-- read, rewrite or expose credential values;
+-- change the tester allowlist;
+-- start or enable the service.
++## Explicitly outside this gate
+ 
+-If exact predecessor bytes were not preserved or do not match their recorded identities, rollback is `BLOCKED_PRESTATE_MISMATCH`, not guessed reconstruction.
++- service start/enable;
++- live `getUpdates` or `sendMessage`;
++- OpenAI request;
++- credential readout;
++- Telegram rights/webhook changes;
++- allowlist/admission/provider/model/conversation-key changes;
++- replay of r0.1/r0.2/r0.3 live authorities.
+ 
+ ---
+ КТО: KOD / КОДЕР v0.5
+-ДЛЯ ЧЕГО: exact install/verify/rollback delta for SIS review
+-СТАТУС: DOCUMENTED_NOT_EXECUTED
++СТАТУС: INSTALL_READINESS_CONTRACT_ONLY; CANDIDATE_NOT_INSTALLED
+--- /dev/null
++++ b/ROUTING-OBSERVABILITY-SCHEMA.json
+@@ -0,0 +1,46 @@
++{
++  "additive_columns": [
++    {"name": "inbound_message_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "Update.message.message_id"},
++    {"name": "message_thread_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "Update.message.message_thread_id or runtime 0 default"},
++    {"name": "direct_topic_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "Update.message.direct_messages_topic.topic_id or runtime 0 default"},
++    {"enum": ["reply-to-bot", "command", "exact-mention"], "name": "trigger_class", "sqlite_type": "TEXT", "nullable_for_legacy": true},
++    {"name": "outbound_message_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.message_id"},
++    {"name": "returned_chat_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.chat.id"},
++    {"name": "returned_message_thread_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.message_thread_id when returned"},
++    {"name": "returned_direct_topic_id", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.direct_messages_topic.topic_id when returned"},
++    {"name": "returned_is_topic_message", "sqlite_type": "INTEGER", "nullable_for_legacy": true, "source": "sendMessage.result.is_topic_message when returned"}
++  ],
++  "conversation_key_contract": "SHA256(UTF8('tg-dialogue-r02\\0' + decimal(chat_id) + '\\0' + decimal(message_thread_id) + '\\0' + decimal(direct_topic_id)))",
++  "diagnostic_fields": [
++    "update_id",
++    "inbound_message_id",
++    "message_thread_id",
++    "direct_topic_id",
++    "trigger_class",
++    "conversation_key",
++    "outbound_message_id",
++    "returned_chat_id",
++    "returned_message_thread_id",
++    "returned_direct_topic_id",
++    "returned_is_topic_message",
++    "state",
++    "error_class"
++  ],
++  "forbidden_persistence": [
++    "raw Update JSON",
++    "full Telegram Message object",
++    "usernames",
++    "display names",
++    "unrelated identities",
++    "raw provider response",
++    "credentials"
++  ],
++  "migration": {
++    "destructive_rewrite": false,
++    "idempotent": true,
++    "legacy_rows": "preserved; additive fields remain NULL",
++    "method": "ordered ALTER TABLE ADD COLUMN for missing columns only"
++  },
++  "schema": "TELEGRAM_ROUTING_OBSERVABILITY_R01",
++  "status": "CANDIDATE_NOT_INSTALLED"
++}
+
