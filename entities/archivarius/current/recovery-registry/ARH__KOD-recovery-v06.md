@@ -1,0 +1,24 @@
+# ARH recovery registry — KOD recovery v0.6
+
+status: EXTERNALLY_PRESERVED_READBACK_PASS
+entity: KOD / КОДЕР
+source_writer: entities/koder/current/KOD__replacement-current-writer-v05.md
+source_writer_commit: df92a8bfcce29294332f6e4de3391a3e7966adfd
+source_writer_blob: cf1c84f9df7c90509703e4885844d0cf871ff412
+source_candidate: puev5691/wellbeing-hq@b6653570a4599ffa9f65d5afa7cde64e203704d4:entities/koder/outbox/kod-recovery-v06-candidate
+external_locator: puev5691/wellbeing-entity-bootstrap@51704f5eb7a4bf43210c9760905f486a2e58b5ce:entities/kod/recovery/versions/kod-recovery-v06
+composition: 5/5 PASS
+publication_tree: 622475450a4e3634e38e2c50276a992c6b2598a2
+publication_readback: 5/5 PASS
+manifest_blob: 5a4d7ff4c3b75827b2111bf6485df3258bbd5f54
+manifest_sha256: 346c448eedfbe6508135774b2d8acb948715bc94b910b686b4d158c788f1dc06
+checksums_blob: e809edc4d1cb5576af5c800efe1ae243bf9c8450
+checksums_sha256: 942329e4326a282c8688964aee5aedacbf46d2212ac2cdd350dde04bc94de455
+substantive_sha256_check: 3/3 PASS_FROM_SELF_CHECK_PLUS_BYTE_IDENTICAL_EXTERNAL_BLOBS
+external_blob_identity: 5/5 PASS
+secret_scan: PASS_NO_SECRET_VALUE_PATTERN_FOUND
+historical_replay: forbidden
+replacement_writer_appointed: no
+writer_freeze_performed: no
+
+Recoverability: READY_FOR_REPLACEMENT_COLD_START_AFTER_SEPARATE_HANDOFF_FREEZE_AUTHORITY. Fresh HQ/task/route reconciliation remains mandatory.
