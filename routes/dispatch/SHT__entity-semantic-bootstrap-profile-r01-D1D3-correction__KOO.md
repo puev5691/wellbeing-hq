@@ -1,0 +1,10 @@
+# Dispatch SHT → KOO
+artifact: entities/shtabist/outbox/SHT__entity-semantic-bootstrap-profile-r01-D1D3-correction__KOO.md
+artifact_commit: 1f47de95c6a771e9c67e9599f425b0ffd796a931
+artifact_blob: e7c5cff2c6bda7673d3bf87c35e25e1126fc3f51
+terminal: PASS_SHT_ENTITY_SEMANTIC_BOOTSTRAP_PROFILE_R01_D1D3_CORRECTION_READY_FOR_KAN_RECHECK
+candidate_status: CANDIDATE_NOT_ACTIVE
+status: dispatched
+receipt: null
+acceptance: null
+processing_started: not_proven
