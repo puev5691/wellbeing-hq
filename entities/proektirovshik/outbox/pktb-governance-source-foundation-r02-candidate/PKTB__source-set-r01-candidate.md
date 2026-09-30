@@ -15,7 +15,7 @@ project_time: omitted
 wellbeing-hq@ae893e353797f7b259dc2779da760b5d943a78ee:entities/koordinator/outbox/KOO__PKTB-PRO-approved-foundation-r01__PROJECT.md; blob 62a5a65422ac9144aaf2215dce3157f3debb62a3.
 
 ## PKTB_CANDIDATE_LOCAL
-All eight files in pktb-governance-source-foundation-r02-candidate/. Every component remains CANDIDATE_ONLY_NOT_ACTIVE until explicit OPERATOR approval and separate exact source activation/install task with immutable readback.
+All nine governance/profile files in pktb-governance-source-foundation-r02-candidate/, including PKTB__information-field-design-r01-candidate.md. Every component remains CANDIDATE_ONLY_NOT_ACTIVE until explicit OPERATOR approval and separate exact source activation/install task with immutable readback.
 
 ## TASK_SPECIFIC
 Standards, regulations, manufacturer docs, datasheets, manuals, CAD/drawings/BOM, measurements, logs/photos, local evidence, web/market/community evidence loaded per exact task. Use does not activate them as Project Sources.
