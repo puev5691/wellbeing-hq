@@ -1,0 +1,3516 @@
+--- a/dialogue_mvp.py
++++ b/dialogue_mvp.py
+@@ -1,1039 +1,1051 @@
+-#!/usr/bin/env python3
+-"""Closed-pilot Telegram discussion runtime with routing observability + conversation-root r0.1 implementation candidate.
+-
+-Python 3.10+, standard library only. Network transports are dependency-injected;
+-offline tests use fakes and perform no network or credential access.
+-"""
+-from __future__ import annotations
+-
+-import argparse
+-import hashlib
+-import io
+-import json
+-import os
+-import sqlite3
+-import ssl
+-import sys
+-import threading
+-import time
+-import urllib.error
+-import urllib.request
+-from dataclasses import dataclass
+-from pathlib import Path
+-from typing import Any, Protocol, TextIO
+-
+-SCHEMA = "TELEGRAM_ENTITY_DIALOGUE_MVP_R02"
+-MAX_PROVIDER_RESPONSE_BYTES = 65_536
+-TELEGRAM_TEXT_LIMIT = 4096
+-CREDENTIAL_SLOTS = ("telegram_bot_token", "openai_api_key")
+-VERIFIED_DISCUSSION_CHAT_ID = -1002429106148
+-VERIFIED_BOT_USER_ID = 8866633840
+-VERIFIED_BOT_USERNAME = "WBNP_Media_Bot"
+-ACTIVATION_COMMAND = "ask"
+-TRIGGER_CLASSES = ("reply-to-bot", "command", "exact-mention")
+-ROOT_ID_DOMAIN = "tg-conversation-root-r01"
+-ROOT_CONVERSATION_KEY_DOMAIN = "tg-dialogue-root-r01"
+-ROOT_DERIVATION_CLASSES = (
+-    "OBSERVED_LINKED_THREAD_ANCHOR",
+-    "PROVEN_OUTBOUND_LINEAGE",
+-    "SAME_ROOT_OBSERVATION",
+-    "ISOLATED_UNRESOLVED",
+-)
+-
+-
+-class BoundaryError(RuntimeError):
+-    pass
+-
+-
+-class InputRejected(ValueError):
+-    pass
+-
+-
+-class InputIgnored(ValueError):
+-    pass
+-
+-
+-class ProviderFailure(RuntimeError):
+-    pass
+-
+-
+-class TelegramFailure(RuntimeError):
+-    pass
+-
+-
+-def _require_exact_int(value: Any, code: str) -> int:
+-    if type(value) is not int:
+-        raise InputRejected(code)
+-    return value
+-
+-
+-def canonical_bytes(value: Any) -> bytes:
+-    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
+-
+-
+-def digest(value: Any) -> str:
+-    return hashlib.sha256(canonical_bytes(value)).hexdigest()
+-
+-
+-def clip_telegram_text(text: str) -> str:
+-    if type(text) is not str or not text.strip():
+-        raise ProviderFailure("assistant_text_missing")
+-    text = text.strip()
+-    return text if len(text) <= TELEGRAM_TEXT_LIMIT else text[: TELEGRAM_TEXT_LIMIT - 1] + "…"
+-
+-
+-@dataclass(frozen=True)
+-class Config:
+-    environment: str
+-    database_path: str
+-    testers_allow_path: str
+-    allowed_user_ids: tuple[int, ...]
+-    allowed_chat_ids: tuple[int, ...]
+-    allowed_chat_types: tuple[str, ...]
+-    discussion_chat_id: int
+-    bot_user_id: int
+-    bot_username: str
+-    activation_command: str
+-    model: str
+-    max_output_tokens: int
+-    provider_timeout_seconds: int
+-    telegram_timeout_seconds: int
+-    poll_timeout_seconds: int
+-    poll_retry_seconds: int
+-    max_input_bytes: int
+-    max_history_messages: int
+-    max_history_bytes: int
+-    max_update_records_per_conversation: int
+-    fallback_text: str
+-    entity_bootstrap_path: str
+-
+-    @classmethod
+-    def from_dict(cls, raw: Any, allowed_ids: tuple[int, ...]) -> "Config":
+-        expected = {
+-            "schema", "environment", "database_path", "testers_allow_path", "allowed_chat_types",
+-            "discussion_chat_id", "bot_user_id", "bot_username", "activation_command",
+-            "model", "max_output_tokens", "provider_timeout_seconds", "telegram_timeout_seconds",
+-            "poll_timeout_seconds", "poll_retry_seconds", "max_input_bytes", "max_history_messages",
+-            "max_history_bytes", "max_update_records_per_conversation", "fallback_text", "entity_bootstrap_path",
+-        }
+-        if type(raw) is not dict or set(raw) != expected or raw.get("schema") != SCHEMA:
+-            raise BoundaryError("config_schema_invalid")
+-        if raw["environment"] not in ("closed_pilot", "test"):
+-            raise BoundaryError("environment_invalid")
+-        if type(raw["database_path"]) is not str or not raw["database_path"].startswith("/"):
+-            raise BoundaryError("database_path_must_be_absolute")
+-        if type(raw["testers_allow_path"]) is not str or not raw["testers_allow_path"].startswith("/"):
+-            raise BoundaryError("testers_allow_path_must_be_absolute")
+-        if type(allowed_ids) is not tuple or not allowed_ids or any(type(x) is not int for x in allowed_ids) or len(allowed_ids) != len(set(allowed_ids)):
+-            raise BoundaryError("tester_allowlist_invalid")
+-        if raw["allowed_chat_types"] != ["supergroup"]:
+-            raise BoundaryError("allowed_chat_types_invalid")
+-        if type(raw["discussion_chat_id"]) is not int or raw["discussion_chat_id"] != VERIFIED_DISCUSSION_CHAT_ID:
+-            raise BoundaryError("discussion_chat_id_invalid")
+-        if type(raw["bot_user_id"]) is not int or raw["bot_user_id"] != VERIFIED_BOT_USER_ID:
+-            raise BoundaryError("bot_user_id_invalid")
+-        if type(raw["bot_username"]) is not str or raw["bot_username"] != VERIFIED_BOT_USERNAME:
+-            raise BoundaryError("bot_username_invalid")
+-        if type(raw["activation_command"]) is not str or raw["activation_command"] != ACTIVATION_COMMAND:
+-            raise BoundaryError("activation_command_invalid")
+-        if type(raw["model"]) is not str or not raw["model"].strip():
+-            raise BoundaryError("model_invalid")
+-        limits = {
+-            "max_output_tokens": (64, 4096), "provider_timeout_seconds": (1, 120),
+-            "telegram_timeout_seconds": (1, 60), "max_input_bytes": (1, 16384),
+-            "max_history_messages": (2, 64), "max_history_bytes": (1024, 262144),
+-            "poll_timeout_seconds": (1, 50), "poll_retry_seconds": (1, 60),
+-            "max_update_records_per_conversation": (64, 4096),
+-        }
+-        for name, (low, high) in limits.items():
+-            value = raw[name]
+-            if type(value) is not int or not low <= value <= high:
+-                raise BoundaryError(name + "_invalid")
+-        if type(raw["fallback_text"]) is not str or not raw["fallback_text"].strip() or len(raw["fallback_text"]) > TELEGRAM_TEXT_LIMIT:
+-            raise BoundaryError("fallback_text_invalid")
+-        if type(raw["entity_bootstrap_path"]) is not str or not raw["entity_bootstrap_path"].startswith("/"):
+-            raise BoundaryError("entity_bootstrap_path_must_be_absolute")
+-        return cls(
+-            environment=raw["environment"], database_path=raw["database_path"], testers_allow_path=raw["testers_allow_path"],
+-            allowed_user_ids=allowed_ids, allowed_chat_ids=(raw["discussion_chat_id"],),
+-            allowed_chat_types=tuple(raw["allowed_chat_types"]),
+-            discussion_chat_id=raw["discussion_chat_id"], bot_user_id=raw["bot_user_id"],
+-            bot_username=raw["bot_username"], activation_command=raw["activation_command"], model=raw["model"],
+-            max_output_tokens=raw["max_output_tokens"], provider_timeout_seconds=raw["provider_timeout_seconds"],
+-            telegram_timeout_seconds=raw["telegram_timeout_seconds"], poll_timeout_seconds=raw["poll_timeout_seconds"],
+-            poll_retry_seconds=raw["poll_retry_seconds"], max_input_bytes=raw["max_input_bytes"],
+-            max_history_messages=raw["max_history_messages"], max_history_bytes=raw["max_history_bytes"],
+-            max_update_records_per_conversation=raw["max_update_records_per_conversation"],
+-            fallback_text=raw["fallback_text"], entity_bootstrap_path=raw["entity_bootstrap_path"],
+-        )
+-
+-
+-class SafeLogger:
+-    """Allowlisted operational events only: no content, identity, token, URL or exception text."""
+-    EVENTS = {"request", "provider", "telegram", "runtime"}
+-    OUTCOMES = {"accepted", "rejected", "ignored", "complete", "fallback", "duplicate", "conflict", "uncertain", "ready", "stopped"}
+-
+-    def __init__(self, stream: TextIO | None = None):
+-        self.stream = stream if stream is not None else io.StringIO()
+-
+-    def emit(self, event: str, outcome: str, status: int = 0) -> None:
+-        if event not in self.EVENTS or outcome not in self.OUTCOMES or type(status) is not int or status < 0:
+-            raise BoundaryError("log_value_not_allowlisted")
+-        self.stream.write(json.dumps({"event": event, "outcome": outcome, "status": status}, sort_keys=True, separators=(",", ":")) + "\n")
+-        self.stream.flush()
+-
+-
+-@dataclass(frozen=True)
+-class InboundMessage:
+-    update_id: int
+-    message_id: int
+-    chat_id: int
+-    user_id: int
+-    chat_type: str
+-    thread_id: int
+-    direct_topic_id: int
+-    trigger_class: str
+-    reply_to_message_id: int | None
+-    reply_to_message_thread_id: int | None
+-    text: str
+-    update_digest: str
+-
+-    @property
+-    def conversation_key(self) -> str:
+-        """Historical r0.2 tuple key retained as immutable routing evidence."""
+-        return hashlib.sha256(f"tg-dialogue-r02\0{self.chat_id}\0{self.thread_id}\0{self.direct_topic_id}".encode()).hexdigest()
+-
+-    @property
+-    def root_mode(self) -> str:
+-        return "linked_discussion" if self.direct_topic_id == 0 else "direct_topic"
+-
+-
+-@dataclass(frozen=True)
+-class RootDecision:
+-    stable_conversation_root_id: str
+-    root_conversation_key: str
+-    root_derivation_class: str
+-    root_evidence_update_id: int
+-
+-
+-def stable_root_id(mode: str, chat_id: int, direct_topic_id: int, anchor_class: str, anchor_id: int) -> str:
+-    if mode not in ("linked_discussion", "direct_topic", "forum"):
+-        raise BoundaryError("root_mode_invalid")
+-    if type(chat_id) is not int or type(direct_topic_id) is not int or type(anchor_id) is not int or anchor_id <= 0:
+-        raise BoundaryError("root_anchor_invalid")
+-    if mode == "linked_discussion" and direct_topic_id != 0:
+-        raise BoundaryError("root_mode_topic_conflict")
+-    if mode == "direct_topic" and direct_topic_id <= 0:
+-        raise BoundaryError("root_mode_topic_conflict")
+-    descriptor = f"{ROOT_ID_DOMAIN}\0{mode}\0{chat_id}\0{direct_topic_id}\0{anchor_class}\0{anchor_id}"
+-    return hashlib.sha256(descriptor.encode()).hexdigest()
+-
+-
+-def root_conversation_key(stable_conversation_root_id: str) -> str:
+-    if type(stable_conversation_root_id) is not str or len(stable_conversation_root_id) != 64:
+-        raise BoundaryError("stable_root_invalid")
+-    return hashlib.sha256((ROOT_CONVERSATION_KEY_DOMAIN + "\0" + stable_conversation_root_id).encode()).hexdigest()
+-
+-
+-def _utf16_entity_slice(text: str, offset: Any, length: Any) -> tuple[str, tuple[int, int]]:
+-    if type(offset) is not int or type(length) is not int or offset < 0 or length <= 0:
+-        raise InputRejected("message_entity_invalid")
+-    encoded = text.encode("utf-16-le")
+-    start, end = offset * 2, (offset + length) * 2
+-    if end > len(encoded):
+-        raise InputRejected("message_entity_invalid")
+-    try:
+-        return encoded[start:end].decode("utf-16-le"), (start, end)
+-    except UnicodeDecodeError as exc:
+-        raise InputRejected("message_entity_invalid") from exc
+-
+-
+-def _remove_utf16_span(text: str, span: tuple[int, int]) -> str:
+-    encoded = text.encode("utf-16-le")
+-    return (encoded[:span[0]] + encoded[span[1]:]).decode("utf-16-le").strip()
+-
+-
+-def addressed_text(msg: dict[str, Any], text: str, config: Config) -> tuple[str, str]:
+-    reply = msg.get("reply_to_message")
+-    reply_to_bot = False
+-    if reply is not None:
+-        if type(reply) is not dict:
+-            raise InputRejected("reply_to_message_invalid")
+-        reply_sender = reply.get("from")
+-        if type(reply_sender) is dict and type(reply_sender.get("id")) is int:
+-            reply_to_bot = reply_sender["id"] == config.bot_user_id
+-
+-    entities = msg.get("entities", [])
+-    if type(entities) is not list:
+-        raise InputRejected("message_entities_invalid")
+-    trigger_span: tuple[int, int] | None = None
+-    entity_trigger_class: str | None = None
+-    target_mention = "@" + config.bot_username.casefold()
+-    bare_command = "/" + config.activation_command.casefold()
+-    targeted_command = bare_command + target_mention
+-    for entity in entities:
+-        if type(entity) is not dict or type(entity.get("type")) is not str:
+-            raise InputRejected("message_entity_invalid")
+-        value, span = _utf16_entity_slice(text, entity.get("offset"), entity.get("length"))
+-        folded = value.casefold()
+-        if entity["type"] == "mention" and folded == target_mention:
+-            trigger_span = span
+-            entity_trigger_class = "exact-mention"
+-            break
+-        if entity["type"] == "bot_command" and folded in (bare_command, targeted_command):
+-            trigger_span = span
+-            entity_trigger_class = "command"
+-            break
+-    if not reply_to_bot and trigger_span is None:
+-        raise InputIgnored("group_message_not_addressed")
+-    trigger_class = "reply-to-bot" if reply_to_bot else entity_trigger_class
+-    if trigger_class not in TRIGGER_CLASSES:
+-        raise BoundaryError("trigger_class_invalid")
+-    cleaned = _remove_utf16_span(text, trigger_span) if trigger_span is not None else text.strip()
+-    if not cleaned:
+-        raise InputRejected("addressed_text_missing")
+-    return cleaned, trigger_class
+-
+-
+-def parse_update(raw: Any, config: Config) -> InboundMessage:
+-    if type(raw) is not dict or type(raw.get("update_id")) is not int or type(raw.get("message")) is not dict:
+-        raise InputRejected("text_message_required")
+-    msg = raw["message"]
+-    auto_forward = msg.get("is_automatic_forward", False)
+-    if type(auto_forward) is not bool:
+-        raise InputRejected("automatic_forward_flag_invalid")
+-    if auto_forward:
+-        # D1 Option B: automatic-forward capture is deferred and never enters dialogue flow.
+-        raise InputIgnored("automatic_forward_deferred")
+-    chat = msg.get("chat")
+-    sender = msg.get("from")
+-    if type(chat) is not dict or type(sender) is not dict or type(msg.get("text")) is not str:
+-        raise InputRejected("text_message_required")
+-    chat_id = _require_exact_int(chat.get("id"), "chat_id_invalid")
+-    user_id = _require_exact_int(sender.get("id"), "user_id_invalid")
+-    message_id = _require_exact_int(msg.get("message_id"), "message_id_invalid")
+-    chat_type = chat.get("type")
+-    if chat_type not in config.allowed_chat_types or chat_id != config.discussion_chat_id:
+-        raise InputRejected("discussion_chat_not_admitted")
+-    if user_id not in config.allowed_user_ids:
+-        raise InputRejected("tester_not_admitted")
+-    raw_text = msg["text"].strip()
+-    if not raw_text or len(raw_text.encode("utf-8")) > config.max_input_bytes:
+-        raise InputRejected("text_size_invalid")
+-    text, trigger_class = addressed_text(msg, raw_text, config)
+-    if len(text.encode("utf-8")) > config.max_input_bytes:
+-        raise InputRejected("text_size_invalid")
+-    thread_id = msg.get("message_thread_id", 0)
+-    if type(thread_id) is not int or thread_id < 0:
+-        raise InputRejected("thread_id_invalid")
+-    topic = msg.get("direct_messages_topic")
+-    direct_topic_id = 0
+-    if topic is not None:
+-        if type(topic) is not dict or type(topic.get("topic_id")) is not int or topic["topic_id"] <= 0:
+-            raise InputRejected("direct_topic_invalid")
+-        direct_topic_id = topic["topic_id"]
+-    reply = msg.get("reply_to_message")
+-    reply_to_message_id: int | None = None
+-    reply_to_message_thread_id: int | None = None
+-    if reply is not None:
+-        if type(reply) is not dict or type(reply.get("message_id")) is not int or reply["message_id"] <= 0:
+-            raise InputRejected("reply_to_message_invalid")
+-        reply_to_message_id = reply["message_id"]
+-        reply_thread = reply.get("message_thread_id")
+-        if reply_thread is not None:
+-            if type(reply_thread) is not int or reply_thread < 0:
+-                raise InputRejected("reply_to_message_thread_invalid")
+-            reply_to_message_thread_id = reply_thread
+-    return InboundMessage(raw["update_id"], message_id, chat_id, user_id, chat_type, thread_id,
+-                          direct_topic_id, trigger_class, reply_to_message_id, reply_to_message_thread_id,
+-                          text, digest(raw))
+-
+-
+-@dataclass(frozen=True)
+-class TelegramSendEvidence:
+-    """Privacy-safe projection of the Bot API Message returned by sendMessage."""
+-    returned_message_id: int
+-    returned_chat_id: int
+-    returned_message_thread_id: int | None
+-    returned_direct_topic_id: int | None
+-    returned_is_topic_message: bool | None
+-
+-
+-class Provider(Protocol):
+-    def respond(self, instructions: str, history: list[dict[str, str]]) -> str: ...
+-
+-
+-class Telegram(Protocol):
+-    def send_text(self, chat_id: int, thread_id: int, direct_topic_id: int, text: str) -> TelegramSendEvidence: ...
+-
+-
+-class JsonHttpsTransport:
+-    def post(self, url: str, headers: dict[str, str], body: dict[str, Any], timeout: int, max_bytes: int) -> dict[str, Any]:
+-        request = urllib.request.Request(url, data=canonical_bytes(body), headers=headers, method="POST")
+-        try:
+-            with urllib.request.urlopen(request, timeout=timeout, context=ssl.create_default_context()) as response:
+-                data = response.read(max_bytes + 1)
+-                if len(data) > max_bytes:
+-                    raise BoundaryError("response_too_large")
+-                if not 200 <= response.status < 300:
+-                    raise BoundaryError("remote_http_failure")
+-        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+-            raise BoundaryError("remote_transport_failure") from exc
+-        try:
+-            parsed = json.loads(data.decode("utf-8"))
+-        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+-            raise BoundaryError("remote_json_invalid") from exc
+-        if type(parsed) is not dict:
+-            raise BoundaryError("remote_json_invalid")
+-        return parsed
+-
+-
+-class OpenAIResponsesAdapter:
+-    ENDPOINT = "https://api.openai.com/v1/responses"
+-
+-    def __init__(self, api_key: bytes, model: str, max_output_tokens: int, timeout: int, transport: JsonHttpsTransport | None = None):
+-        if not api_key.strip():
+-            raise BoundaryError("openai_credential_empty")
+-        try:
+-            self.api_key = api_key.decode("utf-8")
+-        except UnicodeError as exc:
+-            raise BoundaryError("openai_credential_invalid") from exc
+-        self.model = model
+-        self.max_output_tokens = max_output_tokens
+-        self.timeout = timeout
+-        self.transport = transport or JsonHttpsTransport()
+-
+-    def respond(self, instructions: str, history: list[dict[str, str]]) -> str:
+-        body = {
+-            "model": self.model, "instructions": instructions, "input": history,
+-            "max_output_tokens": self.max_output_tokens, "store": False, "tools": [],
+-        }
+-        try:
+-            response = self.transport.post(self.ENDPOINT, {
+-                "Authorization": "Bearer " + self.api_key, "Content-Type": "application/json",
+-            }, body, self.timeout, MAX_PROVIDER_RESPONSE_BYTES)
+-        except BoundaryError as exc:
+-            raise ProviderFailure("provider_transport_failure") from exc
+-        if response.get("status") != "completed":
+-            raise ProviderFailure("provider_response_not_completed")
+-        if type(response.get("output")) is not list:
+-            raise ProviderFailure("provider_output_invalid")
+-        parts: list[str] = []
+-        for item in response.get("output", []):
+-            if type(item) is dict and item.get("type") == "message" and item.get("role") == "assistant":
+-                if type(item.get("content")) is not list:
+-                    raise ProviderFailure("provider_output_invalid")
+-                for content in item["content"]:
+-                    if type(content) is dict and content.get("type") == "output_text" and type(content.get("text")) is str:
+-                        parts.append(content["text"])
+-        return clip_telegram_text("".join(parts))
+-
+-
+-class TelegramBotAdapter:
+-    def __init__(self, bot_token: bytes, timeout: int, transport: JsonHttpsTransport | None = None):
+-        if not bot_token.strip():
+-            raise BoundaryError("telegram_credential_empty")
+-        try:
+-            self.bot_token = bot_token.decode("utf-8")
+-        except UnicodeError as exc:
+-            raise BoundaryError("telegram_credential_invalid") from exc
+-        self.timeout = timeout
+-        self.transport = transport or JsonHttpsTransport()
+-
+-    def get_updates(self, offset: int, poll_timeout: int) -> list[dict[str, Any]]:
+-        try:
+-            response = self.transport.post(
+-                f"https://api.telegram.org/bot{self.bot_token}/getUpdates",
+-                {"Content-Type": "application/json"},
+-                {"offset": offset, "limit": 10, "timeout": poll_timeout, "allowed_updates": ["message"]},
+-                poll_timeout + self.timeout, MAX_PROVIDER_RESPONSE_BYTES,
+-            )
+-        except BoundaryError as exc:
+-            raise TelegramFailure("get_updates_transport_failure") from exc
+-        result = response.get("result")
+-        if response.get("ok") is not True or type(result) is not list or any(type(x) is not dict for x in result):
+-            raise TelegramFailure("get_updates_failed")
+-        return result
+-
+-    def send_text(self, chat_id: int, thread_id: int, direct_topic_id: int, text: str) -> TelegramSendEvidence:
+-        body: dict[str, Any] = {"chat_id": chat_id, "text": clip_telegram_text(text)}
+-        if thread_id:
+-            body["message_thread_id"] = thread_id
+-        if direct_topic_id:
+-            body["direct_messages_topic_id"] = direct_topic_id
+-        try:
+-            response = self.transport.post(
+-                f"https://api.telegram.org/bot{self.bot_token}/sendMessage",
+-                {"Content-Type": "application/json"}, body, self.timeout, MAX_PROVIDER_RESPONSE_BYTES,
+-            )
+-        except BoundaryError as exc:
+-            raise TelegramFailure("send_message_transport_failure") from exc
+-        result = response.get("result")
+-        if response.get("ok") is not True or type(result) is not dict or type(result.get("message_id")) is not int:
+-            raise TelegramFailure("send_message_failed")
+-        chat = result.get("chat")
+-        if type(chat) is not dict or type(chat.get("id")) is not int:
+-            raise TelegramFailure("send_message_routing_evidence_invalid")
+-        returned_thread = result.get("message_thread_id")
+-        if returned_thread is not None and type(returned_thread) is not int:
+-            raise TelegramFailure("send_message_routing_evidence_invalid")
+-        returned_topic: int | None = None
+-        direct_topic = result.get("direct_messages_topic")
+-        if direct_topic is not None:
+-            if type(direct_topic) is not dict or type(direct_topic.get("topic_id")) is not int:
+-                raise TelegramFailure("send_message_routing_evidence_invalid")
+-            returned_topic = direct_topic["topic_id"]
+-        returned_is_topic = result.get("is_topic_message")
+-        if returned_is_topic is not None and type(returned_is_topic) is not bool:
+-            raise TelegramFailure("send_message_routing_evidence_invalid")
+-        return TelegramSendEvidence(
+-            returned_message_id=result["message_id"], returned_chat_id=chat["id"],
+-            returned_message_thread_id=returned_thread, returned_direct_topic_id=returned_topic,
+-            returned_is_topic_message=returned_is_topic,
+-        )
+-
+-
+-class Store:
+-    ROUTING_COLUMNS = (
+-        ("inbound_message_id", "INTEGER"),
+-        ("message_thread_id", "INTEGER"),
+-        ("direct_topic_id", "INTEGER"),
+-        ("trigger_class", "TEXT"),
+-        ("outbound_message_id", "INTEGER"),
+-        ("returned_chat_id", "INTEGER"),
+-        ("returned_message_thread_id", "INTEGER"),
+-        ("returned_direct_topic_id", "INTEGER"),
+-        ("returned_is_topic_message", "INTEGER"),
+-        ("inbound_reply_to_message_id", "INTEGER"),
+-        ("inbound_reply_to_message_thread_id", "INTEGER"),
+-        ("stable_conversation_root_id", "TEXT"),
+-        ("root_derivation_class", "TEXT"),
+-        ("root_evidence_update_id", "INTEGER"),
+-        ("root_conversation_key", "TEXT"),
+-    )
+-    DIAGNOSTIC_FIELDS = (
+-        "update_id", "inbound_message_id", "message_thread_id", "direct_topic_id",
+-        "trigger_class", "conversation_key", "outbound_message_id", "returned_chat_id",
+-        "returned_message_thread_id", "returned_direct_topic_id", "returned_is_topic_message",
+-        "state", "error_class",
+-    )
+-
+-    def __init__(self, path: str, *, migrate: bool = True, read_only: bool = False):
+-        self.lock = threading.RLock()
+-        if read_only:
+-            self.db = sqlite3.connect(Path(path).resolve().as_uri() + "?mode=ro", uri=True,
+-                                      isolation_level=None, check_same_thread=False)
+-        else:
+-            self.db = sqlite3.connect(path, isolation_level=None, check_same_thread=False)
+-        self.db.row_factory = sqlite3.Row
+-        self.db.execute("PRAGMA foreign_keys=ON")
+-        if read_only:
+-            self._require_routing_schema()
+-            return
+-        self.db.execute("PRAGMA journal_mode=WAL")
+-        self.db.executescript("""
+-        CREATE TABLE IF NOT EXISTS updates(
+-          update_id INTEGER PRIMARY KEY, request_digest TEXT NOT NULL, state TEXT NOT NULL,
+-          conversation_key TEXT NOT NULL, telegram_message_id INTEGER, error_class TEXT
+-        );
+-        CREATE TABLE IF NOT EXISTS messages(
+-          conversation_key TEXT NOT NULL, sequence INTEGER NOT NULL, role TEXT NOT NULL,
+-          content TEXT NOT NULL, PRIMARY KEY(conversation_key,sequence),
+-          CHECK(role IN ('user','assistant'))
+-        );
+-        CREATE TABLE IF NOT EXISTS runtime_meta(
+-          key TEXT PRIMARY KEY, value INTEGER NOT NULL
+-        );
+-        """)
+-        if migrate:
+-            self._migrate_routing_schema()
+-
+-    def _column_names(self) -> set[str]:
+-        return {str(row["name"]) for row in self.db.execute("PRAGMA table_info(updates)").fetchall()}
+-
+-    def _require_routing_schema(self) -> None:
+-        required = {name for name, _ in self.ROUTING_COLUMNS}
+-        if not required.issubset(self._column_names()):
+-            raise BoundaryError("routing_schema_not_ready")
+-
+-    def _migrate_routing_schema(self) -> None:
+-        """Add only nullable observability columns; safe to run repeatedly."""
+-        with self.lock:
+-            self.db.execute("BEGIN IMMEDIATE")
+-            try:
+-                present = self._column_names()
+-                for name, sql_type in self.ROUTING_COLUMNS:
+-                    if name not in present:
+-                        self.db.execute(f"ALTER TABLE updates ADD COLUMN {name} {sql_type}")
+-                self.db.execute("COMMIT")
+-            except Exception:
+-                self.db.execute("ROLLBACK")
+-                raise
+-
+-    def poll_offset(self) -> int:
+-        with self.lock:
+-            row = self.db.execute("SELECT value FROM runtime_meta WHERE key='poll_offset'").fetchone()
+-            return int(row[0]) if row else 0
+-
+-    def set_poll_offset(self, value: int) -> None:
+-        if type(value) is not int or value < 0:
+-            raise BoundaryError("poll_offset_invalid")
+-        with self.lock:
+-            self.db.execute(
+-                "INSERT INTO runtime_meta(key,value) VALUES('poll_offset',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
+-                (value,),
+-            )
+-
+-    def claim(self, event: InboundMessage) -> str:
+-        with self.lock:
+-            self.db.execute("BEGIN IMMEDIATE")
+-            try:
+-                row = self.db.execute("SELECT * FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
+-                if row:
+-                    if row["request_digest"] != event.update_digest:
+-                        self.db.execute("ROLLBACK")
+-                        return "CONFLICT"
+-                    self.db.execute("COMMIT")
+-                    return "DUPLICATE" if row["state"] in ("COMMITTED", "FALLBACK_COMMITTED") else "UNCERTAIN"
+-                self.db.execute(
+-                    "INSERT INTO updates(update_id,request_digest,state,conversation_key,inbound_message_id,"
+-                    "message_thread_id,direct_topic_id,trigger_class,inbound_reply_to_message_id,"
+-                    "inbound_reply_to_message_thread_id) VALUES(?,?,?,?,?,?,?,?,?,?)",
+-                    (event.update_id, event.update_digest, "CLAIMED", event.conversation_key,
+-                     event.message_id, event.thread_id, event.direct_topic_id, event.trigger_class,
+-                     event.reply_to_message_id, event.reply_to_message_thread_id),
+-                )
+-                self.db.execute("COMMIT")
+-                return "CLAIMED"
+-            except Exception:
+-                self.db.execute("ROLLBACK")
+-                raise
+-
+-    @staticmethod
+-    def _mode_from_direct_topic(direct_topic_id: int) -> str:
+-        return "linked_discussion" if direct_topic_id == 0 else "direct_topic"
+-
+-    @staticmethod
+-    def _decision(root_id: str, derivation: str, evidence_update_id: int) -> RootDecision:
+-        if derivation not in ROOT_DERIVATION_CLASSES:
+-            raise BoundaryError("root_derivation_invalid")
+-        return RootDecision(root_id, root_conversation_key(root_id), derivation, evidence_update_id)
+-
+-    def _isolated_decision(self, event: InboundMessage) -> RootDecision:
+-        root_id = stable_root_id(event.root_mode, event.chat_id, event.direct_topic_id,
+-                                 "isolated_message", event.message_id)
+-        return self._decision(root_id, "ISOLATED_UNRESOLVED", event.update_id)
+-
+-    def _lineage_candidates(self, event: InboundMessage) -> list[sqlite3.Row]:
+-        if event.reply_to_message_id is None:
+-            return []
+-        rows = self.db.execute(
+-            "SELECT update_id,direct_topic_id,stable_conversation_root_id,root_conversation_key "
+-            "FROM updates WHERE outbound_message_id=? AND returned_chat_id=? "
+-            "AND state IN ('COMMITTED','FALLBACK_COMMITTED') "
+-            "AND stable_conversation_root_id IS NOT NULL AND root_conversation_key IS NOT NULL",
+-            (event.reply_to_message_id, event.chat_id),
+-        ).fetchall()
+-        return [row for row in rows
+-                if self._mode_from_direct_topic(int(row["direct_topic_id"] or 0)) == event.root_mode
+-                and int(row["direct_topic_id"] or 0) == event.direct_topic_id]
+-
+-    def _same_anchor_candidates(self, event: InboundMessage) -> list[sqlite3.Row]:
+-        if event.thread_id <= 0:
+-            return []
+-        return self.db.execute(
+-            "SELECT update_id,root_evidence_update_id,stable_conversation_root_id,root_conversation_key "
+-            "FROM updates WHERE returned_chat_id=? AND message_thread_id=? AND direct_topic_id=? "
+-            "AND state IN ('COMMITTED','FALLBACK_COMMITTED') "
+-            "AND root_derivation_class IN ('OBSERVED_LINKED_THREAD_ANCHOR','SAME_ROOT_OBSERVATION') "
+-            "AND stable_conversation_root_id IS NOT NULL AND root_conversation_key IS NOT NULL",
+-            (event.chat_id, event.thread_id, event.direct_topic_id),
+-        ).fetchall()
+-
+-    def resolve_and_persist_root(self, event: InboundMessage) -> RootDecision:
+-        """Persist one deterministic root decision after claim and before history/provider effects."""
+-        with self.lock:
+-            self.db.execute("BEGIN IMMEDIATE")
+-            try:
+-                current = self.db.execute("SELECT * FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
+-                if not current or current["state"] != "CLAIMED":
+-                    raise BoundaryError("root_resolution_state_invalid")
+-                if current["stable_conversation_root_id"] is not None:
+-                    decision = RootDecision(
+-                        current["stable_conversation_root_id"], current["root_conversation_key"],
+-                        current["root_derivation_class"], current["root_evidence_update_id"],
+-                    )
+-                    self.db.execute("COMMIT")
+-                    return decision
+-
+-                decision: RootDecision
+-                if event.trigger_class == "reply-to-bot" and event.reply_to_message_id is not None:
+-                    candidates = self._lineage_candidates(event)
+-                    if len(candidates) == 1:
+-                        row = candidates[0]
+-                        decision = self._decision(
+-                            row["stable_conversation_root_id"], "PROVEN_OUTBOUND_LINEAGE", row["update_id"])
+-                    else:
+-                        decision = self._isolated_decision(event)
+-                else:
+-                    anchors = self._same_anchor_candidates(event)
+-                    roots = {(row["stable_conversation_root_id"], row["root_conversation_key"]) for row in anchors}
+-                    if len(roots) == 1:
+-                        root_id, _ = next(iter(roots))
+-                        evidence = min(int(row["root_evidence_update_id"] or row["update_id"]) for row in anchors)
+-                        decision = self._decision(root_id, "SAME_ROOT_OBSERVATION", evidence)
+-                    elif len(roots) > 1:
+-                        decision = self._isolated_decision(event)
+-                    elif event.thread_id > 0:
+-                        root_id = stable_root_id(event.root_mode, event.chat_id, event.direct_topic_id,
+-                                                 "observed_thread", event.thread_id)
+-                        computed_key = root_conversation_key(root_id)
+-                        # Missing anchor evidence may never silently attach to surviving historical transcript.
+-                        if self.db.execute("SELECT 1 FROM messages WHERE conversation_key=? LIMIT 1", (computed_key,)).fetchone():
+-                            decision = self._isolated_decision(event)
+-                        else:
+-                            decision = self._decision(root_id, "OBSERVED_LINKED_THREAD_ANCHOR", event.update_id)
+-                    else:
+-                        decision = self._isolated_decision(event)
+-
+-                self.db.execute(
+-                    "UPDATE updates SET stable_conversation_root_id=?,root_derivation_class=?,"
+-                    "root_evidence_update_id=?,root_conversation_key=? WHERE update_id=? AND state='CLAIMED'",
+-                    (decision.stable_conversation_root_id, decision.root_derivation_class,
+-                     decision.root_evidence_update_id, decision.root_conversation_key, event.update_id),
+-                )
+-                self.db.execute("COMMIT")
+-                return decision
+-            except Exception:
+-                self.db.execute("ROLLBACK")
+-                raise
+-
+-    def root_decision(self, update_id: int) -> RootDecision | None:
+-        with self.lock:
+-            row = self.db.execute(
+-                "SELECT stable_conversation_root_id,root_conversation_key,root_derivation_class,root_evidence_update_id "
+-                "FROM updates WHERE update_id=?", (update_id,),
+-            ).fetchone()
+-        if row is None or row["stable_conversation_root_id"] is None:
+-            return None
+-        return RootDecision(row["stable_conversation_root_id"], row["root_conversation_key"],
+-                            row["root_derivation_class"], row["root_evidence_update_id"])
+-
+-    def history(self, conversation_key: str, config: Config, reserve_bytes: int = 0) -> list[dict[str, str]]:
+-        with self.lock:
+-            rows = self.db.execute("SELECT role,content FROM messages WHERE conversation_key=? ORDER BY sequence DESC LIMIT ?",
+-                                   (conversation_key, config.max_history_messages - 1)).fetchall()[::-1]
+-        selected: list[dict[str, str]] = []
+-        total = 0
+-        budget = max(0, config.max_history_bytes - reserve_bytes)
+-        for row in reversed(rows):
+-            size = len(row["content"].encode("utf-8"))
+-            if total + size > budget:
+-                break
+-            selected.append({"role": row["role"], "content": row["content"]})
+-            total += size
+-        return selected[::-1]
+-
+-    def mark(self, update_id: int, state: str, error_class: str | None = None) -> None:
+-        with self.lock:
+-            self.db.execute("UPDATE updates SET state=?,error_class=? WHERE update_id=?", (state, error_class, update_id))
+-
+-    def has_unresolved(self, root_conversation_key_value: str, exclude_update_id: int) -> bool:
+-        with self.lock:
+-            return self.db.execute(
+-                "SELECT 1 FROM updates WHERE root_conversation_key=? AND update_id<>? "
+-                "AND state NOT IN ('COMMITTED','FALLBACK_COMMITTED') LIMIT 1",
+-                (root_conversation_key_value, exclude_update_id),
+-            ).fetchone() is not None
+-
+-    @staticmethod
+-    def _validate_send_evidence(event: InboundMessage, evidence: TelegramSendEvidence) -> None:
+-        if evidence.returned_chat_id != event.chat_id:
+-            raise BoundaryError("returned_chat_mismatch")
+-        if evidence.returned_message_thread_id is not None and evidence.returned_message_thread_id != event.thread_id:
+-            raise BoundaryError("returned_thread_mismatch")
+-        if evidence.returned_direct_topic_id is not None and evidence.returned_direct_topic_id != event.direct_topic_id:
+-            raise BoundaryError("returned_direct_topic_mismatch")
+-
+-    @staticmethod
+-    def _routing_values(evidence: TelegramSendEvidence) -> tuple[Any, ...]:
+-        return (
+-            evidence.returned_message_id, evidence.returned_message_id, evidence.returned_chat_id,
+-            evidence.returned_message_thread_id, evidence.returned_direct_topic_id,
+-            None if evidence.returned_is_topic_message is None else int(evidence.returned_is_topic_message),
+-        )
+-
+-    def commit_turn(self, event: InboundMessage, reply: str, evidence: TelegramSendEvidence) -> None:
+-        self._validate_send_evidence(event, evidence)
+-        with self.lock:
+-            self.db.execute("BEGIN IMMEDIATE")
+-            try:
+-                row = self.db.execute("SELECT state,root_conversation_key FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
+-                if not row or row["state"] != "SENDING" or row["root_conversation_key"] is None:
+-                    raise BoundaryError("ledger_state_invalid")
+-                operational_key = row["root_conversation_key"]
+-                sequence = self.db.execute("SELECT COALESCE(MAX(sequence),0) FROM messages WHERE conversation_key=?",
+-                                           (operational_key,)).fetchone()[0]
+-                self.db.execute("INSERT INTO messages VALUES(?,?,?,?)", (operational_key, sequence + 1, "user", event.text))
+-                self.db.execute("INSERT INTO messages VALUES(?,?,?,?)", (operational_key, sequence + 2, "assistant", reply))
+-                self.db.execute(
+-                    "UPDATE updates SET state='COMMITTED',telegram_message_id=?,outbound_message_id=?,"
+-                    "returned_chat_id=?,returned_message_thread_id=?,returned_direct_topic_id=?,"
+-                    "returned_is_topic_message=?,error_class=NULL WHERE update_id=?",
+-                    self._routing_values(evidence) + (event.update_id,),
+-                )
+-                self._prune_locked(operational_key, self._active_config)
+-                self.db.execute("COMMIT")
+-            except Exception:
+-                self.db.execute("ROLLBACK")
+-                raise
+-
+-    def commit_fallback(self, event: InboundMessage, evidence: TelegramSendEvidence) -> None:
+-        self._validate_send_evidence(event, evidence)
+-        with self.lock:
+-            self.db.execute("BEGIN IMMEDIATE")
+-            try:
+-                row = self.db.execute("SELECT state,root_conversation_key FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
+-                if not row or row["state"] != "SENDING_FALLBACK" or row["root_conversation_key"] is None:
+-                    raise BoundaryError("ledger_state_invalid")
+-                operational_key = row["root_conversation_key"]
+-                self.db.execute(
+-                    "UPDATE updates SET state='FALLBACK_COMMITTED',telegram_message_id=?,outbound_message_id=?,"
+-                    "returned_chat_id=?,returned_message_thread_id=?,returned_direct_topic_id=?,"
+-                    "returned_is_topic_message=?,error_class='provider_failure' WHERE update_id=?",
+-                    self._routing_values(evidence) + (event.update_id,),
+-                )
+-                self._prune_locked(operational_key, self._active_config)
+-                self.db.execute("COMMIT")
+-            except Exception:
+-                self.db.execute("ROLLBACK")
+-                raise
+-
+-    def routing_diagnostic(self, update_id: int) -> dict[str, Any] | None:
+-        if type(update_id) is not int or update_id < 0:
+-            raise BoundaryError("update_id_invalid")
+-        fields = ",".join(self.DIAGNOSTIC_FIELDS)
+-        with self.lock:
+-            row = self.db.execute(f"SELECT {fields} FROM updates WHERE update_id=?", (update_id,)).fetchone()
+-        if row is None:
+-            return None
+-        result = {name: row[name] for name in self.DIAGNOSTIC_FIELDS}
+-        if result["returned_is_topic_message"] is not None:
+-            result["returned_is_topic_message"] = bool(result["returned_is_topic_message"])
+-        return result
+-
+-    def bind_config(self, config: Config) -> None:
+-        self._active_config = config
+-
+-    def prune(self, conversation_key: str, config: Config) -> None:
+-        with self.lock:
+-            self.db.execute("BEGIN IMMEDIATE")
+-            try:
+-                self._prune_locked(conversation_key, config)
+-                self.db.execute("COMMIT")
+-            except Exception:
+-                self.db.execute("ROLLBACK")
+-                raise
+-
+-    def _prune_locked(self, conversation_key: str, config: Config) -> None:
+-        keep_messages = config.max_history_messages
+-        self.db.execute(
+-            "DELETE FROM messages WHERE conversation_key=? AND sequence NOT IN "
+-            "(SELECT sequence FROM messages WHERE conversation_key=? ORDER BY sequence DESC LIMIT ?)",
+-            (conversation_key, conversation_key, keep_messages),
+-        )
+-        self.db.execute(
+-            "DELETE FROM updates WHERE root_conversation_key=? AND state IN ('COMMITTED','FALLBACK_COMMITTED') "
+-            "AND update_id NOT IN (SELECT update_id FROM updates WHERE root_conversation_key=? ORDER BY update_id DESC LIMIT ?) "
+-            "AND update_id NOT IN (SELECT root_evidence_update_id FROM updates WHERE root_conversation_key=? "
+-            "AND root_evidence_update_id IS NOT NULL)",
+-            (conversation_key, conversation_key, config.max_update_records_per_conversation, conversation_key),
+-        )
+-
+-
+-class DialogueApplication:
+-    def __init__(self, config: Config, store: Store, provider: Provider, telegram: Telegram,
+-                 instructions: str, logger: SafeLogger):
+-        if not instructions.strip() or len(instructions.encode("utf-8")) > 16_384:
+-            raise BoundaryError("entity_bootstrap_invalid")
+-        self.config, self.store, self.provider, self.telegram = config, store, provider, telegram
+-        self.instructions, self.logger = instructions, logger
+-        self.store.bind_config(config)
+-        self._lock_guard = threading.Lock()
+-        self._conversation_locks: dict[str, threading.Lock] = {}
+-
+-    def _conversation_lock(self, key: str) -> threading.Lock:
+-        with self._lock_guard:
+-            return self._conversation_locks.setdefault(key, threading.Lock())
+-
+-    def process_update(self, raw: Any) -> tuple[int, dict[str, Any]]:
+-        try:
+-            event = parse_update(raw, self.config)
+-        except InputIgnored:
+-            self.logger.emit("request", "ignored", 200)
+-            return 200, {"ok": True, "outcome": "ignored_not_addressed"}
+-        except (InputRejected, ValueError):
+-            self.logger.emit("request", "rejected", 422)
+-            return 422, {"ok": False, "outcome": "rejected"}
+-        claim = self.store.claim(event)
+-        if claim == "CONFLICT":
+-            self.logger.emit("request", "conflict", 409)
+-            return 409, {"ok": False, "outcome": "update_id_conflict"}
+-        if claim == "DUPLICATE":
+-            self.logger.emit("request", "duplicate", 200)
+-            return 200, {"ok": True, "outcome": "duplicate"}
+-        if claim == "UNCERTAIN":
+-            self.logger.emit("request", "uncertain", 503)
+-            return 503, {"ok": False, "outcome": "manual_reconciliation_required"}
+-        decision = self.store.resolve_and_persist_root(event)
+-        with self._conversation_lock(decision.root_conversation_key):
+-            if self.store.has_unresolved(decision.root_conversation_key, event.update_id):
+-                self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "prior_turn_unresolved")
+-                self.logger.emit("request", "uncertain", 503)
+-                return 503, {"ok": False, "outcome": "manual_reconciliation_required"}
+-            history = self.store.history(decision.root_conversation_key, self.config, len(event.text.encode("utf-8")))
+-            history.append({"role": "user", "content": event.text})
+-            try:
+-                reply = self.provider.respond(self.instructions, history)
+-            except ProviderFailure:
+-                self.store.mark(event.update_id, "SENDING_FALLBACK", "provider_failure")
+-                try:
+-                    evidence = self.telegram.send_text(event.chat_id, event.thread_id, event.direct_topic_id, self.config.fallback_text)
+-                except TelegramFailure:
+-                    self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "fallback_send_unknown")
+-                else:
+-                    try:
+-                        self.store.commit_fallback(event, evidence)
+-                    except (BoundaryError, sqlite3.Error):
+-                        self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "fallback_routing_persistence_failed")
+-                    else:
+-                        self.logger.emit("provider", "fallback", 200)
+-                        return 200, {"ok": True, "outcome": "fallback_sent"}
+-            else:
+-                self.store.mark(event.update_id, "SENDING")
+-                try:
+-                    evidence = self.telegram.send_text(event.chat_id, event.thread_id, event.direct_topic_id, reply)
+-                except TelegramFailure:
+-                    self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "reply_send_unknown")
+-                else:
+-                    try:
+-                        self.store.commit_turn(event, reply, evidence)
+-                    except (BoundaryError, sqlite3.Error):
+-                        self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "reply_routing_persistence_failed")
+-                    else:
+-                        self.logger.emit("request", "complete", 200)
+-                        return 200, {"ok": True, "outcome": "replied"}
+-        self.logger.emit("request", "uncertain", 503)
+-        return 503, {"ok": False, "outcome": "manual_reconciliation_required"}
+-
+-
+-def credential(slot: str) -> bytes:
+-    if slot not in CREDENTIAL_SLOTS:
+-        raise BoundaryError("credential_slot_invalid")
+-    root = os.environ.get("CREDENTIALS_DIRECTORY")
+-    if not root:
+-        raise BoundaryError("credentials_directory_missing")
+-    try:
+-        value = (Path(root) / slot).read_bytes().rstrip(b"\r\n")
+-    except OSError as exc:
+-        raise BoundaryError("credential_unavailable") from exc
+-    if not value or len(value) > 16_384:
+-        raise BoundaryError("credential_invalid")
+-    return value
+-
+-
+-def load_allowlist(path: str) -> tuple[int, ...]:
+-    try:
+-        lines = Path(path).read_text(encoding="ascii").splitlines()
+-    except (OSError, UnicodeError) as exc:
+-        raise BoundaryError("tester_allowlist_unavailable") from exc
+-    values: list[int] = []
+-    for line in lines:
+-        if not line or not line.isdecimal():
+-            raise BoundaryError("tester_allowlist_invalid")
+-        value = int(line)
+-        if value <= 0:
+-            raise BoundaryError("tester_allowlist_invalid")
+-        values.append(value)
+-    if not values or len(values) != len(set(values)):
+-        raise BoundaryError("tester_allowlist_invalid")
+-    return tuple(values)
+-
+-
+-def load_runtime(config_path: str, stream: TextIO) -> tuple[Config, Store, DialogueApplication]:
+-    raw = json.loads(Path(config_path).read_text(encoding="utf-8"))
+-    if type(raw) is not dict or type(raw.get("testers_allow_path")) is not str:
+-        raise BoundaryError("config_schema_invalid")
+-    config = Config.from_dict(raw, load_allowlist(raw["testers_allow_path"]))
+-    if config.environment != "closed_pilot":
+-        raise BoundaryError("closed_pilot_environment_required")
+-    instructions = Path(config.entity_bootstrap_path).read_text(encoding="utf-8")
+-    store = Store(config.database_path)
+-    telegram = TelegramBotAdapter(credential("telegram_bot_token"), config.telegram_timeout_seconds)
+-    app = DialogueApplication(
+-        config, store,
+-        OpenAIResponsesAdapter(credential("openai_api_key"), config.model, config.max_output_tokens, config.provider_timeout_seconds),
+-        telegram, instructions, SafeLogger(stream),
+-    )
+-    return config, store, app
+-
+-
+-def poll_forever(config: Config, store: Store, app: DialogueApplication, telegram: TelegramBotAdapter) -> None:
+-    offset = store.poll_offset()
+-    while True:
+-        try:
+-            updates = telegram.get_updates(offset, config.poll_timeout_seconds)
+-            for raw in updates:
+-                update_id = raw.get("update_id")
+-                if type(update_id) is not int or update_id < offset:
+-                    app.logger.emit("telegram", "rejected", 0)
+-                    continue
+-                app.process_update(raw)
+-                offset = update_id + 1
+-                store.set_poll_offset(offset)
+-        except TelegramFailure:
+-            app.logger.emit("telegram", "uncertain", 0)
+-            time.sleep(config.poll_retry_seconds)
+-
+-
+-def main() -> int:
+-    parser = argparse.ArgumentParser()
+-    parser.add_argument("command", choices=("check-config", "diagnose-routing", "poll"))
+-    parser.add_argument("--config", required=True)
+-    parser.add_argument("--update-id", type=int)
+-    args = parser.parse_args()
+-    try:
+-        raw = json.loads(Path(args.config).read_text(encoding="utf-8"))
+-        if type(raw) is not dict or type(raw.get("testers_allow_path")) is not str:
+-            raise BoundaryError("config_schema_invalid")
+-        config = Config.from_dict(raw, load_allowlist(raw["testers_allow_path"]))
+-        if args.command == "check-config":
+-            Path(config.entity_bootstrap_path).read_text(encoding="utf-8")
+-            print(json.dumps({"ok": True, "schema": SCHEMA}, separators=(",", ":")))
+-            return 0
+-        if args.command == "diagnose-routing":
+-            if args.update_id is None or args.update_id < 0:
+-                raise BoundaryError("update_id_invalid")
+-            diagnostic_store = Store(config.database_path, migrate=False, read_only=True)
+-            try:
+-                result = diagnostic_store.routing_diagnostic(args.update_id)
+-            finally:
+-                diagnostic_store.db.close()
+-            if result is None:
+-                result = {name: None for name in Store.DIAGNOSTIC_FIELDS}
+-                result.update({"update_id": args.update_id, "state": "NOT_FOUND", "error_class": "update_not_found"})
+-            print(json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
+-            return 0
+-        config, store, app = load_runtime(args.config, sys.stdout)
+-        app.logger.emit("runtime", "ready", 0)
+-        try:
+-            poll_forever(config, store, app, app.telegram)
+-        finally:
+-            store.db.close(); app.logger.emit("runtime", "stopped", 0)
+-        return 0
+-    except (BoundaryError, OSError, ValueError, json.JSONDecodeError, sqlite3.Error):
+-        return 2
+-
+-
+-if __name__ == "__main__":
+-    raise SystemExit(main())
++#!/usr/bin/env python3
++"""Closed-pilot Telegram discussion runtime with routing observability + conversation-root r0.1 implementation candidate.
++
++Python 3.10+, standard library only. Network transports are dependency-injected;
++offline tests use fakes and perform no network or credential access.
++"""
++from __future__ import annotations
++
++import argparse
++import hashlib
++import io
++import json
++import os
++import sqlite3
++import ssl
++import sys
++import threading
++import time
++import urllib.error
++import urllib.request
++from dataclasses import dataclass
++from pathlib import Path
++from typing import Any, Protocol, TextIO
++
++SCHEMA = "TELEGRAM_ENTITY_DIALOGUE_MVP_R02"
++MAX_PROVIDER_RESPONSE_BYTES = 65_536
++TELEGRAM_TEXT_LIMIT = 4096
++CREDENTIAL_SLOTS = ("telegram_bot_token", "openai_api_key")
++VERIFIED_DISCUSSION_CHAT_ID = -1002429106148
++VERIFIED_BOT_USER_ID = 8866633840
++VERIFIED_BOT_USERNAME = "WBNP_Media_Bot"
++ACTIVATION_COMMAND = "ask"
++TRIGGER_CLASSES = ("reply-to-bot", "command", "exact-mention")
++ROOT_ID_DOMAIN = "tg-conversation-root-r01"
++ROOT_CONVERSATION_KEY_DOMAIN = "tg-dialogue-root-r01"
++ROOT_DERIVATION_CLASSES = (
++    "OBSERVED_LINKED_THREAD_ANCHOR",
++    "PROVEN_OUTBOUND_LINEAGE",
++    "SAME_ROOT_OBSERVATION",
++    "ISOLATED_UNRESOLVED",
++)
++
++
++class BoundaryError(RuntimeError):
++    pass
++
++
++class InputRejected(ValueError):
++    pass
++
++
++class InputIgnored(ValueError):
++    pass
++
++
++class ProviderFailure(RuntimeError):
++    pass
++
++
++class TelegramFailure(RuntimeError):
++    pass
++
++
++def _require_exact_int(value: Any, code: str) -> int:
++    if type(value) is not int:
++        raise InputRejected(code)
++    return value
++
++
++def canonical_bytes(value: Any) -> bytes:
++    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
++
++
++def digest(value: Any) -> str:
++    return hashlib.sha256(canonical_bytes(value)).hexdigest()
++
++
++def clip_telegram_text(text: str) -> str:
++    if type(text) is not str or not text.strip():
++        raise ProviderFailure("assistant_text_missing")
++    text = text.strip()
++    return text if len(text) <= TELEGRAM_TEXT_LIMIT else text[: TELEGRAM_TEXT_LIMIT - 1] + "…"
++
++
++@dataclass(frozen=True)
++class Config:
++    environment: str
++    database_path: str
++    testers_allow_path: str
++    allowed_user_ids: tuple[int, ...]
++    allowed_chat_ids: tuple[int, ...]
++    allowed_chat_types: tuple[str, ...]
++    discussion_chat_id: int
++    bot_user_id: int
++    bot_username: str
++    activation_command: str
++    model: str
++    max_output_tokens: int
++    provider_timeout_seconds: int
++    telegram_timeout_seconds: int
++    poll_timeout_seconds: int
++    poll_retry_seconds: int
++    max_input_bytes: int
++    max_history_messages: int
++    max_history_bytes: int
++    max_update_records_per_conversation: int
++    fallback_text: str
++    entity_bootstrap_path: str
++
++    @classmethod
++    def from_dict(cls, raw: Any, allowed_ids: tuple[int, ...]) -> "Config":
++        expected = {
++            "schema", "environment", "database_path", "testers_allow_path", "allowed_chat_types",
++            "discussion_chat_id", "bot_user_id", "bot_username", "activation_command",
++            "model", "max_output_tokens", "provider_timeout_seconds", "telegram_timeout_seconds",
++            "poll_timeout_seconds", "poll_retry_seconds", "max_input_bytes", "max_history_messages",
++            "max_history_bytes", "max_update_records_per_conversation", "fallback_text", "entity_bootstrap_path",
++        }
++        if type(raw) is not dict or set(raw) != expected or raw.get("schema") != SCHEMA:
++            raise BoundaryError("config_schema_invalid")
++        if raw["environment"] not in ("closed_pilot", "test"):
++            raise BoundaryError("environment_invalid")
++        if type(raw["database_path"]) is not str or not raw["database_path"].startswith("/"):
++            raise BoundaryError("database_path_must_be_absolute")
++        if type(raw["testers_allow_path"]) is not str or not raw["testers_allow_path"].startswith("/"):
++            raise BoundaryError("testers_allow_path_must_be_absolute")
++        if type(allowed_ids) is not tuple or not allowed_ids or any(type(x) is not int for x in allowed_ids) or len(allowed_ids) != len(set(allowed_ids)):
++            raise BoundaryError("tester_allowlist_invalid")
++        if raw["allowed_chat_types"] != ["supergroup"]:
++            raise BoundaryError("allowed_chat_types_invalid")
++        if type(raw["discussion_chat_id"]) is not int or raw["discussion_chat_id"] != VERIFIED_DISCUSSION_CHAT_ID:
++            raise BoundaryError("discussion_chat_id_invalid")
++        if type(raw["bot_user_id"]) is not int or raw["bot_user_id"] != VERIFIED_BOT_USER_ID:
++            raise BoundaryError("bot_user_id_invalid")
++        if type(raw["bot_username"]) is not str or raw["bot_username"] != VERIFIED_BOT_USERNAME:
++            raise BoundaryError("bot_username_invalid")
++        if type(raw["activation_command"]) is not str or raw["activation_command"] != ACTIVATION_COMMAND:
++            raise BoundaryError("activation_command_invalid")
++        if type(raw["model"]) is not str or not raw["model"].strip():
++            raise BoundaryError("model_invalid")
++        limits = {
++            "max_output_tokens": (64, 4096), "provider_timeout_seconds": (1, 120),
++            "telegram_timeout_seconds": (1, 60), "max_input_bytes": (1, 16384),
++            "max_history_messages": (2, 64), "max_history_bytes": (1024, 262144),
++            "poll_timeout_seconds": (1, 50), "poll_retry_seconds": (1, 60),
++            "max_update_records_per_conversation": (64, 4096),
++        }
++        for name, (low, high) in limits.items():
++            value = raw[name]
++            if type(value) is not int or not low <= value <= high:
++                raise BoundaryError(name + "_invalid")
++        if type(raw["fallback_text"]) is not str or not raw["fallback_text"].strip() or len(raw["fallback_text"]) > TELEGRAM_TEXT_LIMIT:
++            raise BoundaryError("fallback_text_invalid")
++        if type(raw["entity_bootstrap_path"]) is not str or not raw["entity_bootstrap_path"].startswith("/"):
++            raise BoundaryError("entity_bootstrap_path_must_be_absolute")
++        return cls(
++            environment=raw["environment"], database_path=raw["database_path"], testers_allow_path=raw["testers_allow_path"],
++            allowed_user_ids=allowed_ids, allowed_chat_ids=(raw["discussion_chat_id"],),
++            allowed_chat_types=tuple(raw["allowed_chat_types"]),
++            discussion_chat_id=raw["discussion_chat_id"], bot_user_id=raw["bot_user_id"],
++            bot_username=raw["bot_username"], activation_command=raw["activation_command"], model=raw["model"],
++            max_output_tokens=raw["max_output_tokens"], provider_timeout_seconds=raw["provider_timeout_seconds"],
++            telegram_timeout_seconds=raw["telegram_timeout_seconds"], poll_timeout_seconds=raw["poll_timeout_seconds"],
++            poll_retry_seconds=raw["poll_retry_seconds"], max_input_bytes=raw["max_input_bytes"],
++            max_history_messages=raw["max_history_messages"], max_history_bytes=raw["max_history_bytes"],
++            max_update_records_per_conversation=raw["max_update_records_per_conversation"],
++            fallback_text=raw["fallback_text"], entity_bootstrap_path=raw["entity_bootstrap_path"],
++        )
++
++
++class SafeLogger:
++    """Allowlisted operational events only: no content, identity, token, URL or exception text."""
++    EVENTS = {"request", "provider", "telegram", "runtime"}
++    OUTCOMES = {"accepted", "rejected", "ignored", "complete", "fallback", "duplicate", "conflict", "uncertain", "ready", "stopped"}
++
++    def __init__(self, stream: TextIO | None = None):
++        self.stream = stream if stream is not None else io.StringIO()
++
++    def emit(self, event: str, outcome: str, status: int = 0) -> None:
++        if event not in self.EVENTS or outcome not in self.OUTCOMES or type(status) is not int or status < 0:
++            raise BoundaryError("log_value_not_allowlisted")
++        self.stream.write(json.dumps({"event": event, "outcome": outcome, "status": status}, sort_keys=True, separators=(",", ":")) + "\n")
++        self.stream.flush()
++
++
++@dataclass(frozen=True)
++class InboundMessage:
++    update_id: int
++    message_id: int
++    chat_id: int
++    user_id: int
++    chat_type: str
++    thread_id: int
++    direct_topic_id: int
++    trigger_class: str
++    reply_to_message_id: int | None
++    reply_to_message_thread_id: int | None
++    text: str
++    update_digest: str
++
++    @property
++    def conversation_key(self) -> str:
++        """Historical r0.2 tuple key retained as immutable routing evidence."""
++        return hashlib.sha256(f"tg-dialogue-r02\0{self.chat_id}\0{self.thread_id}\0{self.direct_topic_id}".encode()).hexdigest()
++
++    @property
++    def root_mode(self) -> str:
++        return "linked_discussion" if self.direct_topic_id == 0 else "direct_topic"
++
++
++@dataclass(frozen=True)
++class RootDecision:
++    stable_conversation_root_id: str
++    root_conversation_key: str
++    root_derivation_class: str
++    root_evidence_update_id: int
++
++
++def stable_root_id(mode: str, chat_id: int, direct_topic_id: int, anchor_class: str, anchor_id: int) -> str:
++    if mode not in ("linked_discussion", "direct_topic", "forum"):
++        raise BoundaryError("root_mode_invalid")
++    if type(chat_id) is not int or type(direct_topic_id) is not int or type(anchor_id) is not int or anchor_id <= 0:
++        raise BoundaryError("root_anchor_invalid")
++    if mode == "linked_discussion" and direct_topic_id != 0:
++        raise BoundaryError("root_mode_topic_conflict")
++    if mode == "direct_topic" and direct_topic_id <= 0:
++        raise BoundaryError("root_mode_topic_conflict")
++    descriptor = f"{ROOT_ID_DOMAIN}\0{mode}\0{chat_id}\0{direct_topic_id}\0{anchor_class}\0{anchor_id}"
++    return hashlib.sha256(descriptor.encode()).hexdigest()
++
++
++def root_conversation_key(stable_conversation_root_id: str) -> str:
++    if type(stable_conversation_root_id) is not str or len(stable_conversation_root_id) != 64:
++        raise BoundaryError("stable_root_invalid")
++    return hashlib.sha256((ROOT_CONVERSATION_KEY_DOMAIN + "\0" + stable_conversation_root_id).encode()).hexdigest()
++
++
++def _utf16_entity_slice(text: str, offset: Any, length: Any) -> tuple[str, tuple[int, int]]:
++    if type(offset) is not int or type(length) is not int or offset < 0 or length <= 0:
++        raise InputRejected("message_entity_invalid")
++    encoded = text.encode("utf-16-le")
++    start, end = offset * 2, (offset + length) * 2
++    if end > len(encoded):
++        raise InputRejected("message_entity_invalid")
++    try:
++        return encoded[start:end].decode("utf-16-le"), (start, end)
++    except UnicodeDecodeError as exc:
++        raise InputRejected("message_entity_invalid") from exc
++
++
++def _remove_utf16_span(text: str, span: tuple[int, int]) -> str:
++    encoded = text.encode("utf-16-le")
++    return (encoded[:span[0]] + encoded[span[1]:]).decode("utf-16-le").strip()
++
++
++def addressed_text(msg: dict[str, Any], text: str, config: Config) -> tuple[str, str]:
++    reply = msg.get("reply_to_message")
++    reply_to_bot = False
++    if reply is not None:
++        if type(reply) is not dict:
++            raise InputRejected("reply_to_message_invalid")
++        reply_sender = reply.get("from")
++        if type(reply_sender) is dict and type(reply_sender.get("id")) is int:
++            reply_to_bot = reply_sender["id"] == config.bot_user_id
++
++    entities = msg.get("entities", [])
++    if type(entities) is not list:
++        raise InputRejected("message_entities_invalid")
++    trigger_span: tuple[int, int] | None = None
++    entity_trigger_class: str | None = None
++    target_mention = "@" + config.bot_username.casefold()
++    bare_command = "/" + config.activation_command.casefold()
++    targeted_command = bare_command + target_mention
++    for entity in entities:
++        if type(entity) is not dict or type(entity.get("type")) is not str:
++            raise InputRejected("message_entity_invalid")
++        value, span = _utf16_entity_slice(text, entity.get("offset"), entity.get("length"))
++        folded = value.casefold()
++        if entity["type"] == "mention" and folded == target_mention:
++            trigger_span = span
++            entity_trigger_class = "exact-mention"
++            break
++        if entity["type"] == "bot_command" and folded in (bare_command, targeted_command):
++            trigger_span = span
++            entity_trigger_class = "command"
++            break
++    if not reply_to_bot and trigger_span is None:
++        raise InputIgnored("group_message_not_addressed")
++    trigger_class = "reply-to-bot" if reply_to_bot else entity_trigger_class
++    if trigger_class not in TRIGGER_CLASSES:
++        raise BoundaryError("trigger_class_invalid")
++    cleaned = _remove_utf16_span(text, trigger_span) if trigger_span is not None else text.strip()
++    if not cleaned:
++        raise InputRejected("addressed_text_missing")
++    return cleaned, trigger_class
++
++
++def parse_update(raw: Any, config: Config) -> InboundMessage:
++    if type(raw) is not dict or type(raw.get("update_id")) is not int or type(raw.get("message")) is not dict:
++        raise InputRejected("text_message_required")
++    msg = raw["message"]
++    auto_forward = msg.get("is_automatic_forward", False)
++    if type(auto_forward) is not bool:
++        raise InputRejected("automatic_forward_flag_invalid")
++    if auto_forward:
++        # D1 Option B: automatic-forward capture is deferred and never enters dialogue flow.
++        raise InputIgnored("automatic_forward_deferred")
++    chat = msg.get("chat")
++    sender = msg.get("from")
++    if type(chat) is not dict or type(sender) is not dict or type(msg.get("text")) is not str:
++        raise InputRejected("text_message_required")
++    chat_id = _require_exact_int(chat.get("id"), "chat_id_invalid")
++    user_id = _require_exact_int(sender.get("id"), "user_id_invalid")
++    message_id = _require_exact_int(msg.get("message_id"), "message_id_invalid")
++    chat_type = chat.get("type")
++    if chat_type not in config.allowed_chat_types or chat_id != config.discussion_chat_id:
++        raise InputRejected("discussion_chat_not_admitted")
++    if user_id not in config.allowed_user_ids:
++        raise InputRejected("tester_not_admitted")
++    raw_text = msg["text"].strip()
++    if not raw_text or len(raw_text.encode("utf-8")) > config.max_input_bytes:
++        raise InputRejected("text_size_invalid")
++    text, trigger_class = addressed_text(msg, raw_text, config)
++    if len(text.encode("utf-8")) > config.max_input_bytes:
++        raise InputRejected("text_size_invalid")
++    thread_id = msg.get("message_thread_id", 0)
++    if type(thread_id) is not int or thread_id < 0:
++        raise InputRejected("thread_id_invalid")
++    topic = msg.get("direct_messages_topic")
++    direct_topic_id = 0
++    if topic is not None:
++        if type(topic) is not dict or type(topic.get("topic_id")) is not int or topic["topic_id"] <= 0:
++            raise InputRejected("direct_topic_invalid")
++        direct_topic_id = topic["topic_id"]
++    reply = msg.get("reply_to_message")
++    reply_to_message_id: int | None = None
++    reply_to_message_thread_id: int | None = None
++    if reply is not None:
++        if type(reply) is not dict or type(reply.get("message_id")) is not int or reply["message_id"] <= 0:
++            raise InputRejected("reply_to_message_invalid")
++        reply_to_message_id = reply["message_id"]
++        reply_thread = reply.get("message_thread_id")
++        if reply_thread is not None:
++            if type(reply_thread) is not int or reply_thread < 0:
++                raise InputRejected("reply_to_message_thread_invalid")
++            reply_to_message_thread_id = reply_thread
++    return InboundMessage(raw["update_id"], message_id, chat_id, user_id, chat_type, thread_id,
++                          direct_topic_id, trigger_class, reply_to_message_id, reply_to_message_thread_id,
++                          text, digest(raw))
++
++
++@dataclass(frozen=True)
++class TelegramSendEvidence:
++    """Privacy-safe projection of the Bot API Message returned by sendMessage."""
++    returned_message_id: int
++    returned_chat_id: int
++    returned_message_thread_id: int | None
++    returned_direct_topic_id: int | None
++    returned_is_topic_message: bool | None
++
++
++class Provider(Protocol):
++    def respond(self, instructions: str, history: list[dict[str, str]]) -> str: ...
++
++
++class Telegram(Protocol):
++    def send_text(self, chat_id: int, thread_id: int, direct_topic_id: int, text: str) -> TelegramSendEvidence: ...
++
++
++class JsonHttpsTransport:
++    def post(self, url: str, headers: dict[str, str], body: dict[str, Any], timeout: int, max_bytes: int) -> dict[str, Any]:
++        request = urllib.request.Request(url, data=canonical_bytes(body), headers=headers, method="POST")
++        try:
++            with urllib.request.urlopen(request, timeout=timeout, context=ssl.create_default_context()) as response:
++                data = response.read(max_bytes + 1)
++                if len(data) > max_bytes:
++                    raise BoundaryError("response_too_large")
++                if not 200 <= response.status < 300:
++                    raise BoundaryError("remote_http_failure")
++        except (urllib.error.URLError, TimeoutError, OSError) as exc:
++            raise BoundaryError("remote_transport_failure") from exc
++        try:
++            parsed = json.loads(data.decode("utf-8"))
++        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
++            raise BoundaryError("remote_json_invalid") from exc
++        if type(parsed) is not dict:
++            raise BoundaryError("remote_json_invalid")
++        return parsed
++
++
++class OpenAIResponsesAdapter:
++    ENDPOINT = "https://api.openai.com/v1/responses"
++
++    def __init__(self, api_key: bytes, model: str, max_output_tokens: int, timeout: int, transport: JsonHttpsTransport | None = None):
++        if not api_key.strip():
++            raise BoundaryError("openai_credential_empty")
++        try:
++            self.api_key = api_key.decode("utf-8")
++        except UnicodeError as exc:
++            raise BoundaryError("openai_credential_invalid") from exc
++        self.model = model
++        self.max_output_tokens = max_output_tokens
++        self.timeout = timeout
++        self.transport = transport or JsonHttpsTransport()
++
++    def respond(self, instructions: str, history: list[dict[str, str]]) -> str:
++        body = {
++            "model": self.model, "instructions": instructions, "input": history,
++            "max_output_tokens": self.max_output_tokens, "store": False, "tools": [],
++        }
++        try:
++            response = self.transport.post(self.ENDPOINT, {
++                "Authorization": "Bearer " + self.api_key, "Content-Type": "application/json",
++            }, body, self.timeout, MAX_PROVIDER_RESPONSE_BYTES)
++        except BoundaryError as exc:
++            raise ProviderFailure("provider_transport_failure") from exc
++        if response.get("status") != "completed":
++            raise ProviderFailure("provider_response_not_completed")
++        if type(response.get("output")) is not list:
++            raise ProviderFailure("provider_output_invalid")
++        parts: list[str] = []
++        for item in response.get("output", []):
++            if type(item) is dict and item.get("type") == "message" and item.get("role") == "assistant":
++                if type(item.get("content")) is not list:
++                    raise ProviderFailure("provider_output_invalid")
++                for content in item["content"]:
++                    if type(content) is dict and content.get("type") == "output_text" and type(content.get("text")) is str:
++                        parts.append(content["text"])
++        return clip_telegram_text("".join(parts))
++
++
++class TelegramBotAdapter:
++    def __init__(self, bot_token: bytes, timeout: int, transport: JsonHttpsTransport | None = None):
++        if not bot_token.strip():
++            raise BoundaryError("telegram_credential_empty")
++        try:
++            self.bot_token = bot_token.decode("utf-8")
++        except UnicodeError as exc:
++            raise BoundaryError("telegram_credential_invalid") from exc
++        self.timeout = timeout
++        self.transport = transport or JsonHttpsTransport()
++
++    def get_updates(self, offset: int, poll_timeout: int) -> list[dict[str, Any]]:
++        try:
++            response = self.transport.post(
++                f"https://api.telegram.org/bot{self.bot_token}/getUpdates",
++                {"Content-Type": "application/json"},
++                {"offset": offset, "limit": 10, "timeout": poll_timeout, "allowed_updates": ["message"]},
++                poll_timeout + self.timeout, MAX_PROVIDER_RESPONSE_BYTES,
++            )
++        except BoundaryError as exc:
++            raise TelegramFailure("get_updates_transport_failure") from exc
++        result = response.get("result")
++        if response.get("ok") is not True or type(result) is not list or any(type(x) is not dict for x in result):
++            raise TelegramFailure("get_updates_failed")
++        return result
++
++    def send_text(self, chat_id: int, thread_id: int, direct_topic_id: int, text: str) -> TelegramSendEvidence:
++        body: dict[str, Any] = {"chat_id": chat_id, "text": clip_telegram_text(text)}
++        if thread_id:
++            body["message_thread_id"] = thread_id
++        if direct_topic_id:
++            body["direct_messages_topic_id"] = direct_topic_id
++        try:
++            response = self.transport.post(
++                f"https://api.telegram.org/bot{self.bot_token}/sendMessage",
++                {"Content-Type": "application/json"}, body, self.timeout, MAX_PROVIDER_RESPONSE_BYTES,
++            )
++        except BoundaryError as exc:
++            raise TelegramFailure("send_message_transport_failure") from exc
++        result = response.get("result")
++        if response.get("ok") is not True or type(result) is not dict or type(result.get("message_id")) is not int:
++            raise TelegramFailure("send_message_failed")
++        chat = result.get("chat")
++        if type(chat) is not dict or type(chat.get("id")) is not int:
++            raise TelegramFailure("send_message_routing_evidence_invalid")
++        returned_thread = result.get("message_thread_id")
++        if returned_thread is not None and type(returned_thread) is not int:
++            raise TelegramFailure("send_message_routing_evidence_invalid")
++        returned_topic: int | None = None
++        direct_topic = result.get("direct_messages_topic")
++        if direct_topic is not None:
++            if type(direct_topic) is not dict or type(direct_topic.get("topic_id")) is not int:
++                raise TelegramFailure("send_message_routing_evidence_invalid")
++            returned_topic = direct_topic["topic_id"]
++        returned_is_topic = result.get("is_topic_message")
++        if returned_is_topic is not None and type(returned_is_topic) is not bool:
++            raise TelegramFailure("send_message_routing_evidence_invalid")
++        return TelegramSendEvidence(
++            returned_message_id=result["message_id"], returned_chat_id=chat["id"],
++            returned_message_thread_id=returned_thread, returned_direct_topic_id=returned_topic,
++            returned_is_topic_message=returned_is_topic,
++        )
++
++
++class Store:
++    ROUTING_COLUMNS = (
++        ("inbound_message_id", "INTEGER"),
++        ("message_thread_id", "INTEGER"),
++        ("direct_topic_id", "INTEGER"),
++        ("trigger_class", "TEXT"),
++        ("outbound_message_id", "INTEGER"),
++        ("returned_chat_id", "INTEGER"),
++        ("returned_message_thread_id", "INTEGER"),
++        ("returned_direct_topic_id", "INTEGER"),
++        ("returned_is_topic_message", "INTEGER"),
++        ("inbound_reply_to_message_id", "INTEGER"),
++        ("inbound_reply_to_message_thread_id", "INTEGER"),
++        ("stable_conversation_root_id", "TEXT"),
++        ("root_derivation_class", "TEXT"),
++        ("root_evidence_update_id", "INTEGER"),
++        ("root_conversation_key", "TEXT"),
++    )
++    DIAGNOSTIC_FIELDS = (
++        "update_id", "inbound_message_id", "message_thread_id", "direct_topic_id",
++        "trigger_class", "conversation_key", "outbound_message_id", "returned_chat_id",
++        "returned_message_thread_id", "returned_direct_topic_id", "returned_is_topic_message",
++        "state", "error_class",
++    )
++
++    def __init__(self, path: str, *, migrate: bool = True, read_only: bool = False):
++        self.lock = threading.RLock()
++        if read_only:
++            self.db = sqlite3.connect(Path(path).resolve().as_uri() + "?mode=ro", uri=True,
++                                      isolation_level=None, check_same_thread=False)
++        else:
++            self.db = sqlite3.connect(path, isolation_level=None, check_same_thread=False)
++        self.db.row_factory = sqlite3.Row
++        self.db.execute("PRAGMA foreign_keys=ON")
++        if read_only:
++            self._require_routing_schema()
++            return
++        self.db.execute("PRAGMA journal_mode=WAL")
++        self.db.executescript("""
++        CREATE TABLE IF NOT EXISTS updates(
++          update_id INTEGER PRIMARY KEY, request_digest TEXT NOT NULL, state TEXT NOT NULL,
++          conversation_key TEXT NOT NULL, telegram_message_id INTEGER, error_class TEXT
++        );
++        CREATE TABLE IF NOT EXISTS messages(
++          conversation_key TEXT NOT NULL, sequence INTEGER NOT NULL, role TEXT NOT NULL,
++          content TEXT NOT NULL, PRIMARY KEY(conversation_key,sequence),
++          CHECK(role IN ('user','assistant'))
++        );
++        CREATE TABLE IF NOT EXISTS runtime_meta(
++          key TEXT PRIMARY KEY, value INTEGER NOT NULL
++        );
++        """)
++        if migrate:
++            self._migrate_routing_schema()
++
++    def _column_names(self) -> set[str]:
++        return {str(row["name"]) for row in self.db.execute("PRAGMA table_info(updates)").fetchall()}
++
++    def _require_routing_schema(self) -> None:
++        required = {name for name, _ in self.ROUTING_COLUMNS}
++        if not required.issubset(self._column_names()):
++            raise BoundaryError("routing_schema_not_ready")
++
++    def _migrate_routing_schema(self) -> None:
++        """Add only nullable observability columns; safe to run repeatedly."""
++        with self.lock:
++            self.db.execute("BEGIN IMMEDIATE")
++            try:
++                present = self._column_names()
++                for name, sql_type in self.ROUTING_COLUMNS:
++                    if name not in present:
++                        self.db.execute(f"ALTER TABLE updates ADD COLUMN {name} {sql_type}")
++                self.db.execute("COMMIT")
++            except Exception:
++                self.db.execute("ROLLBACK")
++                raise
++
++    def poll_offset(self) -> int:
++        with self.lock:
++            row = self.db.execute("SELECT value FROM runtime_meta WHERE key='poll_offset'").fetchone()
++            return int(row[0]) if row else 0
++
++    def set_poll_offset(self, value: int) -> None:
++        if type(value) is not int or value < 0:
++            raise BoundaryError("poll_offset_invalid")
++        with self.lock:
++            self.db.execute(
++                "INSERT INTO runtime_meta(key,value) VALUES('poll_offset',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
++                (value,),
++            )
++
++    def claim(self, event: InboundMessage) -> str:
++        with self.lock:
++            self.db.execute("BEGIN IMMEDIATE")
++            try:
++                row = self.db.execute("SELECT * FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
++                if row:
++                    if row["request_digest"] != event.update_digest:
++                        self.db.execute("ROLLBACK")
++                        return "CONFLICT"
++                    self.db.execute("COMMIT")
++                    return "DUPLICATE" if row["state"] in ("COMMITTED", "FALLBACK_COMMITTED") else "UNCERTAIN"
++                self.db.execute(
++                    "INSERT INTO updates(update_id,request_digest,state,conversation_key,inbound_message_id,"
++                    "message_thread_id,direct_topic_id,trigger_class,inbound_reply_to_message_id,"
++                    "inbound_reply_to_message_thread_id) VALUES(?,?,?,?,?,?,?,?,?,?)",
++                    (event.update_id, event.update_digest, "CLAIMED", event.conversation_key,
++                     event.message_id, event.thread_id, event.direct_topic_id, event.trigger_class,
++                     event.reply_to_message_id, event.reply_to_message_thread_id),
++                )
++                self.db.execute("COMMIT")
++                return "CLAIMED"
++            except Exception:
++                self.db.execute("ROLLBACK")
++                raise
++
++    @staticmethod
++    def _mode_from_direct_topic(direct_topic_id: int) -> str:
++        return "linked_discussion" if direct_topic_id == 0 else "direct_topic"
++
++    @staticmethod
++    def _decision(root_id: str, derivation: str, evidence_update_id: int) -> RootDecision:
++        if derivation not in ROOT_DERIVATION_CLASSES:
++            raise BoundaryError("root_derivation_invalid")
++        return RootDecision(root_id, root_conversation_key(root_id), derivation, evidence_update_id)
++
++    def _isolated_decision(self, event: InboundMessage) -> RootDecision:
++        root_id = stable_root_id(event.root_mode, event.chat_id, event.direct_topic_id,
++                                 "isolated_message", event.message_id)
++        return self._decision(root_id, "ISOLATED_UNRESOLVED", event.update_id)
++
++    def _raw_lineage_matches(self, event: InboundMessage) -> list[sqlite3.Row]:
++        """Return every exact prior outbound relation row, with no eligibility filtering.
++
++        This method is called only from resolve_and_persist_root while its BEGIN IMMEDIATE
++        transaction is active, so raw cardinality and unique-row eligibility observe one
++        consistent SQLite transaction/snapshot with no count/select TOCTOU window.
++        """
++        if event.reply_to_message_id is None:
++            return []
++        return self.db.execute(
++            "SELECT update_id,state,direct_topic_id,stable_conversation_root_id,root_conversation_key "
++            "FROM updates WHERE returned_chat_id=? AND outbound_message_id=?",
++            (event.chat_id, event.reply_to_message_id),
++        ).fetchall()
++
++    def _same_anchor_candidates(self, event: InboundMessage) -> list[sqlite3.Row]:
++        if event.thread_id <= 0:
++            return []
++        return self.db.execute(
++            "SELECT update_id,root_evidence_update_id,stable_conversation_root_id,root_conversation_key "
++            "FROM updates WHERE returned_chat_id=? AND message_thread_id=? AND direct_topic_id=? "
++            "AND state IN ('COMMITTED','FALLBACK_COMMITTED') "
++            "AND root_derivation_class IN ('OBSERVED_LINKED_THREAD_ANCHOR','SAME_ROOT_OBSERVATION') "
++            "AND stable_conversation_root_id IS NOT NULL AND root_conversation_key IS NOT NULL",
++            (event.chat_id, event.thread_id, event.direct_topic_id),
++        ).fetchall()
++
++    def resolve_and_persist_root(self, event: InboundMessage) -> RootDecision:
++        """Persist one deterministic root decision after claim and before history/provider effects."""
++        with self.lock:
++            self.db.execute("BEGIN IMMEDIATE")
++            try:
++                current = self.db.execute("SELECT * FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
++                if not current or current["state"] != "CLAIMED":
++                    raise BoundaryError("root_resolution_state_invalid")
++                if current["stable_conversation_root_id"] is not None:
++                    decision = RootDecision(
++                        current["stable_conversation_root_id"], current["root_conversation_key"],
++                        current["root_derivation_class"], current["root_evidence_update_id"],
++                    )
++                    self.db.execute("COMMIT")
++                    return decision
++
++                decision: RootDecision
++                if event.trigger_class == "reply-to-bot" and event.reply_to_message_id is not None:
++                    raw_matches = self._raw_lineage_matches(event)
++                    if len(raw_matches) == 1:
++                        row = raw_matches[0]
++                        prior_topic = int(row["direct_topic_id"] or 0)
++                        eligible = (
++                            row["state"] in ("COMMITTED", "FALLBACK_COMMITTED")
++                            and row["stable_conversation_root_id"] is not None
++                            and row["root_conversation_key"] is not None
++                            and self._mode_from_direct_topic(prior_topic) == event.root_mode
++                            and prior_topic == event.direct_topic_id
++                        )
++                        if eligible:
++                            decision = self._decision(
++                                row["stable_conversation_root_id"], "PROVEN_OUTBOUND_LINEAGE", row["update_id"])
++                        else:
++                            decision = self._isolated_decision(event)
++                    else:
++                        decision = self._isolated_decision(event)
++                else:
++                    anchors = self._same_anchor_candidates(event)
++                    roots = {(row["stable_conversation_root_id"], row["root_conversation_key"]) for row in anchors}
++                    if len(roots) == 1:
++                        root_id, _ = next(iter(roots))
++                        evidence = min(int(row["root_evidence_update_id"] or row["update_id"]) for row in anchors)
++                        decision = self._decision(root_id, "SAME_ROOT_OBSERVATION", evidence)
++                    elif len(roots) > 1:
++                        decision = self._isolated_decision(event)
++                    elif event.thread_id > 0:
++                        root_id = stable_root_id(event.root_mode, event.chat_id, event.direct_topic_id,
++                                                 "observed_thread", event.thread_id)
++                        computed_key = root_conversation_key(root_id)
++                        # Missing anchor evidence may never silently attach to surviving historical transcript.
++                        if self.db.execute("SELECT 1 FROM messages WHERE conversation_key=? LIMIT 1", (computed_key,)).fetchone():
++                            decision = self._isolated_decision(event)
++                        else:
++                            decision = self._decision(root_id, "OBSERVED_LINKED_THREAD_ANCHOR", event.update_id)
++                    else:
++                        decision = self._isolated_decision(event)
++
++                self.db.execute(
++                    "UPDATE updates SET stable_conversation_root_id=?,root_derivation_class=?,"
++                    "root_evidence_update_id=?,root_conversation_key=? WHERE update_id=? AND state='CLAIMED'",
++                    (decision.stable_conversation_root_id, decision.root_derivation_class,
++                     decision.root_evidence_update_id, decision.root_conversation_key, event.update_id),
++                )
++                self.db.execute("COMMIT")
++                return decision
++            except Exception:
++                self.db.execute("ROLLBACK")
++                raise
++
++    def root_decision(self, update_id: int) -> RootDecision | None:
++        with self.lock:
++            row = self.db.execute(
++                "SELECT stable_conversation_root_id,root_conversation_key,root_derivation_class,root_evidence_update_id "
++                "FROM updates WHERE update_id=?", (update_id,),
++            ).fetchone()
++        if row is None or row["stable_conversation_root_id"] is None:
++            return None
++        return RootDecision(row["stable_conversation_root_id"], row["root_conversation_key"],
++                            row["root_derivation_class"], row["root_evidence_update_id"])
++
++    def history(self, conversation_key: str, config: Config, reserve_bytes: int = 0) -> list[dict[str, str]]:
++        with self.lock:
++            rows = self.db.execute("SELECT role,content FROM messages WHERE conversation_key=? ORDER BY sequence DESC LIMIT ?",
++                                   (conversation_key, config.max_history_messages - 1)).fetchall()[::-1]
++        selected: list[dict[str, str]] = []
++        total = 0
++        budget = max(0, config.max_history_bytes - reserve_bytes)
++        for row in reversed(rows):
++            size = len(row["content"].encode("utf-8"))
++            if total + size > budget:
++                break
++            selected.append({"role": row["role"], "content": row["content"]})
++            total += size
++        return selected[::-1]
++
++    def mark(self, update_id: int, state: str, error_class: str | None = None) -> None:
++        with self.lock:
++            self.db.execute("UPDATE updates SET state=?,error_class=? WHERE update_id=?", (state, error_class, update_id))
++
++    def has_unresolved(self, root_conversation_key_value: str, exclude_update_id: int) -> bool:
++        with self.lock:
++            return self.db.execute(
++                "SELECT 1 FROM updates WHERE root_conversation_key=? AND update_id<>? "
++                "AND state NOT IN ('COMMITTED','FALLBACK_COMMITTED') LIMIT 1",
++                (root_conversation_key_value, exclude_update_id),
++            ).fetchone() is not None
++
++    @staticmethod
++    def _validate_send_evidence(event: InboundMessage, evidence: TelegramSendEvidence) -> None:
++        if evidence.returned_chat_id != event.chat_id:
++            raise BoundaryError("returned_chat_mismatch")
++        if evidence.returned_message_thread_id is not None and evidence.returned_message_thread_id != event.thread_id:
++            raise BoundaryError("returned_thread_mismatch")
++        if evidence.returned_direct_topic_id is not None and evidence.returned_direct_topic_id != event.direct_topic_id:
++            raise BoundaryError("returned_direct_topic_mismatch")
++
++    @staticmethod
++    def _routing_values(evidence: TelegramSendEvidence) -> tuple[Any, ...]:
++        return (
++            evidence.returned_message_id, evidence.returned_message_id, evidence.returned_chat_id,
++            evidence.returned_message_thread_id, evidence.returned_direct_topic_id,
++            None if evidence.returned_is_topic_message is None else int(evidence.returned_is_topic_message),
++        )
++
++    def commit_turn(self, event: InboundMessage, reply: str, evidence: TelegramSendEvidence) -> None:
++        self._validate_send_evidence(event, evidence)
++        with self.lock:
++            self.db.execute("BEGIN IMMEDIATE")
++            try:
++                row = self.db.execute("SELECT state,root_conversation_key FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
++                if not row or row["state"] != "SENDING" or row["root_conversation_key"] is None:
++                    raise BoundaryError("ledger_state_invalid")
++                operational_key = row["root_conversation_key"]
++                sequence = self.db.execute("SELECT COALESCE(MAX(sequence),0) FROM messages WHERE conversation_key=?",
++                                           (operational_key,)).fetchone()[0]
++                self.db.execute("INSERT INTO messages VALUES(?,?,?,?)", (operational_key, sequence + 1, "user", event.text))
++                self.db.execute("INSERT INTO messages VALUES(?,?,?,?)", (operational_key, sequence + 2, "assistant", reply))
++                self.db.execute(
++                    "UPDATE updates SET state='COMMITTED',telegram_message_id=?,outbound_message_id=?,"
++                    "returned_chat_id=?,returned_message_thread_id=?,returned_direct_topic_id=?,"
++                    "returned_is_topic_message=?,error_class=NULL WHERE update_id=?",
++                    self._routing_values(evidence) + (event.update_id,),
++                )
++                self._prune_locked(operational_key, self._active_config)
++                self.db.execute("COMMIT")
++            except Exception:
++                self.db.execute("ROLLBACK")
++                raise
++
++    def commit_fallback(self, event: InboundMessage, evidence: TelegramSendEvidence) -> None:
++        self._validate_send_evidence(event, evidence)
++        with self.lock:
++            self.db.execute("BEGIN IMMEDIATE")
++            try:
++                row = self.db.execute("SELECT state,root_conversation_key FROM updates WHERE update_id=?", (event.update_id,)).fetchone()
++                if not row or row["state"] != "SENDING_FALLBACK" or row["root_conversation_key"] is None:
++                    raise BoundaryError("ledger_state_invalid")
++                operational_key = row["root_conversation_key"]
++                self.db.execute(
++                    "UPDATE updates SET state='FALLBACK_COMMITTED',telegram_message_id=?,outbound_message_id=?,"
++                    "returned_chat_id=?,returned_message_thread_id=?,returned_direct_topic_id=?,"
++                    "returned_is_topic_message=?,error_class='provider_failure' WHERE update_id=?",
++                    self._routing_values(evidence) + (event.update_id,),
++                )
++                self._prune_locked(operational_key, self._active_config)
++                self.db.execute("COMMIT")
++            except Exception:
++                self.db.execute("ROLLBACK")
++                raise
++
++    def routing_diagnostic(self, update_id: int) -> dict[str, Any] | None:
++        if type(update_id) is not int or update_id < 0:
++            raise BoundaryError("update_id_invalid")
++        fields = ",".join(self.DIAGNOSTIC_FIELDS)
++        with self.lock:
++            row = self.db.execute(f"SELECT {fields} FROM updates WHERE update_id=?", (update_id,)).fetchone()
++        if row is None:
++            return None
++        result = {name: row[name] for name in self.DIAGNOSTIC_FIELDS}
++        if result["returned_is_topic_message"] is not None:
++            result["returned_is_topic_message"] = bool(result["returned_is_topic_message"])
++        return result
++
++    def bind_config(self, config: Config) -> None:
++        self._active_config = config
++
++    def prune(self, conversation_key: str, config: Config) -> None:
++        with self.lock:
++            self.db.execute("BEGIN IMMEDIATE")
++            try:
++                self._prune_locked(conversation_key, config)
++                self.db.execute("COMMIT")
++            except Exception:
++                self.db.execute("ROLLBACK")
++                raise
++
++    def _prune_locked(self, conversation_key: str, config: Config) -> None:
++        keep_messages = config.max_history_messages
++        self.db.execute(
++            "DELETE FROM messages WHERE conversation_key=? AND sequence NOT IN "
++            "(SELECT sequence FROM messages WHERE conversation_key=? ORDER BY sequence DESC LIMIT ?)",
++            (conversation_key, conversation_key, keep_messages),
++        )
++        self.db.execute(
++            "DELETE FROM updates WHERE root_conversation_key=? AND state IN ('COMMITTED','FALLBACK_COMMITTED') "
++            "AND update_id NOT IN (SELECT update_id FROM updates WHERE root_conversation_key=? ORDER BY update_id DESC LIMIT ?) "
++            "AND update_id NOT IN (SELECT root_evidence_update_id FROM updates WHERE root_conversation_key=? "
++            "AND root_evidence_update_id IS NOT NULL)",
++            (conversation_key, conversation_key, config.max_update_records_per_conversation, conversation_key),
++        )
++
++
++class DialogueApplication:
++    def __init__(self, config: Config, store: Store, provider: Provider, telegram: Telegram,
++                 instructions: str, logger: SafeLogger):
++        if not instructions.strip() or len(instructions.encode("utf-8")) > 16_384:
++            raise BoundaryError("entity_bootstrap_invalid")
++        self.config, self.store, self.provider, self.telegram = config, store, provider, telegram
++        self.instructions, self.logger = instructions, logger
++        self.store.bind_config(config)
++        self._lock_guard = threading.Lock()
++        self._conversation_locks: dict[str, threading.Lock] = {}
++
++    def _conversation_lock(self, key: str) -> threading.Lock:
++        with self._lock_guard:
++            return self._conversation_locks.setdefault(key, threading.Lock())
++
++    def process_update(self, raw: Any) -> tuple[int, dict[str, Any]]:
++        try:
++            event = parse_update(raw, self.config)
++        except InputIgnored:
++            self.logger.emit("request", "ignored", 200)
++            return 200, {"ok": True, "outcome": "ignored_not_addressed"}
++        except (InputRejected, ValueError):
++            self.logger.emit("request", "rejected", 422)
++            return 422, {"ok": False, "outcome": "rejected"}
++        claim = self.store.claim(event)
++        if claim == "CONFLICT":
++            self.logger.emit("request", "conflict", 409)
++            return 409, {"ok": False, "outcome": "update_id_conflict"}
++        if claim == "DUPLICATE":
++            self.logger.emit("request", "duplicate", 200)
++            return 200, {"ok": True, "outcome": "duplicate"}
++        if claim == "UNCERTAIN":
++            self.logger.emit("request", "uncertain", 503)
++            return 503, {"ok": False, "outcome": "manual_reconciliation_required"}
++        decision = self.store.resolve_and_persist_root(event)
++        with self._conversation_lock(decision.root_conversation_key):
++            if self.store.has_unresolved(decision.root_conversation_key, event.update_id):
++                self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "prior_turn_unresolved")
++                self.logger.emit("request", "uncertain", 503)
++                return 503, {"ok": False, "outcome": "manual_reconciliation_required"}
++            history = self.store.history(decision.root_conversation_key, self.config, len(event.text.encode("utf-8")))
++            history.append({"role": "user", "content": event.text})
++            try:
++                reply = self.provider.respond(self.instructions, history)
++            except ProviderFailure:
++                self.store.mark(event.update_id, "SENDING_FALLBACK", "provider_failure")
++                try:
++                    evidence = self.telegram.send_text(event.chat_id, event.thread_id, event.direct_topic_id, self.config.fallback_text)
++                except TelegramFailure:
++                    self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "fallback_send_unknown")
++                else:
++                    try:
++                        self.store.commit_fallback(event, evidence)
++                    except (BoundaryError, sqlite3.Error):
++                        self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "fallback_routing_persistence_failed")
++                    else:
++                        self.logger.emit("provider", "fallback", 200)
++                        return 200, {"ok": True, "outcome": "fallback_sent"}
++            else:
++                self.store.mark(event.update_id, "SENDING")
++                try:
++                    evidence = self.telegram.send_text(event.chat_id, event.thread_id, event.direct_topic_id, reply)
++                except TelegramFailure:
++                    self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "reply_send_unknown")
++                else:
++                    try:
++                        self.store.commit_turn(event, reply, evidence)
++                    except (BoundaryError, sqlite3.Error):
++                        self.store.mark(event.update_id, "OUTCOME_UNKNOWN", "reply_routing_persistence_failed")
++                    else:
++                        self.logger.emit("request", "complete", 200)
++                        return 200, {"ok": True, "outcome": "replied"}
++        self.logger.emit("request", "uncertain", 503)
++        return 503, {"ok": False, "outcome": "manual_reconciliation_required"}
++
++
++def credential(slot: str) -> bytes:
++    if slot not in CREDENTIAL_SLOTS:
++        raise BoundaryError("credential_slot_invalid")
++    root = os.environ.get("CREDENTIALS_DIRECTORY")
++    if not root:
++        raise BoundaryError("credentials_directory_missing")
++    try:
++        value = (Path(root) / slot).read_bytes().rstrip(b"\r\n")
++    except OSError as exc:
++        raise BoundaryError("credential_unavailable") from exc
++    if not value or len(value) > 16_384:
++        raise BoundaryError("credential_invalid")
++    return value
++
++
++def load_allowlist(path: str) -> tuple[int, ...]:
++    try:
++        lines = Path(path).read_text(encoding="ascii").splitlines()
++    except (OSError, UnicodeError) as exc:
++        raise BoundaryError("tester_allowlist_unavailable") from exc
++    values: list[int] = []
++    for line in lines:
++        if not line or not line.isdecimal():
++            raise BoundaryError("tester_allowlist_invalid")
++        value = int(line)
++        if value <= 0:
++            raise BoundaryError("tester_allowlist_invalid")
++        values.append(value)
++    if not values or len(values) != len(set(values)):
++        raise BoundaryError("tester_allowlist_invalid")
++    return tuple(values)
++
++
++def load_runtime(config_path: str, stream: TextIO) -> tuple[Config, Store, DialogueApplication]:
++    raw = json.loads(Path(config_path).read_text(encoding="utf-8"))
++    if type(raw) is not dict or type(raw.get("testers_allow_path")) is not str:
++        raise BoundaryError("config_schema_invalid")
++    config = Config.from_dict(raw, load_allowlist(raw["testers_allow_path"]))
++    if config.environment != "closed_pilot":
++        raise BoundaryError("closed_pilot_environment_required")
++    instructions = Path(config.entity_bootstrap_path).read_text(encoding="utf-8")
++    store = Store(config.database_path)
++    telegram = TelegramBotAdapter(credential("telegram_bot_token"), config.telegram_timeout_seconds)
++    app = DialogueApplication(
++        config, store,
++        OpenAIResponsesAdapter(credential("openai_api_key"), config.model, config.max_output_tokens, config.provider_timeout_seconds),
++        telegram, instructions, SafeLogger(stream),
++    )
++    return config, store, app
++
++
++def poll_forever(config: Config, store: Store, app: DialogueApplication, telegram: TelegramBotAdapter) -> None:
++    offset = store.poll_offset()
++    while True:
++        try:
++            updates = telegram.get_updates(offset, config.poll_timeout_seconds)
++            for raw in updates:
++                update_id = raw.get("update_id")
++                if type(update_id) is not int or update_id < offset:
++                    app.logger.emit("telegram", "rejected", 0)
++                    continue
++                app.process_update(raw)
++                offset = update_id + 1
++                store.set_poll_offset(offset)
++        except TelegramFailure:
++            app.logger.emit("telegram", "uncertain", 0)
++            time.sleep(config.poll_retry_seconds)
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("command", choices=("check-config", "diagnose-routing", "poll"))
++    parser.add_argument("--config", required=True)
++    parser.add_argument("--update-id", type=int)
++    args = parser.parse_args()
++    try:
++        raw = json.loads(Path(args.config).read_text(encoding="utf-8"))
++        if type(raw) is not dict or type(raw.get("testers_allow_path")) is not str:
++            raise BoundaryError("config_schema_invalid")
++        config = Config.from_dict(raw, load_allowlist(raw["testers_allow_path"]))
++        if args.command == "check-config":
++            Path(config.entity_bootstrap_path).read_text(encoding="utf-8")
++            print(json.dumps({"ok": True, "schema": SCHEMA}, separators=(",", ":")))
++            return 0
++        if args.command == "diagnose-routing":
++            if args.update_id is None or args.update_id < 0:
++                raise BoundaryError("update_id_invalid")
++            diagnostic_store = Store(config.database_path, migrate=False, read_only=True)
++            try:
++                result = diagnostic_store.routing_diagnostic(args.update_id)
++            finally:
++                diagnostic_store.db.close()
++            if result is None:
++                result = {name: None for name in Store.DIAGNOSTIC_FIELDS}
++                result.update({"update_id": args.update_id, "state": "NOT_FOUND", "error_class": "update_not_found"})
++            print(json.dumps(result, ensure_ascii=False, sort_keys=True, separators=(",", ":")))
++            return 0
++        config, store, app = load_runtime(args.config, sys.stdout)
++        app.logger.emit("runtime", "ready", 0)
++        try:
++            poll_forever(config, store, app, app.telegram)
++        finally:
++            store.db.close(); app.logger.emit("runtime", "stopped", 0)
++        return 0
++    except (BoundaryError, OSError, ValueError, json.JSONDecodeError, sqlite3.Error):
++        return 2
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- a/test_dialogue_mvp.py
++++ b/test_dialogue_mvp.py
+@@ -1,659 +1,761 @@
+-#!/usr/bin/env python3
+-import io
+-import importlib.util
+-import json
+-import sqlite3
+-import sys
+-import tempfile
+-import unittest
+-from contextlib import redirect_stdout
+-from pathlib import Path
+-
+-MODULE_PATH = Path(__file__).with_name("dialogue_mvp.py")
+-SPEC = importlib.util.spec_from_file_location("dialogue_mvp", MODULE_PATH)
+-dialogue_mvp = importlib.util.module_from_spec(SPEC)
+-sys.modules["dialogue_mvp"] = dialogue_mvp
+-SPEC.loader.exec_module(dialogue_mvp)
+-Config = dialogue_mvp.Config
+-BoundaryError = dialogue_mvp.BoundaryError
+-DialogueApplication = dialogue_mvp.DialogueApplication
+-OpenAIResponsesAdapter = dialogue_mvp.OpenAIResponsesAdapter
+-ProviderFailure = dialogue_mvp.ProviderFailure
+-SafeLogger = dialogue_mvp.SafeLogger
+-Store = dialogue_mvp.Store
+-TelegramSendEvidence = dialogue_mvp.TelegramSendEvidence
+-parse_update = dialogue_mvp.parse_update
+-
+-DISCUSSION_ID = -1002429106148
+-BOT_ID = 8866633840
+-BOT_USERNAME = "WBNP_Media_Bot"
+-
+-
+-def config(path: str) -> Config:
+-    return Config.from_dict({
+-        "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R02", "environment": "test",
+-        "database_path": path, "testers_allow_path": "/etc/wellbeing/telegram-single-entity-pilot/testers.allow",
+-        "allowed_chat_types": ["supergroup"], "discussion_chat_id": DISCUSSION_ID,
+-        "bot_user_id": BOT_ID, "bot_username": BOT_USERNAME, "activation_command": "ask",
+-        "model": "gpt-5.6-luna", "max_output_tokens": 512,
+-        "provider_timeout_seconds": 30, "telegram_timeout_seconds": 10,
+-        "poll_timeout_seconds": 25, "poll_retry_seconds": 5, "max_input_bytes": 4096,
+-        "max_history_messages": 12, "max_history_bytes": 32768, "max_update_records_per_conversation": 256,
+-        "fallback_text": "Сейчас не получилось ответить. Попробуйте позднее.",
+-        "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r02/entity_bootstrap.txt",
+-    }, (101, 202))
+-
+-
+-def utf16_units(value: str) -> int:
+-    return len(value.encode("utf-16-le")) // 2
+-
+-
+-def update(uid=1, user=101, chat=DISCUSSION_ID, text="Привет", thread=0, direct_topic=0,
+-           trigger="mention", chat_type="supergroup", reply_target=77, reply_thread=None,
+-           is_automatic_forward=False):
+-    msg = {"message_id": uid + 100, "chat": {"id": chat, "type": chat_type},
+-           "from": {"id": user, "first_name": "SHOULD_NOT_PERSIST"}}
+-    if trigger == "mention":
+-        token = "@" + BOT_USERNAME
+-        msg["text"] = token + " " + text
+-        msg["entities"] = [{"type": "mention", "offset": 0, "length": utf16_units(token)}]
+-    elif trigger == "mention_after_emoji":
+-        token = "@" + BOT_USERNAME
+-        prefix = "🙂 "
+-        msg["text"] = prefix + token + " " + text
+-        msg["entities"] = [{"type": "mention", "offset": utf16_units(prefix), "length": utf16_units(token)}]
+-    elif trigger == "command":
+-        token = "/ask@" + BOT_USERNAME
+-        msg["text"] = token + " " + text
+-        msg["entities"] = [{"type": "bot_command", "offset": 0, "length": utf16_units(token)}]
+-    elif trigger == "reply":
+-        msg["text"] = text
+-        msg["reply_to_message"] = {"message_id": reply_target, "from": {"id": BOT_ID, "is_bot": True}}
+-        if reply_thread is not None:
+-            msg["reply_to_message"]["message_thread_id"] = reply_thread
+-    elif trigger == "ambient":
+-        msg["text"] = text
+-    else:
+-        raise AssertionError("unknown synthetic trigger")
+-    if thread:
+-        msg["message_thread_id"] = thread
+-    if direct_topic:
+-        msg["direct_messages_topic"] = {"topic_id": direct_topic, "user": {"id": 999, "first_name": "DO_NOT_PERSIST"}}
+-    if is_automatic_forward:
+-        msg["is_automatic_forward"] = True
+-    return {"update_id": uid, "message": msg}
+-
+-
+-class FakeProvider:
+-    def __init__(self, fail=False): self.calls = []; self.fail = fail
+-    def respond(self, instructions, history):
+-        self.calls.append((instructions, history))
+-        if self.fail: raise ProviderFailure("synthetic")
+-        return "Ответ " + str(len(self.calls))
+-
+-
+-class FakeTelegram:
+-    def __init__(self, fail=False): self.calls = []; self.fail = fail
+-    def send_text(self, chat_id, thread_id, direct_topic_id, text):
+-        self.calls.append((chat_id, thread_id, direct_topic_id, text))
+-        if self.fail: raise dialogue_mvp.TelegramFailure("synthetic")
+-        return TelegramSendEvidence(
+-            returned_message_id=700 + len(self.calls), returned_chat_id=chat_id,
+-            returned_message_thread_id=thread_id if thread_id else None,
+-            returned_direct_topic_id=direct_topic_id if direct_topic_id else None,
+-            returned_is_topic_message=True if thread_id else None,
+-        )
+-
+-
+-class FakeHTTP:
+-    def __init__(self, result): self.result = result; self.calls = []
+-    def post(self, *args): self.calls.append(args); return self.result
+-
+-
+-class Tests(unittest.TestCase):
+-    def setUp(self):
+-        self.tmp = tempfile.TemporaryDirectory()
+-        self.cfg = config(str(Path(self.tmp.name) / "state.sqlite"))
+-        self.provider = FakeProvider(); self.telegram = FakeTelegram(); self.log = io.StringIO()
+-        self.store = Store(self.cfg.database_path)
+-        self.app = DialogueApplication(self.cfg, self.store, self.provider, self.telegram,
+-                                       "Ты тестовая Сущность.", SafeLogger(self.log))
+-
+-    def tearDown(self):
+-        self.store.db.close(); self.tmp.cleanup()
+-
+-    def call(self, payload):
+-        return self.app.process_update(payload)
+-
+-    def test_correct_discussion_chat_admitted(self):
+-        code, out = self.call(update())
+-        self.assertEqual((code, out["outcome"]), (200, "replied"))
+-        self.assertEqual(self.telegram.calls[0][0], DISCUSSION_ID)
+-
+-    def test_explicit_mention_accepted_and_removed_from_prompt(self):
+-        self.call(update(text="Содержательный вопрос"))
+-        self.assertEqual(self.provider.calls[0][1][-1]["content"], "Содержательный вопрос")
+-
+-    def test_reply_to_bot_accepted(self):
+-        code, out = self.call(update(trigger="reply"))
+-        self.assertEqual((code, out["outcome"]), (200, "replied"))
+-
+-    def test_explicit_command_accepted(self):
+-        code, out = self.call(update(trigger="command", text="Вопрос"))
+-        self.assertEqual((code, out["outcome"]), (200, "replied"))
+-        self.assertEqual(self.provider.calls[0][1][-1]["content"], "Вопрос")
+-
+-    def test_utf16_mention_offset(self):
+-        code, out = self.call(update(trigger="mention_after_emoji"))
+-        self.assertEqual((code, out["outcome"]), (200, "replied"))
+-
+-    def test_ambient_nonaddressed_message_ignored(self):
+-        code, out = self.call(update(trigger="ambient"))
+-        self.assertEqual((code, out["outcome"]), (200, "ignored_not_addressed"))
+-        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
+-
+-    def test_other_chat_rejected_before_effect(self):
+-        code, out = self.call(update(chat=-1009999999999))
+-        self.assertEqual((code, out["outcome"]), (422, "rejected"))
+-        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
+-
+-    def test_unlisted_tester_rejected_before_effect(self):
+-        code, _ = self.call(update(user=303))
+-        self.assertEqual(code, 422)
+-        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
+-
+-    def test_multi_turn_same_thread_context(self):
+-        self.call(update(1, text="Меня зовут А.", thread=11))
+-        self.call(update(2, text="Как меня зовут?", thread=11))
+-        history = self.provider.calls[1][1]
+-        self.assertEqual([x["role"] for x in history], ["user", "assistant", "user"])
+-        self.assertEqual(history[0]["content"], "Меня зовут А.")
+-
+-    def test_different_thread_isolation(self):
+-        self.call(update(1, thread=11)); self.call(update(2, thread=22))
+-        self.assertEqual(len(self.provider.calls[1][1]), 1)
+-
+-    def test_exact_replay_no_second_effect(self):
+-        payload = update(); self.call(payload)
+-        code, out = self.call(payload)
+-        self.assertEqual((code, out["outcome"]), (200, "duplicate"))
+-        self.assertEqual(len(self.provider.calls), 1); self.assertEqual(len(self.telegram.calls), 1)
+-
+-    def test_update_id_collision(self):
+-        self.call(update(1, text="A")); code, out = self.call(update(1, text="B"))
+-        self.assertEqual((code, out["outcome"]), (409, "update_id_conflict"))
+-
+-    def test_non_message_update_rejects_before_effect(self):
+-        code, _ = self.call({"update_id": 1, "channel_post": {"text": "x"}})
+-        self.assertEqual(code, 422); self.assertFalse(self.provider.calls)
+-
+-    def test_provider_failure_visible_fallback(self):
+-        self.provider.fail = True
+-        code, out = self.call(update())
+-        self.assertEqual((code, out["outcome"]), (200, "fallback_sent"))
+-        self.assertEqual(self.telegram.calls[0][3], self.cfg.fallback_text)
+-
+-    def test_send_failure_is_uncertain_and_no_blind_retry(self):
+-        self.telegram.fail = True; payload = update()
+-        code, out = self.call(payload)
+-        self.assertEqual((code, out["outcome"]), (503, "manual_reconciliation_required"))
+-        code2, out2 = self.call(payload)
+-        self.assertEqual((code2, out2["outcome"]), (503, "manual_reconciliation_required"))
+-        self.assertEqual(len(self.provider.calls), 1)
+-
+-    def test_input_bound(self):
+-        code, _ = self.call(update(text="я" * 5000))
+-        self.assertEqual(code, 422); self.assertFalse(self.provider.calls)
+-
+-    def test_raw_identity_and_text_not_logged(self):
+-        self.call(update(text="СЕКРЕТНЫЙ_ТЕКСТ")); log = self.log.getvalue()
+-        self.assertNotIn("СЕКРЕТНЫЙ", log); self.assertNotIn("101", log)
+-        self.assertNotIn("SHOULD_NOT_PERSIST", log)
+-
+-    def test_openai_shape_and_output(self):
+-        response = {"status": "completed", "output": [{"type": "reasoning"}, {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "OK"}]}]}
+-        http = FakeHTTP(response); adapter = OpenAIResponsesAdapter(b"key", "gpt-5.6-luna", 512, 30, http)
+-        self.assertEqual(adapter.respond("sys", [{"role": "user", "content": "hi"}]), "OK")
+-        body = http.calls[0][2]
+-        self.assertEqual(body["tools"], []); self.assertIs(body["store"], False)
+-        self.assertEqual(body["max_output_tokens"], 512)
+-
+-    def test_reasoning_only_is_not_candidate(self):
+-        http = FakeHTTP({"status": "completed", "output": [{"type": "reasoning", "summary": []}]})
+-        adapter = OpenAIResponsesAdapter(b"key", "gpt-5.6-luna", 512, 30, http)
+-        with self.assertRaises(ProviderFailure):
+-            adapter.respond("sys", [{"role": "user", "content": "hi"}])
+-
+-    def test_closed_config_unknown_field(self):
+-        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
+-        raw["surprise"] = 1
+-        with self.assertRaises(Exception): Config.from_dict(raw, (101,))
+-
+-    def test_exact_mapping_cannot_be_reconfigured(self):
+-        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
+-        raw["discussion_chat_id"] = -1001
+-        with self.assertRaises(Exception): Config.from_dict(raw, (101,))
+-
+-    def test_poll_shape(self):
+-        http = FakeHTTP({"ok": True, "result": [update(5)]})
+-        adapter = dialogue_mvp.TelegramBotAdapter(b"token", 10, http)
+-        self.assertEqual(adapter.get_updates(5, 25)[0]["update_id"], 5)
+-        body = http.calls[0][2]
+-        self.assertEqual(body, {"offset": 5, "limit": 10, "timeout": 25, "allowed_updates": ["message"]})
+-
+-    def test_poll_offset_is_durable(self):
+-        self.assertEqual(self.store.poll_offset(), 0)
+-        self.store.set_poll_offset(42)
+-        self.assertEqual(self.store.poll_offset(), 42)
+-
+-    def test_transcript_is_pruned_and_request_is_bounded(self):
+-        for n in range(1, 9): self.call(update(n, text="turn" + str(n), thread=11))
+-        count = self.store.db.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
+-        self.assertLessEqual(count, self.cfg.max_history_messages)
+-        self.assertLessEqual(len(self.provider.calls[-1][1]), self.cfg.max_history_messages)
+-
+-    # Routing observability r0.1 matrix T1-T9.
+-    def test_t1_same_chat_thread_topic_same_conversation_key(self):
+-        first = parse_update(update(41, thread=17, direct_topic=3001), self.cfg)
+-        second = parse_update(update(42, thread=17, direct_topic=3001), self.cfg)
+-        self.assertEqual(first.conversation_key, second.conversation_key)
+-
+-    def test_t2_different_thread_changes_conversation_key(self):
+-        first = parse_update(update(41, thread=17), self.cfg)
+-        second = parse_update(update(42, thread=18), self.cfg)
+-        self.assertNotEqual(first.conversation_key, second.conversation_key)
+-
+-    def test_t3_different_direct_topic_changes_conversation_key(self):
+-        first = parse_update(update(41, direct_topic=3001), self.cfg)
+-        second = parse_update(update(42, direct_topic=3002), self.cfg)
+-        self.assertNotEqual(first.conversation_key, second.conversation_key)
+-
+-    def test_t4_trigger_class_is_deterministic_and_persisted(self):
+-        expected = ((51, "reply", "reply-to-bot"), (52, "command", "command"), (53, "mention", "exact-mention"))
+-        for uid, trigger, classification in expected:
+-            self.call(update(uid, trigger=trigger))
+-            row = self.store.db.execute("SELECT trigger_class FROM updates WHERE update_id=?", (uid,)).fetchone()
+-            self.assertEqual(row[0], classification)
+-
+-    def test_t5_successful_send_persists_only_minimal_routing_projection(self):
+-        self.call(update(61, thread=17, direct_topic=3001, text="routing"))
+-        diagnostic = self.store.routing_diagnostic(61)
+-        self.assertEqual(diagnostic, {
+-            "update_id": 61, "inbound_message_id": 161, "message_thread_id": 17,
+-            "direct_topic_id": 3001, "trigger_class": "exact-mention",
+-            "conversation_key": parse_update(update(61, thread=17, direct_topic=3001, text="routing"), self.cfg).conversation_key,
+-            "outbound_message_id": 701, "returned_chat_id": DISCUSSION_ID,
+-            "returned_message_thread_id": 17, "returned_direct_topic_id": 3001,
+-            "returned_is_topic_message": True, "state": "COMMITTED", "error_class": None,
+-        })
+-        self.assertEqual(set(diagnostic), set(Store.DIAGNOSTIC_FIELDS))
+-
+-    def test_t5_bot_api_message_is_projected_not_retained(self):
+-        response = {"ok": True, "result": {
+-            "message_id": 777, "message_thread_id": 17,
+-            "direct_messages_topic": {"topic_id": 3001, "user": {"id": 9, "username": "DROP_ME"}},
+-            "chat": {"id": DISCUSSION_ID, "title": "DROP_ME"}, "is_topic_message": True,
+-            "text": "DROP_ME", "from": {"username": "DROP_ME"},
+-        }}
+-        adapter = dialogue_mvp.TelegramBotAdapter(b"token", 10, FakeHTTP(response))
+-        evidence = adapter.send_text(DISCUSSION_ID, 17, 3001, "safe")
+-        self.assertEqual(evidence, TelegramSendEvidence(777, DISCUSSION_ID, 17, 3001, True))
+-        self.assertNotIn("DROP_ME", repr(evidence))
+-
+-    def test_t6_send_success_metadata_persistence_failure_is_uncertain_no_resend(self):
+-        payload = update(71, thread=17)
+-        original = self.store.commit_turn
+-        def fail_commit(event, reply, evidence):
+-            raise BoundaryError("synthetic_routing_metadata_persistence_failure")
+-        self.store.commit_turn = fail_commit
+-        code, out = self.call(payload)
+-        self.assertEqual((code, out["outcome"]), (503, "manual_reconciliation_required"))
+-        row = self.store.db.execute("SELECT state,error_class FROM updates WHERE update_id=71").fetchone()
+-        self.assertEqual(tuple(row), ("OUTCOME_UNKNOWN", "reply_routing_persistence_failed"))
+-        code2, out2 = self.call(payload)
+-        self.assertEqual((code2, out2["outcome"]), (503, "manual_reconciliation_required"))
+-        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (1, 1))
+-        self.store.commit_turn = original
+-
+-    def test_t7_privacy_no_raw_update_identity_or_provider_response_in_routing_storage_or_logs(self):
+-        payload = update(81, text="ALLOWED_DIALOGUE_TEXT", thread=17, direct_topic=3001)
+-        payload["message"]["from"]["username"] = "DO_NOT_PERSIST_USERNAME"
+-        self.call(payload)
+-        update_row = dict(self.store.db.execute("SELECT * FROM updates WHERE update_id=81").fetchone())
+-        serialized = json.dumps(update_row, sort_keys=True)
+-        self.assertNotIn("DO_NOT_PERSIST", serialized)
+-        self.assertNotIn("ALLOWED_DIALOGUE_TEXT", serialized)
+-        self.assertNotIn("DO_NOT_PERSIST", self.log.getvalue())
+-        self.assertNotIn("raw_update", set(update_row))
+-        self.assertNotIn("provider_response", set(update_row))
+-
+-    def test_t8_r02_database_migration_is_additive_idempotent_and_history_readable(self):
+-        old_path = str(Path(self.tmp.name) / "old-r02.sqlite")
+-        db = sqlite3.connect(old_path)
+-        db.executescript("""
+-        CREATE TABLE updates(update_id INTEGER PRIMARY KEY,request_digest TEXT NOT NULL,state TEXT NOT NULL,
+-          conversation_key TEXT NOT NULL,telegram_message_id INTEGER,error_class TEXT);
+-        CREATE TABLE messages(conversation_key TEXT NOT NULL,sequence INTEGER NOT NULL,role TEXT NOT NULL,
+-          content TEXT NOT NULL,PRIMARY KEY(conversation_key,sequence),CHECK(role IN ('user','assistant')));
+-        CREATE TABLE runtime_meta(key TEXT PRIMARY KEY,value INTEGER NOT NULL);
+-        INSERT INTO updates VALUES(5,'digest','COMMITTED','legacy-key',101,NULL);
+-        INSERT INTO messages VALUES('legacy-key',1,'user','legacy-history');
+-        """)
+-        db.commit(); db.close()
+-        migrated = Store(old_path)
+-        try:
+-            self.assertEqual(migrated.db.execute("SELECT content FROM messages").fetchone()[0], "legacy-history")
+-            self.assertEqual(migrated.db.execute("SELECT telegram_message_id FROM updates").fetchone()[0], 101)
+-            first_columns = migrated._column_names()
+-        finally:
+-            migrated.db.close()
+-        migrated_again = Store(old_path)
+-        try:
+-            self.assertEqual(migrated_again._column_names(), first_columns)
+-            legacy = migrated_again.routing_diagnostic(5)
+-            self.assertEqual(legacy["state"], "COMMITTED")
+-            self.assertIsNone(legacy["inbound_message_id"])
+-        finally:
+-            migrated_again.db.close()
+-
+-    def test_t9_diagnostic_is_bounded_read_only_projection(self):
+-        self.call(update(91, thread=22))
+-        diagnostic = self.store.routing_diagnostic(91)
+-        self.assertEqual(tuple(diagnostic), Store.DIAGNOSTIC_FIELDS)
+-        forbidden = {"request_digest", "telegram_message_id", "text", "username", "display_name", "raw_update", "provider_response"}
+-        self.assertFalse(forbidden.intersection(diagnostic))
+-
+-    def test_t9_cli_diagnostic_needs_no_credentials_and_returns_bounded_json(self):
+-        self.call(update(92, thread=23))
+-        allow_path = Path(self.tmp.name) / "testers.allow"
+-        bootstrap_path = Path(self.tmp.name) / "bootstrap.txt"
+-        config_path = Path(self.tmp.name) / "runtime.json"
+-        allow_path.write_text("101\n", encoding="ascii")
+-        bootstrap_path.write_text("bounded", encoding="utf-8")
+-        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
+-        raw.update({"database_path": self.cfg.database_path, "testers_allow_path": str(allow_path),
+-                    "entity_bootstrap_path": str(bootstrap_path), "environment": "test"})
+-        config_path.write_text(json.dumps(raw), encoding="utf-8")
+-        stdout, old_argv = io.StringIO(), sys.argv
+-        try:
+-            sys.argv = ["dialogue_mvp.py", "diagnose-routing", "--config", str(config_path), "--update-id", "92"]
+-            with redirect_stdout(stdout):
+-                self.assertEqual(dialogue_mvp.main(), 0)
+-        finally:
+-            sys.argv = old_argv
+-        result = json.loads(stdout.getvalue())
+-        self.assertEqual(tuple(sorted(result)), tuple(sorted(Store.DIAGNOSTIC_FIELDS)))
+-        self.assertEqual(result["update_id"], 92)
+-
+-    # Conversation-root r0.1 implementation matrix T1-T16.
+-    def _root_row(self, update_id):
+-        return self.store.db.execute(
+-            "SELECT stable_conversation_root_id,root_conversation_key,root_derivation_class,"
+-            "root_evidence_update_id,inbound_reply_to_message_id,inbound_reply_to_message_thread_id,"
+-            "conversation_key,message_thread_id,direct_topic_id,state,outbound_message_id,returned_chat_id "
+-            "FROM updates WHERE update_id=?", (update_id,),
+-        ).fetchone()
+-
+-    def test_root_t01_initial_linked_discussion_command_establishes_observed_anchor(self):
+-        self.call(update(201, trigger="command", thread=110, text="turn-one"))
+-        row = self._root_row(201)
+-        self.assertEqual(row["root_derivation_class"], "OBSERVED_LINKED_THREAD_ANCHOR")
+-        self.assertIsNotNone(row["stable_conversation_root_id"])
+-        expected = dialogue_mvp.root_conversation_key(row["stable_conversation_root_id"])
+-        self.assertEqual(row["root_conversation_key"], expected)
+-        self.assertEqual(expected, __import__("hashlib").sha256(
+-            ("tg-dialogue-root-r01\0" + row["stable_conversation_root_id"]).encode()).hexdigest())
+-        self.assertNotEqual(row["conversation_key"], row["root_conversation_key"])
+-
+-    def test_root_t02_changed_thread_direct_known_reply_inherits_same_root(self):
+-        self.call(update(202, trigger="command", thread=110, text="alpha"))
+-        first = self._root_row(202)
+-        outbound = first["outbound_message_id"]
+-        self.call(update(203, trigger="reply", thread=outbound, reply_target=outbound, text="beta"))
+-        second = self._root_row(203)
+-        self.assertEqual(second["root_derivation_class"], "PROVEN_OUTBOUND_LINEAGE")
+-        self.assertEqual(second["stable_conversation_root_id"], first["stable_conversation_root_id"])
+-        self.assertEqual(second["root_conversation_key"], first["root_conversation_key"])
+-        history = self.provider.calls[1][1]
+-        self.assertEqual([x["role"] for x in history], ["user", "assistant", "user"])
+-        self.assertEqual(history[0]["content"], "alpha")
+-
+-    def test_root_t03_same_root_observation_requires_exact_same_anchor(self):
+-        self.call(update(204, trigger="command", thread=120, text="one"))
+-        first = self._root_row(204)
+-        self.call(update(205, trigger="command", thread=120, text="two"))
+-        second = self._root_row(205)
+-        self.assertEqual(second["root_derivation_class"], "SAME_ROOT_OBSERVATION")
+-        self.assertEqual(second["stable_conversation_root_id"], first["stable_conversation_root_id"])
+-        self.assertEqual(second["root_evidence_update_id"], first["root_evidence_update_id"])
+-
+-    def test_root_t04_reply_target_from_other_root_follows_target_not_observed_thread(self):
+-        self.call(update(206, trigger="command", thread=130, text="root-A"))
+-        a = self._root_row(206)
+-        self.call(update(207, trigger="command", thread=140, text="root-C"))
+-        c = self._root_row(207)
+-        self.assertNotEqual(a["stable_conversation_root_id"], c["stable_conversation_root_id"])
+-        self.call(update(208, trigger="reply", thread=140, reply_target=a["outbound_message_id"], text="target-A"))
+-        r = self._root_row(208)
+-        self.assertEqual(r["stable_conversation_root_id"], a["stable_conversation_root_id"])
+-        self.assertNotEqual(r["stable_conversation_root_id"], c["stable_conversation_root_id"])
+-        history = self.provider.calls[2][1]
+-        self.assertEqual(history[0]["content"], "root-A")
+-        self.assertNotIn("root-C", [x["content"] for x in history])
+-
+-    def test_root_t05_unknown_reply_target_isolated_no_history_merge(self):
+-        self.call(update(209, trigger="command", thread=150, text="known"))
+-        self.call(update(210, trigger="reply", thread=150, reply_target=999999, text="unknown-target"))
+-        r = self._root_row(210)
+-        self.assertEqual(r["root_derivation_class"], "ISOLATED_UNRESOLVED")
+-        self.assertEqual(len(self.provider.calls[1][1]), 1)
+-
+-    def test_root_t06_legacy_row_without_root_never_guessed_into_lineage(self):
+-        self.store.db.execute(
+-            "INSERT INTO updates(update_id,request_digest,state,conversation_key,telegram_message_id,error_class,"
+-            "inbound_message_id,message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id) "
+-            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+-            (190, "legacy-digest", "COMMITTED", "legacy-key", 900, None, 290, 160, 0,
+-             "command", 900, DISCUSSION_ID),
+-        )
+-        self.call(update(211, trigger="reply", thread=160, reply_target=900, text="legacy-reply"))
+-        r = self._root_row(211)
+-        self.assertEqual(r["root_derivation_class"], "ISOLATED_UNRESOLVED")
+-        self.assertEqual(len(self.provider.calls[0][1]), 1)
+-        legacy = self.store.db.execute("SELECT conversation_key,stable_conversation_root_id FROM updates WHERE update_id=190").fetchone()
+-        self.assertEqual(legacy["conversation_key"], "legacy-key")
+-        self.assertIsNone(legacy["stable_conversation_root_id"])
+-
+-    def test_root_t07_duplicate_replay_one_effect_and_same_persisted_root(self):
+-        payload = update(212, trigger="command", thread=170, text="dup")
+-        self.call(payload)
+-        before = self._root_row(212)
+-        code, out = self.call(payload)
+-        after = self._root_row(212)
+-        self.assertEqual((code, out["outcome"]), (200, "duplicate"))
+-        self.assertEqual(before["stable_conversation_root_id"], after["stable_conversation_root_id"])
+-        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (1, 1))
+-
+-    def test_root_t08_post_send_root_relation_persistence_failure_outcome_unknown_no_resend(self):
+-        payload = update(213, trigger="command", thread=180, text="uncertain")
+-        original = self.store.commit_turn
+-        def fail_commit(event, reply, evidence):
+-            raise BoundaryError("synthetic_root_relation_persistence_failure")
+-        self.store.commit_turn = fail_commit
+-        code, out = self.call(payload)
+-        root_before = self.store.root_decision(213)
+-        code2, out2 = self.call(payload)
+-        root_after = self.store.root_decision(213)
+-        self.store.commit_turn = original
+-        self.assertEqual((code, out["outcome"]), (503, "manual_reconciliation_required"))
+-        self.assertEqual((code2, out2["outcome"]), (503, "manual_reconciliation_required"))
+-        self.assertEqual(root_before, root_after)
+-        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (1, 1))
+-        state = self.store.db.execute("SELECT state FROM updates WHERE update_id=213").fetchone()[0]
+-        self.assertEqual(state, "OUTCOME_UNKNOWN")
+-
+-    def test_root_t09_cross_chat_never_merges(self):
+-        linked = dialogue_mvp.stable_root_id("linked_discussion", DISCUSSION_ID, 0, "observed_thread", 190)
+-        other = dialogue_mvp.stable_root_id("linked_discussion", DISCUSSION_ID - 1, 0, "observed_thread", 190)
+-        self.assertNotEqual(linked, other)
+-        code, _ = self.call(update(214, chat=DISCUSSION_ID - 1, trigger="command", thread=190))
+-        self.assertEqual(code, 422)
+-        self.assertFalse(self.provider.calls)
+-        self.assertFalse(self.telegram.calls)
+-
+-    def test_root_t10_direct_topic_change_is_mode_scoped_no_merge(self):
+-        self.call(update(215, trigger="command", thread=200, direct_topic=3001, text="topic-a"))
+-        a = self._root_row(215)
+-        self.call(update(216, trigger="command", thread=200, direct_topic=3002, text="topic-b"))
+-        b = self._root_row(216)
+-        self.assertNotEqual(a["stable_conversation_root_id"], b["stable_conversation_root_id"])
+-        self.assertEqual(len(self.provider.calls[1][1]), 1)
+-
+-    def test_root_t11_privacy_persists_only_bounded_reply_root_scalars(self):
+-        payload = update(217, trigger="command", thread=210, text="SAFE_TRANSCRIPT")
+-        payload["message"]["from"]["username"] = "DROP_USERNAME"
+-        self.call(payload)
+-        row = dict(self.store.db.execute("SELECT * FROM updates WHERE update_id=217").fetchone())
+-        serialized = json.dumps(row, sort_keys=True)
+-        self.assertNotIn("DROP_USERNAME", serialized)
+-        self.assertNotIn("SAFE_TRANSCRIPT", serialized)
+-        forbidden = {"raw_update", "full_message", "username", "display_name", "provider_response"}
+-        self.assertFalse(forbidden.intersection(row))
+-        required = {"inbound_reply_to_message_id", "inbound_reply_to_message_thread_id",
+-                    "stable_conversation_root_id", "root_derivation_class", "root_evidence_update_id"}
+-        self.assertTrue(required.issubset(row))
+-
+-    def test_root_t12_parameterized_exact_fixture_no_numeric_semantic_hardcode(self):
+-        A = 31337
+-        self.call(update(218, trigger="command", thread=A, text="fixture-turn1"))
+-        first = self._root_row(218)
+-        B = first["outbound_message_id"]
+-        self.assertNotEqual(A, B)
+-        self.call(update(219, trigger="reply", thread=B, reply_target=B, reply_thread=A, text="fixture-turn2"))
+-        second = self._root_row(219)
+-        self.assertEqual(second["message_thread_id"], B)
+-        self.assertEqual(second["inbound_reply_to_message_id"], B)
+-        self.assertEqual(second["root_derivation_class"], "PROVEN_OUTBOUND_LINEAGE")
+-        self.assertEqual(second["stable_conversation_root_id"], first["stable_conversation_root_id"])
+-        self.assertEqual(second["root_conversation_key"], first["root_conversation_key"])
+-        self.assertEqual(self.provider.calls[1][1][0]["content"], "fixture-turn1")
+-
+-    def test_root_t13_ambiguous_outbound_lookup_isolated_no_wrong_merge(self):
+-        self.call(update(220, trigger="command", thread=220, text="base"))
+-        base = self._root_row(220)
+-        fake_root = "f" * 64
+-        fake_key = dialogue_mvp.root_conversation_key(fake_root)
+-        self.store.db.execute(
+-            "INSERT INTO updates(update_id,request_digest,state,conversation_key,error_class,inbound_message_id,"
+-            "message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id,"
+-            "stable_conversation_root_id,root_derivation_class,root_evidence_update_id,root_conversation_key) "
+-            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+-            (191, "ambiguous", "COMMITTED", "legacy-ambiguous", None, 291, 999, 0, "command",
+-             base["outbound_message_id"], DISCUSSION_ID, fake_root, "OBSERVED_LINKED_THREAD_ANCHOR", 191, fake_key),
+-        )
+-        self.call(update(221, trigger="reply", thread=220, reply_target=base["outbound_message_id"], text="ambiguous"))
+-        r = self._root_row(221)
+-        self.assertEqual(r["root_derivation_class"], "ISOLATED_UNRESOLVED")
+-        self.assertNotEqual(r["stable_conversation_root_id"], base["stable_conversation_root_id"])
+-        self.assertEqual(len(self.provider.calls[1][1]), 1)
+-
+-    def test_root_t14_conflicting_anchor_without_lineage_isolated(self):
+-        self.call(update(222, trigger="command", thread=230, text="anchor"))
+-        anchor = self._root_row(222)
+-        fake_root = "e" * 64
+-        fake_key = dialogue_mvp.root_conversation_key(fake_root)
+-        self.store.db.execute(
+-            "INSERT INTO updates(update_id,request_digest,state,conversation_key,error_class,inbound_message_id,"
+-            "message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id,"
+-            "stable_conversation_root_id,root_derivation_class,root_evidence_update_id,root_conversation_key) "
+-            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+-            (192, "conflict-anchor", "COMMITTED", "legacy-conflict", None, 292, 230, 0, "command",
+-             9992, DISCUSSION_ID, fake_root, "OBSERVED_LINKED_THREAD_ANCHOR", 192, fake_key),
+-        )
+-        self.call(update(223, trigger="command", thread=230, text="new"))
+-        r = self._root_row(223)
+-        self.assertEqual(r["root_derivation_class"], "ISOLATED_UNRESOLVED")
+-        self.assertNotEqual(r["stable_conversation_root_id"], anchor["stable_conversation_root_id"])
+-        self.assertEqual(len(self.provider.calls[1][1]), 1)
+-
+-    def test_root_t15_auto_forward_deferred_no_root_no_tester_widening_no_effect(self):
+-        # Even an otherwise allowlisted/addressed synthetic event is diverted before claim/root/provider/send.
+-        payload = update(224, user=101, trigger="command", thread=240, is_automatic_forward=True)
+-        code, out = self.call(payload)
+-        self.assertEqual((code, out["outcome"]), (200, "ignored_not_addressed"))
+-        self.assertEqual(self.cfg.allowed_user_ids, (101, 202))
+-        self.assertEqual(self.store.db.execute("SELECT COUNT(*) FROM updates").fetchone()[0], 0)
+-        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (0, 0))
+-
+-    def test_root_t16_forum_and_linked_discussion_namespaces_are_distinct(self):
+-        linked = dialogue_mvp.stable_root_id("linked_discussion", DISCUSSION_ID, 0, "observed_thread", 250)
+-        forum = dialogue_mvp.stable_root_id("forum", DISCUSSION_ID, 0, "observed_thread", 250)
+-        self.assertNotEqual(linked, forum)
+-        self.assertNotIn("PROVEN_AUTO_FORWARD_ROOT", dialogue_mvp.ROOT_DERIVATION_CLASSES)
+-
+-    def test_root_decision_is_durable_before_provider_history_effect(self):
+-        observed = []
+-        def inspect(instructions, history):
+-            row = self.store.db.execute(
+-                "SELECT state,stable_conversation_root_id,root_conversation_key,root_derivation_class "
+-                "FROM updates WHERE update_id=225").fetchone()
+-            observed.append(tuple(row))
+-            return "ok"
+-        self.provider.respond = inspect
+-        self.call(update(225, trigger="command", thread=260, text="ordering"))
+-        self.assertEqual(observed[0][0], "CLAIMED")
+-        self.assertIsNotNone(observed[0][1])
+-        self.assertIsNotNone(observed[0][2])
+-        self.assertEqual(observed[0][3], "OBSERVED_LINKED_THREAD_ANCHOR")
+-
+-    def test_root_fallback_committed_outbound_is_eligible_lineage(self):
+-        self.provider.fail = True
+-        self.call(update(226, trigger="command", thread=270, text="fallback-root"))
+-        first = self._root_row(226)
+-        self.assertEqual(first["state"], "FALLBACK_COMMITTED")
+-        self.provider.fail = False
+-        self.call(update(227, trigger="reply", thread=271, reply_target=first["outbound_message_id"], text="after-fallback"))
+-        second = self._root_row(227)
+-        self.assertEqual(second["root_derivation_class"], "PROVEN_OUTBOUND_LINEAGE")
+-        self.assertEqual(second["stable_conversation_root_id"], first["stable_conversation_root_id"])
+-
+-    def test_root_migration_from_current_observability_schema_additive_idempotent_no_backfill(self):
+-        path = str(Path(self.tmp.name) / "observability-predecessor.sqlite")
+-        db = sqlite3.connect(path)
+-        db.executescript("""
+-        CREATE TABLE updates(
+-          update_id INTEGER PRIMARY KEY,request_digest TEXT NOT NULL,state TEXT NOT NULL,
+-          conversation_key TEXT NOT NULL,telegram_message_id INTEGER,error_class TEXT,
+-          inbound_message_id INTEGER,message_thread_id INTEGER,direct_topic_id INTEGER,trigger_class TEXT,
+-          outbound_message_id INTEGER,returned_chat_id INTEGER,returned_message_thread_id INTEGER,
+-          returned_direct_topic_id INTEGER,returned_is_topic_message INTEGER
+-        );
+-        CREATE TABLE messages(conversation_key TEXT NOT NULL,sequence INTEGER NOT NULL,role TEXT NOT NULL,
+-          content TEXT NOT NULL,PRIMARY KEY(conversation_key,sequence),CHECK(role IN ('user','assistant')));
+-        CREATE TABLE runtime_meta(key TEXT PRIMARY KEY,value INTEGER NOT NULL);
+-        INSERT INTO updates VALUES(5,'digest','COMMITTED','historical-r02',101,NULL,111,110,0,'command',112,
+-          -1002429106148,NULL,NULL,NULL);
+-        INSERT INTO messages VALUES('historical-r02',1,'user','legacy-history');
+-        """)
+-        db.commit(); db.close()
+-        first = Store(path)
+-        try:
+-            cols1 = first._column_names()
+-            row = first.db.execute("SELECT conversation_key,stable_conversation_root_id,root_conversation_key FROM updates WHERE update_id=5").fetchone()
+-            self.assertEqual(row["conversation_key"], "historical-r02")
+-            self.assertIsNone(row["stable_conversation_root_id"])
+-            self.assertIsNone(row["root_conversation_key"])
+-            self.assertEqual(first.db.execute("SELECT content FROM messages").fetchone()[0], "legacy-history")
+-        finally:
+-            first.db.close()
+-        second = Store(path)
+-        try:
+-            self.assertEqual(second._column_names(), cols1)
+-            row = second.db.execute("SELECT conversation_key,stable_conversation_root_id,root_conversation_key FROM updates WHERE update_id=5").fetchone()
+-            self.assertEqual(tuple(row), ("historical-r02", None, None))
+-        finally:
+-            second.db.close()
+-
+-
+-if __name__ == "__main__":
+-    unittest.main(verbosity=2)
++#!/usr/bin/env python3
++import io
++import importlib.util
++import json
++import sqlite3
++import sys
++import tempfile
++import unittest
++from contextlib import redirect_stdout
++from pathlib import Path
++
++MODULE_PATH = Path(__file__).with_name("dialogue_mvp.py")
++SPEC = importlib.util.spec_from_file_location("dialogue_mvp", MODULE_PATH)
++dialogue_mvp = importlib.util.module_from_spec(SPEC)
++sys.modules["dialogue_mvp"] = dialogue_mvp
++SPEC.loader.exec_module(dialogue_mvp)
++Config = dialogue_mvp.Config
++BoundaryError = dialogue_mvp.BoundaryError
++DialogueApplication = dialogue_mvp.DialogueApplication
++OpenAIResponsesAdapter = dialogue_mvp.OpenAIResponsesAdapter
++ProviderFailure = dialogue_mvp.ProviderFailure
++SafeLogger = dialogue_mvp.SafeLogger
++Store = dialogue_mvp.Store
++TelegramSendEvidence = dialogue_mvp.TelegramSendEvidence
++parse_update = dialogue_mvp.parse_update
++
++DISCUSSION_ID = -1002429106148
++BOT_ID = 8866633840
++BOT_USERNAME = "WBNP_Media_Bot"
++
++
++def config(path: str) -> Config:
++    return Config.from_dict({
++        "schema": "TELEGRAM_ENTITY_DIALOGUE_MVP_R02", "environment": "test",
++        "database_path": path, "testers_allow_path": "/etc/wellbeing/telegram-single-entity-pilot/testers.allow",
++        "allowed_chat_types": ["supergroup"], "discussion_chat_id": DISCUSSION_ID,
++        "bot_user_id": BOT_ID, "bot_username": BOT_USERNAME, "activation_command": "ask",
++        "model": "gpt-5.6-luna", "max_output_tokens": 512,
++        "provider_timeout_seconds": 30, "telegram_timeout_seconds": 10,
++        "poll_timeout_seconds": 25, "poll_retry_seconds": 5, "max_input_bytes": 4096,
++        "max_history_messages": 12, "max_history_bytes": 32768, "max_update_records_per_conversation": 256,
++        "fallback_text": "Сейчас не получилось ответить. Попробуйте позднее.",
++        "entity_bootstrap_path": "/opt/wellbeing/telegram-single-entity-mvp-r02/entity_bootstrap.txt",
++    }, (101, 202))
++
++
++def utf16_units(value: str) -> int:
++    return len(value.encode("utf-16-le")) // 2
++
++
++def update(uid=1, user=101, chat=DISCUSSION_ID, text="Привет", thread=0, direct_topic=0,
++           trigger="mention", chat_type="supergroup", reply_target=77, reply_thread=None,
++           is_automatic_forward=False):
++    msg = {"message_id": uid + 100, "chat": {"id": chat, "type": chat_type},
++           "from": {"id": user, "first_name": "SHOULD_NOT_PERSIST"}}
++    if trigger == "mention":
++        token = "@" + BOT_USERNAME
++        msg["text"] = token + " " + text
++        msg["entities"] = [{"type": "mention", "offset": 0, "length": utf16_units(token)}]
++    elif trigger == "mention_after_emoji":
++        token = "@" + BOT_USERNAME
++        prefix = "🙂 "
++        msg["text"] = prefix + token + " " + text
++        msg["entities"] = [{"type": "mention", "offset": utf16_units(prefix), "length": utf16_units(token)}]
++    elif trigger == "command":
++        token = "/ask@" + BOT_USERNAME
++        msg["text"] = token + " " + text
++        msg["entities"] = [{"type": "bot_command", "offset": 0, "length": utf16_units(token)}]
++    elif trigger == "reply":
++        msg["text"] = text
++        msg["reply_to_message"] = {"message_id": reply_target, "from": {"id": BOT_ID, "is_bot": True}}
++        if reply_thread is not None:
++            msg["reply_to_message"]["message_thread_id"] = reply_thread
++    elif trigger == "ambient":
++        msg["text"] = text
++    else:
++        raise AssertionError("unknown synthetic trigger")
++    if thread:
++        msg["message_thread_id"] = thread
++    if direct_topic:
++        msg["direct_messages_topic"] = {"topic_id": direct_topic, "user": {"id": 999, "first_name": "DO_NOT_PERSIST"}}
++    if is_automatic_forward:
++        msg["is_automatic_forward"] = True
++    return {"update_id": uid, "message": msg}
++
++
++class FakeProvider:
++    def __init__(self, fail=False): self.calls = []; self.fail = fail
++    def respond(self, instructions, history):
++        self.calls.append((instructions, history))
++        if self.fail: raise ProviderFailure("synthetic")
++        return "Ответ " + str(len(self.calls))
++
++
++class FakeTelegram:
++    def __init__(self, fail=False): self.calls = []; self.fail = fail
++    def send_text(self, chat_id, thread_id, direct_topic_id, text):
++        self.calls.append((chat_id, thread_id, direct_topic_id, text))
++        if self.fail: raise dialogue_mvp.TelegramFailure("synthetic")
++        return TelegramSendEvidence(
++            returned_message_id=700 + len(self.calls), returned_chat_id=chat_id,
++            returned_message_thread_id=thread_id if thread_id else None,
++            returned_direct_topic_id=direct_topic_id if direct_topic_id else None,
++            returned_is_topic_message=True if thread_id else None,
++        )
++
++
++class FakeHTTP:
++    def __init__(self, result): self.result = result; self.calls = []
++    def post(self, *args): self.calls.append(args); return self.result
++
++
++class Tests(unittest.TestCase):
++    def setUp(self):
++        self.tmp = tempfile.TemporaryDirectory()
++        self.cfg = config(str(Path(self.tmp.name) / "state.sqlite"))
++        self.provider = FakeProvider(); self.telegram = FakeTelegram(); self.log = io.StringIO()
++        self.store = Store(self.cfg.database_path)
++        self.app = DialogueApplication(self.cfg, self.store, self.provider, self.telegram,
++                                       "Ты тестовая Сущность.", SafeLogger(self.log))
++
++    def tearDown(self):
++        self.store.db.close(); self.tmp.cleanup()
++
++    def call(self, payload):
++        return self.app.process_update(payload)
++
++    def test_correct_discussion_chat_admitted(self):
++        code, out = self.call(update())
++        self.assertEqual((code, out["outcome"]), (200, "replied"))
++        self.assertEqual(self.telegram.calls[0][0], DISCUSSION_ID)
++
++    def test_explicit_mention_accepted_and_removed_from_prompt(self):
++        self.call(update(text="Содержательный вопрос"))
++        self.assertEqual(self.provider.calls[0][1][-1]["content"], "Содержательный вопрос")
++
++    def test_reply_to_bot_accepted(self):
++        code, out = self.call(update(trigger="reply"))
++        self.assertEqual((code, out["outcome"]), (200, "replied"))
++
++    def test_explicit_command_accepted(self):
++        code, out = self.call(update(trigger="command", text="Вопрос"))
++        self.assertEqual((code, out["outcome"]), (200, "replied"))
++        self.assertEqual(self.provider.calls[0][1][-1]["content"], "Вопрос")
++
++    def test_utf16_mention_offset(self):
++        code, out = self.call(update(trigger="mention_after_emoji"))
++        self.assertEqual((code, out["outcome"]), (200, "replied"))
++
++    def test_ambient_nonaddressed_message_ignored(self):
++        code, out = self.call(update(trigger="ambient"))
++        self.assertEqual((code, out["outcome"]), (200, "ignored_not_addressed"))
++        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
++
++    def test_other_chat_rejected_before_effect(self):
++        code, out = self.call(update(chat=-1009999999999))
++        self.assertEqual((code, out["outcome"]), (422, "rejected"))
++        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
++
++    def test_unlisted_tester_rejected_before_effect(self):
++        code, _ = self.call(update(user=303))
++        self.assertEqual(code, 422)
++        self.assertFalse(self.provider.calls); self.assertFalse(self.telegram.calls)
++
++    def test_multi_turn_same_thread_context(self):
++        self.call(update(1, text="Меня зовут А.", thread=11))
++        self.call(update(2, text="Как меня зовут?", thread=11))
++        history = self.provider.calls[1][1]
++        self.assertEqual([x["role"] for x in history], ["user", "assistant", "user"])
++        self.assertEqual(history[0]["content"], "Меня зовут А.")
++
++    def test_different_thread_isolation(self):
++        self.call(update(1, thread=11)); self.call(update(2, thread=22))
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
++    def test_exact_replay_no_second_effect(self):
++        payload = update(); self.call(payload)
++        code, out = self.call(payload)
++        self.assertEqual((code, out["outcome"]), (200, "duplicate"))
++        self.assertEqual(len(self.provider.calls), 1); self.assertEqual(len(self.telegram.calls), 1)
++
++    def test_update_id_collision(self):
++        self.call(update(1, text="A")); code, out = self.call(update(1, text="B"))
++        self.assertEqual((code, out["outcome"]), (409, "update_id_conflict"))
++
++    def test_non_message_update_rejects_before_effect(self):
++        code, _ = self.call({"update_id": 1, "channel_post": {"text": "x"}})
++        self.assertEqual(code, 422); self.assertFalse(self.provider.calls)
++
++    def test_provider_failure_visible_fallback(self):
++        self.provider.fail = True
++        code, out = self.call(update())
++        self.assertEqual((code, out["outcome"]), (200, "fallback_sent"))
++        self.assertEqual(self.telegram.calls[0][3], self.cfg.fallback_text)
++
++    def test_send_failure_is_uncertain_and_no_blind_retry(self):
++        self.telegram.fail = True; payload = update()
++        code, out = self.call(payload)
++        self.assertEqual((code, out["outcome"]), (503, "manual_reconciliation_required"))
++        code2, out2 = self.call(payload)
++        self.assertEqual((code2, out2["outcome"]), (503, "manual_reconciliation_required"))
++        self.assertEqual(len(self.provider.calls), 1)
++
++    def test_input_bound(self):
++        code, _ = self.call(update(text="я" * 5000))
++        self.assertEqual(code, 422); self.assertFalse(self.provider.calls)
++
++    def test_raw_identity_and_text_not_logged(self):
++        self.call(update(text="СЕКРЕТНЫЙ_ТЕКСТ")); log = self.log.getvalue()
++        self.assertNotIn("СЕКРЕТНЫЙ", log); self.assertNotIn("101", log)
++        self.assertNotIn("SHOULD_NOT_PERSIST", log)
++
++    def test_openai_shape_and_output(self):
++        response = {"status": "completed", "output": [{"type": "reasoning"}, {"type": "message", "role": "assistant", "content": [{"type": "output_text", "text": "OK"}]}]}
++        http = FakeHTTP(response); adapter = OpenAIResponsesAdapter(b"key", "gpt-5.6-luna", 512, 30, http)
++        self.assertEqual(adapter.respond("sys", [{"role": "user", "content": "hi"}]), "OK")
++        body = http.calls[0][2]
++        self.assertEqual(body["tools"], []); self.assertIs(body["store"], False)
++        self.assertEqual(body["max_output_tokens"], 512)
++
++    def test_reasoning_only_is_not_candidate(self):
++        http = FakeHTTP({"status": "completed", "output": [{"type": "reasoning", "summary": []}]})
++        adapter = OpenAIResponsesAdapter(b"key", "gpt-5.6-luna", 512, 30, http)
++        with self.assertRaises(ProviderFailure):
++            adapter.respond("sys", [{"role": "user", "content": "hi"}])
++
++    def test_closed_config_unknown_field(self):
++        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
++        raw["surprise"] = 1
++        with self.assertRaises(Exception): Config.from_dict(raw, (101,))
++
++    def test_exact_mapping_cannot_be_reconfigured(self):
++        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
++        raw["discussion_chat_id"] = -1001
++        with self.assertRaises(Exception): Config.from_dict(raw, (101,))
++
++    def test_poll_shape(self):
++        http = FakeHTTP({"ok": True, "result": [update(5)]})
++        adapter = dialogue_mvp.TelegramBotAdapter(b"token", 10, http)
++        self.assertEqual(adapter.get_updates(5, 25)[0]["update_id"], 5)
++        body = http.calls[0][2]
++        self.assertEqual(body, {"offset": 5, "limit": 10, "timeout": 25, "allowed_updates": ["message"]})
++
++    def test_poll_offset_is_durable(self):
++        self.assertEqual(self.store.poll_offset(), 0)
++        self.store.set_poll_offset(42)
++        self.assertEqual(self.store.poll_offset(), 42)
++
++    def test_transcript_is_pruned_and_request_is_bounded(self):
++        for n in range(1, 9): self.call(update(n, text="turn" + str(n), thread=11))
++        count = self.store.db.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
++        self.assertLessEqual(count, self.cfg.max_history_messages)
++        self.assertLessEqual(len(self.provider.calls[-1][1]), self.cfg.max_history_messages)
++
++    # Routing observability r0.1 matrix T1-T9.
++    def test_t1_same_chat_thread_topic_same_conversation_key(self):
++        first = parse_update(update(41, thread=17, direct_topic=3001), self.cfg)
++        second = parse_update(update(42, thread=17, direct_topic=3001), self.cfg)
++        self.assertEqual(first.conversation_key, second.conversation_key)
++
++    def test_t2_different_thread_changes_conversation_key(self):
++        first = parse_update(update(41, thread=17), self.cfg)
++        second = parse_update(update(42, thread=18), self.cfg)
++        self.assertNotEqual(first.conversation_key, second.conversation_key)
++
++    def test_t3_different_direct_topic_changes_conversation_key(self):
++        first = parse_update(update(41, direct_topic=3001), self.cfg)
++        second = parse_update(update(42, direct_topic=3002), self.cfg)
++        self.assertNotEqual(first.conversation_key, second.conversation_key)
++
++    def test_t4_trigger_class_is_deterministic_and_persisted(self):
++        expected = ((51, "reply", "reply-to-bot"), (52, "command", "command"), (53, "mention", "exact-mention"))
++        for uid, trigger, classification in expected:
++            self.call(update(uid, trigger=trigger))
++            row = self.store.db.execute("SELECT trigger_class FROM updates WHERE update_id=?", (uid,)).fetchone()
++            self.assertEqual(row[0], classification)
++
++    def test_t5_successful_send_persists_only_minimal_routing_projection(self):
++        self.call(update(61, thread=17, direct_topic=3001, text="routing"))
++        diagnostic = self.store.routing_diagnostic(61)
++        self.assertEqual(diagnostic, {
++            "update_id": 61, "inbound_message_id": 161, "message_thread_id": 17,
++            "direct_topic_id": 3001, "trigger_class": "exact-mention",
++            "conversation_key": parse_update(update(61, thread=17, direct_topic=3001, text="routing"), self.cfg).conversation_key,
++            "outbound_message_id": 701, "returned_chat_id": DISCUSSION_ID,
++            "returned_message_thread_id": 17, "returned_direct_topic_id": 3001,
++            "returned_is_topic_message": True, "state": "COMMITTED", "error_class": None,
++        })
++        self.assertEqual(set(diagnostic), set(Store.DIAGNOSTIC_FIELDS))
++
++    def test_t5_bot_api_message_is_projected_not_retained(self):
++        response = {"ok": True, "result": {
++            "message_id": 777, "message_thread_id": 17,
++            "direct_messages_topic": {"topic_id": 3001, "user": {"id": 9, "username": "DROP_ME"}},
++            "chat": {"id": DISCUSSION_ID, "title": "DROP_ME"}, "is_topic_message": True,
++            "text": "DROP_ME", "from": {"username": "DROP_ME"},
++        }}
++        adapter = dialogue_mvp.TelegramBotAdapter(b"token", 10, FakeHTTP(response))
++        evidence = adapter.send_text(DISCUSSION_ID, 17, 3001, "safe")
++        self.assertEqual(evidence, TelegramSendEvidence(777, DISCUSSION_ID, 17, 3001, True))
++        self.assertNotIn("DROP_ME", repr(evidence))
++
++    def test_t6_send_success_metadata_persistence_failure_is_uncertain_no_resend(self):
++        payload = update(71, thread=17)
++        original = self.store.commit_turn
++        def fail_commit(event, reply, evidence):
++            raise BoundaryError("synthetic_routing_metadata_persistence_failure")
++        self.store.commit_turn = fail_commit
++        code, out = self.call(payload)
++        self.assertEqual((code, out["outcome"]), (503, "manual_reconciliation_required"))
++        row = self.store.db.execute("SELECT state,error_class FROM updates WHERE update_id=71").fetchone()
++        self.assertEqual(tuple(row), ("OUTCOME_UNKNOWN", "reply_routing_persistence_failed"))
++        code2, out2 = self.call(payload)
++        self.assertEqual((code2, out2["outcome"]), (503, "manual_reconciliation_required"))
++        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (1, 1))
++        self.store.commit_turn = original
++
++    def test_t7_privacy_no_raw_update_identity_or_provider_response_in_routing_storage_or_logs(self):
++        payload = update(81, text="ALLOWED_DIALOGUE_TEXT", thread=17, direct_topic=3001)
++        payload["message"]["from"]["username"] = "DO_NOT_PERSIST_USERNAME"
++        self.call(payload)
++        update_row = dict(self.store.db.execute("SELECT * FROM updates WHERE update_id=81").fetchone())
++        serialized = json.dumps(update_row, sort_keys=True)
++        self.assertNotIn("DO_NOT_PERSIST", serialized)
++        self.assertNotIn("ALLOWED_DIALOGUE_TEXT", serialized)
++        self.assertNotIn("DO_NOT_PERSIST", self.log.getvalue())
++        self.assertNotIn("raw_update", set(update_row))
++        self.assertNotIn("provider_response", set(update_row))
++
++    def test_t8_r02_database_migration_is_additive_idempotent_and_history_readable(self):
++        old_path = str(Path(self.tmp.name) / "old-r02.sqlite")
++        db = sqlite3.connect(old_path)
++        db.executescript("""
++        CREATE TABLE updates(update_id INTEGER PRIMARY KEY,request_digest TEXT NOT NULL,state TEXT NOT NULL,
++          conversation_key TEXT NOT NULL,telegram_message_id INTEGER,error_class TEXT);
++        CREATE TABLE messages(conversation_key TEXT NOT NULL,sequence INTEGER NOT NULL,role TEXT NOT NULL,
++          content TEXT NOT NULL,PRIMARY KEY(conversation_key,sequence),CHECK(role IN ('user','assistant')));
++        CREATE TABLE runtime_meta(key TEXT PRIMARY KEY,value INTEGER NOT NULL);
++        INSERT INTO updates VALUES(5,'digest','COMMITTED','legacy-key',101,NULL);
++        INSERT INTO messages VALUES('legacy-key',1,'user','legacy-history');
++        """)
++        db.commit(); db.close()
++        migrated = Store(old_path)
++        try:
++            self.assertEqual(migrated.db.execute("SELECT content FROM messages").fetchone()[0], "legacy-history")
++            self.assertEqual(migrated.db.execute("SELECT telegram_message_id FROM updates").fetchone()[0], 101)
++            first_columns = migrated._column_names()
++        finally:
++            migrated.db.close()
++        migrated_again = Store(old_path)
++        try:
++            self.assertEqual(migrated_again._column_names(), first_columns)
++            legacy = migrated_again.routing_diagnostic(5)
++            self.assertEqual(legacy["state"], "COMMITTED")
++            self.assertIsNone(legacy["inbound_message_id"])
++        finally:
++            migrated_again.db.close()
++
++    def test_t9_diagnostic_is_bounded_read_only_projection(self):
++        self.call(update(91, thread=22))
++        diagnostic = self.store.routing_diagnostic(91)
++        self.assertEqual(tuple(diagnostic), Store.DIAGNOSTIC_FIELDS)
++        forbidden = {"request_digest", "telegram_message_id", "text", "username", "display_name", "raw_update", "provider_response"}
++        self.assertFalse(forbidden.intersection(diagnostic))
++
++    def test_t9_cli_diagnostic_needs_no_credentials_and_returns_bounded_json(self):
++        self.call(update(92, thread=23))
++        allow_path = Path(self.tmp.name) / "testers.allow"
++        bootstrap_path = Path(self.tmp.name) / "bootstrap.txt"
++        config_path = Path(self.tmp.name) / "runtime.json"
++        allow_path.write_text("101\n", encoding="ascii")
++        bootstrap_path.write_text("bounded", encoding="utf-8")
++        raw = json.loads(Path(__file__).with_name("config.example.json").read_text())
++        raw.update({"database_path": self.cfg.database_path, "testers_allow_path": str(allow_path),
++                    "entity_bootstrap_path": str(bootstrap_path), "environment": "test"})
++        config_path.write_text(json.dumps(raw), encoding="utf-8")
++        stdout, old_argv = io.StringIO(), sys.argv
++        try:
++            sys.argv = ["dialogue_mvp.py", "diagnose-routing", "--config", str(config_path), "--update-id", "92"]
++            with redirect_stdout(stdout):
++                self.assertEqual(dialogue_mvp.main(), 0)
++        finally:
++            sys.argv = old_argv
++        result = json.loads(stdout.getvalue())
++        self.assertEqual(tuple(sorted(result)), tuple(sorted(Store.DIAGNOSTIC_FIELDS)))
++        self.assertEqual(result["update_id"], 92)
++
++    # Conversation-root r0.1 implementation matrix T1-T16.
++    def _root_row(self, update_id):
++        return self.store.db.execute(
++            "SELECT stable_conversation_root_id,root_conversation_key,root_derivation_class,"
++            "root_evidence_update_id,inbound_reply_to_message_id,inbound_reply_to_message_thread_id,"
++            "conversation_key,message_thread_id,direct_topic_id,state,outbound_message_id,returned_chat_id "
++            "FROM updates WHERE update_id=?", (update_id,),
++        ).fetchone()
++
++    def _raw_relation_count(self, chat_id, outbound_message_id):
++        return self.store.db.execute(
++            "SELECT COUNT(*) FROM updates WHERE returned_chat_id=? AND outbound_message_id=?",
++            (chat_id, outbound_message_id),
++        ).fetchone()[0]
++
++    def test_root_t01_initial_linked_discussion_command_establishes_observed_anchor(self):
++        self.call(update(201, trigger="command", thread=110, text="turn-one"))
++        row = self._root_row(201)
++        self.assertEqual(row["root_derivation_class"], "OBSERVED_LINKED_THREAD_ANCHOR")
++        self.assertIsNotNone(row["stable_conversation_root_id"])
++        expected = dialogue_mvp.root_conversation_key(row["stable_conversation_root_id"])
++        self.assertEqual(row["root_conversation_key"], expected)
++        self.assertEqual(expected, __import__("hashlib").sha256(
++            ("tg-dialogue-root-r01\0" + row["stable_conversation_root_id"]).encode()).hexdigest())
++        self.assertNotEqual(row["conversation_key"], row["root_conversation_key"])
++
++    def test_root_t02_changed_thread_direct_known_reply_inherits_same_root(self):
++        self.call(update(202, trigger="command", thread=110, text="alpha"))
++        first = self._root_row(202)
++        outbound = first["outbound_message_id"]
++        self.call(update(203, trigger="reply", thread=outbound, reply_target=outbound, text="beta"))
++        second = self._root_row(203)
++        self.assertEqual(second["root_derivation_class"], "PROVEN_OUTBOUND_LINEAGE")
++        self.assertEqual(second["stable_conversation_root_id"], first["stable_conversation_root_id"])
++        self.assertEqual(second["root_conversation_key"], first["root_conversation_key"])
++        history = self.provider.calls[1][1]
++        self.assertEqual([x["role"] for x in history], ["user", "assistant", "user"])
++        self.assertEqual(history[0]["content"], "alpha")
++
++    def test_root_t03_same_root_observation_requires_exact_same_anchor(self):
++        self.call(update(204, trigger="command", thread=120, text="one"))
++        first = self._root_row(204)
++        self.call(update(205, trigger="command", thread=120, text="two"))
++        second = self._root_row(205)
++        self.assertEqual(second["root_derivation_class"], "SAME_ROOT_OBSERVATION")
++        self.assertEqual(second["stable_conversation_root_id"], first["stable_conversation_root_id"])
++        self.assertEqual(second["root_evidence_update_id"], first["root_evidence_update_id"])
++
++    def test_root_t04_reply_target_from_other_root_follows_target_not_observed_thread(self):
++        self.call(update(206, trigger="command", thread=130, text="root-A"))
++        a = self._root_row(206)
++        self.call(update(207, trigger="command", thread=140, text="root-C"))
++        c = self._root_row(207)
++        self.assertNotEqual(a["stable_conversation_root_id"], c["stable_conversation_root_id"])
++        self.call(update(208, trigger="reply", thread=140, reply_target=a["outbound_message_id"], text="target-A"))
++        r = self._root_row(208)
++        self.assertEqual(r["stable_conversation_root_id"], a["stable_conversation_root_id"])
++        self.assertNotEqual(r["stable_conversation_root_id"], c["stable_conversation_root_id"])
++        history = self.provider.calls[2][1]
++        self.assertEqual(history[0]["content"], "root-A")
++        self.assertNotIn("root-C", [x["content"] for x in history])
++
++    def test_root_t05_unknown_reply_target_isolated_no_history_merge(self):
++        self.call(update(209, trigger="command", thread=150, text="known"))
++        self.call(update(210, trigger="reply", thread=150, reply_target=999999, text="unknown-target"))
++        r = self._root_row(210)
++        self.assertEqual(r["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
++    def test_root_t06_legacy_row_without_root_never_guessed_into_lineage(self):
++        self.store.db.execute(
++            "INSERT INTO updates(update_id,request_digest,state,conversation_key,telegram_message_id,error_class,"
++            "inbound_message_id,message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id) "
++            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
++            (190, "legacy-digest", "COMMITTED", "legacy-key", 900, None, 290, 160, 0,
++             "command", 900, DISCUSSION_ID),
++        )
++        self.call(update(211, trigger="reply", thread=160, reply_target=900, text="legacy-reply"))
++        r = self._root_row(211)
++        self.assertEqual(r["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertEqual(len(self.provider.calls[0][1]), 1)
++        legacy = self.store.db.execute("SELECT conversation_key,stable_conversation_root_id FROM updates WHERE update_id=190").fetchone()
++        self.assertEqual(legacy["conversation_key"], "legacy-key")
++        self.assertIsNone(legacy["stable_conversation_root_id"])
++
++    def test_root_t07_duplicate_replay_one_effect_and_same_persisted_root(self):
++        payload = update(212, trigger="command", thread=170, text="dup")
++        self.call(payload)
++        before = self._root_row(212)
++        code, out = self.call(payload)
++        after = self._root_row(212)
++        self.assertEqual((code, out["outcome"]), (200, "duplicate"))
++        self.assertEqual(before["stable_conversation_root_id"], after["stable_conversation_root_id"])
++        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (1, 1))
++
++    def test_root_t08_post_send_root_relation_persistence_failure_outcome_unknown_no_resend(self):
++        payload = update(213, trigger="command", thread=180, text="uncertain")
++        original = self.store.commit_turn
++        def fail_commit(event, reply, evidence):
++            raise BoundaryError("synthetic_root_relation_persistence_failure")
++        self.store.commit_turn = fail_commit
++        code, out = self.call(payload)
++        root_before = self.store.root_decision(213)
++        code2, out2 = self.call(payload)
++        root_after = self.store.root_decision(213)
++        self.store.commit_turn = original
++        self.assertEqual((code, out["outcome"]), (503, "manual_reconciliation_required"))
++        self.assertEqual((code2, out2["outcome"]), (503, "manual_reconciliation_required"))
++        self.assertEqual(root_before, root_after)
++        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (1, 1))
++        state = self.store.db.execute("SELECT state FROM updates WHERE update_id=213").fetchone()[0]
++        self.assertEqual(state, "OUTCOME_UNKNOWN")
++
++    def test_root_t09_cross_chat_never_merges(self):
++        linked = dialogue_mvp.stable_root_id("linked_discussion", DISCUSSION_ID, 0, "observed_thread", 190)
++        other = dialogue_mvp.stable_root_id("linked_discussion", DISCUSSION_ID - 1, 0, "observed_thread", 190)
++        self.assertNotEqual(linked, other)
++        code, _ = self.call(update(214, chat=DISCUSSION_ID - 1, trigger="command", thread=190))
++        self.assertEqual(code, 422)
++        self.assertFalse(self.provider.calls)
++        self.assertFalse(self.telegram.calls)
++
++    def test_root_t10_direct_topic_change_is_mode_scoped_no_merge(self):
++        self.call(update(215, trigger="command", thread=200, direct_topic=3001, text="topic-a"))
++        a = self._root_row(215)
++        self.call(update(216, trigger="command", thread=200, direct_topic=3002, text="topic-b"))
++        b = self._root_row(216)
++        self.assertNotEqual(a["stable_conversation_root_id"], b["stable_conversation_root_id"])
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
++    def test_root_t11_privacy_persists_only_bounded_reply_root_scalars(self):
++        payload = update(217, trigger="command", thread=210, text="SAFE_TRANSCRIPT")
++        payload["message"]["from"]["username"] = "DROP_USERNAME"
++        self.call(payload)
++        row = dict(self.store.db.execute("SELECT * FROM updates WHERE update_id=217").fetchone())
++        serialized = json.dumps(row, sort_keys=True)
++        self.assertNotIn("DROP_USERNAME", serialized)
++        self.assertNotIn("SAFE_TRANSCRIPT", serialized)
++        forbidden = {"raw_update", "full_message", "username", "display_name", "provider_response"}
++        self.assertFalse(forbidden.intersection(row))
++        required = {"inbound_reply_to_message_id", "inbound_reply_to_message_thread_id",
++                    "stable_conversation_root_id", "root_derivation_class", "root_evidence_update_id"}
++        self.assertTrue(required.issubset(row))
++
++    def test_root_t12_parameterized_exact_fixture_no_numeric_semantic_hardcode(self):
++        A = 31337
++        self.call(update(218, trigger="command", thread=A, text="fixture-turn1"))
++        first = self._root_row(218)
++        B = first["outbound_message_id"]
++        self.assertNotEqual(A, B)
++        self.call(update(219, trigger="reply", thread=B, reply_target=B, reply_thread=A, text="fixture-turn2"))
++        second = self._root_row(219)
++        self.assertEqual(second["message_thread_id"], B)
++        self.assertEqual(second["inbound_reply_to_message_id"], B)
++        self.assertEqual(second["root_derivation_class"], "PROVEN_OUTBOUND_LINEAGE")
++        self.assertEqual(second["stable_conversation_root_id"], first["stable_conversation_root_id"])
++        self.assertEqual(second["root_conversation_key"], first["root_conversation_key"])
++        self.assertEqual(self.provider.calls[1][1][0]["content"], "fixture-turn1")
++
++    def test_root_t13_ambiguous_outbound_lookup_isolated_no_wrong_merge(self):
++        self.call(update(220, trigger="command", thread=220, text="base"))
++        base = self._root_row(220)
++        fake_root = "f" * 64
++        fake_key = dialogue_mvp.root_conversation_key(fake_root)
++        self.store.db.execute(
++            "INSERT INTO updates(update_id,request_digest,state,conversation_key,error_class,inbound_message_id,"
++            "message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id,"
++            "stable_conversation_root_id,root_derivation_class,root_evidence_update_id,root_conversation_key) "
++            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
++            (191, "ambiguous", "COMMITTED", "legacy-ambiguous", None, 291, 999, 0, "command",
++             base["outbound_message_id"], DISCUSSION_ID, fake_root, "OBSERVED_LINKED_THREAD_ANCHOR", 191, fake_key),
++        )
++        self.call(update(221, trigger="reply", thread=220, reply_target=base["outbound_message_id"], text="ambiguous"))
++        r = self._root_row(221)
++        self.assertEqual(r["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertNotEqual(r["stable_conversation_root_id"], base["stable_conversation_root_id"])
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
++    # I1 correction regressions: raw cardinality before eligibility.
++    def test_i1_t1_eligible_rooted_plus_legacy_null_duplicate_no_merge(self):
++        self.call(update(301, trigger="command", thread=301, text="base-i1-t1"))
++        base = self._root_row(301)
++        target = base["outbound_message_id"]
++        self.store.db.execute(
++            "INSERT INTO updates(update_id,request_digest,state,conversation_key,error_class,inbound_message_id,"
++            "message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id) "
++            "VALUES(?,?,?,?,?,?,?,?,?,?,?)",
++            (401, "i1-t1-null", "COMMITTED", "legacy-null", None, 501, 301, 0, "command",
++             target, DISCUSSION_ID),
++        )
++        self.assertEqual(self._raw_relation_count(DISCUSSION_ID, target), 2)
++        self.call(update(302, trigger="reply", thread=301, reply_target=target, text="reply-i1-t1"))
++        row = self._root_row(302)
++        self.assertEqual(row["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertNotEqual(row["stable_conversation_root_id"], base["stable_conversation_root_id"])
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
++    def test_i1_t2_eligible_rooted_plus_ineligible_state_duplicate_no_merge(self):
++        self.call(update(303, trigger="command", thread=303, text="base-i1-t2"))
++        base = self._root_row(303)
++        target = base["outbound_message_id"]
++        fake_root = "a" * 64
++        self.store.db.execute(
++            "INSERT INTO updates(update_id,request_digest,state,conversation_key,error_class,inbound_message_id,"
++            "message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id,"
++            "stable_conversation_root_id,root_derivation_class,root_evidence_update_id,root_conversation_key) "
++            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
++            (402, "i1-t2-state", "SENDING", "ineligible-state", None, 502, 303, 0, "command",
++             target, DISCUSSION_ID, fake_root, "OBSERVED_LINKED_THREAD_ANCHOR", 402,
++             dialogue_mvp.root_conversation_key(fake_root)),
++        )
++        self.assertEqual(self._raw_relation_count(DISCUSSION_ID, target), 2)
++        self.call(update(304, trigger="reply", thread=303, reply_target=target, text="reply-i1-t2"))
++        row = self._root_row(304)
++        self.assertEqual(row["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertNotEqual(row["stable_conversation_root_id"], base["stable_conversation_root_id"])
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
++    def test_i1_t3_eligible_rooted_plus_mode_conflicting_duplicate_no_merge(self):
++        self.call(update(305, trigger="command", thread=305, text="base-i1-t3"))
++        base = self._root_row(305)
++        target = base["outbound_message_id"]
++        fake_root = "b" * 64
++        self.store.db.execute(
++            "INSERT INTO updates(update_id,request_digest,state,conversation_key,error_class,inbound_message_id,"
++            "message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id,"
++            "stable_conversation_root_id,root_derivation_class,root_evidence_update_id,root_conversation_key) "
++            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
++            (403, "i1-t3-mode", "COMMITTED", "mode-conflict", None, 503, 305, 3001, "command",
++             target, DISCUSSION_ID, fake_root, "OBSERVED_LINKED_THREAD_ANCHOR", 403,
++             dialogue_mvp.root_conversation_key(fake_root)),
++        )
++        self.assertEqual(self._raw_relation_count(DISCUSSION_ID, target), 2)
++        self.call(update(306, trigger="reply", thread=305, reply_target=target, text="reply-i1-t3"))
++        row = self._root_row(306)
++        self.assertEqual(row["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertNotEqual(row["stable_conversation_root_id"], base["stable_conversation_root_id"])
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
++    def test_i1_t4_unique_eligible_row_proves_outbound_lineage(self):
++        self.call(update(307, trigger="command", thread=307, text="base-i1-t4"))
++        base = self._root_row(307)
++        target = base["outbound_message_id"]
++        self.assertEqual(self._raw_relation_count(DISCUSSION_ID, target), 1)
++        self.call(update(308, trigger="reply", thread=target, reply_target=target, text="reply-i1-t4"))
++        row = self._root_row(308)
++        self.assertEqual(row["root_derivation_class"], "PROVEN_OUTBOUND_LINEAGE")
++        self.assertEqual(row["stable_conversation_root_id"], base["stable_conversation_root_id"])
++        self.assertEqual(row["root_conversation_key"], base["root_conversation_key"])
++        self.assertEqual(self.provider.calls[1][1][0]["content"], "base-i1-t4")
++
++    def test_i1_t5_unique_legacy_null_row_no_merge(self):
++        target = 9905
++        self.store.db.execute(
++            "INSERT INTO updates(update_id,request_digest,state,conversation_key,error_class,inbound_message_id,"
++            "message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id) "
++            "VALUES(?,?,?,?,?,?,?,?,?,?,?)",
++            (404, "i1-t5-null", "COMMITTED", "legacy-null-unique", None, 504, 309, 0, "command",
++             target, DISCUSSION_ID),
++        )
++        self.assertEqual(self._raw_relation_count(DISCUSSION_ID, target), 1)
++        self.call(update(309, trigger="reply", thread=309, reply_target=target, text="reply-i1-t5"))
++        row = self._root_row(309)
++        self.assertEqual(row["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertEqual(len(self.provider.calls[0][1]), 1)
++
++    def test_i1_t6_zero_raw_match_no_merge(self):
++        target = 9906
++        self.assertEqual(self._raw_relation_count(DISCUSSION_ID, target), 0)
++        self.call(update(310, trigger="reply", thread=310, reply_target=target, text="reply-i1-t6"))
++        row = self._root_row(310)
++        self.assertEqual(row["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertEqual(len(self.provider.calls[0][1]), 1)
++
++    def test_root_t14_conflicting_anchor_without_lineage_isolated(self):
++        self.call(update(222, trigger="command", thread=230, text="anchor"))
++        anchor = self._root_row(222)
++        fake_root = "e" * 64
++        fake_key = dialogue_mvp.root_conversation_key(fake_root)
++        self.store.db.execute(
++            "INSERT INTO updates(update_id,request_digest,state,conversation_key,error_class,inbound_message_id,"
++            "message_thread_id,direct_topic_id,trigger_class,outbound_message_id,returned_chat_id,"
++            "stable_conversation_root_id,root_derivation_class,root_evidence_update_id,root_conversation_key) "
++            "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
++            (192, "conflict-anchor", "COMMITTED", "legacy-conflict", None, 292, 230, 0, "command",
++             9992, DISCUSSION_ID, fake_root, "OBSERVED_LINKED_THREAD_ANCHOR", 192, fake_key),
++        )
++        self.call(update(223, trigger="command", thread=230, text="new"))
++        r = self._root_row(223)
++        self.assertEqual(r["root_derivation_class"], "ISOLATED_UNRESOLVED")
++        self.assertNotEqual(r["stable_conversation_root_id"], anchor["stable_conversation_root_id"])
++        self.assertEqual(len(self.provider.calls[1][1]), 1)
++
++    def test_root_t15_auto_forward_deferred_no_root_no_tester_widening_no_effect(self):
++        # Even an otherwise allowlisted/addressed synthetic event is diverted before claim/root/provider/send.
++        payload = update(224, user=101, trigger="command", thread=240, is_automatic_forward=True)
++        code, out = self.call(payload)
++        self.assertEqual((code, out["outcome"]), (200, "ignored_not_addressed"))
++        self.assertEqual(self.cfg.allowed_user_ids, (101, 202))
++        self.assertEqual(self.store.db.execute("SELECT COUNT(*) FROM updates").fetchone()[0], 0)
++        self.assertEqual((len(self.provider.calls), len(self.telegram.calls)), (0, 0))
++
++    def test_root_t16_forum_and_linked_discussion_namespaces_are_distinct(self):
++        linked = dialogue_mvp.stable_root_id("linked_discussion", DISCUSSION_ID, 0, "observed_thread", 250)
++        forum = dialogue_mvp.stable_root_id("forum", DISCUSSION_ID, 0, "observed_thread", 250)
++        self.assertNotEqual(linked, forum)
++        self.assertNotIn("PROVEN_AUTO_FORWARD_ROOT", dialogue_mvp.ROOT_DERIVATION_CLASSES)
++
++    def test_root_decision_is_durable_before_provider_history_effect(self):
++        observed = []
++        def inspect(instructions, history):
++            row = self.store.db.execute(
++                "SELECT state,stable_conversation_root_id,root_conversation_key,root_derivation_class "
++                "FROM updates WHERE update_id=225").fetchone()
++            observed.append(tuple(row))
++            return "ok"
++        self.provider.respond = inspect
++        self.call(update(225, trigger="command", thread=260, text="ordering"))
++        self.assertEqual(observed[0][0], "CLAIMED")
++        self.assertIsNotNone(observed[0][1])
++        self.assertIsNotNone(observed[0][2])
++        self.assertEqual(observed[0][3], "OBSERVED_LINKED_THREAD_ANCHOR")
++
++    def test_root_fallback_committed_outbound_is_eligible_lineage(self):
++        self.provider.fail = True
++        self.call(update(226, trigger="command", thread=270, text="fallback-root"))
++        first = self._root_row(226)
++        self.assertEqual(first["state"], "FALLBACK_COMMITTED")
++        self.provider.fail = False
++        self.call(update(227, trigger="reply", thread=271, reply_target=first["outbound_message_id"], text="after-fallback"))
++        second = self._root_row(227)
++        self.assertEqual(second["root_derivation_class"], "PROVEN_OUTBOUND_LINEAGE")
++        self.assertEqual(second["stable_conversation_root_id"], first["stable_conversation_root_id"])
++
++    def test_root_migration_from_current_observability_schema_additive_idempotent_no_backfill(self):
++        path = str(Path(self.tmp.name) / "observability-predecessor.sqlite")
++        db = sqlite3.connect(path)
++        db.executescript("""
++        CREATE TABLE updates(
++          update_id INTEGER PRIMARY KEY,request_digest TEXT NOT NULL,state TEXT NOT NULL,
++          conversation_key TEXT NOT NULL,telegram_message_id INTEGER,error_class TEXT,
++          inbound_message_id INTEGER,message_thread_id INTEGER,direct_topic_id INTEGER,trigger_class TEXT,
++          outbound_message_id INTEGER,returned_chat_id INTEGER,returned_message_thread_id INTEGER,
++          returned_direct_topic_id INTEGER,returned_is_topic_message INTEGER
++        );
++        CREATE TABLE messages(conversation_key TEXT NOT NULL,sequence INTEGER NOT NULL,role TEXT NOT NULL,
++          content TEXT NOT NULL,PRIMARY KEY(conversation_key,sequence),CHECK(role IN ('user','assistant')));
++        CREATE TABLE runtime_meta(key TEXT PRIMARY KEY,value INTEGER NOT NULL);
++        INSERT INTO updates VALUES(5,'digest','COMMITTED','historical-r02',101,NULL,111,110,0,'command',112,
++          -1002429106148,NULL,NULL,NULL);
++        INSERT INTO messages VALUES('historical-r02',1,'user','legacy-history');
++        """)
++        db.commit(); db.close()
++        first = Store(path)
++        try:
++            cols1 = first._column_names()
++            row = first.db.execute("SELECT conversation_key,stable_conversation_root_id,root_conversation_key FROM updates WHERE update_id=5").fetchone()
++            self.assertEqual(row["conversation_key"], "historical-r02")
++            self.assertIsNone(row["stable_conversation_root_id"])
++            self.assertIsNone(row["root_conversation_key"])
++            self.assertEqual(first.db.execute("SELECT content FROM messages").fetchone()[0], "legacy-history")
++        finally:
++            first.db.close()
++        second = Store(path)
++        try:
++            self.assertEqual(second._column_names(), cols1)
++            row = second.db.execute("SELECT conversation_key,stable_conversation_root_id,root_conversation_key FROM updates WHERE update_id=5").fetchone()
++            self.assertEqual(tuple(row), ("historical-r02", None, None))
++        finally:
++            second.db.close()
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)

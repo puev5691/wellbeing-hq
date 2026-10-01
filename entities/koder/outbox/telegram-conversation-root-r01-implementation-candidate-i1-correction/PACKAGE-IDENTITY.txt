@@ -1,0 +1,3 @@
+domain: TELEGRAM-CONVERSATION-ROOT-R01-I1-CORRECTION
+construction: SHA-256(domain UTF-8 bytes + NUL + exact SHA256SUMS bytes)
+package_identity: 09a608a2fa24f15f1fb6d26fbf06c3b1715c3a6bb1bb667dec40caf42d13f02f

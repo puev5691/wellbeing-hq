@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "mode": "OFFLINE_DISPOSABLE_ONLY",
+  "predecessor_package_identity": "89c55c9804565f505261719b3a2d75f6b48d84f69b81f8454790211e4c592a4e",
+  "predecessor_package_suite": "54/54 PASS",
+  "corrected_suite": "60/60 PASS",
+  "py_compile": "PASS",
+  "i1_method": "single raw SELECT rowset inside same BEGIN IMMEDIATE transaction; cardinality before eligibility; no count/select TOCTOU",
+  "i1_tests": {
+    "I1-T1 eligible rooted + legacy-null duplicate": "PASS / raw_count=2 / no merge",
+    "I1-T2 eligible rooted + ineligible-state duplicate": "PASS / raw_count=2 / no merge",
+    "I1-T3 eligible rooted + mode-conflicting duplicate": "PASS / raw_count=2 / no merge",
+    "I1-T4 unique eligible": "PASS / PROVEN_OUTBOUND_LINEAGE",
+    "I1-T5 unique legacy-null": "PASS / no merge",
+    "I1-T6 zero raw match": "PASS / no merge"
+  },
+  "existing_T13_ambiguous_rooted_rows": "PASS",
+  "existing_T1_T16": "PASS",
+  "exact_AB_fixture": "PASS",
+  "migration_idempotency": "PASS via unchanged accepted tests",
+  "privacy": "PASS",
+  "replay_effect": "PASS",
+  "outcome_unknown_no_resend": "PASS",
+  "predecessor_34_35_obsolete_fixture_classification": "PRESERVED_ACCEPTED_NOT_REOPENED",
+  "network_calls": 0,
+  "telegram_calls": 0,
+  "openai_calls": 0,
+  "credential_reads": 0,
+  "live_opt_mutation": "NONE",
+  "live_db_schema_mutation": "NONE",
+  "service_start": "NONE"
+}

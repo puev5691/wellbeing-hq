@@ -1,0 +1,86 @@
+{
+  "schema": "TELEGRAM_CONVERSATION_ROOT_R01_I1_CORRECTION_MANIFEST_R01",
+  "status": "IMPLEMENTATION_CANDIDATE_NOT_INSTALLED",
+  "correction_scope": "I1_ONLY",
+  "exact_task": "puev5691/wellbeing-hq@1c17773747f920c810c8f78f47c206dab046dd14:entities/koordinator/outbox/KOO__telegram-conversation-root-r01-I1-correction__KOD.md",
+  "exact_task_blob": "61219d5f4c64c64ad4033407b3435ff12c8aa83a",
+  "current_writer": "puev5691/wellbeing-hq@5d1374d9f7396c34bde5e785f3a9b0872f451977:entities/koder/current/KOD__replacement-current-writer-v06.md",
+  "current_writer_blob": "338f1bcf6f59b53356ea6fb20f2ac081af8cda7e",
+  "sis_needs_rework": "puev5691/wellbeing-hq@4584a73b805cef3697eea32bf6ce724578076fa6:entities/sisadmin/outbox/SIS__telegram-conversation-root-r01-implementation-review-result__KOO.md",
+  "sis_needs_rework_blob": "00bfe35ea25eb384f50cb3eea84bb68181904c0d",
+  "predecessor_package": "puev5691/wellbeing-hq@3e7cceaaef2a0efa27e7c7d8e69a52ebf12260f2:entities/koder/outbox/telegram-conversation-root-r01-implementation-candidate/",
+  "predecessor_package_identity": "89c55c9804565f505261719b3a2d75f6b48d84f69b81f8454790211e4c592a4e",
+  "predecessor_source_sha256": "e594aa95ce94dc70cc0e992c894c9d315a7d771fc9b7bbd36923515019b289f6",
+  "predecessor_test_sha256": "05feb84005d2f35e731f05372d54a2bce87efe650074c403cd6d8eb03d5134b4",
+  "corrected_source_sha256": "f42cb4c256191738a9068181a628cdee5d877b85d08ff9c3fed780553fee03cf",
+  "corrected_test_sha256": "8a2e5b70ae53b85f892483f00d20d2b319a6e1fed353e7af2ecf79fe4f386771",
+  "i1_diff_sha256": "dd3dd5391588e9fe5ee43b49930e9c5dcbd78111629a9365d47ebf167dd86262",
+  "predecessor_suite": "54/54 PASS",
+  "corrected_suite": "60/60 PASS",
+  "py_compile": "PASS",
+  "raw_cardinality_method": "single raw SELECT rowset inside same BEGIN IMMEDIATE transaction; len(rowset) before eligibility; no second SELECT/count TOCTOU",
+  "i1_regressions": "I1-T1..I1-T6 PASS",
+  "existing_T1_T16": "PASS",
+  "existing_T13": "PASS",
+  "accepted_predecessor_34_35_classification": "PRESERVED_NOT_REOPENED",
+  "change_scope_statement": "Only I1 lineage-cardinality implementation/tests plus mechanically required package metadata/docs changed; accepted non-I1 semantics preserved.",
+  "sha256sums_sha256": "52681984eae87ef06c1a8c2bde3fe752b3f15c4c6c4a883b3373c75c2c10dd03",
+  "package_identity_domain": "TELEGRAM-CONVERSATION-ROOT-R01-I1-CORRECTION",
+  "package_identity_construction": "SHA-256(domain UTF-8 bytes + NUL + exact SHA256SUMS bytes)",
+  "package_identity": "09a608a2fa24f15f1fb6d26fbf06c3b1715c3a6bb1bb667dec40caf42d13f02f",
+  "payload_files": [
+    {
+      "path": "I1-DIFF.patch",
+      "bytes": 188918,
+      "sha256": "dd3dd5391588e9fe5ee43b49930e9c5dcbd78111629a9365d47ebf167dd86262"
+    },
+    {
+      "path": "MIGRATION.md",
+      "bytes": 930,
+      "sha256": "f93feadd6a09647a24fe1911fe5ef15aa86e3a515a734ae7498a6c6f66fa80c0"
+    },
+    {
+      "path": "OFFLINE-TEST-REPORT.json",
+      "bytes": 1388,
+      "sha256": "ea1663aaabe7f7caf738b1ca6968d931f2142e892c7abe445e1c603f9b78c2c6"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1594,
+      "sha256": "543a8b6bdec5aa349bed6809e61566eea95b545ca27112b980056914c812bbad"
+    },
+    {
+      "path": "ROOT-SCHEMA.json",
+      "bytes": 1208,
+      "sha256": "b3dcee484cdb81d7b33efc3707faae54e0c3450beafc033594b0bb1fb5a6b333"
+    },
+    {
+      "path": "ROOT-SEMANTICS.md",
+      "bytes": 2751,
+      "sha256": "24111d2efdd95c2a335cf546f180c70fd7fa3af65fb2611f9f1368d9387a35ee"
+    },
+    {
+      "path": "config.example.json",
+      "bytes": 958,
+      "sha256": "5737bd42abd092e3adf0f690f8928348a0df104a6a649d67cb1abb4064a91e6d"
+    },
+    {
+      "path": "dialogue_mvp.py",
+      "bytes": 52494,
+      "sha256": "f42cb4c256191738a9068181a628cdee5d877b85d08ff9c3fed780553fee03cf"
+    },
+    {
+      "path": "test_dialogue_mvp.py",
+      "bytes": 43631,
+      "sha256": "8a2e5b70ae53b85f892483f00d20d2b319a6e1fed353e7af2ecf79fe4f386771"
+    }
+  ],
+  "network_calls": 0,
+  "telegram_calls": 0,
+  "openai_calls": 0,
+  "credential_reads": 0,
+  "live_opt_mutations": 0,
+  "live_db_access": 0,
+  "service_starts": 0,
+  "next_gate": "SIS fresh implementation/offline-package re-review focused on I1 correction + regression containment"
+}
