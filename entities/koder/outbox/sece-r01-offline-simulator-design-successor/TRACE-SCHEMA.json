@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "SECE_OFFLINE_SIMULATOR_TRACE_R01",
+  "title": "SECE r0.1 canonical simulator trace",
+  "type": "object",
+  "required": [
+    "fixture_id",
+    "input_context_id",
+    "input_context_version",
+    "triggering_event_or_result",
+    "affected_scopes",
+    "invalidated_bindings",
+    "preserved_bindings",
+    "resulting_context_id",
+    "projection_scope",
+    "action_id",
+    "compiled_rule_id",
+    "source_provenance",
+    "authority_ref",
+    "task_binding",
+    "current_state_evidence_ids",
+    "causal_event_ids",
+    "validator_predicates",
+    "aggregation_rule_id",
+    "primary_outcome",
+    "secondary_reasons",
+    "effect_decision",
+    "terminal_class",
+    "next_gate_class",
+    "expected_vs_actual"
+  ],
+  "properties": {
+    "trace_id": {
+      "type": "string"
+    },
+    "fixture_id": {
+      "type": "string"
+    },
+    "input_context_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "input_context_version": {
+      "type": [
+        "integer",
+        "string",
+        "null"
+      ]
+    },
+    "triggering_event_or_result": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "affected_scopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "invalidated_bindings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preserved_bindings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resulting_context_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "projection_scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "action_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "compiled_rule_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_provenance": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authority_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "task_binding": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "current_state_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "causal_event_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validator_predicates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "aggregation_rule_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "primary_outcome": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "secondary_reasons": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "effect_decision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "terminal_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "next_gate_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expected_vs_actual": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

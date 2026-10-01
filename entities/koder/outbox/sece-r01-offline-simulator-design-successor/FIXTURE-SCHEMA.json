@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "SECE_OFFLINE_SIMULATOR_FIXTURE_R01",
+  "title": "SECE r0.1 offline simulator fixture",
+  "type": "object",
+  "required": [
+    "fixture_id",
+    "fixture_family",
+    "architecture_rule_refs",
+    "input",
+    "expected"
+  ],
+  "properties": {
+    "fixture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "fixture_family": {
+      "enum": [
+        "T",
+        "CXT",
+        "O",
+        "P",
+        "MUTATION"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "architecture_rule_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "input": {
+      "type": "object"
+    },
+    "action_intent": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "triggering_event_or_result": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "expected": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}
