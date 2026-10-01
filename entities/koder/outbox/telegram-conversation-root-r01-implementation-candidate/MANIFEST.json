@@ -1,0 +1,81 @@
+{
+  "schema": "TELEGRAM_CONVERSATION_ROOT_R01_IMPLEMENTATION_MANIFEST_R01",
+  "status": "IMPLEMENTATION_CANDIDATE_NOT_INSTALLED",
+  "exact_task": "puev5691/wellbeing-hq@a5e426c3e8afe520b84e364ca7ac20434d737459:entities/koordinator/outbox/KOO__telegram-conversation-root-r01-implementation-candidate__KOD.md",
+  "exact_task_blob": "0b774b40da70c4db3df42a0ef553e33a6ad2f2ec",
+  "current_writer": "puev5691/wellbeing-hq@5d1374d9f7396c34bde5e785f3a9b0872f451977:entities/koder/current/KOD__replacement-current-writer-v06.md",
+  "current_writer_blob": "338f1bcf6f59b53356ea6fb20f2ac081af8cda7e",
+  "sis_d1_pass": "puev5691/wellbeing-hq@c666f240254dea3827b95ac9ad5895ab2dadbcbb:entities/sisadmin/outbox/SIS__telegram-conversation-root-design-r01-D1-recheck-result__KOO.md",
+  "sis_d1_pass_blob": "91e80e424774afb3d2ff07175c0afb0d7537332d",
+  "corrected_design": "puev5691/wellbeing-hq@ef66176b4f207990b524548d2343ac52a2e61f6b:entities/koder/outbox/telegram-linked-discussion-conversation-root-design-r01-d1-correction/DESIGN.md",
+  "corrected_design_blob": "041224bb887d9af5d5a6ab181639d518ff144af2",
+  "predecessor_source": "puev5691/wellbeing-hq@7bc9ab9df85a80bedd6717aa38b0478c3c12ecb1:entities/koder/outbox/telegram-routing-observability-r01/dialogue_mvp.py",
+  "predecessor_source_sha256": "8f69beedb05be61da4291b46473a24f73a46323416851a1c4f2611fc1c7327f7",
+  "predecessor_test_sha256": "25821c634bb0611f7ce77a5a1bb578ce9da802bc7ffe760f7b04b411b3edf4f0",
+  "predecessor_baseline_tests": "35/35 PASS",
+  "candidate_tests": "54/54 PASS",
+  "py_compile": "PASS",
+  "package_identity_domain": "TELEGRAM-CONVERSATION-ROOT-R01-IMPLEMENTATION-CANDIDATE",
+  "package_identity_construction": "SHA-256(domain UTF-8 bytes + NUL + exact SHA256SUMS bytes)",
+  "sha256sums_sha256": "cb1ec8181a4b6c818a0930ce3b6165cfdcbcb8a09dbb0449aaaa3b76f0b90e66",
+  "package_identity": "89c55c9804565f505261719b3a2d75f6b48d84f69b81f8454790211e4c592a4e",
+  "payload_files": [
+    {
+      "path": "MIGRATION.md",
+      "bytes": 930,
+      "sha256": "f93feadd6a09647a24fe1911fe5ef15aa86e3a515a734ae7498a6c6f66fa80c0"
+    },
+    {
+      "path": "OFFLINE-TEST-REPORT.json",
+      "bytes": 2182,
+      "sha256": "59afdeda20ab5fedec92911360ee959f971b52959a8d7e0f526e1bb3990152dd"
+    },
+    {
+      "path": "PREDECESSOR-DIFF.patch",
+      "bytes": 95125,
+      "sha256": "c3fa5d2796b66a0d568633d05ef58a6be76b126d539b8091ce5048238f794dd0"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1046,
+      "sha256": "c78e968d36f558390d0e4e1cd50f5be8da1152089c1e48efa1fe6b09922b2535"
+    },
+    {
+      "path": "ROOT-SCHEMA.json",
+      "bytes": 1208,
+      "sha256": "b3dcee484cdb81d7b33efc3707faae54e0c3450beafc033594b0bb1fb5a6b333"
+    },
+    {
+      "path": "ROOT-SEMANTICS.md",
+      "bytes": 1744,
+      "sha256": "54ac8a02a7c1abbb6feb82ea1d149ca69769cfda4e1530580318637364f65319"
+    },
+    {
+      "path": "TEST-PREDECESSOR-DIFF.patch",
+      "bytes": 58522,
+      "sha256": "f4d0151ddb2f6585bcbd85073009cd5a70d2f3225a4a743d9063024bf07f78ec"
+    },
+    {
+      "path": "config.example.json",
+      "bytes": 958,
+      "sha256": "5737bd42abd092e3adf0f690f8928348a0df104a6a649d67cb1abb4064a91e6d"
+    },
+    {
+      "path": "dialogue_mvp.py",
+      "bytes": 51820,
+      "sha256": "e594aa95ce94dc70cc0e992c894c9d315a7d771fc9b7bbd36923515019b289f6"
+    },
+    {
+      "path": "test_dialogue_mvp.py",
+      "bytes": 37323,
+      "sha256": "05feb84005d2f35e731f05372d54a2bce87efe650074c403cd6d8eb03d5134b4"
+    }
+  ],
+  "live_telegram_calls": 0,
+  "live_openai_calls": 0,
+  "credential_reads": 0,
+  "live_opt_mutations": 0,
+  "live_db_access": 0,
+  "service_starts": 0,
+  "next_gate": "SIS independent implementation/offline-package review only"
+}

@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "mode": "OFFLINE_DISPOSABLE_ONLY",
+  "network_calls": 0,
+  "live_opt_mutations": 0,
+  "live_db_reads_or_writes": 0,
+  "service_starts": 0,
+  "credential_reads": 0,
+  "predecessor_identity": {
+    "dialogue_mvp_sha256": "8f69beedb05be61da4291b46473a24f73a46323416851a1c4f2611fc1c7327f7",
+    "test_sha256": "25821c634bb0611f7ce77a5a1bb578ce9da802bc7ffe760f7b04b411b3edf4f0",
+    "config_sha256": "5737bd42abd092e3adf0f690f8928348a0df104a6a649d67cb1abb4064a91e6d"
+  },
+  "predecessor_baseline": {
+    "py_compile": "PASS",
+    "tests": "35/35 PASS"
+  },
+  "candidate": {
+    "py_compile": "PASS",
+    "tests": "54/54 PASS",
+    "required_T1_T16": "PASS",
+    "exact_parameterized_fixture": "PASS_WITH_SYNTHETIC_A_AND_DERIVED_B_NO_LIVE_IDS",
+    "root_decision_before_provider": "PASS",
+    "duplicate_replay_one_effect": "PASS",
+    "post_send_persistence_failure": "OUTCOME_UNKNOWN_NO_RESEND_PASS",
+    "privacy": "PASS",
+    "unknown_reply_no_merge": "PASS",
+    "ambiguous_reply_no_merge": "PASS",
+    "cross_chat_no_merge": "PASS",
+    "direct_topic_mode_isolation": "PASS",
+    "auto_forward_deferred": "ROOT_CREATION_NO_TESTER_WIDENING_NO_PROVIDER_NO_SEND_PASS",
+    "dialogue_mvp_py_sha256": "e594aa95ce94dc70cc0e992c894c9d315a7d771fc9b7bbd36923515019b289f6",
+    "test_dialogue_mvp_py_sha256": "05feb84005d2f35e731f05372d54a2bce87efe650074c403cd6d8eb03d5134b4",
+    "source_patch_sha256": "c3fa5d2796b66a0d568633d05ef58a6be76b126d539b8091ce5048238f794dd0",
+    "test_patch_sha256": "f4d0151ddb2f6585bcbd85073009cd5a70d2f3225a4a743d9063024bf07f78ec"
+  },
+  "migration": {
+    "current_observability_schema_first_run": "PASS",
+    "second_run_idempotent": "PASS",
+    "legacy_r02_schema_additive": "PASS",
+    "legacy_conversation_key_unchanged": "PASS",
+    "legacy_history_readable": "PASS",
+    "legacy_root_backfill": "NONE"
+  },
+  "predecessor_tests_on_candidate_probe": {
+    "tests": "34/35 PASS",
+    "single_expected_obsolete_fixture": "old pruning fixture used message_thread_id=0 for repeated implicit continuity; root-r0.1 intentionally isolates unproven continuity; corrected pruning regression uses a proven thread anchor and passes"
+  }
+}

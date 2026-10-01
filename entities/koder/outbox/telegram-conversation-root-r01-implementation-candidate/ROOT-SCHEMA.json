@@ -1,0 +1,50 @@
+{
+  "schema": "TELEGRAM_CONVERSATION_ROOT_R01_IMPLEMENTATION_CANDIDATE",
+  "status": "IMPLEMENTATION_CANDIDATE_NOT_INSTALLED",
+  "root_id_domain": "tg-conversation-root-r01",
+  "conversation_key_domain": "tg-dialogue-root-r01",
+  "conversation_key_construction": "SHA256(\"tg-dialogue-root-r01\\0\" + stable_conversation_root_id)",
+  "executable_derivation_classes": [
+    "OBSERVED_LINKED_THREAD_ANCHOR",
+    "PROVEN_OUTBOUND_LINEAGE",
+    "SAME_ROOT_OBSERVATION",
+    "ISOLATED_UNRESOLVED"
+  ],
+  "non_executable": [
+    "PROVEN_AUTO_FORWARD_ROOT"
+  ],
+  "nullable_update_columns": [
+    [
+      "inbound_reply_to_message_id",
+      "INTEGER"
+    ],
+    [
+      "inbound_reply_to_message_thread_id",
+      "INTEGER"
+    ],
+    [
+      "stable_conversation_root_id",
+      "TEXT"
+    ],
+    [
+      "root_derivation_class",
+      "TEXT"
+    ],
+    [
+      "root_evidence_update_id",
+      "INTEGER"
+    ],
+    [
+      "root_conversation_key",
+      "TEXT"
+    ]
+  ],
+  "privacy": {
+    "raw_update": false,
+    "full_message": false,
+    "username_display_name": false,
+    "raw_provider_response": false,
+    "credentials": false
+  },
+  "post_send_persistence_failure": "OUTCOME_UNKNOWN_NO_BLIND_RESEND"
+}
