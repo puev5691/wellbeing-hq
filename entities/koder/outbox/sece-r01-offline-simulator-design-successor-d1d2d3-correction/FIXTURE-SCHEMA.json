@@ -1,0 +1,1570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "SECE_OFFLINE_SIMULATOR_FIXTURE_R01_D1_CLOSED",
+  "title": "SECE r0.1 closed machine-semantic fixture",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/TFixture"
+    },
+    {
+      "$ref": "#/$defs/CXTFixture"
+    },
+    {
+      "$ref": "#/$defs/OFixture"
+    },
+    {
+      "$ref": "#/$defs/PFixture"
+    },
+    {
+      "$ref": "#/$defs/MutationFixture"
+    }
+  ],
+  "$defs": {
+    "MetadataStringArray": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "PredecessorMeaningRef": {
+      "type": "object",
+      "required": [
+        "catalog_commit",
+        "catalog_blob",
+        "fixture_id",
+        "expected_semantic_digest"
+      ],
+      "properties": {
+        "catalog_commit": {
+          "type": "string",
+          "const": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469"
+        },
+        "catalog_blob": {
+          "type": "string",
+          "const": "7e39b90736c6d84f75a4581c46de7bd9baa34c99"
+        },
+        "fixture_id": {
+          "type": "string"
+        },
+        "expected_semantic_digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Fact": {
+      "type": "object",
+      "required": [
+        "fact_id",
+        "fact_type",
+        "scope",
+        "state",
+        "value_ref",
+        "provenance_ref"
+      ],
+      "properties": {
+        "fact_id": {
+          "type": "string"
+        },
+        "fact_type": {
+          "enum": [
+            "WRITER_STATE",
+            "WRITER_REQUIREMENT",
+            "TASK_CURRENTNESS",
+            "TASK_LIFECYCLE",
+            "AUTHORITY_REF_STATE",
+            "AUTHORITY_ACTION_CLASS",
+            "SOURCE_STATUS",
+            "SOURCE_CONFLICT_STATE",
+            "TERMINAL_STATE",
+            "REQUIRED_EVIDENCE_STATE",
+            "EXPERIENCE_RECOMMENDATION",
+            "FORBIDDEN_ACTION",
+            "ALLOWED_ACTION",
+            "PROFILE_CAPABILITY",
+            "AUTOMATION_CAPABILITY",
+            "EFFECT_AUTHORITY_REQUIREMENT",
+            "DECISION_RECIPIENT",
+            "CAUSAL_REQUIREMENT",
+            "HUMAN_CLAIM_AUTHORITY",
+            "DEPENDENCY_STATE",
+            "PROJECTION_BASIS_STATE",
+            "CONTEXT_FACT_PRESENCE",
+            "VALID_BINDINGS_STATE",
+            "VALID_PRECONDITIONS_STATE",
+            "VALID_CURRENTNESS_STATE",
+            "AUTHORITY_BINDING_STATE",
+            "PROCESSING_STARTED_STATE",
+            "RECOVERY_APPLICABILITY",
+            "NORMATIVE_USE_STATE",
+            "DEPENDENT_EFFECT_STATE",
+            "ROLE_STATE",
+            "PROFILE_STATE"
+          ]
+        },
+        "scope": {
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "YES",
+            "NO",
+            "ABSENT",
+            "PRESENT",
+            "CURRENT",
+            "SUPERSEDED",
+            "STALE",
+            "UNKNOWN",
+            "VERIFIED",
+            "UNVERIFIED",
+            "CONFLICT",
+            "ACTIVE",
+            "CANDIDATE",
+            "HISTORICAL",
+            "REQUIRED",
+            "NOT_REQUIRED",
+            "ALLOWED",
+            "FORBIDDEN",
+            "READ_ONLY",
+            "DEPLOY",
+            "DISPATCHED",
+            "DELIVERED",
+            "RECEIVED",
+            "ACCEPTED",
+            "COMMITTED",
+            "FALLBACK_COMMITTED",
+            "SENDING",
+            "TERMINAL",
+            "REFINES",
+            "INDEPENDENT",
+            "VALID",
+            "INVALID",
+            "AVAILABLE",
+            "UNAVAILABLE",
+            "PENDING",
+            "BLOCKED",
+            "ADVISORY",
+            "CURRENT_ESTABLISHED",
+            "PRESERVED",
+            "PRESERVED_APPLICABLE_EVIDENCE",
+            "REJECTED",
+            "ACTION_INTENT_ONLY"
+          ]
+        },
+        "value_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provenance_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ActionIntent": {
+      "type": "object",
+      "required": [
+        "action_id",
+        "action_class",
+        "selected_scope",
+        "transition_type",
+        "target_ref"
+      ],
+      "properties": {
+        "action_id": {
+          "type": "string"
+        },
+        "action_class": {
+          "enum": [
+            "READ_ONLY",
+            "MUTATE",
+            "DEPLOY",
+            "CLEAN_LOGS",
+            "AUTOMATION",
+            "HANDOFF",
+            "ROUTE",
+            "EXECUTE",
+            "INSPECT",
+            "OTHER_BOUNDED"
+          ]
+        },
+        "selected_scope": {
+          "type": "string"
+        },
+        "transition_type": {
+          "enum": [
+            "EXECUTE_EFFECT",
+            "HANDOFF",
+            "INFER_RUNNING",
+            "CONTINUE_TASK",
+            "REPLAY_TASK",
+            "USE_SOURCE_NORMATIVELY",
+            "ACTIVATE_AUTOMATION",
+            "SELECT_CURRENT_BASIS",
+            "ASSERT_REQUIRED_STATE",
+            "MUTATE",
+            "DEPLOY",
+            "CLEAN_LOGS",
+            "READ",
+            "INSPECT",
+            "PROJECTION",
+            "CONTEXT_UPDATE"
+          ]
+        },
+        "target_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CurrentStateEvidence": {
+      "type": "object",
+      "required": [
+        "evidence_id",
+        "evidence_kind",
+        "exact_immutable_identity",
+        "scope",
+        "provenance_source",
+        "verified_state",
+        "currentness_state",
+        "relation_to_other_evidence",
+        "relation_target_evidence_id",
+        "selected_current_basis",
+        "selection_basis",
+        "unresolved_conflict",
+        "conflict_set",
+        "unknown_fields"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string"
+        },
+        "evidence_kind": {
+          "enum": [
+            "RECOVERY",
+            "VERIFIED_DELTA",
+            "WRITER",
+            "TASK",
+            "TERMINAL",
+            "SOURCE",
+            "OTHER"
+          ]
+        },
+        "exact_immutable_identity": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "provenance_source": {
+          "type": "string"
+        },
+        "verified_state": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "UNKNOWN"
+          ]
+        },
+        "currentness_state": {
+          "enum": [
+            "CURRENT",
+            "HISTORICAL",
+            "STALE",
+            "SUPERSEDED",
+            "UNKNOWN"
+          ]
+        },
+        "relation_to_other_evidence": {
+          "enum": [
+            "SUPERSEDES",
+            "REFINES",
+            "HISTORICAL",
+            "CONFLICTS",
+            "INDEPENDENT"
+          ]
+        },
+        "relation_target_evidence_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "selected_current_basis": {
+          "enum": [
+            "YES",
+            "NO"
+          ]
+        },
+        "selection_basis": {
+          "type": "string"
+        },
+        "unresolved_conflict": {
+          "enum": [
+            "YES",
+            "NO"
+          ]
+        },
+        "conflict_set": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "unknown_fields": {
+          "$ref": "#/$defs/MetadataStringArray"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CausalEvent": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "event_type",
+        "evidence_ref",
+        "causal_parent_event_id",
+        "lifecycle_evidence_state",
+        "dispatch_state",
+        "delivery_state",
+        "receipt_state",
+        "processing_started_state",
+        "handoff_recipient",
+        "handoff_reason",
+        "decision_id",
+        "decision_owner",
+        "decision_recipient",
+        "current_decision_state",
+        "proposed_handoff_target",
+        "redundant_self_handoff",
+        "causal_requirement_status",
+        "scope",
+        "provenance_ref"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "event_type": {
+          "enum": [
+            "DECISION",
+            "ACTIVATION_ATTEMPT",
+            "PROCESSING_STARTED",
+            "DISPATCH",
+            "DELIVERY",
+            "RECEIPT",
+            "ACCEPTANCE",
+            "HANDOFF",
+            "RESULT",
+            "TERMINAL",
+            "OTHER"
+          ]
+        },
+        "evidence_ref": {
+          "type": "string"
+        },
+        "causal_parent_event_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lifecycle_evidence_state": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "UNKNOWN",
+            "CONFLICT"
+          ]
+        },
+        "dispatch_state": {
+          "enum": [
+            "NOT_APPLICABLE",
+            "NONE",
+            "DISPATCHED",
+            "UNKNOWN"
+          ]
+        },
+        "delivery_state": {
+          "enum": [
+            "NOT_APPLICABLE",
+            "NONE",
+            "DELIVERED",
+            "UNKNOWN"
+          ]
+        },
+        "receipt_state": {
+          "enum": [
+            "NOT_APPLICABLE",
+            "NONE",
+            "RECEIVED",
+            "UNKNOWN"
+          ]
+        },
+        "processing_started_state": {
+          "enum": [
+            "NOT_APPLICABLE",
+            "NO",
+            "YES",
+            "UNKNOWN"
+          ]
+        },
+        "handoff_recipient": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "handoff_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decision_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decision_owner": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decision_recipient": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "current_decision_state": {
+          "enum": [
+            "NOT_APPLICABLE",
+            "CURRENT",
+            "SUPERSEDED",
+            "UNKNOWN"
+          ]
+        },
+        "proposed_handoff_target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "redundant_self_handoff": {
+          "enum": [
+            "YES",
+            "NO",
+            "UNKNOWN"
+          ]
+        },
+        "causal_requirement_status": {
+          "enum": [
+            "REQUIRED",
+            "NOT_REQUIRED",
+            "UNKNOWN",
+            "CONFLICT"
+          ]
+        },
+        "scope": {
+          "type": "string"
+        },
+        "provenance_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Trigger": {
+      "type": "object",
+      "required": [
+        "trigger_id",
+        "trigger_type",
+        "verification_state",
+        "scope",
+        "provenance_ref"
+      ],
+      "properties": {
+        "trigger_id": {
+          "type": "string"
+        },
+        "trigger_type": {
+          "enum": [
+            "RESULT",
+            "EVENT",
+            "OPERATOR_DECISION",
+            "SOURCE_CONFLICT",
+            "TERMINAL",
+            "VERIFIED_DELTA",
+            "HUMAN_INPUT",
+            "EVIDENCE_RESOLUTION",
+            "AUTHORITY_GRANT",
+            "EXPERIENCE_SELECTION",
+            "COMPOSITION"
+          ]
+        },
+        "verification_state": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "UNKNOWN",
+            "CONFLICT"
+          ]
+        },
+        "scope": {
+          "type": "string"
+        },
+        "provenance_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DependencyChange": {
+      "type": "object",
+      "required": [
+        "change_id",
+        "change_type",
+        "target_id",
+        "scope",
+        "verification_state",
+        "provenance_ref"
+      ],
+      "properties": {
+        "change_id": {
+          "type": "string"
+        },
+        "change_type": {
+          "enum": [
+            "ADD_FACT",
+            "REMOVE_FACT",
+            "REFINE_FACT",
+            "SUPERSEDE_FACT",
+            "RESOLVE_UNKNOWN",
+            "ADD_CONFLICT",
+            "RESOLVE_CONFLICT",
+            "CHANGE_DEPENDENCY",
+            "RESULT_CHANGES_NEXT_GATE",
+            "AUTHORITY_GRANT",
+            "EXPERIENCE_SELECTION",
+            "COMPOSE"
+          ]
+        },
+        "target_id": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "verification_state": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "UNKNOWN",
+            "CONFLICT"
+          ]
+        },
+        "provenance_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Aggregation": {
+      "type": "object",
+      "required": [
+        "aggregation_rule_id",
+        "effect_decision",
+        "primary_outcome",
+        "terminal_class",
+        "next_gate_class",
+        "secondary_reasons_preserve_all_input_predicates"
+      ],
+      "properties": {
+        "aggregation_rule_id": {
+          "enum": [
+            "AGG-R1",
+            "AGG-R2",
+            "AGG-R3",
+            "AGG-R4",
+            "AGG-R5",
+            "AGG-R6"
+          ]
+        },
+        "effect_decision": {
+          "enum": [
+            "ADMIT",
+            "REJECT",
+            "STOP",
+            "NO_EFFECT"
+          ]
+        },
+        "primary_outcome": {
+          "enum": [
+            "AGGREGATE_CLEAR",
+            "AGGREGATE_CONFLICT_STOP",
+            "AGGREGATE_REJECTED",
+            "AGGREGATE_BLOCKED",
+            "AGGREGATE_UNKNOWN",
+            "AGGREGATE_FAIL"
+          ]
+        },
+        "terminal_class": {
+          "enum": [
+            "PASS",
+            "BLOCKED",
+            "FAIL",
+            "UNKNOWN"
+          ]
+        },
+        "next_gate_class": {
+          "enum": [
+            "NONE",
+            "STOP",
+            "REQUEST_EVIDENCE",
+            "REQUEST_AUTHORITY",
+            "WRITER_GATE",
+            "CURRENTNESS_RECONCILIATION",
+            "CAUSAL_NEXT_GATE"
+          ]
+        },
+        "secondary_reasons_preserve_all_input_predicates": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "Assertion": {
+      "type": "object",
+      "required": [
+        "assertion_type",
+        "subject_ref",
+        "scope",
+        "expected_state",
+        "expected_ref",
+        "expected_bool",
+        "expected_count"
+      ],
+      "properties": {
+        "assertion_type": {
+          "enum": [
+            "FACT_STATE",
+            "SELECTED_BASIS",
+            "BINDING_STATE",
+            "FULL_RESET",
+            "AUTHORITY_RESULT_UNCHANGED",
+            "RUNNING_INFERENCE",
+            "PROJECTION_VALID",
+            "L7_REACHED",
+            "ALL_REASONS_PRESERVED",
+            "RECOMPUTE_ONLY_DEPENDENCY_CLOSURE",
+            "PRESERVE_INDEPENDENT_BINDINGS",
+            "NORMATIVE_USE",
+            "EFFECT_STATE",
+            "CAUSAL_REQUIREMENT",
+            "REDUNDANT_SELF_HANDOFF",
+            "EXPERIENCE_ADVISORY",
+            "AUTHORITY_BINDING_PRESENT",
+            "RECOVERY_APPLICABILITY",
+            "PROJECTION_SUBSET_OF_EFFECTIVE_CONTEXT",
+            "EXTRA_FACT_ALLOWED_ONLY_ACTION_INTENT",
+            "SUCCESSOR_CONTEXT_STATE",
+            "SECONDARY_REASONS_COUNT"
+          ]
+        },
+        "subject_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_state": {
+          "anyOf": [
+            {
+              "enum": [
+                "YES",
+                "NO",
+                "ABSENT",
+                "PRESENT",
+                "CURRENT",
+                "SUPERSEDED",
+                "STALE",
+                "UNKNOWN",
+                "VERIFIED",
+                "UNVERIFIED",
+                "CONFLICT",
+                "ACTIVE",
+                "CANDIDATE",
+                "HISTORICAL",
+                "REQUIRED",
+                "NOT_REQUIRED",
+                "ALLOWED",
+                "FORBIDDEN",
+                "READ_ONLY",
+                "DEPLOY",
+                "DISPATCHED",
+                "DELIVERED",
+                "RECEIVED",
+                "ACCEPTED",
+                "COMMITTED",
+                "FALLBACK_COMMITTED",
+                "SENDING",
+                "TERMINAL",
+                "REFINES",
+                "INDEPENDENT",
+                "VALID",
+                "INVALID",
+                "AVAILABLE",
+                "UNAVAILABLE",
+                "PENDING",
+                "BLOCKED",
+                "ADVISORY",
+                "CURRENT_ESTABLISHED",
+                "PRESERVED",
+                "PRESERVED_APPLICABLE_EVIDENCE",
+                "REJECTED",
+                "ACTION_INTENT_ONLY",
+                "CXT1_PARALLEL_LINES_COEXIST",
+                "CXT2_MUTATE_FORBIDDEN_EXPERIENCE_ADVISORY",
+                "CXT3_DELTA_SELECTED_S_RECOVERY_PRESERVED_U",
+                "CXT4_TASK_T_SUPERSEDED_U_UNCHANGED",
+                "CXT5_AUTHORITY_A_RECOMPUTED_B_PRESERVED",
+                "CXT6_S1_CONFLICT_S2_PRESERVED",
+                "CXT7_UNKNOWN_E_RESOLVED_DEPENDENTS_RECOMPUTED",
+                "CXT8_HUMAN_H_UNVERIFIED_G_PRESERVED",
+                "CXT9_OPERATOR_DECISION_BOUNDED_AUTHORITY_UPDATED",
+                "CXT10_NEXT_GATE_G2_ROLE_PROFILE_EXPERIENCE_PRESERVED"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expected_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_bool": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "expected_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "MutationTransformation": {
+      "type": "object",
+      "required": [
+        "transformation_type",
+        "target_ref",
+        "field_code",
+        "scope",
+        "from_state",
+        "to_state",
+        "provenance_ref"
+      ],
+      "properties": {
+        "transformation_type": {
+          "enum": [
+            "REMOVE_AUTHORITY_REF",
+            "SOURCE_ACTIVE_TO_CANDIDATE",
+            "TASK_CURRENT_TO_SUPERSEDED",
+            "PROCESSING_STARTED_YES_TO_UNKNOWN",
+            "ADD_CURRENT_STATE_CONFLICT",
+            "ADD_SOURCE_CONFLICT_S1",
+            "CHANGE_EXPERIENCE",
+            "CHANGE_DEPENDENCY_ATOM",
+            "REMOVE_PROJECTION_BASIS_FACT",
+            "ADD_CONTRACT_ONLY_CONTEXT_FACT",
+            "REPLACE_REQUIRED_HANDOFF_WITH_REDUNDANT_SELF_HANDOFF",
+            "COMBINE_AUTHORITY_WRITER_CURRENTNESS_BLOCKERS"
+          ]
+        },
+        "target_ref": {
+          "type": "string"
+        },
+        "field_code": {
+          "enum": [
+            "authority_ref",
+            "active_status",
+            "task_currentness",
+            "processing_started_state",
+            "unresolved_conflict",
+            "source_conflict",
+            "advisory_content",
+            "dependency_state",
+            "fact_presence",
+            "context_fact_presence",
+            "causal_requirement",
+            "blocker_set"
+          ]
+        },
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "from_state": {
+          "enum": [
+            "YES",
+            "NO",
+            "ABSENT",
+            "PRESENT",
+            "CURRENT",
+            "SUPERSEDED",
+            "STALE",
+            "UNKNOWN",
+            "VERIFIED",
+            "UNVERIFIED",
+            "CONFLICT",
+            "ACTIVE",
+            "CANDIDATE",
+            "HISTORICAL",
+            "REQUIRED",
+            "NOT_REQUIRED",
+            "ALLOWED",
+            "FORBIDDEN",
+            "READ_ONLY",
+            "DEPLOY",
+            "DISPATCHED",
+            "DELIVERED",
+            "RECEIVED",
+            "ACCEPTED",
+            "COMMITTED",
+            "FALLBACK_COMMITTED",
+            "SENDING",
+            "TERMINAL",
+            "REFINES",
+            "INDEPENDENT",
+            "VALID",
+            "INVALID",
+            "AVAILABLE",
+            "UNAVAILABLE",
+            "PENDING",
+            "BLOCKED",
+            "ADVISORY",
+            "CURRENT_ESTABLISHED",
+            "PRESERVED",
+            "PRESERVED_APPLICABLE_EVIDENCE",
+            "REJECTED",
+            "ACTION_INTENT_ONLY"
+          ]
+        },
+        "to_state": {
+          "enum": [
+            "YES",
+            "NO",
+            "ABSENT",
+            "PRESENT",
+            "CURRENT",
+            "SUPERSEDED",
+            "STALE",
+            "UNKNOWN",
+            "VERIFIED",
+            "UNVERIFIED",
+            "CONFLICT",
+            "ACTIVE",
+            "CANDIDATE",
+            "HISTORICAL",
+            "REQUIRED",
+            "NOT_REQUIRED",
+            "ALLOWED",
+            "FORBIDDEN",
+            "READ_ONLY",
+            "DEPLOY",
+            "DISPATCHED",
+            "DELIVERED",
+            "RECEIVED",
+            "ACCEPTED",
+            "COMMITTED",
+            "FALLBACK_COMMITTED",
+            "SENDING",
+            "TERMINAL",
+            "REFINES",
+            "INDEPENDENT",
+            "VALID",
+            "INVALID",
+            "AVAILABLE",
+            "UNAVAILABLE",
+            "PENDING",
+            "BLOCKED",
+            "ADVISORY",
+            "CURRENT_ESTABLISHED",
+            "PRESERVED",
+            "PRESERVED_APPLICABLE_EVIDENCE",
+            "REJECTED",
+            "ACTION_INTENT_ONLY"
+          ]
+        },
+        "provenance_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TInput": {
+      "type": "object",
+      "required": [
+        "facts",
+        "current_state_evidence",
+        "causal_events",
+        "action_intent",
+        "triggering_event_or_result"
+      ],
+      "properties": {
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Fact"
+          }
+        },
+        "current_state_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CurrentStateEvidence"
+          }
+        },
+        "causal_events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CausalEvent"
+          }
+        },
+        "action_intent": {
+          "$ref": "#/$defs/ActionIntent"
+        },
+        "triggering_event_or_result": {
+          "type": "null"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TExpected": {
+      "type": "object",
+      "required": [
+        "validator_predicates",
+        "aggregation",
+        "simulated_action_event",
+        "assertions"
+      ],
+      "properties": {
+        "validator_predicates": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "ADMIT",
+              "REJECT_ACTION_AUTHORIZATION_BINDING",
+              "REJECT_FORBIDDEN",
+              "REJECT_PRECONDITION",
+              "REJECT_REDUNDANT_SELF_HANDOFF",
+              "SOURCE_CONFLICT_STOP",
+              "CURRENT_STATE_CONFLICT_STOP",
+              "UNKNOWN_REQUIRED_EVIDENCE",
+              "BLOCKED_AUTHORITY",
+              "BLOCKED_WRITER",
+              "BLOCKED_CURRENTNESS",
+              "FAIL",
+              "UNKNOWN",
+              "VALID_AUTHORITY_EVIDENCE",
+              "VALID_BINDINGS",
+              "VALID_PRECONDITIONS",
+              "VALID_CURRENTNESS",
+              "CLEAN_VALID_ACTION"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "aggregation": {
+          "$ref": "#/$defs/Aggregation"
+        },
+        "simulated_action_event": {
+          "enum": [
+            "YES",
+            "NO"
+          ]
+        },
+        "assertions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Assertion"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "CXTInput": {
+      "type": "object",
+      "required": [
+        "facts",
+        "current_state_evidence",
+        "causal_events",
+        "action_intent",
+        "triggering_event_or_result",
+        "dependency_changes"
+      ],
+      "properties": {
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Fact"
+          }
+        },
+        "current_state_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CurrentStateEvidence"
+          }
+        },
+        "causal_events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CausalEvent"
+          }
+        },
+        "action_intent": {
+          "type": "null"
+        },
+        "triggering_event_or_result": {
+          "$ref": "#/$defs/Trigger"
+        },
+        "dependency_changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/DependencyChange"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "CXTExpected": {
+      "type": "object",
+      "required": [
+        "affected_scopes",
+        "invalidated_bindings",
+        "recomputed_bindings",
+        "preserved_bindings",
+        "successor_assertions",
+        "full_reset"
+      ],
+      "properties": {
+        "affected_scopes": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "invalidated_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "recomputed_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "preserved_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "successor_assertions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/Assertion"
+          }
+        },
+        "full_reset": {
+          "type": "boolean",
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "OInput": {
+      "type": "object",
+      "required": [
+        "validator_predicates",
+        "action_intent",
+        "triggering_event_or_result"
+      ],
+      "properties": {
+        "validator_predicates": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "ADMIT",
+              "REJECT_ACTION_AUTHORIZATION_BINDING",
+              "REJECT_FORBIDDEN",
+              "REJECT_PRECONDITION",
+              "REJECT_REDUNDANT_SELF_HANDOFF",
+              "SOURCE_CONFLICT_STOP",
+              "CURRENT_STATE_CONFLICT_STOP",
+              "UNKNOWN_REQUIRED_EVIDENCE",
+              "BLOCKED_AUTHORITY",
+              "BLOCKED_WRITER",
+              "BLOCKED_CURRENTNESS",
+              "FAIL",
+              "UNKNOWN",
+              "VALID_AUTHORITY_EVIDENCE",
+              "VALID_BINDINGS",
+              "VALID_PRECONDITIONS",
+              "VALID_CURRENTNESS",
+              "CLEAN_VALID_ACTION",
+              "OTHERWISE_VALID_CONTEXT"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "action_intent": {
+          "$ref": "#/$defs/ActionIntent"
+        },
+        "triggering_event_or_result": {
+          "type": "null"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OExpected": {
+      "type": "object",
+      "required": [
+        "aggregation"
+      ],
+      "properties": {
+        "aggregation": {
+          "$ref": "#/$defs/Aggregation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PInput": {
+      "type": "object",
+      "required": [
+        "facts",
+        "current_state_evidence",
+        "causal_events",
+        "action_intent",
+        "triggering_event_or_result"
+      ],
+      "properties": {
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Fact"
+          }
+        },
+        "current_state_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CurrentStateEvidence"
+          }
+        },
+        "causal_events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/CausalEvent"
+          }
+        },
+        "action_intent": {
+          "$ref": "#/$defs/ActionIntent"
+        },
+        "triggering_event_or_result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Trigger"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "PExpected": {
+      "type": "object",
+      "required": [
+        "validator_predicates",
+        "aggregation",
+        "affected_scopes",
+        "invalidated_bindings",
+        "recomputed_bindings",
+        "preserved_bindings",
+        "assertions"
+      ],
+      "properties": {
+        "validator_predicates": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "ADMIT",
+              "REJECT_ACTION_AUTHORIZATION_BINDING",
+              "REJECT_FORBIDDEN",
+              "REJECT_PRECONDITION",
+              "REJECT_REDUNDANT_SELF_HANDOFF",
+              "SOURCE_CONFLICT_STOP",
+              "CURRENT_STATE_CONFLICT_STOP",
+              "UNKNOWN_REQUIRED_EVIDENCE",
+              "BLOCKED_AUTHORITY",
+              "BLOCKED_WRITER",
+              "BLOCKED_CURRENTNESS",
+              "FAIL",
+              "UNKNOWN",
+              "VALID_AUTHORITY_EVIDENCE",
+              "VALID_BINDINGS",
+              "VALID_PRECONDITIONS",
+              "VALID_CURRENTNESS",
+              "CLEAN_VALID_ACTION"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "aggregation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Aggregation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "affected_scopes": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "invalidated_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "recomputed_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "preserved_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "assertions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Assertion"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "MutationInput": {
+      "type": "object",
+      "required": [
+        "base_fixture_ref",
+        "transformation",
+        "action_intent"
+      ],
+      "properties": {
+        "base_fixture_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "transformation": {
+          "$ref": "#/$defs/MutationTransformation"
+        },
+        "action_intent": {
+          "type": "null"
+        }
+      },
+      "additionalProperties": false
+    },
+    "MutationExpected": {
+      "type": "object",
+      "required": [
+        "validator_predicates",
+        "aggregation",
+        "affected_scopes",
+        "invalidated_bindings",
+        "recomputed_bindings",
+        "preserved_bindings",
+        "assertions"
+      ],
+      "properties": {
+        "validator_predicates": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "ADMIT",
+              "REJECT_ACTION_AUTHORIZATION_BINDING",
+              "REJECT_FORBIDDEN",
+              "REJECT_PRECONDITION",
+              "REJECT_REDUNDANT_SELF_HANDOFF",
+              "SOURCE_CONFLICT_STOP",
+              "CURRENT_STATE_CONFLICT_STOP",
+              "UNKNOWN_REQUIRED_EVIDENCE",
+              "BLOCKED_AUTHORITY",
+              "BLOCKED_WRITER",
+              "BLOCKED_CURRENTNESS",
+              "FAIL",
+              "UNKNOWN",
+              "VALID_AUTHORITY_EVIDENCE",
+              "VALID_BINDINGS",
+              "VALID_PRECONDITIONS",
+              "VALID_CURRENTNESS",
+              "CLEAN_VALID_ACTION"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "aggregation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Aggregation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "affected_scopes": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "invalidated_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "recomputed_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "preserved_bindings": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "assertions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Assertion"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "TFixture": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "fixture_family",
+        "description",
+        "predecessor_meaning_ref",
+        "architecture_rule_refs",
+        "semantic_input",
+        "expected",
+        "provenance"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "string",
+          "pattern": "^T([1-9]|1[0-5])$"
+        },
+        "fixture_family": {
+          "const": "T"
+        },
+        "description": {
+          "type": "string"
+        },
+        "predecessor_meaning_ref": {
+          "$ref": "#/$defs/PredecessorMeaningRef"
+        },
+        "architecture_rule_refs": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "semantic_input": {
+          "$ref": "#/$defs/TInput"
+        },
+        "expected": {
+          "$ref": "#/$defs/TExpected"
+        },
+        "provenance": {
+          "$ref": "#/$defs/MetadataStringArray"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CXTFixture": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "fixture_family",
+        "description",
+        "predecessor_meaning_ref",
+        "architecture_rule_refs",
+        "semantic_input",
+        "expected",
+        "provenance"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "string",
+          "pattern": "^CXT([1-9]|10)$"
+        },
+        "fixture_family": {
+          "const": "CXT"
+        },
+        "description": {
+          "type": "string"
+        },
+        "predecessor_meaning_ref": {
+          "$ref": "#/$defs/PredecessorMeaningRef"
+        },
+        "architecture_rule_refs": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "semantic_input": {
+          "$ref": "#/$defs/CXTInput"
+        },
+        "expected": {
+          "$ref": "#/$defs/CXTExpected"
+        },
+        "provenance": {
+          "$ref": "#/$defs/MetadataStringArray"
+        }
+      },
+      "additionalProperties": false
+    },
+    "OFixture": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "fixture_family",
+        "description",
+        "predecessor_meaning_ref",
+        "architecture_rule_refs",
+        "semantic_input",
+        "expected",
+        "provenance"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "string",
+          "pattern": "^O([1-9]|10)$"
+        },
+        "fixture_family": {
+          "const": "O"
+        },
+        "description": {
+          "type": "string"
+        },
+        "predecessor_meaning_ref": {
+          "$ref": "#/$defs/PredecessorMeaningRef"
+        },
+        "architecture_rule_refs": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "semantic_input": {
+          "$ref": "#/$defs/OInput"
+        },
+        "expected": {
+          "$ref": "#/$defs/OExpected"
+        },
+        "provenance": {
+          "$ref": "#/$defs/MetadataStringArray"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PFixture": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "fixture_family",
+        "description",
+        "predecessor_meaning_ref",
+        "architecture_rule_refs",
+        "semantic_input",
+        "expected",
+        "provenance"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "string",
+          "pattern": "^P[1-7]$"
+        },
+        "fixture_family": {
+          "const": "P"
+        },
+        "description": {
+          "type": "string"
+        },
+        "predecessor_meaning_ref": {
+          "$ref": "#/$defs/PredecessorMeaningRef"
+        },
+        "architecture_rule_refs": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "semantic_input": {
+          "$ref": "#/$defs/PInput"
+        },
+        "expected": {
+          "$ref": "#/$defs/PExpected"
+        },
+        "provenance": {
+          "$ref": "#/$defs/MetadataStringArray"
+        }
+      },
+      "additionalProperties": false
+    },
+    "MutationFixture": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "fixture_family",
+        "description",
+        "predecessor_meaning_ref",
+        "architecture_rule_refs",
+        "semantic_input",
+        "expected",
+        "provenance"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "string",
+          "pattern": "^M([1-9]|1[0-2])$"
+        },
+        "fixture_family": {
+          "const": "MUTATION"
+        },
+        "description": {
+          "type": "string"
+        },
+        "predecessor_meaning_ref": {
+          "$ref": "#/$defs/PredecessorMeaningRef"
+        },
+        "architecture_rule_refs": {
+          "$ref": "#/$defs/MetadataStringArray"
+        },
+        "semantic_input": {
+          "$ref": "#/$defs/MutationInput"
+        },
+        "expected": {
+          "$ref": "#/$defs/MutationExpected"
+        },
+        "provenance": {
+          "$ref": "#/$defs/MetadataStringArray"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
