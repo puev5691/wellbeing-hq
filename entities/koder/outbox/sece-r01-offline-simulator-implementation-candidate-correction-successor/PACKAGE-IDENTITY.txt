@@ -1,0 +1,3 @@
+domain: SECE-R01-OFFLINE-SIMULATOR-IMPLEMENTATION-CORRECTION-SUCCESSOR
+construction: SHA-256(domain UTF-8 bytes + NUL + exact SHA256SUMS bytes)
+package_identity: 190e2a8d097d929895090b8f80f75d9c19faca738c45417600da3c7a0de4acfe
