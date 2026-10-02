@@ -1,0 +1,3 @@
+fixture_runner_process_1_sha256: 31dcf2dd5f160bc2bea3ad0e95060b61923303d6054a1f4b949a53959479045d
+fixture_runner_process_2_sha256: 31dcf2dd5f160bc2bea3ad0e95060b61923303d6054a1f4b949a53959479045d
+byte_identical: YES

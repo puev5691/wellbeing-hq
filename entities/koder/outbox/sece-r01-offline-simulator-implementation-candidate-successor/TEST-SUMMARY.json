@@ -1,0 +1,53 @@
+{
+  "affected_count": 15,
+  "architecture_assertions": {
+    "action_intent_proposal_only": true,
+    "c1_c2_c3_explicit": true,
+    "compatible_lines_coexist": true,
+    "dependency_closure_only": true,
+    "external_evidence_not_authority_generator": true,
+    "l7_local": true,
+    "no_admit_with_bad_predicate": true,
+    "profile_experience_capability_no_authority": true,
+    "projection_cannot_invent": true,
+    "scope_local_conflict_preserves_unrelated": true,
+    "simultaneous_reasons_preserved": true,
+    "stale_dependent_removed": true,
+    "unverified_event_no_successor_delta": true
+  },
+  "contract_mutation_failures": [],
+  "contract_mutations_pass": 25,
+  "family_counts": {
+    "CXT": 10,
+    "MUTATION": 12,
+    "O": 10,
+    "P": 7,
+    "T": 15
+  },
+  "fixture_failures": [],
+  "markers": {
+    "ARCHITECTURE_ASSERTIONS_PASS": true,
+    "BINDING_DERIVATION_PASS": "15/15",
+    "CONTRACT_ID_TEST_VECTORS_PASS": true,
+    "CXT_FIXTURES_PASS": "10/10",
+    "DESIGN_INTERFACE_MAPPING_COMPLETE": "22/22",
+    "DETERMINISM_TESTS_PASS": true,
+    "FIXTURE_CATALOG_54_OF_54_VALID": true,
+    "IMPLEMENTATION_CANDIDATE_CREATED": true,
+    "INPUT_COMPLETENESS_EXECUTION_PASS": "15/15",
+    "NO_FIXTURE_ID_BRANCHING_TEST_PASS": true,
+    "NO_HIDDEN_BINDING_MAPPING_TEST_PASS": true,
+    "NO_SIDE_EFFECT_TESTS_PASS": true,
+    "ORACLE_SEPARATION_TEST_PASS": true,
+    "O_FIXTURES_PASS": "10/10",
+    "POSITIVE_CONTROLS_PASS": "7/7",
+    "PROPERTY_FIXTURES_PASS": "12/12",
+    "SCHEMA_VALIDATION_PASS": true,
+    "TOTAL_FIXTURES_PASS": "54/54",
+    "TRACE_ID_TEST_VECTORS_PASS": true,
+    "TRACE_SCHEMA_PASS": true,
+    "T_FIXTURES_PASS": "15/15"
+  },
+  "runtime": "Python 3.12+ stdlib only",
+  "status": "PASS"
+}
