@@ -1,0 +1,4663 @@
+{
+  "schema_id": "SECE_OFFLINE_SIMULATOR_FIXTURE_CATALOG_R01_INPUT_COMPLETE",
+  "status": "SIMULATOR_DESIGN_CANDIDATE_NOT_IMPLEMENTED",
+  "predecessor_catalog": {
+    "commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+    "blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+    "path": "entities/koder/outbox/sece-r01-offline-simulator-design-successor/FIXTURE-CATALOG.json"
+  },
+  "fixture_count": 54,
+  "fixtures": [
+    {
+      "fixture_id": "T1",
+      "fixture_family": "T",
+      "description": "writer yes / task authority absent",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T1",
+        "expected_semantic_digest": "73bf3fa03d8a5963b2bceead1742a014a2435fe204348d4e7ca0729234ee22e7"
+      },
+      "architecture_rule_refs": [
+        "C1 ACTION_AUTHORIZATION_BINDING valid only with exact authority/current task"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-WRITER",
+            "fact_type": "WRITER_STATE",
+            "scope": "GLOBAL",
+            "state": "CURRENT_ESTABLISHED",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-TASK",
+            "fact_type": "TASK_CURRENTNESS",
+            "scope": "GLOBAL",
+            "state": "CURRENT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-AUTH",
+            "fact_type": "AUTHORITY_REF_STATE",
+            "scope": "GLOBAL",
+            "state": "ABSENT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T1",
+          "action_class": "EXECUTE",
+          "selected_scope": "task",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_ACTION_AUTHORIZATION_BINDING",
+          "BLOCKED_AUTHORITY"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "REQUEST_AUTHORITY",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T2",
+      "fixture_family": "T",
+      "description": "task yes / required writer absent",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T2",
+        "expected_semantic_digest": "01513fa68402e699345928a62c66fb2b7202f2f8386a4a1c00f9caeb6bf47032"
+      },
+      "architecture_rule_refs": [
+        "L7 writer precondition",
+        "AGG-R2"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-TASK",
+            "fact_type": "TASK_CURRENTNESS",
+            "scope": "GLOBAL",
+            "state": "CURRENT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-WREQ",
+            "fact_type": "WRITER_REQUIREMENT",
+            "scope": "GLOBAL",
+            "state": "REQUIRED",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-WRITER",
+            "fact_type": "WRITER_STATE",
+            "scope": "GLOBAL",
+            "state": "ABSENT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T2",
+          "action_class": "EXECUTE",
+          "selected_scope": "task",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_PRECONDITION",
+          "BLOCKED_WRITER"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "WRITER_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T3",
+      "fixture_family": "T",
+      "description": "historical UNKNOWN after replacement",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T3",
+        "expected_semantic_digest": "95d670ce053492ea6846b2500c4c9cea3e0d4357927d198318e43dedd9a47826"
+      },
+      "architecture_rule_refs": [
+        "TASK currentness UNKNOWN non-promotable",
+        "historical replay forbidden"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-WRITER",
+            "fact_type": "WRITER_STATE",
+            "scope": "GLOBAL",
+            "state": "CURRENT_ESTABLISHED",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-TASK",
+            "fact_type": "TASK_CURRENTNESS",
+            "scope": "GLOBAL",
+            "state": "UNKNOWN",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-TASK-LIFE",
+            "fact_type": "TASK_LIFECYCLE",
+            "scope": "GLOBAL",
+            "state": "HISTORICAL",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T3",
+          "action_class": "EXECUTE",
+          "selected_scope": "historical-task",
+          "transition_type": "REPLAY_TASK",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "UNKNOWN_REQUIRED_EVIDENCE"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R4",
+          "effect_decision": "NO_EFFECT",
+          "primary_outcome": "AGGREGATE_UNKNOWN",
+          "terminal_class": "UNKNOWN",
+          "next_gate_class": "CURRENTNESS_RECONCILIATION",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T4",
+      "fixture_family": "T",
+      "description": "dispatch without processing_started",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T4",
+        "expected_semantic_digest": "95547a6694a34044149204ac80fb9d527a9ab34c4fe3764f667dd42ff9a90c44"
+      },
+      "architecture_rule_refs": [
+        "C2 dispatch never promotes processing_started"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [
+          {
+            "event_id": "EV-T4",
+            "event_type": "DISPATCH",
+            "evidence_ref": "EV-T4-EVIDENCE",
+            "causal_parent_event_id": null,
+            "lifecycle_evidence_state": "VERIFIED",
+            "dispatch_state": "DISPATCHED",
+            "delivery_state": "UNKNOWN",
+            "receipt_state": "UNKNOWN",
+            "processing_started_state": "NO",
+            "handoff_recipient": null,
+            "handoff_reason": null,
+            "decision_id": null,
+            "decision_owner": null,
+            "decision_recipient": null,
+            "current_decision_state": "NOT_APPLICABLE",
+            "proposed_handoff_target": null,
+            "redundant_self_handoff": "NO",
+            "causal_requirement_status": "NOT_REQUIRED",
+            "scope": "lifecycle",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "action_intent": {
+          "action_id": "A-T4",
+          "action_class": "INSPECT",
+          "selected_scope": "lifecycle",
+          "transition_type": "INFER_RUNNING",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_PRECONDITION"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "CAUSAL_NEXT_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": [
+          {
+            "assertion_type": "RUNNING_INFERENCE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T5",
+      "fixture_family": "T",
+      "description": "stale task + newer terminal/supersession",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T5",
+        "expected_semantic_digest": "450ed2e3258aa1eceb080c7458e706c344004ce86fcdcb388b94316697a5159d"
+      },
+      "architecture_rule_refs": [
+        "task supersession/currentness",
+        "historical replay forbidden"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-TASK",
+            "fact_type": "TASK_CURRENTNESS",
+            "scope": "GLOBAL",
+            "state": "SUPERSEDED",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-TERM",
+            "fact_type": "TERMINAL_STATE",
+            "scope": "GLOBAL",
+            "state": "VERIFIED",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T5",
+          "action_class": "EXECUTE",
+          "selected_scope": "task",
+          "transition_type": "CONTINUE_TASK",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_PRECONDITION",
+          "BLOCKED_CURRENTNESS"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T6",
+      "fixture_family": "T",
+      "description": "recovery older than verified delta",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T6",
+        "expected_semantic_digest": "8e1f22cdf621ef1af5f67eca99e37adb73aae55392928e1aaa577a460e9672b7"
+      },
+      "architecture_rule_refs": [
+        "C3 exact-scope selected basis=D",
+        "recovery no automatic priority"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [
+          {
+            "evidence_id": "R",
+            "evidence_kind": "RECOVERY",
+            "exact_immutable_identity": "R-IMMUTABLE",
+            "scope": "S",
+            "provenance_source": "FIXTURE",
+            "verified_state": "VERIFIED",
+            "currentness_state": "HISTORICAL",
+            "relation_to_other_evidence": "HISTORICAL",
+            "relation_target_evidence_id": null,
+            "selected_current_basis": "NO",
+            "selection_basis": "FIXTURE",
+            "unresolved_conflict": "NO",
+            "conflict_set": [],
+            "unknown_fields": []
+          },
+          {
+            "evidence_id": "D",
+            "evidence_kind": "VERIFIED_DELTA",
+            "exact_immutable_identity": "D-IMMUTABLE",
+            "scope": "S",
+            "provenance_source": "FIXTURE",
+            "verified_state": "VERIFIED",
+            "currentness_state": "CURRENT",
+            "relation_to_other_evidence": "REFINES",
+            "relation_target_evidence_id": "R",
+            "selected_current_basis": "YES",
+            "selection_basis": "EXACT_SCOPE_REFINEMENT",
+            "unresolved_conflict": "NO",
+            "conflict_set": [],
+            "unknown_fields": []
+          }
+        ],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T6",
+          "action_class": "INSPECT",
+          "selected_scope": "S",
+          "transition_type": "SELECT_CURRENT_BASIS",
+          "target_ref": "R"
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_PRECONDITION"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": [
+          {
+            "assertion_type": "SELECTED_BASIS",
+            "subject_ref": null,
+            "scope": "S",
+            "expected_state": null,
+            "expected_ref": "D",
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T7",
+      "fixture_family": "T",
+      "description": "experience recommends forbidden action",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T7",
+        "expected_semantic_digest": "58eababf13c544326b91d208a227039e1bfdcbca79ec460a8de31d0cdab52c2c"
+      },
+      "architecture_rule_refs": [
+        "experience advisory only",
+        "FORBIDDEN defeats helpful proposal"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-EXP",
+            "fact_type": "EXPERIENCE_RECOMMENDATION",
+            "scope": "action/mutate",
+            "state": "ADVISORY",
+            "value_ref": "MUTATE",
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-FORBID",
+            "fact_type": "FORBIDDEN_ACTION",
+            "scope": "action/mutate",
+            "state": "FORBIDDEN",
+            "value_ref": "MUTATE",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T7",
+          "action_class": "MUTATE",
+          "selected_scope": "action/mutate",
+          "transition_type": "MUTATE",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_FORBIDDEN"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T8",
+      "fixture_family": "T",
+      "description": "profile capability outside task",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T8",
+        "expected_semantic_digest": "56d7aeda261fb957f1f56dd220c313acad70f954504d0353a5ff8722f6eb1045"
+      },
+      "architecture_rule_refs": [
+        "C1 action_class in authority_action_classes",
+        "profile not authority"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-PROFILE",
+            "fact_type": "PROFILE_CAPABILITY",
+            "scope": "task",
+            "state": "PRESENT",
+            "value_ref": "DEPLOY",
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-AUTHCLASS",
+            "fact_type": "AUTHORITY_ACTION_CLASS",
+            "scope": "task",
+            "state": "READ_ONLY",
+            "value_ref": "READ_ONLY",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T8",
+          "action_class": "DEPLOY",
+          "selected_scope": "task",
+          "transition_type": "DEPLOY",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_ACTION_AUTHORIZATION_BINDING"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T9",
+      "fixture_family": "T",
+      "description": "useful extra action outside ALLOWED",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T9",
+        "expected_semantic_digest": "56d7aeda261fb957f1f56dd220c313acad70f954504d0353a5ff8722f6eb1045"
+      },
+      "architecture_rule_refs": [
+        "no verified binding means no authority-sensitive action"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-ALLOWED",
+            "fact_type": "ALLOWED_ACTION",
+            "scope": "task",
+            "state": "ALLOWED",
+            "value_ref": "READ",
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-BIND",
+            "fact_type": "AUTHORITY_BINDING_STATE",
+            "scope": "task",
+            "state": "ABSENT",
+            "value_ref": "CLEAN_LOGS",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T9",
+          "action_class": "CLEAN_LOGS",
+          "selected_scope": "task",
+          "transition_type": "CLEAN_LOGS",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_ACTION_AUTHORIZATION_BINDING"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T10",
+      "fixture_family": "T",
+      "description": "required UNKNOWN",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T10",
+        "expected_semantic_digest": "09524e88817e78cffad5f0997518167ab7213ed5246ff0eff4d1944753550fcd"
+      },
+      "architecture_rule_refs": [
+        "required UNKNOWN blocks dependent effect"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-EVID",
+            "fact_type": "REQUIRED_EVIDENCE_STATE",
+            "scope": "task",
+            "state": "UNKNOWN",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T10",
+          "action_class": "INSPECT",
+          "selected_scope": "task",
+          "transition_type": "ASSERT_REQUIRED_STATE",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "UNKNOWN_REQUIRED_EVIDENCE"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R4",
+          "effect_decision": "NO_EFFECT",
+          "primary_outcome": "AGGREGATE_UNKNOWN",
+          "terminal_class": "UNKNOWN",
+          "next_gate_class": "REQUEST_EVIDENCE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T11",
+      "fixture_family": "T",
+      "description": "active-source conflict",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T11",
+        "expected_semantic_digest": "d77338730d5d7b414d7f7f8b0c08d68b5b95414b9c9dd3fdaa4f9305a9f61ccc"
+      },
+      "architecture_rule_refs": [
+        "L0 active conflict STOP",
+        "CXT scoped conflict"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-SOURCE-CONFLICT",
+            "fact_type": "SOURCE_CONFLICT_STATE",
+            "scope": "S1",
+            "state": "CONFLICT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T11",
+          "action_class": "EXECUTE",
+          "selected_scope": "S1",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "SOURCE_CONFLICT_STOP"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R1",
+          "effect_decision": "STOP",
+          "primary_outcome": "AGGREGATE_CONFLICT_STOP",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "STOP",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T12",
+      "fixture_family": "T",
+      "description": "automation capability without authority",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T12",
+        "expected_semantic_digest": "73bf3fa03d8a5963b2bceead1742a014a2435fe204348d4e7ca0729234ee22e7"
+      },
+      "architecture_rule_refs": [
+        "C1 capability not authority",
+        "effect authority requirement"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-CAP",
+            "fact_type": "AUTOMATION_CAPABILITY",
+            "scope": "automation",
+            "state": "AVAILABLE",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-AUTH",
+            "fact_type": "AUTHORITY_REF_STATE",
+            "scope": "automation",
+            "state": "ABSENT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-EFFECTAUTH",
+            "fact_type": "EFFECT_AUTHORITY_REQUIREMENT",
+            "scope": "automation",
+            "state": "REQUIRED",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T12",
+          "action_class": "AUTOMATION",
+          "selected_scope": "automation",
+          "transition_type": "ACTIVATE_AUTOMATION",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_ACTION_AUTHORIZATION_BINDING",
+          "BLOCKED_AUTHORITY"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "REQUEST_AUTHORITY",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T13",
+      "fixture_family": "T",
+      "description": "replacement writer established, old task still UNKNOWN",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T13",
+        "expected_semantic_digest": "95d670ce053492ea6846b2500c4c9cea3e0d4357927d198318e43dedd9a47826"
+      },
+      "architecture_rule_refs": [
+        "writer does not cure task currentness",
+        "historical replay forbidden"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-WRITER",
+            "fact_type": "WRITER_STATE",
+            "scope": "GLOBAL",
+            "state": "CURRENT_ESTABLISHED",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-TASK",
+            "fact_type": "TASK_CURRENTNESS",
+            "scope": "GLOBAL",
+            "state": "UNKNOWN",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-TASK-LIFE",
+            "fact_type": "TASK_LIFECYCLE",
+            "scope": "GLOBAL",
+            "state": "HISTORICAL",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T13",
+          "action_class": "EXECUTE",
+          "selected_scope": "historical-task",
+          "transition_type": "REPLAY_TASK",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "UNKNOWN_REQUIRED_EVIDENCE"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R4",
+          "effect_decision": "NO_EFFECT",
+          "primary_outcome": "AGGREGATE_UNKNOWN",
+          "terminal_class": "UNKNOWN",
+          "next_gate_class": "CURRENTNESS_RECONCILIATION",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T14",
+      "fixture_family": "T",
+      "description": "candidate source not active",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T14",
+        "expected_semantic_digest": "56d7aeda261fb957f1f56dd220c313acad70f954504d0353a5ff8722f6eb1045"
+      },
+      "architecture_rule_refs": [
+        "source provenance must be ACTIVE+VERIFIED"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-SOURCE",
+            "fact_type": "SOURCE_STATUS",
+            "scope": "source",
+            "state": "CANDIDATE",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "A-T14",
+          "action_class": "EXECUTE",
+          "selected_scope": "source",
+          "transition_type": "USE_SOURCE_NORMATIVELY",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_ACTION_AUTHORIZATION_BINDING"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": []
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "T15",
+      "fixture_family": "T",
+      "description": "current OPERATOR decision already at KOO; redundant KOO->KOO handoff",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "T15",
+        "expected_semantic_digest": "393b31c5a51efb123abd0b248fc471ccdc07cd58e01ac3e02fba9ce4d19245d8"
+      },
+      "architecture_rule_refs": [
+        "C2 redundant self-handoff predicate"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [
+          {
+            "event_id": "EV-T15",
+            "event_type": "DECISION",
+            "evidence_ref": "EV-T15-EVIDENCE",
+            "causal_parent_event_id": null,
+            "lifecycle_evidence_state": "VERIFIED",
+            "dispatch_state": "NOT_APPLICABLE",
+            "delivery_state": "NOT_APPLICABLE",
+            "receipt_state": "NOT_APPLICABLE",
+            "processing_started_state": "NOT_APPLICABLE",
+            "handoff_recipient": null,
+            "handoff_reason": null,
+            "decision_id": "DEC-T15",
+            "decision_owner": "OPERATOR",
+            "decision_recipient": "KOO",
+            "current_decision_state": "CURRENT",
+            "proposed_handoff_target": "KOO",
+            "redundant_self_handoff": "YES",
+            "causal_requirement_status": "NOT_REQUIRED",
+            "scope": "decision",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "action_intent": {
+          "action_id": "A-T15",
+          "action_class": "HANDOFF",
+          "selected_scope": "decision",
+          "transition_type": "HANDOFF",
+          "target_ref": "KOO"
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_REDUNDANT_SELF_HANDOFF"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "CAUSAL_NEXT_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "simulated_action_event": "NO",
+        "assertions": [
+          {
+            "assertion_type": "REDUNDANT_SELF_HANDOFF",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "YES",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "reviewed T1-T15 architecture fixture family"
+      ]
+    },
+    {
+      "fixture_id": "CXT1",
+      "fixture_family": "CXT",
+      "description": "MAY inspect + MUST_NOT mutate + UNKNOWN consumer coexist",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT1",
+        "expected_semantic_digest": "d813a82066b9ce433572b2110b8ede33fc2567a2942dd8c685f0a45f1f4b4157"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT1-TRIGGER",
+          "trigger_type": "COMPOSITION",
+          "verification_state": "VERIFIED",
+          "scope": "gateway",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT1-CHANGE",
+            "change_type": "COMPOSE",
+            "target_id": "CXT1-TARGET",
+            "scope": "gateway",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT1-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT1",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_MAY_INSPECT",
+                "binding_type": "ACTION",
+                "exact_scope": "gateway",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              },
+              {
+                "binding_id": "BINDING_MUST_NOT_MUTATE",
+                "binding_type": "ACTION",
+                "exact_scope": "gateway",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              },
+              {
+                "binding_id": "BINDING_UNKNOWN_CONSUMER",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "U",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              },
+              {
+                "binding_id": "BINDING_EVIDENCE_REQUIREMENT",
+                "binding_type": "EVIDENCE",
+                "exact_scope": "gateway",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [],
+            "scope_index": [
+              {
+                "scope_id": "gateway",
+                "atom_ids": [
+                  "CXT1-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_MAY_INSPECT",
+                  "BINDING_MUST_NOT_MUTATE",
+                  "BINDING_EVIDENCE_REQUIREMENT"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "U",
+                "atom_ids": [
+                  "CXT1-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_UNKNOWN_CONSUMER"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "gateway"
+        ],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [
+          "BINDING_MAY_INSPECT",
+          "BINDING_MUST_NOT_MUTATE",
+          "BINDING_UNKNOWN_CONSUMER",
+          "BINDING_EVIDENCE_REQUIREMENT"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT1_PARALLEL_LINES_COEXIST",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT2",
+      "fixture_family": "CXT",
+      "description": "experience suggests forbidden mutate",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT2",
+        "expected_semantic_digest": "cab55224b543701b1cf8226a565b7c8d4f697ee505fa695b7f15bcae949b8eea"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT2-TRIGGER",
+          "trigger_type": "EXPERIENCE_SELECTION",
+          "verification_state": "VERIFIED",
+          "scope": "action/mutate",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT2-CHANGE",
+            "change_type": "EXPERIENCE_SELECTION",
+            "target_id": "CXT2-TARGET",
+            "scope": "action/mutate",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT2-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT2",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_EXECUTABLE_MUTATE_FROM_EXPERIENCE",
+                "binding_type": "EXPERIENCE",
+                "exact_scope": "action/mutate",
+                "dependencies": [
+                  "CXT2-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT2-1"
+              },
+              {
+                "binding_id": "BINDING_EXPERIENCE_ADVISORY",
+                "binding_type": "EXPERIENCE",
+                "exact_scope": "experience",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              },
+              {
+                "binding_id": "BINDING_UNRELATED_CONTEXT",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "U",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-CXT2-CXT2-TARGET-BINDING_EXECUTABLE_MUTATE_FROM_EXPERIENCE",
+                "source_atom_or_evidence_id": "CXT2-TARGET",
+                "dependent_binding_id": "BINDING_EXECUTABLE_MUTATE_FROM_EXPERIENCE",
+                "exact_scope": "action/mutate",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "action/mutate",
+                "atom_ids": [
+                  "CXT2-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_EXECUTABLE_MUTATE_FROM_EXPERIENCE"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "experience",
+                "atom_ids": [
+                  "CXT2-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_EXPERIENCE_ADVISORY"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "U",
+                "atom_ids": [
+                  "CXT2-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_UNRELATED_CONTEXT"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-CXT2-1",
+                "input_binding_ids": [
+                  "BINDING_EXECUTABLE_MUTATE_FROM_EXPERIENCE"
+                ],
+                "output_binding_id": "BINDING_MUTATE_FORBIDDEN",
+                "exact_scope": "action/mutate",
+                "output_binding_type": "ACTION",
+                "output_state": "FORBIDDEN",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "action/mutate"
+        ],
+        "invalidated_bindings": [
+          "BINDING_EXECUTABLE_MUTATE_FROM_EXPERIENCE"
+        ],
+        "recomputed_bindings": [
+          "BINDING_MUTATE_FORBIDDEN"
+        ],
+        "preserved_bindings": [
+          "BINDING_EXPERIENCE_ADVISORY",
+          "BINDING_UNRELATED_CONTEXT"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT2_MUTATE_FORBIDDEN_EXPERIENCE_ADVISORY",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT3",
+      "fixture_family": "CXT",
+      "description": "verified delta refines recovery scope S",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT3",
+        "expected_semantic_digest": "ad06b18334373f42a16ca6c05ba3b406f8ae1628f3bec1b7768cc48f28dd19a0"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT3-TRIGGER",
+          "trigger_type": "VERIFIED_DELTA",
+          "verification_state": "VERIFIED",
+          "scope": "S",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT3-CHANGE",
+            "change_type": "REFINE_FACT",
+            "target_id": "CXT3-TARGET",
+            "scope": "S",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT3-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT3",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_RECOVERY_CURRENT_S",
+                "binding_type": "EVIDENCE",
+                "exact_scope": "S",
+                "dependencies": [
+                  "CXT3-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT3-1"
+              },
+              {
+                "binding_id": "BINDING_RECOVERY_U",
+                "binding_type": "EVIDENCE",
+                "exact_scope": "U",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              },
+              {
+                "binding_id": "BINDING_RECOVERY_HISTORY",
+                "binding_type": "EVIDENCE",
+                "exact_scope": "history",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-CXT3-CXT3-TARGET-BINDING_RECOVERY_CURRENT_S",
+                "source_atom_or_evidence_id": "CXT3-TARGET",
+                "dependent_binding_id": "BINDING_RECOVERY_CURRENT_S",
+                "exact_scope": "S",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "S",
+                "atom_ids": [
+                  "CXT3-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_RECOVERY_CURRENT_S"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "U",
+                "atom_ids": [
+                  "CXT3-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_RECOVERY_U"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "history",
+                "atom_ids": [
+                  "CXT3-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_RECOVERY_HISTORY"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-CXT3-1",
+                "input_binding_ids": [
+                  "BINDING_RECOVERY_CURRENT_S"
+                ],
+                "output_binding_id": "BINDING_CURRENT_S_SELECTED_DELTA",
+                "exact_scope": "S",
+                "output_binding_type": "OTHER_SYNTHETIC",
+                "output_state": "CURRENT",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "S"
+        ],
+        "invalidated_bindings": [
+          "BINDING_RECOVERY_CURRENT_S"
+        ],
+        "recomputed_bindings": [
+          "BINDING_CURRENT_S_SELECTED_DELTA"
+        ],
+        "preserved_bindings": [
+          "BINDING_RECOVERY_U",
+          "BINDING_RECOVERY_HISTORY"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT3_DELTA_SELECTED_S_RECOVERY_PRESERVED_U",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT4",
+      "fixture_family": "CXT",
+      "description": "terminal supersedes task T; unrelated U survives",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT4",
+        "expected_semantic_digest": "872c8480c28c33a87ad4c08201139f96720afd571d29b5c0163b26f49a593c73"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT4-TRIGGER",
+          "trigger_type": "TERMINAL",
+          "verification_state": "VERIFIED",
+          "scope": "T",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT4-CHANGE",
+            "change_type": "SUPERSEDE_FACT",
+            "target_id": "CXT4-TARGET",
+            "scope": "T",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT4-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT4",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_TASK_T_EXECUTABLE",
+                "binding_type": "TASK",
+                "exact_scope": "T",
+                "dependencies": [
+                  "CXT4-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT4-1"
+              },
+              {
+                "binding_id": "BINDING_TASK_T_CURRENT",
+                "binding_type": "TASK",
+                "exact_scope": "T",
+                "dependencies": [
+                  "CXT4-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT4-1"
+              },
+              {
+                "binding_id": "BINDING_SCOPE_U",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "U",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-CXT4-CXT4-TARGET-BINDING_TASK_T_EXECUTABLE",
+                "source_atom_or_evidence_id": "CXT4-TARGET",
+                "dependent_binding_id": "BINDING_TASK_T_EXECUTABLE",
+                "exact_scope": "T",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              },
+              {
+                "edge_id": "EDGE-CXT4-CXT4-TARGET-BINDING_TASK_T_CURRENT",
+                "source_atom_or_evidence_id": "CXT4-TARGET",
+                "dependent_binding_id": "BINDING_TASK_T_CURRENT",
+                "exact_scope": "T",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "T",
+                "atom_ids": [
+                  "CXT4-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_TASK_T_EXECUTABLE",
+                  "BINDING_TASK_T_CURRENT"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "U",
+                "atom_ids": [
+                  "CXT4-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_SCOPE_U"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-CXT4-1",
+                "input_binding_ids": [
+                  "BINDING_TASK_T_EXECUTABLE",
+                  "BINDING_TASK_T_CURRENT"
+                ],
+                "output_binding_id": "BINDING_TASK_T_SUPERSEDED",
+                "exact_scope": "T",
+                "output_binding_type": "TASK",
+                "output_state": "SUPERSEDED",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "T"
+        ],
+        "invalidated_bindings": [
+          "BINDING_TASK_T_EXECUTABLE",
+          "BINDING_TASK_T_CURRENT"
+        ],
+        "recomputed_bindings": [
+          "BINDING_TASK_T_SUPERSEDED"
+        ],
+        "preserved_bindings": [
+          "BINDING_SCOPE_U"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT4_TASK_T_SUPERSEDED_U_UNCHANGED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT5",
+      "fixture_family": "CXT",
+      "description": "new exact authority A recomputes only dependents",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT5",
+        "expected_semantic_digest": "0963df6009ff4174e516eef32d4abc17bb18aee5b8dc4b6332ab95911b95aa83"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT5-TRIGGER",
+          "trigger_type": "AUTHORITY_GRANT",
+          "verification_state": "VERIFIED",
+          "scope": "A/S",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT5-CHANGE",
+            "change_type": "AUTHORITY_GRANT",
+            "target_id": "CXT5-TARGET",
+            "scope": "A/S",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT5-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT5",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_ACTION_A_PENDING",
+                "binding_type": "ACTION",
+                "exact_scope": "A/S",
+                "dependencies": [
+                  "CXT5-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT5-1"
+              },
+              {
+                "binding_id": "BINDING_ACTION_B",
+                "binding_type": "ACTION",
+                "exact_scope": "B",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              },
+              {
+                "binding_id": "BINDING_UNRELATED_SCOPE",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "U",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-CXT5-CXT5-TARGET-BINDING_ACTION_A_PENDING",
+                "source_atom_or_evidence_id": "CXT5-TARGET",
+                "dependent_binding_id": "BINDING_ACTION_A_PENDING",
+                "exact_scope": "A/S",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "A/S",
+                "atom_ids": [
+                  "CXT5-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_ACTION_A_PENDING"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "B",
+                "atom_ids": [
+                  "CXT5-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_ACTION_B"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "U",
+                "atom_ids": [
+                  "CXT5-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_UNRELATED_SCOPE"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-CXT5-1",
+                "input_binding_ids": [
+                  "BINDING_ACTION_A_PENDING"
+                ],
+                "output_binding_id": "BINDING_ACTION_A_AUTHORITY_CURRENT",
+                "exact_scope": "A/S",
+                "output_binding_type": "AUTHORITY",
+                "output_state": "CURRENT",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "A/S"
+        ],
+        "invalidated_bindings": [
+          "BINDING_ACTION_A_PENDING"
+        ],
+        "recomputed_bindings": [
+          "BINDING_ACTION_A_AUTHORITY_CURRENT"
+        ],
+        "preserved_bindings": [
+          "BINDING_ACTION_B",
+          "BINDING_UNRELATED_SCOPE"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT5_AUTHORITY_A_RECOMPUTED_B_PRESERVED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT6",
+      "fixture_family": "CXT",
+      "description": "source conflict S1 leaves S2 intact",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT6",
+        "expected_semantic_digest": "fa476145519ff8b96d620f6b4ce05b2a8fa5fa4b943d4c0eeee90da79b24e947"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT6-TRIGGER",
+          "trigger_type": "SOURCE_CONFLICT",
+          "verification_state": "VERIFIED",
+          "scope": "S1",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT6-CHANGE",
+            "change_type": "ADD_CONFLICT",
+            "target_id": "CXT6-TARGET",
+            "scope": "S1",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT6-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT6",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_S1_SOURCE_DEPENDENT",
+                "binding_type": "SOURCE",
+                "exact_scope": "S1",
+                "dependencies": [
+                  "CXT6-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT6-1"
+              },
+              {
+                "binding_id": "BINDING_S2",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "S2",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-CXT6-CXT6-TARGET-BINDING_S1_SOURCE_DEPENDENT",
+                "source_atom_or_evidence_id": "CXT6-TARGET",
+                "dependent_binding_id": "BINDING_S1_SOURCE_DEPENDENT",
+                "exact_scope": "S1",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "S1",
+                "atom_ids": [
+                  "CXT6-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_S1_SOURCE_DEPENDENT"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "S2",
+                "atom_ids": [
+                  "CXT6-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_S2"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-CXT6-1",
+                "input_binding_ids": [
+                  "BINDING_S1_SOURCE_DEPENDENT"
+                ],
+                "output_binding_id": "BINDING_S1_CONFLICT_BLOCKED",
+                "exact_scope": "S1",
+                "output_binding_type": "OTHER_SYNTHETIC",
+                "output_state": "BLOCKED",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "S1"
+        ],
+        "invalidated_bindings": [
+          "BINDING_S1_SOURCE_DEPENDENT"
+        ],
+        "recomputed_bindings": [
+          "BINDING_S1_CONFLICT_BLOCKED"
+        ],
+        "preserved_bindings": [
+          "BINDING_S2"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT6_S1_CONFLICT_S2_PRESERVED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT7",
+      "fixture_family": "CXT",
+      "description": "verified evidence resolves UNKNOWN only dependency closure",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT7",
+        "expected_semantic_digest": "0bc3594185c93e651230f2c47e0645c9d31b616fb4572fa2e77a52b630df8c1c"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT7-TRIGGER",
+          "trigger_type": "EVIDENCE_RESOLUTION",
+          "verification_state": "VERIFIED",
+          "scope": "E",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT7-CHANGE",
+            "change_type": "RESOLVE_UNKNOWN",
+            "target_id": "CXT7-TARGET",
+            "scope": "E",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT7-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT7",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_E_BLOCKED",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "E",
+                "dependencies": [
+                  "CXT7-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT7-1"
+              },
+              {
+                "binding_id": "BINDING_INDEPENDENT",
+                "binding_type": "DEPENDENCY",
+                "exact_scope": "UNRELATED",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-CXT7-CXT7-TARGET-BINDING_E_BLOCKED",
+                "source_atom_or_evidence_id": "CXT7-TARGET",
+                "dependent_binding_id": "BINDING_E_BLOCKED",
+                "exact_scope": "E",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "E",
+                "atom_ids": [
+                  "CXT7-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_E_BLOCKED"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "UNRELATED",
+                "atom_ids": [
+                  "CXT7-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_INDEPENDENT"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-CXT7-1",
+                "input_binding_ids": [
+                  "BINDING_E_BLOCKED"
+                ],
+                "output_binding_id": "BINDING_E_RESOLVED",
+                "exact_scope": "E",
+                "output_binding_type": "OTHER_SYNTHETIC",
+                "output_state": "CURRENT",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "E"
+        ],
+        "invalidated_bindings": [
+          "BINDING_E_BLOCKED"
+        ],
+        "recomputed_bindings": [
+          "BINDING_E_RESOLVED"
+        ],
+        "preserved_bindings": [
+          "BINDING_INDEPENDENT"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT7_UNKNOWN_E_RESOLVED_DEPENDENTS_RECOMPUTED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT8",
+      "fixture_family": "CXT",
+      "description": "unauthorized human claim does not overwrite verified state",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT8",
+        "expected_semantic_digest": "bf2207875ea4498161441ea0a65fb98928a4bdf6f8615b421a3b953f639daf9f"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT8-TRIGGER",
+          "trigger_type": "HUMAN_INPUT",
+          "verification_state": "VERIFIED",
+          "scope": "claim-scope",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT8-CHANGE",
+            "change_type": "ADD_CONFLICT",
+            "target_id": "CXT8-TARGET",
+            "scope": "claim-scope",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT8-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT8",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_VERIFIED_G",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "claim-scope",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [],
+            "scope_index": [
+              {
+                "scope_id": "claim-scope",
+                "atom_ids": [
+                  "CXT8-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_VERIFIED_G"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "claim-scope"
+        ],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [
+          "BINDING_VERIFIED_G"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT8_HUMAN_H_UNVERIFIED_G_PRESERVED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT9",
+      "fixture_family": "CXT",
+      "description": "authorized OPERATOR decision creates bounded context delta",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT9",
+        "expected_semantic_digest": "33fc9b12af61b8da4f7199578528ee820e3fdde09e77165b087edabb7bd4b168"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT9-TRIGGER",
+          "trigger_type": "OPERATOR_DECISION",
+          "verification_state": "VERIFIED",
+          "scope": "decision/authority S",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT9-CHANGE",
+            "change_type": "AUTHORITY_GRANT",
+            "target_id": "CXT9-TARGET",
+            "scope": "decision/authority S",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT9-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT9",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_DECISION_PENDING_S",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "decision/authority S",
+                "dependencies": [
+                  "CXT9-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT9-1"
+              },
+              {
+                "binding_id": "BINDING_UNRELATED_SCOPE",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "U",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-CXT9-CXT9-TARGET-BINDING_DECISION_PENDING_S",
+                "source_atom_or_evidence_id": "CXT9-TARGET",
+                "dependent_binding_id": "BINDING_DECISION_PENDING_S",
+                "exact_scope": "decision/authority S",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "decision/authority S",
+                "atom_ids": [
+                  "CXT9-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_DECISION_PENDING_S"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "U",
+                "atom_ids": [
+                  "CXT9-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_UNRELATED_SCOPE"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-CXT9-1",
+                "input_binding_ids": [
+                  "BINDING_DECISION_PENDING_S"
+                ],
+                "output_binding_id": "BINDING_AUTHORITY_CURRENT_S",
+                "exact_scope": "decision/authority S",
+                "output_binding_type": "AUTHORITY",
+                "output_state": "CURRENT",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "decision/authority S"
+        ],
+        "invalidated_bindings": [
+          "BINDING_DECISION_PENDING_S"
+        ],
+        "recomputed_bindings": [
+          "BINDING_AUTHORITY_CURRENT_S"
+        ],
+        "preserved_bindings": [
+          "BINDING_UNRELATED_SCOPE"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT9_OPERATOR_DECISION_BOUNDED_AUTHORITY_UPDATED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "CXT10",
+      "fixture_family": "CXT",
+      "description": "result changes next gate; role/profile/experience persist",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "CXT10",
+        "expected_semantic_digest": "935c2667cae40dec9a90754ae39926f92c69ad092c539c387128b38857f16e44"
+      },
+      "architecture_rule_refs": [
+        "Effective Context CONTEXT-FIXTURES",
+        "CONTEXT-DELTA affected-scope recomputation"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": null,
+        "triggering_event_or_result": {
+          "trigger_id": "CXT10-TRIGGER",
+          "trigger_type": "RESULT",
+          "verification_state": "VERIFIED",
+          "scope": "result/next-gate",
+          "provenance_ref": "FIXTURE"
+        },
+        "dependency_changes": [
+          {
+            "change_id": "CXT10-CHANGE",
+            "change_type": "RESULT_CHANGES_NEXT_GATE",
+            "target_id": "CXT10-TARGET",
+            "scope": "result/next-gate",
+            "verification_state": "VERIFIED",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "CXT10-TARGET"
+          ],
+          "initial_state": {
+            "state_id": "BASE-CXT10",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_NEXT_GATE_G1",
+                "binding_type": "NEXT_GATE",
+                "exact_scope": "result/next-gate",
+                "dependencies": [
+                  "CXT10-TARGET"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-CXT10-1"
+              },
+              {
+                "binding_id": "BINDING_ROLE",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "role",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              },
+              {
+                "binding_id": "BINDING_PROFILE",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "profile",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              },
+              {
+                "binding_id": "BINDING_INDEPENDENT_EXPERIENCE",
+                "binding_type": "EXPERIENCE",
+                "exact_scope": "UNRELATED",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-CXT10-CXT10-TARGET-BINDING_NEXT_GATE_G1",
+                "source_atom_or_evidence_id": "CXT10-TARGET",
+                "dependent_binding_id": "BINDING_NEXT_GATE_G1",
+                "exact_scope": "result/next-gate",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "result/next-gate",
+                "atom_ids": [
+                  "CXT10-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_NEXT_GATE_G1"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "role",
+                "atom_ids": [
+                  "CXT10-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_ROLE"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "profile",
+                "atom_ids": [
+                  "CXT10-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_PROFILE"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "UNRELATED",
+                "atom_ids": [
+                  "CXT10-TARGET"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_INDEPENDENT_EXPERIENCE"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-CXT10-1",
+                "input_binding_ids": [
+                  "BINDING_NEXT_GATE_G1"
+                ],
+                "output_binding_id": "BINDING_NEXT_GATE_G2",
+                "exact_scope": "result/next-gate",
+                "output_binding_type": "NEXT_GATE",
+                "output_state": "CURRENT",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "affected_scopes": [
+          "result/next-gate"
+        ],
+        "invalidated_bindings": [
+          "BINDING_NEXT_GATE_G1"
+        ],
+        "recomputed_bindings": [
+          "BINDING_NEXT_GATE_G2"
+        ],
+        "preserved_bindings": [
+          "BINDING_ROLE",
+          "BINDING_PROFILE",
+          "BINDING_INDEPENDENT_EXPERIENCE"
+        ],
+        "successor_assertions": [
+          {
+            "assertion_type": "SUCCESSOR_CONTEXT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "CXT10_NEXT_GATE_G2_ROLE_PROFILE_EXPERIENCE_PRESERVED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ],
+        "full_reset": false
+      },
+      "provenance": [
+        "reviewed CXT1-CXT10"
+      ]
+    },
+    {
+      "fixture_id": "O1",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O1",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O1",
+        "expected_semantic_digest": "fb0ef3a90cb5bf1e71749591a844c0d531f9d7211dbaf7eb275971134b25c77b"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R1",
+        "OUTCOME-FIXTURES O1"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "SOURCE_CONFLICT_STOP",
+          "BLOCKED_AUTHORITY"
+        ],
+        "action_intent": {
+          "action_id": "O1-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R1",
+          "effect_decision": "STOP",
+          "primary_outcome": "AGGREGATE_CONFLICT_STOP",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "STOP",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O2",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O2",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O2",
+        "expected_semantic_digest": "fb0ef3a90cb5bf1e71749591a844c0d531f9d7211dbaf7eb275971134b25c77b"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R1",
+        "OUTCOME-FIXTURES O2"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "CURRENT_STATE_CONFLICT_STOP",
+          "REJECT_REDUNDANT_SELF_HANDOFF"
+        ],
+        "action_intent": {
+          "action_id": "O2-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R1",
+          "effect_decision": "STOP",
+          "primary_outcome": "AGGREGATE_CONFLICT_STOP",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "STOP",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O3",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O3",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O3",
+        "expected_semantic_digest": "e7fab0e374c9f31e80fb3c805ff51f71b1a92bc212fb0592c3fd0009f90aef00"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R2",
+        "OUTCOME-FIXTURES O3"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "UNKNOWN_REQUIRED_EVIDENCE",
+          "REJECT_FORBIDDEN"
+        ],
+        "action_intent": {
+          "action_id": "O3-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O4",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O4",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O4",
+        "expected_semantic_digest": "4efb136dd3e889fd5626c7aa5cf80c526a5ebbc0cf692245e78e267ca3f006ac"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R3",
+        "OUTCOME-FIXTURES O4"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "BLOCKED_WRITER",
+          "BLOCKED_CURRENTNESS"
+        ],
+        "action_intent": {
+          "action_id": "O4-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R3",
+          "effect_decision": "NO_EFFECT",
+          "primary_outcome": "AGGREGATE_BLOCKED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "CURRENTNESS_RECONCILIATION",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O5",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O5",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O5",
+        "expected_semantic_digest": "e7fab0e374c9f31e80fb3c805ff51f71b1a92bc212fb0592c3fd0009f90aef00"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R2",
+        "OUTCOME-FIXTURES O5"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "BLOCKED_AUTHORITY",
+          "REJECT_PRECONDITION"
+        ],
+        "action_intent": {
+          "action_id": "O5-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O6",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O6",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O6",
+        "expected_semantic_digest": "e7fab0e374c9f31e80fb3c805ff51f71b1a92bc212fb0592c3fd0009f90aef00"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R2",
+        "OUTCOME-FIXTURES O6"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "REJECT_FORBIDDEN",
+          "VALID_AUTHORITY_EVIDENCE"
+        ],
+        "action_intent": {
+          "action_id": "O6-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O7",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O7",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O7",
+        "expected_semantic_digest": "9a1c69b877c6875c54c670c5f54004e44bb07377b7faefef2291b01a9e93740e"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R4",
+        "OUTCOME-FIXTURES O7"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "UNKNOWN_REQUIRED_EVIDENCE",
+          "VALID_AUTHORITY_EVIDENCE"
+        ],
+        "action_intent": {
+          "action_id": "O7-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R4",
+          "effect_decision": "NO_EFFECT",
+          "primary_outcome": "AGGREGATE_UNKNOWN",
+          "terminal_class": "UNKNOWN",
+          "next_gate_class": "REQUEST_EVIDENCE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O8",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O8",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O8",
+        "expected_semantic_digest": "4efb136dd3e889fd5626c7aa5cf80c526a5ebbc0cf692245e78e267ca3f006ac"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R3",
+        "OUTCOME-FIXTURES O8"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "BLOCKED_AUTHORITY",
+          "BLOCKED_WRITER",
+          "BLOCKED_CURRENTNESS"
+        ],
+        "action_intent": {
+          "action_id": "O8-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R3",
+          "effect_decision": "NO_EFFECT",
+          "primary_outcome": "AGGREGATE_BLOCKED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "CURRENTNESS_RECONCILIATION",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O9",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O9",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O9",
+        "expected_semantic_digest": "d221fbb40c7d7b7699a33493815d73bc7da839ed7eefd3d178b24f4f9e028fb5"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R6",
+        "OUTCOME-FIXTURES O9"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "CLEAN_VALID_ACTION",
+          "VALID_BINDINGS",
+          "VALID_PRECONDITIONS",
+          "VALID_CURRENTNESS"
+        ],
+        "action_intent": {
+          "action_id": "O9-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R6",
+          "effect_decision": "ADMIT",
+          "primary_outcome": "AGGREGATE_CLEAR",
+          "terminal_class": "PASS",
+          "next_gate_class": "CAUSAL_NEXT_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "O10",
+      "fixture_family": "O",
+      "description": "reviewed simultaneous outcome O10",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "O10",
+        "expected_semantic_digest": "948c4abeebb52e41e7c5302cf1bdff20064c867aa7b1253d82e4b5f942524843"
+      },
+      "architecture_rule_refs": [
+        "MULTI_OUTCOME_AGGREGATION AGG-R2",
+        "OUTCOME-FIXTURES O10"
+      ],
+      "semantic_input": {
+        "validator_predicates": [
+          "REJECT_REDUNDANT_SELF_HANDOFF",
+          "OTHERWISE_VALID_CONTEXT"
+        ],
+        "action_intent": {
+          "action_id": "O10-ACTION",
+          "action_class": "OTHER_BOUNDED",
+          "selected_scope": "transition",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "CAUSAL_NEXT_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        }
+      },
+      "provenance": [
+        "reviewed O1-O10"
+      ]
+    },
+    {
+      "fixture_id": "P1",
+      "fixture_family": "P",
+      "description": "clean valid context/action => ADMIT",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "P1",
+        "expected_semantic_digest": "303e8750f6f6789d10c6551bed5c062f29272b6267a503a9315e4af8ab699b9e"
+      },
+      "architecture_rule_refs": [
+        "reviewed Effective Context/L6/L7 architecture"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-W",
+            "fact_type": "WRITER_STATE",
+            "scope": "GLOBAL",
+            "state": "CURRENT_ESTABLISHED",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-T",
+            "fact_type": "TASK_CURRENTNESS",
+            "scope": "GLOBAL",
+            "state": "CURRENT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-A",
+            "fact_type": "AUTHORITY_BINDING_STATE",
+            "scope": "GLOBAL",
+            "state": "PRESENT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-S",
+            "fact_type": "SOURCE_STATUS",
+            "scope": "GLOBAL",
+            "state": "ACTIVE",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-VB",
+            "fact_type": "VALID_BINDINGS_STATE",
+            "scope": "GLOBAL",
+            "state": "VALID",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-VP",
+            "fact_type": "VALID_PRECONDITIONS_STATE",
+            "scope": "GLOBAL",
+            "state": "VALID",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-VC",
+            "fact_type": "VALID_CURRENTNESS_STATE",
+            "scope": "GLOBAL",
+            "state": "VALID",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "P1-ACTION",
+          "action_class": "EXECUTE",
+          "selected_scope": "task",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "ADMIT"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R6",
+          "effect_decision": "ADMIT",
+          "primary_outcome": "AGGREGATE_CLEAR",
+          "terminal_class": "PASS",
+          "next_gate_class": "CAUSAL_NEXT_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": []
+      },
+      "provenance": [
+        "successor task positive controls"
+      ]
+    },
+    {
+      "fixture_id": "P2",
+      "fixture_family": "P",
+      "description": "causally required handoff to another Entity => admitted handoff",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "P2",
+        "expected_semantic_digest": "b9facd1f62d7bfadfd8d5ac9946e7f3dcbcf472082dd0c5d40c42b100e7b3369"
+      },
+      "architecture_rule_refs": [
+        "reviewed Effective Context/L6/L7 architecture"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [],
+        "causal_events": [
+          {
+            "event_id": "EV-P2",
+            "event_type": "HANDOFF",
+            "evidence_ref": "EV-P2-EVIDENCE",
+            "causal_parent_event_id": null,
+            "lifecycle_evidence_state": "VERIFIED",
+            "dispatch_state": "NOT_APPLICABLE",
+            "delivery_state": "NOT_APPLICABLE",
+            "receipt_state": "NOT_APPLICABLE",
+            "processing_started_state": "NOT_APPLICABLE",
+            "handoff_recipient": "ENTITY-B",
+            "handoff_reason": "CAUSALLY_REQUIRED",
+            "decision_id": null,
+            "decision_owner": null,
+            "decision_recipient": null,
+            "current_decision_state": "NOT_APPLICABLE",
+            "proposed_handoff_target": null,
+            "redundant_self_handoff": "NO",
+            "causal_requirement_status": "REQUIRED",
+            "scope": "handoff",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "action_intent": {
+          "action_id": "P2-ACTION",
+          "action_class": "HANDOFF",
+          "selected_scope": "handoff",
+          "transition_type": "HANDOFF",
+          "target_ref": "ENTITY-B"
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R6",
+          "effect_decision": "ADMIT",
+          "primary_outcome": "AGGREGATE_CLEAR",
+          "terminal_class": "PASS",
+          "next_gate_class": "CAUSAL_NEXT_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "REDUNDANT_SELF_HANDOFF",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "NO",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          },
+          {
+            "assertion_type": "CAUSAL_REQUIREMENT",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "REQUIRED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task positive controls"
+      ]
+    },
+    {
+      "fixture_id": "P3",
+      "fixture_family": "P",
+      "description": "verified delta refines recovery exact scope",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "P3",
+        "expected_semantic_digest": "a5b97d037b654c6a35988490d70d00118b520cedf35e0993c129da1bba6e1bb2"
+      },
+      "architecture_rule_refs": [
+        "reviewed Effective Context/L6/L7 architecture"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [
+          {
+            "evidence_id": "R",
+            "evidence_kind": "RECOVERY",
+            "exact_immutable_identity": "R-IMMUTABLE",
+            "scope": "S",
+            "provenance_source": "FIXTURE",
+            "verified_state": "VERIFIED",
+            "currentness_state": "CURRENT",
+            "relation_to_other_evidence": "HISTORICAL",
+            "relation_target_evidence_id": null,
+            "selected_current_basis": "NO",
+            "selection_basis": "FIXTURE",
+            "unresolved_conflict": "NO",
+            "conflict_set": [],
+            "unknown_fields": []
+          },
+          {
+            "evidence_id": "D",
+            "evidence_kind": "VERIFIED_DELTA",
+            "exact_immutable_identity": "D-IMMUTABLE",
+            "scope": "S",
+            "provenance_source": "FIXTURE",
+            "verified_state": "VERIFIED",
+            "currentness_state": "CURRENT",
+            "relation_to_other_evidence": "REFINES",
+            "relation_target_evidence_id": "R",
+            "selected_current_basis": "YES",
+            "selection_basis": "EXACT_SCOPE_REFINEMENT",
+            "unresolved_conflict": "NO",
+            "conflict_set": [],
+            "unknown_fields": []
+          },
+          {
+            "evidence_id": "R-U",
+            "evidence_kind": "RECOVERY",
+            "exact_immutable_identity": "R-U-IMMUTABLE",
+            "scope": "U",
+            "provenance_source": "FIXTURE",
+            "verified_state": "VERIFIED",
+            "currentness_state": "CURRENT",
+            "relation_to_other_evidence": "INDEPENDENT",
+            "relation_target_evidence_id": null,
+            "selected_current_basis": "YES",
+            "selection_basis": "FIXTURE",
+            "unresolved_conflict": "NO",
+            "conflict_set": [],
+            "unknown_fields": []
+          }
+        ],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "P3-ACTION",
+          "action_class": "INSPECT",
+          "selected_scope": "S",
+          "transition_type": "SELECT_CURRENT_BASIS",
+          "target_ref": "D"
+        },
+        "triggering_event_or_result": null,
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "D"
+          ],
+          "initial_state": {
+            "state_id": "BASE-P3",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_RECOVERY_CURRENT_S",
+                "binding_type": "EVIDENCE",
+                "exact_scope": "S",
+                "dependencies": [
+                  "D"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-P3-1"
+              },
+              {
+                "binding_id": "BINDING_RECOVERY_U",
+                "binding_type": "EVIDENCE",
+                "exact_scope": "U",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-P3-D-BINDING_RECOVERY_CURRENT_S",
+                "source_atom_or_evidence_id": "D",
+                "dependent_binding_id": "BINDING_RECOVERY_CURRENT_S",
+                "exact_scope": "S",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "S",
+                "atom_ids": [],
+                "evidence_ids": [
+                  "D"
+                ],
+                "binding_ids": [
+                  "BINDING_RECOVERY_CURRENT_S"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "U",
+                "atom_ids": [],
+                "evidence_ids": [
+                  "D"
+                ],
+                "binding_ids": [
+                  "BINDING_RECOVERY_U"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-P3-1",
+                "input_binding_ids": [
+                  "BINDING_RECOVERY_CURRENT_S"
+                ],
+                "output_binding_id": "BINDING_CURRENT_S_SELECTED_DELTA",
+                "exact_scope": "S",
+                "output_binding_type": "OTHER_SYNTHETIC",
+                "output_state": "CURRENT",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [
+          "S"
+        ],
+        "invalidated_bindings": [
+          "BINDING_RECOVERY_CURRENT_S"
+        ],
+        "recomputed_bindings": [
+          "BINDING_CURRENT_S_SELECTED_DELTA"
+        ],
+        "preserved_bindings": [
+          "BINDING_RECOVERY_U"
+        ],
+        "assertions": [
+          {
+            "assertion_type": "SELECTED_BASIS",
+            "subject_ref": null,
+            "scope": "S",
+            "expected_state": null,
+            "expected_ref": "D",
+            "expected_bool": null,
+            "expected_count": null
+          },
+          {
+            "assertion_type": "RECOVERY_APPLICABILITY",
+            "subject_ref": null,
+            "scope": "U",
+            "expected_state": "PRESERVED_APPLICABLE_EVIDENCE",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          },
+          {
+            "assertion_type": "FULL_RESET",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task positive controls"
+      ]
+    },
+    {
+      "fixture_id": "P4",
+      "fixture_family": "P",
+      "description": "recovery remains applicable outside refined scope",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "P4",
+        "expected_semantic_digest": "82de25e4a85ee225549bf478f490aa4e3ae8fb62662c63ed73ac827cd006e1ca"
+      },
+      "architecture_rule_refs": [
+        "reviewed Effective Context/L6/L7 architecture"
+      ],
+      "semantic_input": {
+        "facts": [],
+        "current_state_evidence": [
+          {
+            "evidence_id": "R-U",
+            "evidence_kind": "RECOVERY",
+            "exact_immutable_identity": "R-U-IMMUTABLE",
+            "scope": "U",
+            "provenance_source": "FIXTURE",
+            "verified_state": "VERIFIED",
+            "currentness_state": "CURRENT",
+            "relation_to_other_evidence": "INDEPENDENT",
+            "relation_target_evidence_id": null,
+            "selected_current_basis": "YES",
+            "selection_basis": "FIXTURE",
+            "unresolved_conflict": "NO",
+            "conflict_set": [],
+            "unknown_fields": []
+          }
+        ],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "P4-ACTION",
+          "action_class": "INSPECT",
+          "selected_scope": "U",
+          "transition_type": "SELECT_CURRENT_BASIS",
+          "target_ref": "R-U"
+        },
+        "triggering_event_or_result": null,
+        "binding_derivation_input": {
+          "changed_source_ids": [],
+          "initial_state": {
+            "state_id": "BASE-P4",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_RECOVERY_U",
+                "binding_type": "EVIDENCE",
+                "exact_scope": "U",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [],
+            "scope_index": [
+              {
+                "scope_id": "U",
+                "atom_ids": [],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_RECOVERY_U"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [
+          "BINDING_RECOVERY_U"
+        ],
+        "assertions": [
+          {
+            "assertion_type": "RECOVERY_APPLICABILITY",
+            "subject_ref": null,
+            "scope": "U",
+            "expected_state": "PRESERVED_APPLICABLE_EVIDENCE",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task positive controls"
+      ]
+    },
+    {
+      "fixture_id": "P5",
+      "fixture_family": "P",
+      "description": "experience suggests allowed action but authority binding still required",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "P5",
+        "expected_semantic_digest": "8e64ae1ec89fbc840f0344a82c97485c7944fa2c797dd0392e4bca089e6947fa"
+      },
+      "architecture_rule_refs": [
+        "reviewed Effective Context/L6/L7 architecture"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-EXP",
+            "fact_type": "EXPERIENCE_RECOMMENDATION",
+            "scope": "action/A",
+            "state": "ADVISORY",
+            "value_ref": "A",
+            "provenance_ref": "FIXTURE"
+          },
+          {
+            "fact_id": "F-AUTH",
+            "fact_type": "AUTHORITY_BINDING_STATE",
+            "scope": "action/A",
+            "state": "PRESENT",
+            "value_ref": "A",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "P5-ACTION",
+          "action_class": "EXECUTE",
+          "selected_scope": "action/A",
+          "transition_type": "EXECUTE_EFFECT",
+          "target_ref": "A"
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R6",
+          "effect_decision": "ADMIT",
+          "primary_outcome": "AGGREGATE_CLEAR",
+          "terminal_class": "PASS",
+          "next_gate_class": "CAUSAL_NEXT_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "EXPERIENCE_ADVISORY",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": true,
+            "expected_count": null
+          },
+          {
+            "assertion_type": "AUTHORITY_BINDING_PRESENT",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": true,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task positive controls"
+      ]
+    },
+    {
+      "fixture_id": "P6",
+      "fixture_family": "P",
+      "description": "event changes one scope, unrelated scope preserved",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "P6",
+        "expected_semantic_digest": "466fb9a5baa6e2bc1e7187e97c33584cb0ad075b07dbf291e105eab1f52efa72"
+      },
+      "architecture_rule_refs": [
+        "reviewed Effective Context/L6/L7 architecture"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-DEP",
+            "fact_type": "DEPENDENCY_STATE",
+            "scope": "S1",
+            "state": "PRESENT",
+            "value_ref": null,
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "P6-ACTION",
+          "action_class": "INSPECT",
+          "selected_scope": "S1",
+          "transition_type": "CONTEXT_UPDATE",
+          "target_ref": null
+        },
+        "triggering_event_or_result": {
+          "trigger_id": "P6-TRIGGER",
+          "trigger_type": "EVENT",
+          "verification_state": "VERIFIED",
+          "scope": "S1",
+          "provenance_ref": "FIXTURE"
+        },
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "F-DEP"
+          ],
+          "initial_state": {
+            "state_id": "BASE-P6",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_S1_DEPENDENT_OLD",
+                "binding_type": "DEPENDENCY",
+                "exact_scope": "S1",
+                "dependencies": [
+                  "F-DEP"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-P6-1"
+              },
+              {
+                "binding_id": "BINDING_S2",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "S2",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-P6-F-DEP-BINDING_S1_DEPENDENT_OLD",
+                "source_atom_or_evidence_id": "F-DEP",
+                "dependent_binding_id": "BINDING_S1_DEPENDENT_OLD",
+                "exact_scope": "S1",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "S1",
+                "atom_ids": [
+                  "F-DEP"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_S1_DEPENDENT_OLD"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "S2",
+                "atom_ids": [
+                  "F-DEP"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_S2"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-P6-1",
+                "input_binding_ids": [
+                  "BINDING_S1_DEPENDENT_OLD"
+                ],
+                "output_binding_id": "BINDING_S1_DEPENDENT_NEW",
+                "exact_scope": "S1",
+                "output_binding_type": "DEPENDENCY",
+                "output_state": "CURRENT",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [
+          "S1"
+        ],
+        "invalidated_bindings": [
+          "BINDING_S1_DEPENDENT_OLD"
+        ],
+        "recomputed_bindings": [
+          "BINDING_S1_DEPENDENT_NEW"
+        ],
+        "preserved_bindings": [
+          "BINDING_S2"
+        ],
+        "assertions": [
+          {
+            "assertion_type": "FULL_RESET",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task positive controls"
+      ]
+    },
+    {
+      "fixture_id": "P7",
+      "fixture_family": "P",
+      "description": "L6 projection uses only EFFECTIVE_CONTEXT facts plus ACTION_INTENT",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "P7",
+        "expected_semantic_digest": "8c943e459bf69f65c79c1e5113444fd7e86b312984faa0e45a562dbbe9079df8"
+      },
+      "architecture_rule_refs": [
+        "reviewed Effective Context/L6/L7 architecture"
+      ],
+      "semantic_input": {
+        "facts": [
+          {
+            "fact_id": "F-PROJ",
+            "fact_type": "PROJECTION_BASIS_STATE",
+            "scope": "projection",
+            "state": "PRESENT",
+            "value_ref": "F1,F2,B1",
+            "provenance_ref": "FIXTURE"
+          }
+        ],
+        "current_state_evidence": [],
+        "causal_events": [],
+        "action_intent": {
+          "action_id": "P7-ACTION",
+          "action_class": "INSPECT",
+          "selected_scope": "projection",
+          "transition_type": "PROJECTION",
+          "target_ref": null
+        },
+        "triggering_event_or_result": null
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "PROJECTION_SUBSET_OF_EFFECTIVE_CONTEXT",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": true,
+            "expected_count": null
+          },
+          {
+            "assertion_type": "EXTRA_FACT_ALLOWED_ONLY_ACTION_INTENT",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "ACTION_INTENT_ONLY",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task positive controls"
+      ]
+    },
+    {
+      "fixture_id": "M1",
+      "fixture_family": "MUTATION",
+      "description": "remove authority_ref from valid fixture",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M1",
+        "expected_semantic_digest": "26c52c91447bdc80d55e2015b3cf8ed20175ed65cf900b99950203f83d2fa8e3"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": "P1",
+        "transformation": {
+          "transformation_type": "REMOVE_AUTHORITY_REF",
+          "target_ref": "P1",
+          "field_code": "authority_ref",
+          "scope": null,
+          "from_state": "PRESENT",
+          "to_state": "ABSENT",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_ACTION_AUTHORIZATION_BINDING",
+          "BLOCKED_AUTHORITY"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "REQUEST_AUTHORITY",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": []
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M2",
+      "fixture_family": "MUTATION",
+      "description": "ACTIVE source -> CANDIDATE",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M2",
+        "expected_semantic_digest": "483b3c58625db15745680c8f36dc358603866baadddf020d780057dfde9f5af3"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "SOURCE_ACTIVE_TO_CANDIDATE",
+          "target_ref": "source",
+          "field_code": "active_status",
+          "scope": null,
+          "from_state": "ACTIVE",
+          "to_state": "CANDIDATE",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_ACTION_AUTHORIZATION_BINDING"
+        ],
+        "aggregation": null,
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "NORMATIVE_USE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "REJECTED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M3",
+      "fixture_family": "MUTATION",
+      "description": "CURRENT task -> SUPERSEDED",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M3",
+        "expected_semantic_digest": "59a0dce4f35e9638434d6a0784c2cfc31fa8cd75623277303891a34a82c72d1b"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "TASK_CURRENT_TO_SUPERSEDED",
+          "target_ref": "task",
+          "field_code": "task_currentness",
+          "scope": null,
+          "from_state": "CURRENT",
+          "to_state": "SUPERSEDED",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_PRECONDITION",
+          "BLOCKED_CURRENTNESS"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "NONE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "EFFECT_STATE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": "REJECTED",
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M4",
+      "fixture_family": "MUTATION",
+      "description": "processing_started YES -> UNKNOWN",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M4",
+        "expected_semantic_digest": "604b841a4edc1b2a392ad6eb353e056183f58dae165271276e2d8d093605ace6"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "PROCESSING_STARTED_YES_TO_UNKNOWN",
+          "target_ref": "causal_event",
+          "field_code": "processing_started_state",
+          "scope": null,
+          "from_state": "YES",
+          "to_state": "UNKNOWN",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "UNKNOWN_REQUIRED_EVIDENCE"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R4",
+          "effect_decision": "NO_EFFECT",
+          "primary_outcome": "AGGREGATE_UNKNOWN",
+          "terminal_class": "UNKNOWN",
+          "next_gate_class": "REQUEST_EVIDENCE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "RUNNING_INFERENCE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M5",
+      "fixture_family": "MUTATION",
+      "description": "add CURRENT_STATE_EVIDENCE conflict",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M5",
+        "expected_semantic_digest": "77e6896b4a78c3293be7c5527bb331a2c51a18bd5e9c249f557d0c8597ec7561"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "ADD_CURRENT_STATE_CONFLICT",
+          "target_ref": "CURRENT_STATE_EVIDENCE",
+          "field_code": "unresolved_conflict",
+          "scope": null,
+          "from_state": "NO",
+          "to_state": "CONFLICT",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "CURRENT_STATE_CONFLICT_STOP"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R1",
+          "effect_decision": "STOP",
+          "primary_outcome": "AGGREGATE_CONFLICT_STOP",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "STOP",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": []
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M6",
+      "fixture_family": "MUTATION",
+      "description": "source conflict only S1",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M6",
+        "expected_semantic_digest": "466fb9a5baa6e2bc1e7187e97c33584cb0ad075b07dbf291e105eab1f52efa72"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "ADD_SOURCE_CONFLICT_S1",
+          "target_ref": "S1",
+          "field_code": "source_conflict",
+          "scope": "S1",
+          "from_state": "NO",
+          "to_state": "CONFLICT",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null,
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "S1"
+          ],
+          "initial_state": {
+            "state_id": "BASE-M6",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_S1_SOURCE_DEPENDENT",
+                "binding_type": "SOURCE",
+                "exact_scope": "S1",
+                "dependencies": [
+                  "S1"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-M6-1"
+              },
+              {
+                "binding_id": "BINDING_S2",
+                "binding_type": "OTHER_SYNTHETIC",
+                "exact_scope": "S2",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-M6-S1-BINDING_S1_SOURCE_DEPENDENT",
+                "source_atom_or_evidence_id": "S1",
+                "dependent_binding_id": "BINDING_S1_SOURCE_DEPENDENT",
+                "exact_scope": "S1",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "S1",
+                "atom_ids": [
+                  "S1"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_S1_SOURCE_DEPENDENT"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "S2",
+                "atom_ids": [
+                  "S1"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_S2"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-M6-1",
+                "input_binding_ids": [
+                  "BINDING_S1_SOURCE_DEPENDENT"
+                ],
+                "output_binding_id": "BINDING_S1_CONFLICT_BLOCKED",
+                "exact_scope": "S1",
+                "output_binding_type": "OTHER_SYNTHETIC",
+                "output_state": "BLOCKED",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [
+          "S1"
+        ],
+        "invalidated_bindings": [
+          "BINDING_S1_SOURCE_DEPENDENT"
+        ],
+        "recomputed_bindings": [
+          "BINDING_S1_CONFLICT_BLOCKED"
+        ],
+        "preserved_bindings": [
+          "BINDING_S2"
+        ],
+        "assertions": [
+          {
+            "assertion_type": "FULL_RESET",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M7",
+      "fixture_family": "MUTATION",
+      "description": "experience changes",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M7",
+        "expected_semantic_digest": "6726b17f21ed4a379f2d11aa3f90a89fd2c1137ba2197071aabdd483b725b046"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "CHANGE_EXPERIENCE",
+          "target_ref": "experience",
+          "field_code": "advisory_content",
+          "scope": null,
+          "from_state": "PRESENT",
+          "to_state": "PRESENT",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "AUTHORITY_RESULT_UNCHANGED",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": true,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M8",
+      "fixture_family": "MUTATION",
+      "description": "one dependency changes",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M8",
+        "expected_semantic_digest": "f4bfc1ce07c409316cae61bca062f7f5473574c5da0878f6c7fa31347c92edec"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "CHANGE_DEPENDENCY_ATOM",
+          "target_ref": "A1",
+          "field_code": "dependency_state",
+          "scope": null,
+          "from_state": "PRESENT",
+          "to_state": "PRESENT",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null,
+        "binding_derivation_input": {
+          "changed_source_ids": [
+            "A1"
+          ],
+          "initial_state": {
+            "state_id": "BASE-M8",
+            "schema_version": "SECE_SYNTHETIC_BINDING_STATE_R01",
+            "initial_derived_bindings": [
+              {
+                "binding_id": "BINDING_DEPENDENT_A1",
+                "binding_type": "DEPENDENCY",
+                "exact_scope": "GLOBAL",
+                "dependencies": [
+                  "A1"
+                ],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "INVALIDATABLE_DEPENDENT",
+                "recomputation_rule_ref": "RULE-M8-1"
+              },
+              {
+                "binding_id": "BINDING_INDEPENDENT",
+                "binding_type": "DEPENDENCY",
+                "exact_scope": "UNRELATED",
+                "dependencies": [],
+                "current_state": "ACTIVE",
+                "provenance_ref": "FIXTURE_TYPED_INPUT",
+                "semantic_role": "PRESERVED_UNAFFECTED",
+                "recomputation_rule_ref": null
+              }
+            ],
+            "dependency_edges": [
+              {
+                "edge_id": "EDGE-M8-A1-BINDING_DEPENDENT_A1",
+                "source_atom_or_evidence_id": "A1",
+                "dependent_binding_id": "BINDING_DEPENDENT_A1",
+                "exact_scope": "GLOBAL",
+                "relation_type": "DEPENDS_ON",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "scope_index": [
+              {
+                "scope_id": "GLOBAL",
+                "atom_ids": [
+                  "A1"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_DEPENDENT_A1"
+                ],
+                "child_scopes": []
+              },
+              {
+                "scope_id": "UNRELATED",
+                "atom_ids": [
+                  "A1"
+                ],
+                "evidence_ids": [],
+                "binding_ids": [
+                  "BINDING_INDEPENDENT"
+                ],
+                "child_scopes": []
+              }
+            ],
+            "recomputation_rules": [
+              {
+                "rule_id": "RULE-M8-1",
+                "input_binding_ids": [
+                  "BINDING_DEPENDENT_A1"
+                ],
+                "output_binding_id": "BINDING_DEPENDENT_A1_RECOMPUTED",
+                "exact_scope": "GLOBAL",
+                "output_binding_type": "DEPENDENCY",
+                "output_state": "CURRENT",
+                "provenance_ref": "FIXTURE_TYPED_INPUT"
+              }
+            ],
+            "provenance_ref": "FIXTURE_TYPED_INPUT"
+          }
+        }
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [],
+        "invalidated_bindings": [
+          "BINDING_DEPENDENT_A1"
+        ],
+        "recomputed_bindings": [
+          "BINDING_DEPENDENT_A1_RECOMPUTED"
+        ],
+        "preserved_bindings": [
+          "BINDING_INDEPENDENT"
+        ],
+        "assertions": [
+          {
+            "assertion_type": "RECOMPUTE_ONLY_DEPENDENCY_CLOSURE",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": true,
+            "expected_count": null
+          },
+          {
+            "assertion_type": "PRESERVE_INDEPENDENT_BINDINGS",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": true,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M9",
+      "fixture_family": "MUTATION",
+      "description": "projection_basis fact missing",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M9",
+        "expected_semantic_digest": "2d9b49f55d427d84e1aba77926093b36f6b37db06de4c28185597f066aab4933"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "REMOVE_PROJECTION_BASIS_FACT",
+          "target_ref": "projection_basis",
+          "field_code": "fact_presence",
+          "scope": null,
+          "from_state": "PRESENT",
+          "to_state": "ABSENT",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "PROJECTION_VALID",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          },
+          {
+            "assertion_type": "L7_REACHED",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M10",
+      "fixture_family": "MUTATION",
+      "description": "contract invents context fact",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M10",
+        "expected_semantic_digest": "2d9b49f55d427d84e1aba77926093b36f6b37db06de4c28185597f066aab4933"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "ADD_CONTRACT_ONLY_CONTEXT_FACT",
+          "target_ref": "contract",
+          "field_code": "context_fact_presence",
+          "scope": null,
+          "from_state": "ABSENT",
+          "to_state": "PRESENT",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [],
+        "aggregation": null,
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "PROJECTION_VALID",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          },
+          {
+            "assertion_type": "L7_REACHED",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": false,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M11",
+      "fixture_family": "MUTATION",
+      "description": "required other-Entity handoff -> redundant KOO->KOO",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M11",
+        "expected_semantic_digest": "dd1335642e3e9f1b666ac3d223ed818d5cd6a4f5b807a145975701a365ed590d"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "REPLACE_REQUIRED_HANDOFF_WITH_REDUNDANT_SELF_HANDOFF",
+          "target_ref": "handoff",
+          "field_code": "causal_requirement",
+          "scope": null,
+          "from_state": "REQUIRED",
+          "to_state": "NOT_REQUIRED",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "REJECT_REDUNDANT_SELF_HANDOFF"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R2",
+          "effect_decision": "REJECT",
+          "primary_outcome": "AGGREGATE_REJECTED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "CAUSAL_NEXT_GATE",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": []
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    },
+    {
+      "fixture_id": "M12",
+      "fixture_family": "MUTATION",
+      "description": "simultaneous blockers retain all reasons",
+      "predecessor_meaning_ref": {
+        "catalog_commit": "5b9642fe5915386518ea0d3a7d9f2b9ee6376469",
+        "catalog_blob": "7e39b90736c6d84f75a4581c46de7bd9baa34c99",
+        "fixture_id": "M12",
+        "expected_semantic_digest": "91513bb362291d05471e28eb532addfd2a609895b38e2cbd3a5bd405e0c6a94d"
+      },
+      "architecture_rule_refs": [
+        "successor property requirement",
+        "reviewed SECE invariant"
+      ],
+      "semantic_input": {
+        "base_fixture_ref": null,
+        "transformation": {
+          "transformation_type": "COMBINE_AUTHORITY_WRITER_CURRENTNESS_BLOCKERS",
+          "target_ref": "validator",
+          "field_code": "blocker_set",
+          "scope": null,
+          "from_state": "PRESENT",
+          "to_state": "PRESENT",
+          "provenance_ref": "FIXTURE"
+        },
+        "action_intent": null
+      },
+      "expected": {
+        "validator_predicates": [
+          "BLOCKED_AUTHORITY",
+          "BLOCKED_WRITER",
+          "BLOCKED_CURRENTNESS"
+        ],
+        "aggregation": {
+          "aggregation_rule_id": "AGG-R3",
+          "effect_decision": "NO_EFFECT",
+          "primary_outcome": "AGGREGATE_BLOCKED",
+          "terminal_class": "BLOCKED",
+          "next_gate_class": "CURRENTNESS_RECONCILIATION",
+          "secondary_reasons_preserve_all_input_predicates": true
+        },
+        "affected_scopes": [],
+        "invalidated_bindings": [],
+        "recomputed_bindings": [],
+        "preserved_bindings": [],
+        "assertions": [
+          {
+            "assertion_type": "SECONDARY_REASONS_COUNT",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": null,
+            "expected_count": 3
+          },
+          {
+            "assertion_type": "ALL_REASONS_PRESERVED",
+            "subject_ref": null,
+            "scope": null,
+            "expected_state": null,
+            "expected_ref": null,
+            "expected_bool": true,
+            "expected_count": null
+          }
+        ]
+      },
+      "provenance": [
+        "successor task mutation/property tests"
+      ]
+    }
+  ],
+  "predecessor_input_completeness_base": {
+    "commit": "9e1d66efc798041d2217c5e9a195fc795d84aad9",
+    "schema_blob": "7d221176ebd694d67321261c5466f6df1090bf8f",
+    "catalog_blob": "4ce7939519ecdfa24e4102742be519fa5d5f2259"
+  }
+}
