@@ -22,7 +22,7 @@ task_path:
 entities/koordinator/outbox/SIS_SECE_D1D2_publicfetch_exec_r04_prompt.md
 
 task_blob:
-70057e6a36b2dcd006f2f46a368758bc00a50749
+33dbb14846e10a1b23197b190326f95d5b4c2f7d
 
 authority:
 puev5691/wellbeing-hq@8db9a474b2f77d1f9522dd071f2ab5dd5e356109:
