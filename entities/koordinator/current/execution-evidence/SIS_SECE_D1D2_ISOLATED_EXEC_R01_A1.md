@@ -2,56 +2,59 @@
 
 profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
 profile_version_semantic_blob: db146a594659e48fa0ce51fd9cd81602cf50058e
-profile_effectivity_record: puev5691/wellbeing-hq@259f4c8dbddc42b4b446ef57fec46f44db1b4e3e:entities/koordinator/current/CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01.active.md
 
 execution_attempt_id: SIS_SECE_D1D2_ISOLATED_EXEC_R01_A1
 task_id: SECE_R01_STATIC_D1D2_ISOLATED_EXECUTION_PROOF_R01
-task_locator: entities/koordinator/outbox/SIS_SECE_D1D2_isolated_exec_r01_prompt.md
-authority_ref: current OPERATOR decision AUTHORIZE_SIS_SECE_R01_STATIC_D1D2_ISOLATED_EXECUTION_R01 = YES
-authority_scope: one independent isolated execution proof of exact immutable SECE D1D2 successor only
-
-profile_applicability_reason: EXACT_TASK_REQUIRES_DURABLE_PROGRESS_EVIDENCE
-task_uses_interchat_prompt_conveyor: YES
-task_is_new_attempt: YES
 
 actor_entity: SIS
 actor_writer_ref: entities/sisadmin/current/SIS__emergency-replacement-current-writer-r08.md
 actor_writer_blob: 2b79f89729cf0fd6c1a3d25e273e86f0c1c01b78
-writer_requirement: REQUIRED
-
-task_currentness: CURRENT_AT_MATERIALIZATION
-supersession_conflict: NONE_FOUND_AT_MATERIALIZATION
-
-input_kod_result:
-puev5691/wellbeing-hq@2df68634e4d26f974addc9c6b29323dd809a1644:entities/koder/outbox/KOD__SECE-r01-implcorr-static-D1D2-r02__KOO.md
-input_kod_result_blob: deaebc4cb40d687350ac670736df5aebe29ea1a4
-
-input_package:
-puev5691/wellbeing-hq@b32c3bdefa01c036e78a9e4d60fc2a78fd86418c:entities/koder/outbox/sece-r01-offline-simulator-implementation-static-d1d2-r02/
-input_package_tree: 7807b3f5d43fe62b344f8ab6f6947aea98e33af7
-input_package_identity: f2ff196fa8463834b08fc44d636de1aa2527db873fa38f490858a9be5688e4a1
-
-terminal_criterion:
-one immutable SIS result establishing PASS/BLOCKED/FAIL for exact isolated reconstruction + package-local execution proof
 
 initial_state: INITIAL_NOT_STARTED
-initial_state_meaning: accepted observed frontier for exact attempt; not proof of absence of effects outside evidence scope
-processing_started: NOT_PROVEN
-processing_started_event: NONE
+initial_state_blob: 69896f4075261974b8540785d2bcfb5710f216c5
 
-expected_current_version: INITIAL
-accepted_current_version: INITIAL_V1
-successor_acceptance_rule: exact-attempt conditional current-version acceptance; no last-write-wins
+processing_started: YES
+processing_started_event_ref:
+puev5691/wellbeing-hq@e6d518135afa6ba275d835da0a367d663301bd29:entities/sisadmin/outbox/execution-evidence/SIS_SECE_D1D2_ISOLATED_EXEC_R01_A1__PROCESSING_STARTED_E1.md
+processing_started_event_blob: 2718b4ab5da95dd269ad0a4c7b3f9ec132fd1e73
+
+processing_state: TERMINAL
+
+terminal_result_ref:
+puev5691/wellbeing-hq@13fca956e716f1356d7cf255d1bc0c761824814f:entities/sisadmin/outbox/SIS__SECE-r01-static-D1D2-isolated-execution-r01__KOO.md
+terminal_result_blob: 6a4d9756d1d0e4dacb7a1332a17e034949df9943
+
+terminal:
+BLOCKED_SIS_SECE_R01_STATIC_D1D2_ISOLATED_EXECUTION_R01
+
+blocker:
+BLOCKED_SIS_LOCAL_EXACT_GITHUB_BYTES_TO_ISOLATED_FILESYSTEM_MATERIALIZATION_BRIDGE
+
+candidate_runtime_verdict:
+UNKNOWN_NOT_EXECUTED
+
+partial_materialization:
+7_OF_21_SHA256_PASS__1_MISMATCH__13_ABSENT
+
+manual_model_transfer:
+REJECTED_AS_EXACT_BRIDGE
+
+accepted_current_version:
+TERMINAL_V2_MATERIALIZATION_BLOCKED
+
+terminal_complete_for_continuity:
+YES
 
 next_causal_disposition:
-AWAIT_OPERATOR_MANUAL_TRANSFER_TO_SIS
+WAITING_OPERATOR_EXACT_HOST_ACTION_AUTHORITY_FOR_NEW_ATTEMPT
 
-next_disposition_creates_task_authority: NO
+next_disposition_creates_task_authority:
+NO
 
-candidate_activation: NONE
-live_vds_mutation: NONE
-external_production_host_mutation: NONE
-historical_replay: NONE
-Project Source/canon mutation: NONE
+candidate_activation:
+NONE
+
+historical_replay:
+NONE
 
 project_time: omitted
