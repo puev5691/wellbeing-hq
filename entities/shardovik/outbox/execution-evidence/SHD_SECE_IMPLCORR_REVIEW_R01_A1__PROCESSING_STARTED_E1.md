@@ -1,0 +1,50 @@
+# SHD execution start evidence — SHD_SECE_IMPLCORR_REVIEW_R01_A1
+
+profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
+profile_semantic_blob: db146a594659e48fa0ce51fd9cd81602cf50058e
+profile_effectivity_record: puev5691/wellbeing-hq@259f4c8dbddc42b4b446ef57fec46f44db1b4e3e:entities/koordinator/current/CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01.active.md
+
+execution_attempt_id: SHD_SECE_IMPLCORR_REVIEW_R01_A1
+task_id: SECE_R01_OFFLINE_SIMULATOR_IMPLCORR_INDEPENDENT_REVIEW_R01
+task_locator: puev5691/wellbeing-hq@62a29d433c4c9f1dfde045c157f0cd1995d859da:entities/koordinator/outbox/SHD_SECE_implcorr_r01_ind_review_prompt.md
+task_blob: 37712bc380535a4aa1aeb9c2603dda5174dda4b2
+
+actor_entity: SHD
+actor_writer_ref: puev5691/wellbeing-hq:entities/shardovik/current/SHD__replacement-r04-current-writer.md
+actor_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+writer_generation: replacement-r0.4
+
+causal_event_id: SHD_SECE_IMPLCORR_REVIEW_R01_A1_PROCESSING_STARTED_E1
+event_type: PROCESSING_STARTED
+processing_started: YES
+
+accepted_predecessor_execution_state_ref: puev5691/wellbeing-hq:entities/koordinator/current/execution-evidence/SHD_SECE_IMPLCORR_REVIEW_R01_A1.md
+accepted_predecessor_execution_state_blob: 90840da0f5f7a3842836a66a344c553d52a83ed6
+accepted_predecessor_current_version: INITIAL_V2_FILENAME_CORRECTED
+
+task_currentness_at_start: CURRENT
+supersession_conflict_at_start: NONE_FOUND
+authority_at_start: VERIFIED_FOR_EXACT_BOUNDED_INDEPENDENT_REVIEW
+writer_at_start: VERIFIED
+input_kod_terminal_at_start: puev5691/wellbeing-hq@47c306b818b8fcbe49ca00250d39a3b6b6a08f45:entities/koder/outbox/KOD__SECE-r01-offline-simulator-implementation-correction-successor-result__KOO.md
+input_kod_terminal_blob: 158d2954b29e8e1155c36db7b68cd6a9d7dcb5f7
+input_package_tree_at_start: e019ddb0615bf09c647c44e1dffe6a4c2e14f5a6
+
+start_scope:
+STATIC_AND_ALLOWED_INDEPENDENT_EXECUTION_REVIEW_ONLY
+
+start_does_not_authorize:
+- simulator/runtime activation
+- production deployment
+- provider/model/API/Telegram calls
+- credential access
+- external host/runtime/storage mutation
+- Source/canon mutation
+- role/recovery/current-writer mutation
+- historical task replay
+- successor task creation
+
+project_time: omitted
+
+terminal:
+PASS_SHD_SECE_IMPLCORR_REVIEW_R01_A1_PROCESSING_STARTED_EVIDENCE
