@@ -1,0 +1,52 @@
+# Execution evidence — SHD_SECE_IMPLCORR_REVIEW_R01_A1
+
+profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
+profile_version_semantic_blob: db146a594659e48fa0ce51fd9cd81602cf50058e
+profile_effectivity_record: puev5691/wellbeing-hq@259f4c8dbddc42b4b446ef57fec46f44db1b4e3e:entities/koordinator/current/CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01.active.md
+
+execution_attempt_id: SHD_SECE_IMPLCORR_REVIEW_R01_A1
+task_id: SECE_R01_OFFLINE_SIMULATOR_IMPLCORR_INDEPENDENT_REVIEW_R01
+task_locator: entities/koordinator/outbox/SHD_SECE_implcorr_r01_review_prompt.md
+authority_basis: current OPERATOR instruction "Проверяй наши задачи, сверяем идеи и планы и продолжаем работать!" + active SECE priority decision
+profile_applicability_reason: CROSS_CHAT_FAILURE_REPLACEMENT_RISK
+task_uses_interchat_prompt_conveyor: YES
+task_is_new_attempt: YES
+
+actor_entity: SHD
+actor_writer_ref: entities/shardovik/current/SHD__replacement-r04-current-writer.md
+actor_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+writer_requirement: REQUIRED
+
+task_currentness: CURRENT_AT_MATERIALIZATION
+supersession_conflict: NONE_FOUND_AT_MATERIALIZATION
+
+input_kod_terminal:
+puev5691/wellbeing-hq@47c306b818b8fcbe49ca00250d39a3b6b6a08f45:entities/koder/outbox/KOD__SECE-r01-offline-simulator-implementation-correction-successor-result__KOO.md
+input_kod_terminal_blob: 158d2954b29e8e1155c36db7b68cd6a9d7dcb5f7
+
+input_package:
+puev5691/wellbeing-hq@8a07768c58013082ab8e6bcb1d92918b8060ecda:entities/koder/outbox/sece-r01-offline-simulator-implementation-candidate-correction-successor/
+input_package_tree: e019ddb0615bf09c647c44e1dffe6a4c2e14f5a6
+
+terminal_criterion:
+one immutable SHD independent corrected-implementation review result with separate static and independent-execution verdicts
+
+initial_state: INITIAL_NOT_STARTED
+initial_state_meaning: accepted observed frontier for this exact attempt; does not prove absence of unknown external effects outside evidence scope
+processing_started: NOT_PROVEN
+processing_started_event: NONE
+last_durable_checkpoint: THIS_INITIAL_STATE
+unknown_tail: NONE_AFTER_ACCEPTED_INITIAL_FRONTIER_AT_MATERIALIZATION
+
+expected_current_version: INITIAL
+accepted_current_version: INITIAL
+successor_acceptance_rule: exact-attempt conditional current-version acceptance; no last-write-wins
+
+next_causal_disposition: AWAIT_SHD_RESULT_AFTER_MANUAL_TRANSFER
+next_disposition_creates_task_authority: NO
+
+Project Source/canon mutation: NONE
+runtime/deployment authority: NONE
+historical replay: NONE
+
+project_time: omitted
