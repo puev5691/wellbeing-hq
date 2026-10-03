@@ -25,13 +25,13 @@ actor_writer_blob:
 2b79f89729cf0fd6c1a3d25e273e86f0c1c01b78
 
 expected_predecessor_state_blob:
-0de830e289a3a15c3994a59686694b18168fe74a
+ad84703c50e506f0343b7e20be75427126905a50
 
 expected_predecessor_version:
-R08_SELF_SNAPSHOT_TAIL_CONSUMED_V3
+R08_RECOVERY_EXTERNALLY_PRESERVED_V4
 
 accepted_current_version:
-R08_RECOVERY_EXTERNALLY_PRESERVED_V4
+R08_HANDOFF_FREEZE_AUTHORIZED_V5
 
 last_write_wins:
 FORBIDDEN
@@ -68,14 +68,7 @@ NOT_PERFORMED
 R03_profile_execution_after_replacement_prep_instruction:
 NOT_CONTINUED
 
-## SIS r0.8 recovery preservation
-
-ARH_result:
-puev5691/wellbeing-hq@f8dd097cc3cd7bcf889e8f30d0ddf46e95a76841:
-entities/archivarius/outbox/ARH__SIS-planned-replacement-r08-result__KOO-OPERATOR.md
-
-ARH_result_blob:
-059fb8ec52f1a7db0664b6ceed848d2cc0bf7709
+## Recovery preservation
 
 ARH_terminal:
 PASS_ARH_SIS_PLANNED_REPLACEMENT_R08_EXTERNALLY_PRESERVED
@@ -87,17 +80,13 @@ entities/sis/recovery/versions/sis-planned-r08
 external_package_tree:
 3730a6afd337439d3c9487c12344300df9b05a79
 
-external_composition:
-5/5 PASS
+## OPERATOR freeze authority
 
-external_readback:
-5/5 PASS
+AUTHORIZE_SIS_R08_PLANNED_HANDOFF_FREEZE:
+YES
 
-recovery_registry:
-entities/archivarius/current/recovery-registry/ARH__SIS-planned-recovery-r08.md
-
-recovery_registry_blob:
-53fcb3e7a07ac2e5f5a2bbe627d40a83e775dc0d
+authority_scope:
+planned current-writer handoff freeze only
 
 ## Current classification
 
@@ -105,7 +94,7 @@ classification:
 BLOCKED
 
 blocker:
-PLANNED_REPLACEMENT_HANDOFF_FREEZE_DECISION_PENDING_R03_NONTERMINAL
+PLANNED_HANDOFF_FREEZE_AUTHORIZED_AWAITING_SIS_EXECUTION_R03_NONTERMINAL
 
 R03_replay:
 FORBIDDEN
@@ -122,19 +111,13 @@ NOT_AUTHORIZED
 historical_replay:
 NONE
 
-reason:
-SIS r0.8 recovery is now externally preserved and verified, but SIS r0.8 remains authoritative current-writer; R03 remains nonterminal and paused; planned handoff/freeze requires a separate current OPERATOR decision before any successor initiation.
-
 ## Replacement boundary
 
-SIS r0.8 current-writer:
+SIS r0.8 current-writer before freeze:
 UNCHANGED
 
-SIS r0.8 technically available:
-YES
-
-predecessor freeze/handoff:
-NOT_PERFORMED
+planned handoff freeze:
+AUTHORIZED_NOT_YET_PROVEN_EXECUTED
 
 successor SIS instance:
 NOT_ESTABLISHED
@@ -145,8 +128,8 @@ NOT_PERFORMED
 successor SIS Writer Gate:
 NOT_PERFORMED
 
-next_gate:
-SEPARATE_OPERATOR_PLANNED_HANDOFF_FREEZE_DECISION_REQUIRED
+next_step:
+TRANSFER_EXACT_FREEZE_PROMPT_TO_CURRENT_SIS_R08
 
 Project Source/canon mutation:
 NONE
