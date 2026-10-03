@@ -2,105 +2,66 @@
 
 profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
 profile_version_semantic_blob: db146a594659e48fa0ce51fd9cd81602cf50058e
-profile_effectivity_record: puev5691/wellbeing-hq@259f4c8dbddc42b4b446ef57fec46f44db1b4e3e:entities/koordinator/current/CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01.active.md
 
 execution_attempt_id: SIS_SECE_D1D2_P552203_LOCALGIT_R02_A1
 task_id: SECE_R01_D1D2_P552203_LOCAL_GIT_EXEC_R02
-task_locator: entities/koordinator/outbox/SIS_SECE_D1D2_p552203_localgit_r02_prompt.md
-
-authority_ref:
-AUTHORIZE_SIS_SECE_R01_D1D2_P552203_LOCAL_GIT_EXEC_R02 = YES
-
-authority_scope:
-one NEW SIS host-backed exact-byte materialization + offline execution-proof attempt only
-
-profile_applicability_reason:
-EXACT_TASK_REQUIRES_DURABLE_PROGRESS_EVIDENCE
-
-task_uses_interchat_prompt_conveyor: YES
-task_is_new_attempt: YES
 
 actor_entity: SIS
 actor_writer_ref: entities/sisadmin/current/SIS__emergency-replacement-current-writer-r08.md
 actor_writer_blob: 2b79f89729cf0fd6c1a3d25e273e86f0c1c01b78
-writer_requirement: REQUIRED
 
 target_device_hostname: p552203.kvmvps
 target_device_id: 830038a0-232b-4d83-b52d-0e9973126165
 
-local_repo_path:
-/data/wellbeing-lab/repos/wellbeing-hq
+initial_state: INITIAL_NOT_STARTED
+initial_state_blob: 315c7c57b54046839cab8f149aa0d5932b5e7a99
 
-fixed_disposable_workspace:
-/data/wellbeing-lab/tmp/sece-d1d2-exec-r02-a1
+processing_started: YES
+processing_started_event_ref:
+puev5691/wellbeing-hq@e79a45ec9ac221bc6a3b29275f5a49edf0b3db12:entities/sisadmin/outbox/execution-evidence/SIS_SECE_D1D2_P552203_LOCALGIT_R02_A1__PROCESSING_STARTED_E1.md
+processing_started_event_blob: c5c8e23f5a0fe6885a650378f0f1f791fcaa8217
 
-input_package_commit:
-b32c3bdefa01c036e78a9e4d60fc2a78fd86418c
+processing_state: TERMINAL
 
-input_package_tree:
-7807b3f5d43fe62b344f8ab6f6947aea98e33af7
+terminal_result_ref:
+puev5691/wellbeing-hq@714ae63a9bc80d950590ae58729d5ce1ea294bdc:entities/sisadmin/outbox/SIS__SECE-r01-D1D2-p552203-localgit-exec-r02__KOO.md
+terminal_result_blob: 3e9b0920baabd54b9975df6af610e4a221998be5
 
-input_package_identity:
-f2ff196fa8463834b08fc44d636de1aa2527db873fa38f490858a9be5688e4a1
+terminal:
+BLOCKED_SIS_SECE_R01_D1D2_P552203_LOCAL_GIT_EXEC_R02
 
-predecessor_attempt:
-SIS_SECE_D1D2_ISOLATED_EXEC_R01_A1
+blocker:
+BLOCKED_SIS_P552203_EXACT_LOCAL_CANDIDATE_COMMIT_ABSENT
 
-predecessor_disposition:
-TERMINAL_BLOCKED_DO_NOT_REPLAY
+phase1_device_identity: PASS
+phase1_repo_valid: PASS
+phase1_python_requirement: PASS
+phase1_workspace_absent: PASS
+phase1_exact_local_commit: ABSENT
 
-task_currentness:
-CURRENT_AT_MATERIALIZATION
-
-supersession_conflict:
-NONE_FOUND_AT_MATERIALIZATION
-
-device_availability_at_koo_preflight:
-ONLINE
-
-terminal_criterion:
-one immutable SIS PASS/BLOCKED/FAIL result for exact local-Git materialization and exact offline test execution proof
-
-initial_state:
-INITIAL_NOT_STARTED
-
-initial_state_meaning:
-accepted observed frontier for this exact NEW attempt; no host command for this task has been executed by KOO
-
-processing_started:
-NOT_PROVEN
-
-processing_started_event:
-NONE
-
-expected_current_version:
-INITIAL
+phase2_materialization: NOT_STARTED
+phase3_python_execution: NOT_STARTED
+candidate_runtime_verdict: UNKNOWN_NOT_EXECUTED
 
 accepted_current_version:
-INITIAL_V1
+TERMINAL_V2_LOCAL_COMMIT_ABSENT
 
-successor_acceptance_rule:
-exact-attempt conditional current-version acceptance; no last-write-wins
+terminal_complete_for_continuity:
+YES
 
 next_causal_disposition:
-AWAIT_OPERATOR_MANUAL_TRANSFER_TO_SIS
+WAITING_OPERATOR_NETWORK_OBJECT_TRANSFER_AUTHORITY_FOR_NEW_ATTEMPT
 
 next_disposition_creates_task_authority:
 NO
 
-git_fetch_pull_authority:
+git_fetch_pull:
 NONE
 
 candidate_activation:
 NONE
 
-production_authority:
-NONE
-
 historical_replay:
-NONE
-
-Project Source/canon mutation:
 NONE
 
 project_time: omitted
