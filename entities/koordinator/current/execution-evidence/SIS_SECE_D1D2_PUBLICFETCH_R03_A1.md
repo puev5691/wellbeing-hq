@@ -8,18 +8,18 @@ execution_attempt_id:
 SIS_SECE_D1D2_PUBLICFETCH_R03_A1
 
 expected_predecessor_state_blob:
-4e6c68526f21992195b553ad0bf11aceb00527c1
+7a54ece51f8c5634905d5146c11df4bb27d4d90e
 
 expected_predecessor_version:
-R09_WRITER_GATE_AUTHORIZED_AWAITING_TRANSFER_V9
+R09_WRITER_ESTABLISHED_WAITING_EXACT_TASK_V10
 
 accepted_current_version:
-R09_WRITER_ESTABLISHED_WAITING_EXACT_TASK_V10
+R09_WRITER_ESTABLISHED_R04_DECISION_PENDING_V11
 
 last_write_wins:
 FORBIDDEN
 
-## Preserved R03 evidence
+## R03 preserved evidence
 
 R03:
 NONTERMINAL / DO_NOT_REPLAY
@@ -69,37 +69,37 @@ current_writer_blob:
 status:
 CURRENT_WRITER_ESTABLISHED
 
-terminal:
-PASS_SIS_R09_WRITER_GATE_CURRENT_WRITER_ESTABLISHED
-
 sole_authoritative_SIS_current_writer:
 SIS r0.9
 
-## Fresh post-writer task-conveyor reconciliation
+## Broader priority reconciliation
 
-fresh_hq_head_before_write:
-1de10d5d61430fae49f8e27bccbd655c3ed2c972
+active_priority:
+SEMANTIC_ENTITY_CONTROL_ENGINE_R01_PRIMARY_PRIORITY = YES
 
-post_writer_commits_before_reconciliation:
-NONE
+priority_artifact:
+entities/koordinator/current/KOO__semantic-entity-control-engine-r01-priority-decision__OPERATOR.md
+
+priority_blob:
+d0521905627b306a4888261a9d414148ac64f265
+
+project_priority_reconciliation:
+entities/koordinator/outbox/KOO__project-priority-reconciliation-r01__OPERATOR.md
+
+project_priority_reconciliation_blob:
+7f13755a58645e40cd59ccdc4090c92e7397bc1d
+
+SECE_execution_proof_frontier:
+D1D2 exact immutable candidate runtime proof remains required.
+
+historical_R03_authority:
+CONSUMED_BY_R03_ONLY
 
 historical_R03_prompt:
-EVIDENCE_ONLY_NOT_CURRENT_TASK_AUTHORITY
+NON_EXECUTABLE_EVIDENCE_ONLY
 
-historical_R03_operator_authority:
-BOUND_TO_PREDECESSOR_ATTEMPT_NOT_TRANSFERRED_TO_R09
-
-new_exact_SIS_r09_profile_task_authority:
-NOT_FOUND
-
-new_exact_SIS_r09_profile_task:
-NOT_FOUND
-
-historical queue/inbox/recovery task promotion:
-FORBIDDEN
-
-profile_work:
-NOT_STARTED
+new_R04_authority:
+NOT_YET_GRANTED
 
 ## Current disposition
 
@@ -107,16 +107,43 @@ classification:
 BLOCKED
 
 blocker:
-WAITING_EXACT_TASK
+SECE_D1D2_SUCCESSOR_R04_OPERATOR_DECISION_REQUIRED
 
 reason:
-SIS r0.9 is authoritative current-writer, but fresh post-writer reconciliation found no independently valid current exact SIS profile task authority. Historical R03 evidence, PROMPT, recovery and queue state do not become a current task by writer replacement.
+The active SECE primary priority requires continuation of the bounded non-production execution-proof line. R03 cannot be replayed or resumed after replacement. The next causal step is therefore one NEW successor execution attempt R04 under fresh exact authority.
+
+proposed_successor_attempt:
+SIS_SECE_D1D2_PUBLICFETCH_R04_A1
+
+proposed_workspace:
+/data/wellbeing-lab/tmp/sece-d1d2-publicfetch-r04-a1
+
+proposed_target:
+p552203.kvmvps
+
+proposed_device_id:
+830038a0-232b-4d83-b52d-0e9973126165
+
+proposed_source:
+https://github.com/puev5691/wellbeing-hq.git
+
+proposed_exact_commit:
+b32c3bdefa01c036e78a9e4d60fc2a78fd86418c
+
+proposed_exact_package_tree:
+7807b3f5d43fe62b344f8ab6f6947aea98e33af7
+
+R03_workspace_reuse:
+FORBIDDEN
+
+R03_cleanup_by_R04:
+NOT_AUTHORIZED
+
+profile_work:
+NOT_STARTED_FOR_R04
 
 next_causal_gate:
-EXACT_NEW_OR_RECONFIRMED_SIS_TASK_AUTHORITY_REQUIRED
-
-R03 remains:
-NONTERMINAL / DO_NOT_REPLAY
+OPERATOR_DECISION_FOR_ONE_NEW_SECE_D1D2_PUBLICFETCH_R04_ATTEMPT
 
 Project Source/canon mutation:
 NONE
