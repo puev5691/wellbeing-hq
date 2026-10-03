@@ -15,16 +15,15 @@ Resume-First.
 
 ОПЕРАТОР отдельно разрешил только planned CURRENT_WRITER_HANDOFF_FREEZE текущего authoritative SIS r0.8.
 
-Выполни ТОЛЬКО этот freeze/handoff step.
-
-Не выполняй successor initiation, successor Writer Gate, R03 replay/resume/cleanup, host/network mutation либо profile/production work.
+Выполни только этот freeze/handoff step.
 
 ## Exact OPERATOR authority
 
-puev5691/wellbeing-hq:
+puev5691/wellbeing-hq@255904f1c248dc3fecfa8c6e5255c028130efb45:
 entities/koordinator/outbox/KOO__authorize-SIS-r08-planned-handoff-freeze__OPERATOR.md
 
 Exact decision:
+
 AUTHORIZE_SIS_R08_PLANNED_HANDOFF_FREEZE = YES
 
 Scope:
@@ -90,23 +89,24 @@ Expected external blobs:
   a00a06fd04e7443da653d9a94def71a505aecead
 
 Fresh-verify the exact external recovery before freezing.
-
-If mismatch/unavailable:
-STOP BLOCKED.
-Do not freeze against unverified recovery.
+If mismatch/unavailable, STOP BLOCKED.
 
 ## Current R03 boundary
 
 KOO current execution-state:
 
+puev5691/wellbeing-hq@255904f1c248dc3fecfa8c6e5255c028130efb45:
 entities/koordinator/current/execution-evidence/SIS_SECE_D1D2_PUBLICFETCH_R03_A1.md
 
-Expected state at task materialization:
-accepted_current_version = R08_HANDOFF_FREEZE_AUTHORIZED_V5
+blob:
+81b28ae78768cf7d68e4be7071ab22b6b1e55561
 
-Current factual boundary to preserve in freeze:
+accepted_current_version:
+R08_HANDOFF_FREEZE_AUTHORIZED_V5
 
-- R03 is NONTERMINAL / BLOCKED;
+Preserve this exact boundary:
+
+- R03 = NONTERMINAL / BLOCKED;
 - processing_started = YES;
 - anonymous exact commit acquisition = SUCCEEDED;
 - fetched commit = b32c3bdefa01c036e78a9e4d60fc2a78fd86418c;
@@ -115,12 +115,9 @@ Current factual boundary to preserve in freeze:
 - package materialization = NOT_PERFORMED at snapshot boundary;
 - Python package workload = NOT_EXECUTED;
 - R03 terminal result = NOT_CREATED;
-- R03 cleanup = NOT_PERFORMED;
-- R03 replay/resume = FORBIDDEN;
-- host cleanup = NOT_AUTHORIZED.
+- R03 cleanup = NOT_PERFORMED.
 
-Freeze must preserve this state as incomplete/nonterminal evidence.
-Do NOT manufacture terminal PASS/BLOCKED/FAIL for R03.
+Freeze preserves this state as incomplete/nonterminal evidence and must not manufacture a R03 terminal.
 
 ## Required freeze effect
 
@@ -129,9 +126,11 @@ Create one immutable current-state artifact:
 entities/sisadmin/current/SIS__planned-handoff-freeze-r08-r01.md
 
 Required status:
+
 CURRENT_WRITER_HANDOFF_FREEZE
 
 Required terminal:
+
 PASS_SIS_R08_PLANNED_HANDOFF_FREEZE_READY_FOR_SUCCESSOR_INITIATION_GATE
 
 The artifact must record:
@@ -147,52 +146,40 @@ The artifact must record:
 - successor Writer Gate = NOT_PERFORMED;
 - host/network/profile/production mutation by this freeze = NONE.
 
-After immutable publication and exact readback, freeze effect is:
+After immutable publication and exact readback:
 
-1. SIS r0.8 becomes frozen for new normal authoritative profile/current-state work.
+1. SIS r0.8 is frozen for new normal authoritative profile/current-state work.
 2. SIS r0.8 immutable provenance remains valid.
-3. The externally preserved recovery r0.8 remains the recovery basis for a future successor initiation.
-4. No unfinished R03 work resumes automatically.
-5. No historical PROMPT/task becomes executable.
-6. Successor initiation requires fresh KOO reconciliation and a separate current activation/authority step.
-7. Successor Writer Gate requires a later separate decision.
+3. External recovery r0.8 remains the recovery basis for future successor initiation.
+4. Unfinished R03 work and historical PROMPT/tasks do not resume automatically.
+5. Successor initiation requires fresh KOO reconciliation and a separate current activation/authority step.
+6. Successor Writer Gate remains a later separate decision.
 
-## Forbidden effects
+## Hard boundaries
 
-Do NOT:
-
-- perform successor initiation;
-- create successor current-writer;
-- perform successor Writer Gate;
-- continue or replay R03;
-- clean R03 workspace;
-- run Python R03 workload;
-- mutate host/network/storage;
-- activate/deploy simulator;
-- call Telegram/OpenAI/provider;
-- mutate Project Sources/canons;
-- infer CHECKPOINT_DURABLE;
-- create any new profile task.
+This task does not authorize:
+- successor initiation/current-writer/Writer Gate;
+- R03 replay, resume, terminal fabrication or cleanup;
+- R03 Python workload;
+- host/network/storage mutation;
+- simulator activation/deploy;
+- Telegram/OpenAI/provider calls;
+- Project Source/canon mutation;
+- any new profile task.
 
 ## STOP conditions
 
-STOP with exact BLOCKED if:
-
-- current SIS writer mismatch;
-- competing/newer writer/freeze/handoff appears;
-- OPERATOR authority record mismatch;
-- external r0.8 recovery mismatch/unavailable;
-- ARH preservation result mismatch;
+STOP exact BLOCKED if:
+- current SIS writer, authority, external recovery or ARH preservation identity does not match;
+- a competing/newer writer, freeze, handoff or successor appears;
 - KOO R03 state changed incompatibly;
-- continuation requires any forbidden effect or broader authority.
+- completion would require anything outside the Hard boundaries above.
 
 Do not repair or reinterpret evidence.
 
 ## Required return
 
-After immutable freeze publication + readback:
-
-RETURN KOO + OPERATOR:
+After immutable freeze publication + readback return KOO + OPERATOR:
 
 - exact freeze artifact locator;
 - commit;
@@ -201,9 +188,7 @@ RETURN KOO + OPERATOR:
 - terminal;
 - exact external recovery locator;
 - R03 boundary confirmation;
-- explicit successor initiation = NOT_PERFORMED;
-- explicit successor Writer Gate = NOT_PERFORMED.
+- successor initiation = NOT_PERFORMED;
+- successor Writer Gate = NOT_PERFORMED.
 
 Then STOP.
-
-Do not initiate successor SIS.
