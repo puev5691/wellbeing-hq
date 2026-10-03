@@ -6,21 +6,16 @@ profile_effectivity_record: puev5691/wellbeing-hq@259f4c8dbddc42b4b446ef57fec46f
 
 execution_attempt_id: KOD_SECE_IMPLCORR_STATIC_D1D2_R02_A1
 task_id: SECE_R01_IMPLCORR_STATIC_D1D2_R02
-task_locator: entities/koordinator/outbox/KOD_SECE_implcorr_static_D1D2_r02_prompt.md
-authority_ref: current OPERATOR decision AUTHORIZE_KOD_SECE_R01_IMPLCORR_STATIC_D1_D2_R02 = YES
-authority_scope: NEW KOD correction-only successor for SHD static D1+D2 only
-
-profile_applicability_reason: CROSS_CHAT_FAILURE_REPLACEMENT_RISK
-task_uses_interchat_prompt_conveyor: YES
-task_is_new_attempt: YES
+task_locator: puev5691/wellbeing-hq@32172638cdb62edd7e86445be35f4e439409218f:entities/koordinator/outbox/KOD_SECE_implcorr_static_D1D2_r02_prompt.md
+task_blob: c5065ffd7a0d5f2703e8ca88952d4b8f2f134593
 
 actor_entity: KOD
 actor_writer_ref: entities/koder/current/KOD__replacement-current-writer-v07.md
 actor_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
 writer_requirement: REQUIRED
 
-task_currentness: CURRENT_AT_MATERIALIZATION
-supersession_conflict: NONE_FOUND_AT_MATERIALIZATION
+task_currentness: COMPLETED
+supersession_conflict: NONE_FOUND
 
 input_shd_result:
 puev5691/wellbeing-hq@70fbbe5d98b10b0cc9e631e185c2a9d4dea65734:entities/shardovik/outbox/SHD__SECE-r01-offline-simulator-implcorr-review-r01__KOO.md
@@ -30,27 +25,48 @@ predecessor_package:
 puev5691/wellbeing-hq@8a07768c58013082ab8e6bcb1d92918b8060ecda:entities/koder/outbox/sece-r01-offline-simulator-implementation-candidate-correction-successor/
 predecessor_package_tree: e019ddb0615bf09c647c44e1dffe6a4c2e14f5a6
 
-static_defects_authorized:
-- D1_NEXT_GATE_RULE_END_TO_END_PIPELINE
-- D2_STATICVALIDATOR_TRANSFORMATION_PROXY_AND_ANTICHEAT_COVERAGE
-
-external_execution_blocker:
-PRESERVED_OUT_OF_SCOPE
-
-terminal_criterion:
-one immutable KOD terminal result for NEW static D1+D2 corrected successor with exact successor identity/test evidence and preserved external execution blocker
-
 initial_state: INITIAL_NOT_STARTED
-initial_state_meaning: accepted observed frontier for this exact attempt; not proof of absence of unknown external effects outside evidence scope
-processing_started: NOT_PROVEN
-processing_started_event: NONE
+initial_state_blob: c5c3cf9236d96022e4856efd939291a01bbcc31d
 
-expected_current_version: INITIAL
-accepted_current_version: INITIAL_V1
+processing_started: YES
+processing_started_event_ref:
+puev5691/wellbeing-hq@384d99ef281544275d80b13ff8f4bdf441f089c0:entities/koder/outbox/execution-evidence/KOD_SECE_IMPLCORR_STATIC_D1D2_R02_A1__PROCESSING_STARTED_E1.md
+processing_started_event_blob: 66316a8d87d9a59facdac8dbf6b01263c04d1941
+
+processing_started_event_acceptance:
+PASS_EXPECTED_PREDECESSOR_MATCHED
+
+processing_state: TERMINAL
+
+terminal_result_ref:
+puev5691/wellbeing-hq@2df68634e4d26f974addc9c6b29323dd809a1644:entities/koder/outbox/KOD__SECE-r01-implcorr-static-D1D2-r02__KOO.md
+terminal_result_blob: deaebc4cb40d687350ac670736df5aebe29ea1a4
+
+terminal:
+BLOCKED_KOD_SECE_R01_IMPLCORR_STATIC_D1D2_R02_PACKAGE_LOCAL_TEST_EXECUTION
+
+successor_package:
+puev5691/wellbeing-hq@b32c3bdefa01c036e78a9e4d60fc2a78fd86418c:entities/koder/outbox/sece-r01-offline-simulator-implementation-static-d1d2-r02/
+successor_package_tree: 7807b3f5d43fe62b344f8ab6f6947aea98e33af7
+successor_package_identity: f2ff196fa8463834b08fc44d636de1aa2527db873fa38f490858a9be5688e4a1
+successor_candidate_status: OFFLINE_SIMULATOR_IMPLEMENTATION_CANDIDATE_NOT_ACTIVATED
+
+static_D1_code_status: IMPLEMENTED_STATICALLY_SUPPORTED_NOT_RUNTIME_PROVEN
+static_D2_code_status: IMPLEMENTED_STATICALLY_SUPPORTED_NOT_RUNTIME_PROVEN
+
+kod_package_local_execution:
+BLOCKED_KOD_LOCAL_MATERIALIZATION_BRIDGE
+
+shd_independent_execution_blocker:
+UNCHANGED_EXTERNAL_BLOCKER
+
+expected_current_version: INITIAL_V1
+accepted_current_version: TERMINAL_V2_BLOCKED_WITH_SUCCESSOR_PACKAGE
 successor_acceptance_rule: exact-attempt conditional current-version acceptance; no last-write-wins
 
+terminal_complete_for_continuity: YES
 next_causal_disposition:
-AWAIT_OPERATOR_MANUAL_TRANSFER_TO_KOD
+WAITING_OPERATOR_DECISION_FOR_INDEPENDENT_ISOLATED_EXECUTION_PROOF
 
 next_disposition_creates_task_authority: NO
 
