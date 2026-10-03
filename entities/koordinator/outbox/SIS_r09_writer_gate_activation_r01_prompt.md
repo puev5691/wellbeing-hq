@@ -22,10 +22,13 @@ Resume-First.
 
 ## Exact authority
 
-puev5691/wellbeing-hq:
+puev5691/wellbeing-hq@da096e62308d04c28ea574d4a3af719e4fdcbfa6:
 entities/koordinator/outbox/KOO__authorize-SIS-r09-writer-gate-only__OPERATOR.md
 
-Exact OPERATOR decision:
+blob:
+d53e038dd2a3ca2dd4a72304db9850e2f46ea371
+
+Exact decision:
 
 AUTHORIZE_SIS_R09_WRITER_GATE_ONLY = YES
 
@@ -42,9 +45,6 @@ INITIATION_VERIFIED_WAITING_WRITER_GATE
 
 terminal:
 initiation_verified_waiting_writer_gate
-
-immutable readback:
-PASS
 
 ## Predecessor freeze and recovery
 
@@ -69,48 +69,45 @@ package tree:
 
 ## Active Project Sources
 
-Fresh-verify these exact active blobs:
+Fresh-verify:
 
-- Project Core v2.5
-  a42f7dca6a7469a54fa2da24aae0da4e549c9d33
-- Entity Roles v2.4
-  1772339cb74dae8550bfbd2e33401c34a929e911
-- Source Loading Policy v2.2
-  69eb657f260a019f76e8e707c880ea88c1dfa0bf
-- Recovery Canon v1.6
-  233117e1c9509d730e1f5ec532b1cabe3f786609
-- File Work Canon v2.4
-  e9c29d62057f34e4f771d6057a36d9b7f72e74c2
-- Task Conveyor Canon v1.2
-  df7896d867eeeffff506319538fedad938856686
+- Project Core v2.5 — `a42f7dca6a7469a54fa2da24aae0da4e549c9d33`
+- Entity Roles v2.4 — `1772339cb74dae8550bfbd2e33401c34a929e911`
+- Source Loading Policy v2.2 — `69eb657f260a019f76e8e707c880ea88c1dfa0bf`
+- Recovery Canon v1.6 — `233117e1c9509d730e1f5ec532b1cabe3f786609`
+- File Work Canon v2.4 — `e9c29d62057f34e4f771d6057a36d9b7f72e74c2`
+- Task Conveyor Canon v1.2 — `df7896d867eeeffff506319538fedad938856686`
 
 ## R03 boundary
 
-Current KOO state at task materialization:
+Current KOO state:
 
+puev5691/wellbeing-hq@da096e62308d04c28ea574d4a3af719e4fdcbfa6:
 entities/koordinator/current/execution-evidence/SIS_SECE_D1D2_PUBLICFETCH_R03_A1.md
 
-Expected accepted version:
+blob:
+4e6c68526f21992195b553ad0bf11aceb00527c1
+
+Expected version:
 R09_WRITER_GATE_AUTHORIZED_AWAITING_TRANSFER_V9
 
 Preserve:
-R03 = NONTERMINAL / DO_NOT_REPLAY.
 
-Writer Gate must not resume or alter R03.
+R03 = NONTERMINAL / DO_NOT_REPLAY.
 
 ## Writer Gate procedure
 
 1. Fresh-preflight wellbeing-hq.
-2. Verify exact Writer Gate authority and initiation result.
-3. Verify predecessor r0.8 freeze and external recovery r0.8 remain unchanged.
-4. Verify all six active Project Sources.
+2. Verify Writer Gate authority and exact initiation result.
+3. Verify predecessor r0.8 freeze and recovery r0.8.
+4. Verify active Project Sources 6/6.
 5. Verify no competing SIS r0.9 current-writer or superseding replacement/initiation exists.
-6. Verify no newer evidence supersedes this Writer Gate task.
-7. If all checks pass, establish this exact initiated SIS r0.9 instance as the sole authoritative SIS current-writer.
+6. Verify no newer evidence supersedes this task.
+7. If all checks pass, establish this exact SIS r0.9 instance as sole authoritative SIS current-writer.
 8. Publish and read back one immutable current-writer artifact.
-9. STOP after Writer Gate.
+9. STOP.
 
-## Required current-writer artifact
+## Required artifact
 
 Create:
 
@@ -123,17 +120,17 @@ Required terminal:
 PASS_SIS_R09_WRITER_GATE_CURRENT_WRITER_ESTABLISHED
 
 Record:
-- exact Writer Gate authority locator/blob;
-- exact initiation result locator/blob/terminal;
-- predecessor freeze locator/blob/terminal;
-- external recovery locator/commit/tree;
-- active Source verification;
-- fresh competing-writer/supersession reconciliation;
-- R03 NONTERMINAL / DO_NOT_REPLAY;
+- authority locator/blob;
+- initiation result locator/blob/terminal;
+- predecessor freeze;
+- recovery r0.8;
+- active Sources verification;
+- competing-writer/supersession reconciliation;
+- R03 = NONTERMINAL / DO_NOT_REPLAY;
 - historical replay = FORBIDDEN;
 - profile_work = NOT_STARTED.
 
-## Hard boundaries
+## Boundaries / STOP
 
 This Writer Gate does not authorize:
 - R03 replay/resume/cleanup;
@@ -143,15 +140,13 @@ This Writer Gate does not authorize:
 - historical task/PROMPT replay;
 - Project Source/canon mutation.
 
-## STOP conditions
-
-STOP BLOCKED if:
+STOP BLOCKED immediately if:
 - initiation, authority, freeze or recovery identity mismatches;
 - active Sources conflict;
-- competing SIS r0.9 writer/replacement exists;
+- a competing SIS r0.9 writer/replacement exists;
 - fresh evidence supersedes this task;
 - required verification is unavailable;
-- completion would exceed WRITER_GATE_ONLY.
+- completion would require any action outside WRITER_GATE_ONLY or any action listed above as not authorized.
 
 ## Required return
 
