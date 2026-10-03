@@ -8,18 +8,18 @@ execution_attempt_id:
 SIS_SECE_D1D2_PUBLICFETCH_R03_A1
 
 expected_predecessor_state_blob:
-3d4904aa655b70278781443a2e71e68c799ee01c
+4e6c68526f21992195b553ad0bf11aceb00527c1
 
 expected_predecessor_version:
-R09_INITIATED_WRITER_GATE_DECISION_PENDING_V8
+R09_WRITER_GATE_AUTHORIZED_AWAITING_TRANSFER_V9
 
 accepted_current_version:
-R09_WRITER_GATE_AUTHORIZED_AWAITING_TRANSFER_V9
+R09_WRITER_ESTABLISHED_WAITING_EXACT_TASK_V10
 
 last_write_wins:
 FORBIDDEN
 
-## R03 preserved boundary
+## Preserved R03 evidence
 
 R03:
 NONTERMINAL / DO_NOT_REPLAY
@@ -55,51 +55,68 @@ R03_replay:
 FORBIDDEN
 
 R03_resume_or_reactivation:
-BLOCKED
+NOT_AUTHORIZED
 
-## SIS r0.9 transition state
+## Current SIS writer
 
-initiation_result:
-puev5691/wellbeing-hq@be7a7c62931cf5fec370e71c7809e76e822a3310:
-entities/sisadmin/outbox/SIS__planned-replacement-initiation-r09-result__KOO.md
+current_writer:
+puev5691/wellbeing-hq@1de10d5d61430fae49f8e27bccbd655c3ed2c972:
+entities/sisadmin/current/SIS__planned-replacement-current-writer-r09.md
 
-initiation_result_blob:
-9b2d540680fc7e4fd21655d38964f44cedd46b14
+current_writer_blob:
+285bf0fd28d6b617f582ad10f0dada6cc7e899ff
 
-initiation:
-VERIFIED
+status:
+CURRENT_WRITER_ESTABLISHED
 
-predecessor_freeze:
-puev5691/wellbeing-hq@501cd387bf6c254086cb92713e7f6b2253e18707:
-entities/sisadmin/current/SIS__planned-handoff-freeze-r08-r01.md
+terminal:
+PASS_SIS_R09_WRITER_GATE_CURRENT_WRITER_ESTABLISHED
 
-predecessor_freeze_blob:
-8b1e42486a27deec3f4572d23b0e6d5455e1a45d
+sole_authoritative_SIS_current_writer:
+SIS r0.9
 
-external_recovery:
-puev5691/wellbeing-entity-bootstrap@a075147ee4f9e060141ea75a18f68d7cabec4098:
-entities/sis/recovery/versions/sis-planned-r08
+## Fresh post-writer task-conveyor reconciliation
 
-external_package_tree:
-3730a6afd337439d3c9487c12344300df9b05a79
+fresh_hq_head_before_write:
+1de10d5d61430fae49f8e27bccbd655c3ed2c972
 
-AUTHORIZE_SIS_R09_WRITER_GATE_ONLY:
-YES
+post_writer_commits_before_reconciliation:
+NONE
 
-writer_gate:
-AUTHORIZED_NOT_YET_PROVEN_EXECUTED
+historical_R03_prompt:
+EVIDENCE_ONLY_NOT_CURRENT_TASK_AUTHORITY
 
-current_writer_for_r09:
-NOT_ESTABLISHED
+historical_R03_operator_authority:
+BOUND_TO_PREDECESSOR_ATTEMPT_NOT_TRANSFERRED_TO_R09
+
+new_exact_SIS_r09_profile_task_authority:
+NOT_FOUND
+
+new_exact_SIS_r09_profile_task:
+NOT_FOUND
+
+historical queue/inbox/recovery task promotion:
+FORBIDDEN
 
 profile_work:
 NOT_STARTED
 
-historical_replay:
-FORBIDDEN
+## Current disposition
 
-next_step:
-TRANSFER_WRITER_GATE_PROMPT_TO_EXISTING_SIS_R09_CHAT
+classification:
+BLOCKED
+
+blocker:
+WAITING_EXACT_TASK
+
+reason:
+SIS r0.9 is authoritative current-writer, but fresh post-writer reconciliation found no independently valid current exact SIS profile task authority. Historical R03 evidence, PROMPT, recovery and queue state do not become a current task by writer replacement.
+
+next_causal_gate:
+EXACT_NEW_OR_RECONFIRMED_SIS_TASK_AUTHORITY_REQUIRED
+
+R03 remains:
+NONTERMINAL / DO_NOT_REPLAY
 
 Project Source/canon mutation:
 NONE
