@@ -8,18 +8,21 @@ execution_attempt_id:
 SIS_SECE_D1D2_PUBLICFETCH_R03_A1
 
 expected_predecessor_state_blob:
-8e5e2042d6812f771eb5018a17cb841b0c919380
+14542976691d823b078c51606d86bd6f5310f680
 
 expected_predecessor_version:
-R08_FROZEN_INITIATION_DECISION_PENDING_V6
+R09_INITIATION_AUTHORIZED_AWAITING_TRANSFER_V7
 
 accepted_current_version:
-R09_INITIATION_AUTHORIZED_AWAITING_TRANSFER_V7
+R09_INITIATED_WRITER_GATE_DECISION_PENDING_V8
 
 last_write_wins:
 FORBIDDEN
 
-## R03 preserved facts
+## R03 preserved boundary
+
+R03:
+NONTERMINAL / DO_NOT_REPLAY
 
 processing_started:
 YES
@@ -54,7 +57,23 @@ FORBIDDEN
 R03_resume_or_reactivation:
 BLOCKED
 
-## Replacement state
+## SIS r0.9 initiation
+
+initiation_result:
+puev5691/wellbeing-hq@be7a7c62931cf5fec370e71c7809e76e822a3310:
+entities/sisadmin/outbox/SIS__planned-replacement-initiation-r09-result__KOO.md
+
+initiation_result_blob:
+9b2d540680fc7e4fd21655d38964f44cedd46b14
+
+initiation_status:
+INITIATION_VERIFIED_WAITING_WRITER_GATE
+
+initiation_terminal:
+initiation_verified_waiting_writer_gate
+
+immutable_readback:
+PASS
 
 predecessor_freeze:
 puev5691/wellbeing-hq@501cd387bf6c254086cb92713e7f6b2253e18707:
@@ -63,9 +82,6 @@ entities/sisadmin/current/SIS__planned-handoff-freeze-r08-r01.md
 predecessor_freeze_blob:
 8b1e42486a27deec3f4572d23b0e6d5455e1a45d
 
-predecessor_disposition:
-FROZEN_FOR_NEW_NORMAL_AUTHORITATIVE_PROFILE_CURRENT_STATE_WORK
-
 external_recovery:
 puev5691/wellbeing-entity-bootstrap@a075147ee4f9e060141ea75a18f68d7cabec4098:
 entities/sis/recovery/versions/sis-planned-r08
@@ -73,34 +89,40 @@ entities/sis/recovery/versions/sis-planned-r08
 external_package_tree:
 3730a6afd337439d3c9487c12344300df9b05a79
 
-## OPERATOR successor initiation authority
+active_sources:
+6/6 PASS
 
-AUTHORIZE_SIS_R09_PLANNED_REPLACEMENT_INITIATION_GATE:
-YES
+competing SIS r0.9 current-writer:
+NOT_FOUND
 
-authority_scope:
-INITIATION_GATE_ONLY
+current explicit Writer Gate authority:
+NOT_FOUND
 
-successor_designation:
-SIS r0.9
+## Current classification
+
+classification:
+BLOCKED
+
+blocker:
+SIS_R09_WRITER_GATE_OPERATOR_DECISION_REQUIRED
 
 successor_instance:
-NOT_YET_ESTABLISHED_PENDING_OPERATOR_TRANSFER_TO_NEW_CHAT
-
-successor_initiation:
-AUTHORIZED_NOT_YET_PROVEN_EXECUTED
+INITIATED
 
 successor_current_writer:
 NOT_ESTABLISHED
 
-successor_writer_gate:
-NOT_AUTHORIZED
+Writer_Gate:
+NOT_PERFORMED
+
+profile_work:
+NOT_STARTED
 
 historical_replay:
-NONE
+FORBIDDEN
 
-next_step:
-OPERATOR_CREATE_GENUINELY_NEW_SIS_R09_CHAT_AND_TRANSFER_EXACT_INITIATION_PROMPT
+next_gate:
+OPERATOR_DECISION_SIS_R09_WRITER_GATE_ONLY
 
 Project Source/canon mutation:
 NONE
