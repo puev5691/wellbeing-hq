@@ -67,11 +67,7 @@ facts:
 - NONTERMINAL / DO_NOT_REPLAY;
 - processing_started = YES;
 - anonymous exact commit acquisition = SUCCEEDED;
-- fetched commit = b32c3bdefa01c036e78fd86418c68d7cabec4098;
-
-Correction: the exact R03 fetched candidate commit is:
-b32c3bdefa01c036e78a9e4d60fc2a78fd86418c
-
+- fetched commit = b32c3bdefa01c036e78a9e4d60fc2a78fd86418c;
 - resolved package tree = 7807b3f5d43fe62b344f8ab6f6947aea98e33af7;
 - CHECKPOINT_DURABLE = NOT_CREATED;
 - package materialization = NOT_PERFORMED_AT_SNAPSHOT_BOUNDARY;
