@@ -1,0 +1,62 @@
+# Execution evidence — KOD_SECE_IMPLCORR_STATIC_D1D2_R02_A1
+
+profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
+profile_version_semantic_blob: db146a594659e48fa0ce51fd9cd81602cf50058e
+profile_effectivity_record: puev5691/wellbeing-hq@259f4c8dbddc42b4b446ef57fec46f44db1b4e3e:entities/koordinator/current/CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01.active.md
+
+execution_attempt_id: KOD_SECE_IMPLCORR_STATIC_D1D2_R02_A1
+task_id: SECE_R01_IMPLCORR_STATIC_D1D2_R02
+task_locator: entities/koordinator/outbox/KOD_SECE_implcorr_static_D1D2_r02_prompt.md
+authority_ref: current OPERATOR decision AUTHORIZE_KOD_SECE_R01_IMPLCORR_STATIC_D1_D2_R02 = YES
+authority_scope: NEW KOD correction-only successor for SHD static D1+D2 only
+
+profile_applicability_reason: CROSS_CHAT_FAILURE_REPLACEMENT_RISK
+task_uses_interchat_prompt_conveyor: YES
+task_is_new_attempt: YES
+
+actor_entity: KOD
+actor_writer_ref: entities/koder/current/KOD__replacement-current-writer-v07.md
+actor_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+writer_requirement: REQUIRED
+
+task_currentness: CURRENT_AT_MATERIALIZATION
+supersession_conflict: NONE_FOUND_AT_MATERIALIZATION
+
+input_shd_result:
+puev5691/wellbeing-hq@70fbbe5d98b10b0cc9e631e185c2a9d4dea65734:entities/shardovik/outbox/SHD__SECE-r01-offline-simulator-implcorr-review-r01__KOO.md
+input_shd_result_blob: 6b0cd7e57e1b7cf72bddf3992a00738c13d07bc2
+
+predecessor_package:
+puev5691/wellbeing-hq@8a07768c58013082ab8e6bcb1d92918b8060ecda:entities/koder/outbox/sece-r01-offline-simulator-implementation-candidate-correction-successor/
+predecessor_package_tree: e019ddb0615bf09c647c44e1dffe6a4c2e14f5a6
+
+static_defects_authorized:
+- D1_NEXT_GATE_RULE_END_TO_END_PIPELINE
+- D2_STATICVALIDATOR_TRANSFORMATION_PROXY_AND_ANTICHEAT_COVERAGE
+
+external_execution_blocker:
+PRESERVED_OUT_OF_SCOPE
+
+terminal_criterion:
+one immutable KOD terminal result for NEW static D1+D2 corrected successor with exact successor identity/test evidence and preserved external execution blocker
+
+initial_state: INITIAL_NOT_STARTED
+initial_state_meaning: accepted observed frontier for this exact attempt; not proof of absence of unknown external effects outside evidence scope
+processing_started: NOT_PROVEN
+processing_started_event: NONE
+
+expected_current_version: INITIAL
+accepted_current_version: INITIAL_V1
+successor_acceptance_rule: exact-attempt conditional current-version acceptance; no last-write-wins
+
+next_causal_disposition:
+AWAIT_OPERATOR_MANUAL_TRANSFER_TO_KOD
+
+next_disposition_creates_task_authority: NO
+
+historical_replay: NONE
+simulator_activation: NONE
+external_host_runtime_mutation: NONE
+Project Source/canon mutation: NONE
+
+project_time: omitted
