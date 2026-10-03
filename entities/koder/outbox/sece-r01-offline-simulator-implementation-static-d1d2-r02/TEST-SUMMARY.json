@@ -1,0 +1,9 @@
+{
+  "status": "BLOCKED",
+  "execution_attempt_id": "KOD_SECE_IMPLCORR_STATIC_D1D2_R02_A1",
+  "candidate_status": "OFFLINE_SIMULATOR_IMPLEMENTATION_CANDIDATE_NOT_ACTIVATED",
+  "package_local_commands_executed": false,
+  "blocker": "BLOCKED_KOD_LOCAL_MATERIALIZATION_BRIDGE",
+  "shd_independent_execution_environment_blocker": "UNCHANGED_EXTERNAL_BLOCKER",
+  "claimed_runtime_markers": []
+}
