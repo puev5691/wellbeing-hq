@@ -14,29 +14,19 @@ entities/koordinator/outbox/SIS_SECE_D1D2_publicfetch_exec_r03_prompt.md
 task_blob:
 6f2efa24959a90b3477019fdada1c2bab9deec73
 
-actor_entity:
-SIS
-
-actor_writer:
-puev5691/wellbeing-hq@589f57033cf025ab9f26f17c480b167d87638e1e:
-entities/sisadmin/current/SIS__emergency-replacement-current-writer-r08.md
-
-actor_writer_blob:
-2b79f89729cf0fd6c1a3d25e273e86f0c1c01b78
-
 expected_predecessor_state_blob:
-ad84703c50e506f0343b7e20be75427126905a50
+81b28ae78768cf7d68e4be7071ab22b6b1e55561
 
 expected_predecessor_version:
-R08_RECOVERY_EXTERNALLY_PRESERVED_V4
+R08_HANDOFF_FREEZE_AUTHORIZED_V5
 
 accepted_current_version:
-R08_HANDOFF_FREEZE_AUTHORIZED_V5
+R08_FROZEN_INITIATION_DECISION_PENDING_V6
 
 last_write_wins:
 FORBIDDEN
 
-## Preserved execution facts
+## Preserved R03 facts
 
 processing_started:
 YES
@@ -65,13 +55,31 @@ NOT_CREATED
 R03_cleanup:
 NOT_PERFORMED
 
-R03_profile_execution_after_replacement_prep_instruction:
-NOT_CONTINUED
+R03_replay:
+FORBIDDEN
 
-## Recovery preservation
+R03_resume_or_reactivation:
+BLOCKED
 
-ARH_terminal:
-PASS_ARH_SIS_PLANNED_REPLACEMENT_R08_EXTERNALLY_PRESERVED
+## Predecessor SIS r0.8 freeze
+
+freeze:
+puev5691/wellbeing-hq@501cd387bf6c254086cb92713e7f6b2253e18707:
+entities/sisadmin/current/SIS__planned-handoff-freeze-r08-r01.md
+
+freeze_blob:
+8b1e42486a27deec3f4572d23b0e6d5455e1a45d
+
+freeze_status:
+CURRENT_WRITER_HANDOFF_FREEZE
+
+freeze_terminal:
+PASS_SIS_R08_PLANNED_HANDOFF_FREEZE_READY_FOR_SUCCESSOR_INITIATION_GATE
+
+predecessor_disposition:
+FROZEN_FOR_NEW_NORMAL_AUTHORITATIVE_PROFILE_CURRENT_STATE_WORK
+
+## Recovery basis
 
 external_recovery:
 puev5691/wellbeing-entity-bootstrap@a075147ee4f9e060141ea75a18f68d7cabec4098:
@@ -80,13 +88,31 @@ entities/sis/recovery/versions/sis-planned-r08
 external_package_tree:
 3730a6afd337439d3c9487c12344300df9b05a79
 
-## OPERATOR freeze authority
+external_composition:
+5/5 PASS
 
-AUTHORIZE_SIS_R08_PLANNED_HANDOFF_FREEZE:
-YES
+## Fresh successor reconciliation
 
-authority_scope:
-planned current-writer handoff freeze only
+fresh_hq_head_before_write:
+501cd387bf6c254086cb92713e7f6b2253e18707
+
+active_project_sources:
+6/6 exact blobs PASS
+
+competing successor SIS initiation:
+NOT_FOUND
+
+successor SIS current-writer:
+NOT_FOUND
+
+successor Writer Gate:
+NOT_PERFORMED
+
+current OPERATOR authority for successor Initiation Gate:
+NOT_FOUND
+
+historical replay:
+NONE
 
 ## Current classification
 
@@ -94,42 +120,25 @@ classification:
 BLOCKED
 
 blocker:
-PLANNED_HANDOFF_FREEZE_AUTHORIZED_AWAITING_SIS_EXECUTION_R03_NONTERMINAL
+SUCCESSOR_INITIATION_GATE_OPERATOR_DECISION_REQUIRED
 
-R03_replay:
-FORBIDDEN
+R03 remains:
+NONTERMINAL / DO_NOT_REPLAY
 
-R03_overlapping_retry:
-FORBIDDEN
-
-R03_resume_or_reactivation:
-BLOCKED
-
-host_cleanup:
-NOT_AUTHORIZED
-
-historical_replay:
-NONE
-
-## Replacement boundary
-
-SIS r0.8 current-writer before freeze:
-UNCHANGED
-
-planned handoff freeze:
-AUTHORIZED_NOT_YET_PROVEN_EXECUTED
-
-successor SIS instance:
+successor_instance:
 NOT_ESTABLISHED
 
-successor SIS initiation:
+successor_initiation:
 NOT_PERFORMED
 
-successor SIS Writer Gate:
+successor_current_writer:
+NOT_ESTABLISHED
+
+successor_writer_gate:
 NOT_PERFORMED
 
-next_step:
-TRANSFER_EXACT_FREEZE_PROMPT_TO_CURRENT_SIS_R08
+next_gate:
+OPERATOR_DECISION_FOR_NEW_SIS_R09_PLANNED_REPLACEMENT_INITIATION_GATE
 
 Project Source/canon mutation:
 NONE
