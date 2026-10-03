@@ -8,13 +8,13 @@ execution_attempt_id:
 SIS_SECE_D1D2_PUBLICFETCH_R03_A1
 
 expected_predecessor_state_blob:
-14542976691d823b078c51606d86bd6f5310f680
+3d4904aa655b70278781443a2e71e68c799ee01c
 
 expected_predecessor_version:
-R09_INITIATION_AUTHORIZED_AWAITING_TRANSFER_V7
+R09_INITIATED_WRITER_GATE_DECISION_PENDING_V8
 
 accepted_current_version:
-R09_INITIATED_WRITER_GATE_DECISION_PENDING_V8
+R09_WRITER_GATE_AUTHORIZED_AWAITING_TRANSFER_V9
 
 last_write_wins:
 FORBIDDEN
@@ -57,7 +57,7 @@ FORBIDDEN
 R03_resume_or_reactivation:
 BLOCKED
 
-## SIS r0.9 initiation
+## SIS r0.9 transition state
 
 initiation_result:
 puev5691/wellbeing-hq@be7a7c62931cf5fec370e71c7809e76e822a3310:
@@ -66,14 +66,8 @@ entities/sisadmin/outbox/SIS__planned-replacement-initiation-r09-result__KOO.md
 initiation_result_blob:
 9b2d540680fc7e4fd21655d38964f44cedd46b14
 
-initiation_status:
-INITIATION_VERIFIED_WAITING_WRITER_GATE
-
-initiation_terminal:
-initiation_verified_waiting_writer_gate
-
-immutable_readback:
-PASS
+initiation:
+VERIFIED
 
 predecessor_freeze:
 puev5691/wellbeing-hq@501cd387bf6c254086cb92713e7f6b2253e18707:
@@ -89,31 +83,14 @@ entities/sis/recovery/versions/sis-planned-r08
 external_package_tree:
 3730a6afd337439d3c9487c12344300df9b05a79
 
-active_sources:
-6/6 PASS
+AUTHORIZE_SIS_R09_WRITER_GATE_ONLY:
+YES
 
-competing SIS r0.9 current-writer:
-NOT_FOUND
+writer_gate:
+AUTHORIZED_NOT_YET_PROVEN_EXECUTED
 
-current explicit Writer Gate authority:
-NOT_FOUND
-
-## Current classification
-
-classification:
-BLOCKED
-
-blocker:
-SIS_R09_WRITER_GATE_OPERATOR_DECISION_REQUIRED
-
-successor_instance:
-INITIATED
-
-successor_current_writer:
+current_writer_for_r09:
 NOT_ESTABLISHED
-
-Writer_Gate:
-NOT_PERFORMED
 
 profile_work:
 NOT_STARTED
@@ -121,8 +98,8 @@ NOT_STARTED
 historical_replay:
 FORBIDDEN
 
-next_gate:
-OPERATOR_DECISION_SIS_R09_WRITER_GATE_ONLY
+next_step:
+TRANSFER_WRITER_GATE_PROMPT_TO_EXISTING_SIS_R09_CHAT
 
 Project Source/canon mutation:
 NONE
