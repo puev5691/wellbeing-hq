@@ -1,0 +1,12 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__chat-infofield-profile-preparation-r01__KOO.md
+artifact_commit: 22d52ddc8e8e70541d0e230c8b3d323430357f79
+artifact_blob: c1ef732160edd7c96073861fc2713f86f27b960c
+candidate: entities/shtabist/outbox/SHT__chat-infofield-execution-evidence-profile-r01-candidate.md
+candidate_blob: db146a594659e48fa0ce51fd9cd81602cf50058e
+dispatch_commit: 82a40da351249d00f448290044765490646f6543
+terminal: PASS_SHT_CHAT_INFOFIELD_PROFILE_R01_CANDIDATE_READY_FOR_KAN_REVIEW
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
+processing_started: not_proven
