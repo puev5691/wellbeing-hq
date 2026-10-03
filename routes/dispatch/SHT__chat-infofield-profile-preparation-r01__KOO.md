@@ -1,0 +1,12 @@
+# Dispatch SHT -> KOO
+artifact: entities/shtabist/outbox/SHT__chat-infofield-profile-preparation-r01__KOO.md
+artifact_commit: 22d52ddc8e8e70541d0e230c8b3d323430357f79
+artifact_blob: c1ef732160edd7c96073861fc2713f86f27b960c
+candidate: entities/shtabist/outbox/SHT__chat-infofield-execution-evidence-profile-r01-candidate.md
+candidate_commit: d9c48a48c208c08b7f59d76f0f4d554726dabf85
+candidate_blob: db146a594659e48fa0ce51fd9cd81602cf50058e
+terminal: PASS_SHT_CHAT_INFOFIELD_PROFILE_R01_CANDIDATE_READY_FOR_KAN_REVIEW
+status: dispatched
+receipt: null
+acceptance: null
+processing_started: not_proven
