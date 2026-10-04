@@ -13,7 +13,7 @@ task_path:
 entities/koordinator/outbox/SIS_SECE_C7_R03_burzh_runtime_r06_prompt.md
 
 task_blob:
-ad4e267659448c3cd357500de9016b6314ba06b4
+2576555f9729083dcd5a148c386bcf6c289eeb8f
 
 authority:
 puev5691/wellbeing-hq@d41057922d26d191a8403b4ec43a84213342b618:
