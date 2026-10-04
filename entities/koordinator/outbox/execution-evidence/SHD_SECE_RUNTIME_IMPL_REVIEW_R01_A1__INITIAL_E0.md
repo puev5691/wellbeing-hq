@@ -1,0 +1,17 @@
+# Initial evidence
+status: INITIAL_EXECUTION_EVIDENCE_CANDIDATE
+attempt: SHD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_REVIEW_R01_A1
+version: INITIAL_CANDIDATE_V1
+initial_state: INITIAL_NOT_STARTED
+task_blob: 7280fc4910c7366f008154abb75304346b4307de
+authority_blob: fc355e98f90e489ae8d6b042164261836d331082
+writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+input_blob: 1f08709a05da4d5cbc74f8fee15cff8b7327a10f
+package_tree: 2858557d540effe9686e16965667040a8ff65caa
+currentness: CURRENT_AT_CREATION
+supersession: NONE
+processing_started: NOT_PROVEN
+acceptance: PENDING
+last_write_wins: FORBIDDEN
+activation: NO
+project_time: omitted
