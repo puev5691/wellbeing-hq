@@ -138,3 +138,28 @@ FORBIDDEN
 
 project_time:
 omitted
+
+
+## KOD correction successor authorized/materialized
+
+authority:
+puev5691/wellbeing-hq@a8ab9d839b679b966eebcae45ded1f458f8d9ea8:
+entities/koordinator/outbox/KOO__authorize-KOD-SECE-C7-regression-R03__OPERATOR.md
+
+authority_blob:
+47e4ac121f5998f81874a9e9efc66be80cb4adf2
+
+successor_attempt:
+KOD_SECE_D1D2_C7_GROUNDING_REGRESSION_R03_A1
+
+successor_task_blob:
+2e0281a0a24541ba67f0d85ed2b2b8d59c33f265
+
+successor_conveyor_state:
+AWAITING_OPERATOR_TRANSFER
+
+automatic_SIS_SHD_rereview:
+FORBIDDEN
+
+project_time:
+omitted
