@@ -1,0 +1,10 @@
+# KOO authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: AUTHORIZE_KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_CANDIDATE_R01 = YES
+owner: KOD v0.7
+attempt: KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_R01_A1
+basis_commit: 7f8c9ab9e831aa4ecdd445eca5490c70fbe11691
+basis_path: entities/koordinator/outbox/KOO__SECE-runtime-integration-offline-implementation-decision__OPERATOR.md
+basis_blob: 20316263db379782459a44007630a67ec331bb13
+project_time: omitted
