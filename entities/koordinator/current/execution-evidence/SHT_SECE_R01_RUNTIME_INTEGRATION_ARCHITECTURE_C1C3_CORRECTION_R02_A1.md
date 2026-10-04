@@ -126,3 +126,31 @@ OPERATOR_DECISION_SHD_SECE_RUNTIME_INTEGRATION_C1C3_REREVIEW_R01
 
 project_time:
 omitted
+
+
+## SHD narrow rereview authorized/materialized
+
+authority:
+puev5691/wellbeing-hq@a93f1befa188836f311d31fcc9d3faa6f921f1d2:
+entities/koordinator/outbox/KOO__authorize-SHD-SECE-runtime-integration-C1C3-rereview-R01__OPERATOR.md
+
+authority_blob:
+cdb56eb6786441318dcbad53030a51f5c874ee42
+
+rereview_attempt:
+SHD_SECE_R01_RUNTIME_INTEGRATION_C1C3_REREVIEW_R01_A1
+
+rereview_task_blob:
+c1eeabb36fd8dd3ced48d8740c7c2f4661f366f0
+
+rereview_conveyor_state:
+AWAITING_OPERATOR_TRANSFER
+
+runtime_implementation_authority:
+NO
+
+activation_deployment_authority:
+NO
+
+project_time:
+omitted
