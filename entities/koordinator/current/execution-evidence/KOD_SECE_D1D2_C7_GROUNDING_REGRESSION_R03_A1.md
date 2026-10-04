@@ -140,7 +140,7 @@ successor_attempt:
 SIS_SECE_C7_R03_BURZH_EXEC_R06_A1
 
 successor_task_blob:
-ad4e267659448c3cd357500de9016b6314ba06b4
+2576555f9729083dcd5a148c386bcf6c289eeb8f
 
 successor_conveyor_state:
 AWAITING_OPERATOR_TRANSFER
