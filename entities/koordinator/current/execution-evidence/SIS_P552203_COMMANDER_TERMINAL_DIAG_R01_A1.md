@@ -22,7 +22,7 @@ task_path:
 entities/koordinator/outbox/SIS_p552203_terminal_diag_r01_prompt.md
 
 task_blob:
-45ee165f82e7187b2509050743d50dbaf958f8d8
+ea7b31c9904fd06cb94251beb47f085c6f1843e4
 
 authority:
 puev5691/wellbeing-hq@b1b8d8a5f543b5cb48e88eb0c03c5898dd94c78a:
