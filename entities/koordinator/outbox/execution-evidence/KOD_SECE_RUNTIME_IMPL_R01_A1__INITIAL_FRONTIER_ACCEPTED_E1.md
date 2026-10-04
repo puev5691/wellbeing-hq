@@ -1,0 +1,21 @@
+# Accepted initial frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
+attempt: KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_R01_A1
+initial_state: INITIAL_NOT_STARTED
+predecessor_commit: 594a76f8a7729ed70749e54767f67368668da73f
+predecessor_blob: 0880c1982c355516a162ef4529c9373b22208beb
+expected_predecessor_version: INITIAL_CANDIDATE_V1
+accepted_current_version: INITIAL_NOT_STARTED_V1
+initial_state_acceptance: ACCEPTED
+task_blob: f995c78d02dba28f9c25cc4aec8a614bb287efe9
+authority_blob: f31fe054408c0b2f2136a641c00a710d1c002197
+writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+input_blob: 64d533723850861d19f0048d9b3698f81f7ceca0
+currentness: VERIFIED_AT_ACCEPTANCE
+supersession: NONE_FOUND_AT_ACCEPTANCE
+competing_terminal: NONE_FOUND_AT_ACCEPTANCE
+processing_started: NOT_PROVEN
+last_write_wins: FORBIDDEN
+project_time: omitted
