@@ -1,0 +1,9 @@
+# Dispatch SHT -> KOO
+artifact: entities/shtabist/outbox/SHT__SECE-r01-runtime-integration-architecture-C1C3-correction-r02__KOO.md
+artifact_commit: a3d2cc19c99124b105fd426c416eacd7de0f746f
+artifact_blob: 8c702abcce54b5398d3f696fdc29897322706321
+execution_attempt_id: SHT_SECE_R01_RUNTIME_INTEGRATION_ARCHITECTURE_C1C3_CORRECTION_R02_A1
+terminal: PASS_SHT_SECE_R01_RUNTIME_INTEGRATION_ARCHITECTURE_C1C3_CORRECTION_R02_READY_FOR_NARROW_REREVIEW
+status: dispatched
+receipt: null
+acceptance: null
