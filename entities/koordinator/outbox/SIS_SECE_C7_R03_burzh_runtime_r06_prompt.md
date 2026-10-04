@@ -55,7 +55,7 @@ dd09a197-f716-4dd6-80bb-7f8e5d8260ff
 workspace:
 /tmp/wellbeing-sece-c7-r03-r06-a1
 
-Use the prior successful R05 burzh execution procedure only as technical execution method, not as task authority or replay:
+Use the prior successful R05 burzh execution procedure only for the execution flow on burzh, not as task authority, replay, or package-integrity source:
 
 puev5691/wellbeing-hq@743e035c95901e39752de74c4cf9fc8a72bc5adb:
 entities/koordinator/outbox/SIS_SECE_D1D2_burzh_exec_r05_prompt.md
@@ -63,7 +63,11 @@ entities/koordinator/outbox/SIS_SECE_D1D2_burzh_exec_r05_prompt.md
 blob:
 c08ca216c0eb67253927520d1b6c1e4708a095d3
 
-Substitute only the exact R06 attempt, workspace, candidate commit/tree/package identity above.
+For R06:
+- use the exact R06 attempt/workspace above;
+- acquire only the exact R03 candidate commit/tree above;
+- derive and verify all package member/blob/hash identities from the exact R03 package and its own SHA256SUMS/KOD result;
+- do NOT reuse predecessor R05 package hashes or predecessor package identity.
 
 Before first host/network action create/read back PROCESSING_STARTED for this exact attempt.
 
