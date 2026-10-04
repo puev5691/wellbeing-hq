@@ -1,0 +1,15 @@
+{
+  "status": "PASS_NEW_LAYER_OFFLINE",
+  "attempt": "KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_R01_A1",
+  "candidate_status": "NOT_ACTIVATED",
+  "new_layer_py_compile": "PASS",
+  "runtime_integration_tests": "16/16 PASS",
+  "no_live_effect_test_boundary": "YES",
+  "baseline_tree": "4080fb9195fac4ebdfcb144fe3bdab83323485b4",
+  "baseline_core_blob": "e7b89c948c4e672c5b682408ce790670dfcdad5c",
+  "baseline_core_sha256": "7f254b1df1f0160680caf13e9dd99f0cc7ed93e9944cd4d4ec9d584f7e6c1fed",
+  "baseline_independent_runtime_proof": "PASS_SIS_SECE_R01_C7_R03_BURZH_RUNTIME_PROOF_R06",
+  "combined_package_runner_executed_in_kod_container": false,
+  "external_effects": 0,
+  "activation": false
+}

@@ -1,0 +1,30 @@
+# Manifest
+
+status: OFFLINE_RUNTIME_INTEGRATION_IMPLEMENTATION_CANDIDATE_NOT_ACTIVATED
+attempt: KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_R01_A1
+
+Reviewed baseline:
+commit 51b3654b1f5b802009b0e61d6c52df841420d306
+tree 4080fb9195fac4ebdfcb144fe3bdab83323485b4
+package identity 957824fb2e652893932e41cc7cdf1d07921587be013f96b417c57101ae92d9d3
+core blob e7b89c948c4e672c5b682408ce790670dfcdad5c
+core SHA-256 7f254b1df1f0160680caf13e9dd99f0cc7ed93e9944cd4d4ec9d584f7e6c1fed
+
+New implementation blobs:
+runtime_integration.py 6a0b4e9a4645227f3e9c1ca933491f03ffa67033
+runtime_integration_tests.py 45e34e6d2e65d5fa56fa3c5600d5e9d811f006b0
+run_runtime_integration_tests.py c61a192bebae8dac05dbd01f0f32d7d3b7e58e89
+package_gate_tests.py 789350310e26901bd58e43823f44239c3513c8c4
+run_all_offline_tests.py 12b5ddb8da641cc1ff7c8e7377d5ef0142cdc198
+
+KOD local new-layer result:
+py_compile PASS
+runtime integration tests 16/16 PASS
+
+Baseline independent runtime proof:
+PASS_SIS_SECE_R01_C7_R03_BURZH_RUNTIME_PROOF_R06
+
+Combined package independent execution:
+NOT_PERFORMED_BY_THIS_ATTEMPT
+
+No activation or external effect authority is created by this package.
