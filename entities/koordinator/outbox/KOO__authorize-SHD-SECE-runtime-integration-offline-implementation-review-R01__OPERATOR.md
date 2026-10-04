@@ -1,0 +1,10 @@
+# KOO authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: AUTHORIZE_SHD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_REVIEW_R01 = YES
+owner: SHD r0.4
+attempt: SHD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_REVIEW_R01_A1
+basis_commit: 92f9c9b60e053ac95e79ef7bdfcfa7552d75bd31
+basis_path: entities/koordinator/outbox/KOO__SECE-runtime-integration-offline-implementation-review-decision__OPERATOR.md
+basis_blob: 3e8ddc69c1887f95158909edc444683634fec3d6
+project_time: omitted
