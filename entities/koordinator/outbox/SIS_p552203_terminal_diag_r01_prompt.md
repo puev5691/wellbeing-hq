@@ -9,9 +9,6 @@ AWAITING_OPERATOR_TRANSFER
 execution_evidence_profile:
 CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
 
-profile_applicability_reason:
-EXACT_TASK_REQUIRES_DURABLE_PROGRESS_EVIDENCE
-
 project_time:
 omitted
 
@@ -19,9 +16,7 @@ omitted
 
 Resume-First.
 
-Выполни только bounded read-only diagnosis of the Remote Desktop Commander terminal process channel on exact target p552203.
-
-This task diagnoses the R04 blocker only. It does not repair anything and does not continue SECE execution.
+Выполни только exact bounded read-only diagnostic, полностью в пределах authority artifact ниже.
 
 ## Exact authority
 
@@ -34,6 +29,14 @@ blob:
 decision:
 AUTHORIZE_SIS_P552203_COMMANDER_TERMINAL_CHANNEL_DIAGNOSTIC_R01 = YES
 
+Authority artifact is the single source for:
+- permitted diagnostic actions;
+- exact probe sequence;
+- boundaries;
+- required channel classifications.
+
+Do not widen or reinterpret it.
+
 ## Current SIS writer
 
 puev5691/wellbeing-hq@1de10d5d61430fae49f8e27bccbd655c3ed2c972:
@@ -45,10 +48,7 @@ blob:
 status:
 CURRENT_WRITER_ESTABLISHED
 
-terminal:
-PASS_SIS_R09_WRITER_GATE_CURRENT_WRITER_ESTABLISHED
-
-## Exact R04 blocker basis
+## R04 blocker basis
 
 puev5691/wellbeing-hq@e5c460c2d2cd0ed9af028d9381fd7dc8665b7119:
 entities/sisadmin/outbox/SIS__SECE-r01-D1D2-p552203-publicfetch-exec-r04__KOO.md
@@ -63,9 +63,8 @@ blocker:
 TARGET_TERMINAL_EXECUTION_CHANNEL_UNAVAILABLE_AFTER_WORKSPACE_CREATION
 
 Preserve:
-- R04 = terminal BLOCKED;
-- no R04 resume/replay/cleanup;
-- R04 workspace remains present, last verified empty;
+- R04 remains terminal BLOCKED;
+- R04 workspace remains untouched;
 - R03 remains NONTERMINAL / DO_NOT_REPLAY / NONEXECUTABLE.
 
 ## Exact target
@@ -78,100 +77,21 @@ device_id:
 
 Fresh KOO standing-transport observation before task materialization:
 - inventory = ONLINE;
-- exact device_id = PASS;
+- device_id = PASS;
 - Commander ping = PASS.
 
-## Diagnostic sequence
+## Execution
 
-1. Fresh-check task, authority, SIS writer, target identity and supersession.
-
-2. Before the first task-specific device/terminal action, create immutable positive PROCESSING_STARTED evidence for:
-
-SIS_P552203_COMMANDER_TERMINAL_DIAG_R01_A1
-
-Bind:
-- exact task locator/blob;
-- initial execution-state blob/version;
-- authority;
-- writer;
-- target/device.
-
-Read back PROCESSING_STARTED before continuing.
-
-3. Perform fresh:
-- list_devices;
-- ping exact device.
-
-4. Read Commander configuration only to classify the terminal channel:
-- defaultShell;
-- relevant systemInfo;
-- currentClient fields needed to identify the active Commander client;
-- blockedCommands only if needed to determine whether the minimal probes are policy-blocked.
-
-Do not mutate config.
-Do not persist unrelated client history or sensitive values.
-
-5. Read-only verify exact R04 workspace state:
-
-/data/wellbeing-lab/tmp/sece-d1d2-publicfetch-r04-a1
-
-Do not alter or remove it.
-
-6. Execute at most these three minimal non-network terminal probes, in this order, stopping as soon as classification is sufficient:
-
-/bin/true
-
-/bin/pwd
-
-/bin/sh -lc 'cd /tmp && /bin/printf "DC_TERMINAL_OK\\n"'
-
-No sudo/root.
-No filesystem write.
-No network command.
-No process kill.
-No retry loop.
-
-7. Read recent Commander tool-call metadata only as needed to distinguish tool transport timeout from a returned host-shell failure.
-
-8. Classify exactly one:
-
-TERMINAL_CHANNEL_READY
-
-TERMINAL_CHANNEL_BLOCKED_TOOL_TRANSPORT
-
-TERMINAL_CHANNEL_BLOCKED_HOST_SHELL
-
-TERMINAL_CHANNEL_UNKNOWN_WITH_EVIDENCE
-
-## Boundaries / STOP
-
-This task is diagnostic only.
-
-Not authorized:
-- R04 resume/replay/cleanup or workspace mutation;
-- R03 access/resume/replay/cleanup;
-- Git fetch/init/materialization;
-- Python workload;
-- process kill;
-- Commander config mutation;
-- agent/service restart;
-- host reboot;
-- sudo/root;
-- package installation;
-- network/provider/API/Telegram calls;
-- candidate mutation/activation;
-- Project Source/canon mutation;
-- successor R05 attempt;
-- any repair.
-
-STOP if:
-- target/device/writer/authority/currentness mismatches;
-- a newer result supersedes this task;
-- any diagnostic step would require mutation or broader authority.
+1. Fresh-check task, authority, writer, target and supersession.
+2. Before first task-specific action, create and read back PROCESSING_STARTED for:
+   SIS_P552203_COMMANDER_TERMINAL_DIAG_R01_A1
+3. Execute only the exact diagnostic actions in the authority artifact.
+4. Produce exactly one authority-defined channel classification.
+5. Publish and read back the required result.
+6. Return KOO exact result locator + commit + blob.
+7. STOP.
 
 ## Required result
-
-Create:
 
 entities/sisadmin/outbox/SIS__p552203-terminal-channel-diagnostic-r01__KOO.md
 
@@ -183,15 +103,7 @@ BLOCKED_SIS_P552203_COMMANDER_TERMINAL_CHANNEL_DIAGNOSTIC_R01
 Result must include:
 - exact task/authority/writer;
 - PROCESSING_STARTED evidence;
-- list_devices/ping outcome;
-- relevant read-only Commander config classification;
-- R04 workspace read-only state;
-- each terminal probe attempted and its exact tool/host outcome;
-- relevant recent tool-call metadata summary;
+- observed diagnostic evidence;
 - exactly one required channel classification;
-- explicit statement that no repair/R04 cleanup/SECE continuation occurred;
+- boundary-compliance summary;
 - exact next causal gate only.
-
-After immutable publication/readback:
-RETURN KOO exact result locator + commit + blob.
-Then STOP.
