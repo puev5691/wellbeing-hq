@@ -200,7 +200,7 @@ diagnostic_attempt:
 SIS_P552203_COMMANDER_TERMINAL_DIAG_R01_A1
 
 diagnostic_task_blob:
-45ee165f82e7187b2509050743d50dbaf958f8d8
+ea7b31c9904fd06cb94251beb47f085c6f1843e4
 
 diagnostic_conveyor_state:
 AWAITING_OPERATOR_TRANSFER
