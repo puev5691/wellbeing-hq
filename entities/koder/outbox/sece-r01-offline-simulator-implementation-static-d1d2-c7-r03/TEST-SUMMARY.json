@@ -1,0 +1,22 @@
+{
+  "status": "BLOCKED",
+  "execution_attempt_id": "KOD_SECE_D1D2_C7_GROUNDING_REGRESSION_R03_A1",
+  "selected_contract_interpretation": "A",
+  "changed_runtime_files": [
+    "correction_tests.py"
+  ],
+  "unchanged_core_runtime": [
+    "sece_simulator.py",
+    "d1d2_tests.py",
+    "anti_cheat_regression_tests.py",
+    "run_offline_tests.py"
+  ],
+  "predecessor_R05_all_gates_except_C7_grounding": "PASS",
+  "predecessor_R05_failure": [
+    "NEXT_GATE_RESOLVER_GROUNDING_FIXED=false",
+    "correction_tests.c7_grounded_candidate=false"
+  ],
+  "r03_package_local_commands_executed": false,
+  "blocker": "KOD_LOCAL_GITHUB_MATERIALIZATION_UNAVAILABLE_AND_EXTERNAL_RUNTIME_MUTATION_FORBIDDEN",
+  "candidate_status": "OFFLINE_SIMULATOR_IMPLEMENTATION_CANDIDATE_NOT_ACTIVATED"
+}
