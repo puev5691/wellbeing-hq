@@ -94,3 +94,46 @@ AWAITING_OPERATOR_TRANSFER
 
 project_time:
 omitted
+
+
+## KOO fresh reconciliation after terminal result
+
+terminal_result:
+puev5691/wellbeing-hq@b8bf442f2ac63e22d174652730a1def4a505f7cc:
+entities/sisadmin/outbox/SIS__p552203-terminal-channel-diagnostic-r01__KOO.md
+
+terminal_result_blob:
+5e636b6c1c411182152482d30fd94e6f1221651f
+
+terminal:
+BLOCKED_SIS_P552203_COMMANDER_TERMINAL_CHANNEL_DIAGNOSTIC_R01
+
+classification:
+TERMINAL_CHANNEL_UNKNOWN_WITH_EVIDENCE
+
+selected_branch:
+ALTERNATIVE_EXECUTION_PATH
+
+selected_target:
+burzh / ruvds-xnqc6
+
+fresh_inventory:
+ONLINE
+
+fresh_ping:
+PASS
+
+successor_attempt:
+NOT_CREATED
+
+next_causal_gate:
+OPERATOR_DECISION_SIS_SECE_D1D2_BURZH_PUBLIC_GIT_EXEC_R05
+
+repair_p552203:
+NOT_AUTHORIZED
+
+R04_resume_replay_cleanup:
+NOT_AUTHORIZED
+
+project_time:
+omitted
