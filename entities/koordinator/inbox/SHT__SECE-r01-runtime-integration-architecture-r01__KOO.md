@@ -1,0 +1,9 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__SECE-r01-runtime-integration-architecture-r01__KOO.md
+artifact_commit: 6d25ba2487d8b48de2365091801bcc3d070bcdcc
+artifact_blob: 032304ba729e55eb05a7a27577df85374b92e7f1
+dispatch_commit: 80625c5ac807d182dad80104b0aa949c3daa162a
+terminal: PASS_SHT_SECE_R01_RUNTIME_INTEGRATION_ARCHITECTURE_R01_READY_FOR_INDEPENDENT_REVIEW
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
