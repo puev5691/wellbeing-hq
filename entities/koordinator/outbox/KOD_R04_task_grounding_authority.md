@@ -1,0 +1,9 @@
+# KOD R04 task-grounding authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: YES
+owner: KOD v0.7
+attempt: KOD_SECE_R01_RUNTIME_INTEGRATION_TASK_GROUNDING_CORRECTION_R04_A1
+basis_commit: f7470846154d76c2e256fa9e79bd9f284489a22e
+basis_blob: 293da8190b270167b88e60a58fe5c44ba6760b77
+project_time: omitted
