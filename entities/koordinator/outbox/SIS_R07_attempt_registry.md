@@ -1,0 +1,9 @@
+# SIS R07 attempt registry
+
+attempt: SIS_SECE_R01_RUNTIME_INTEGRATION_R04_BURZH_COMBINED_EXEC_R07_A1
+authority_blob: 321874b989c6cf9f6e0f25e546ab3c4c0927bef2
+writer_blob: 285bf0fd28d6b617f582ad10f0dada6cc7e899ff
+candidate_commit: bb5b66644cd9e6421613e2c3f22d3299549ed374
+candidate_tree: 1158f63954c78bb6023e7a05e2e702c110a5203c
+state: INITIAL_NOT_STARTED
+project_time: omitted
