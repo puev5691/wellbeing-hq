@@ -1,0 +1,16 @@
+# PROCESSING_STARTED
+
+status: PROCESSING_STARTED
+attempt: SHT_SECE_R01_SANDBOX_GATE_DESIGN_R01_A1
+scope: DESIGN_ONLY
+accepted_frontier_commit: 2704035025f7bae5066d69c05f74e545a5b013eb
+accepted_frontier_blob: 39cb08b411957a3407e40f87f954773ce03edef0
+accepted_predecessor: INITIAL_NOT_STARTED_V1
+authority_blob: 893a039f72165ad65821424f3da4b556b100e5e6
+writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+candidate_tree: 1158f63954c78bb6023e7a05e2e702c110a5203c
+SHD_PASS_blob: 887fdc7523ea5d18541eb8324cc452ef7c327f46
+SIS_PASS_blob: 5815b818608dd5f95fed59557f142ea31659e5b4
+processing_started: YES
+No sandbox execution, implementation, activation, host access or downstream authority is created.
+project_time: omitted
