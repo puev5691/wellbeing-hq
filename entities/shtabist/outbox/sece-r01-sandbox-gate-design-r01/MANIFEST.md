@@ -1,0 +1,33 @@
+# SECE Sandbox Gate Design R01 Manifest
+status: DESIGN_ONLY
+implementation: NOT_IMPLEMENTED
+activation: NOT_ACTIVE
+attempt: SHT_SECE_R01_SANDBOX_GATE_DESIGN_R01_A1
+
+candidate_commit: bb5b66644cd9e6421613e2c3f22d3299549ed374
+candidate_tree: 1158f63954c78bb6023e7a05e2e702c110a5203c
+candidate_path: entities/koder/outbox/sece-r01-runtime-integration-task-grounding-correction-r04/
+reviewed_baseline_core_blob: e7b89c948c4e672c5b682408ce790670dfcdad5c
+SHD_PASS_blob: 887fdc7523ea5d18541eb8324cc452ef7c327f46
+SIS_PASS_blob: 5815b818608dd5f95fed59557f142ea31659e5b4
+
+sandbox_environment_class: SECE_EPHEMERAL_ISOLATED_FILE_SANDBOX_R01
+actual_target_selection: UNKNOWN_LATER_GATE
+adapter_class: EphemeralFileSandboxEffectAdapterR01
+effect_class: SANDBOX_EPHEMERAL_FILE_CREATE
+
+files:
+SANDBOX-GATE.md
+SANDBOX-EFFECT-ADAPTER.md
+SANDBOX-EFFECT-CLASS.md
+AUTHORITY-MODEL.md
+PRE-EFFECT-ADMISSION.md
+OUTCOME-EVIDENCE.md
+UNRESOLVED-EFFECT.md
+ROLLBACK-CLEANUP.md
+G4-AUTHORITY-SHAPE.md
+G5-REVIEW.md
+G6-TRANSITION.md
+MANIFEST.md
+
+terminal: PASS_SHT_SECE_R01_SANDBOX_GATE_DESIGN_R01_READY_FOR_INDEPENDENT_REVIEW
