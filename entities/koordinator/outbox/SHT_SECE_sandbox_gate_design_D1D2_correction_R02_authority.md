@@ -1,0 +1,11 @@
+# SHT SECE sandbox gate design D1D2 correction R02 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: AUTHORIZE_SHT_SECE_R01_SANDBOX_GATE_DESIGN_D1D2_CORRECTION_R02 = YES
+owner: SHT current writer
+attempt: SHT_SECE_R01_SANDBOX_GATE_DESIGN_D1D2_CORRECTION_R02_A1
+basis_commit: cd3db7c6eeb17fa9dca87d2dcfa2367462be1937
+basis_blob: 6ca4e8df10389fcb8aa003b767d3f8bca73b16ec
+reconciliation_commit: d81dcab206a805f9aae6df82fadedc629e2c7910
+scope: DESIGN_CORRECTION_D1_D2_ONLY
+project_time: omitted
