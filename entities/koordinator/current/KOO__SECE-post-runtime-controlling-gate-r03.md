@@ -1,0 +1,17 @@
+# KOO SECE post-runtime controlling gate r0.3
+
+status: WAITING_OPERATOR_DECISION
+selection_basis_commit: ecf0f872656ff80ff78f7076ea6b45331bf5c8ee
+current_gate_commit: 2b2160531556f6bd4103145bf4baec343fb511a2
+current_gate_path: entities/koordinator/outbox/KOO__SECE-sandbox-gate-design-R01-decision__OPERATOR.md
+over_bundled_gate_commit: c0aa45c5a63ed348b8d75ae322845afbd4d0b70f
+over_bundled_gate_status: NON_CONTROLLING
+superseded_reconciliation_commit: 83aead02d1f081fb779ab4e0b4d3e73067194788
+superseded_reconciliation_status: SUPERSEDED
+exact_next_decision: AUTHORIZE_SHT_SECE_R01_SANDBOX_GATE_DESIGN_R01 = YES
+scope: DESIGN_ONLY
+sandbox_execution: NOT_AUTHORIZED
+activation: NOT_AUTHORIZED
+deployment: NOT_AUTHORIZED
+production: NOT_AUTHORIZED
+project_time: omitted
