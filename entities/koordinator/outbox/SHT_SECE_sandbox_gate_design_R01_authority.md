@@ -1,9 +1,11 @@
 # SHT SECE sandbox gate design R01 authority
 
 status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: AUTHORIZE_SHT_SECE_R01_SANDBOX_GATE_DESIGN_R01 = YES
 owner: SHT current writer
 attempt: SHT_SECE_R01_SANDBOX_GATE_DESIGN_R01_A1
 basis_commit: 2b2160531556f6bd4103145bf4baec343fb511a2
 basis_blob: 7ff367824b12a0d96fe3f0f80cd577623d1d93dc
 controlling_gate_commit: 4117a895294a4da0153de8547bcbeca621fdc91f
+scope: DESIGN_ONLY
 project_time: omitted
