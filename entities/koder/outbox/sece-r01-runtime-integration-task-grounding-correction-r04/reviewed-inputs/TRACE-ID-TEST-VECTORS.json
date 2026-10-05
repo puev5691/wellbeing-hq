@@ -1,0 +1,98 @@
+{
+  "schema_id": "SECE_TRACE_ID_TEST_VECTORS_R01",
+  "base_trace": {
+    "trace_id": "efadafaafa8577a36bf11cf965bb2a38fa5dacb8ed8dadccb88d95a611c59e73",
+    "fixture_id": "CXT3",
+    "input_context_id": "CTX-N",
+    "input_context_version": 1,
+    "triggering_event_or_result": {
+      "id": "EV-DELTA-1",
+      "type": "EVENT",
+      "verification_state": "VERIFIED",
+      "parent_context_id": "CTX-N",
+      "provenance_ref": "PV-EV-1"
+    },
+    "affected_scopes": [
+      "S"
+    ],
+    "invalidated_bindings": [
+      "B-RECOVERY-S"
+    ],
+    "recomputed_bindings": [
+      "B-DELTA-S"
+    ],
+    "preserved_bindings": [
+      "B-RECOVERY-U"
+    ],
+    "context_delta_id": "DELTA-1",
+    "resulting_context_id": "CTX-N1",
+    "contract_id": "7b819fb3ac464c226b83fbc4fe9fddb1a40b90a6b3f5c35c11d5078347e4ab6f",
+    "projected_effective_context_id": "CTX-N1",
+    "projected_effective_context_version": 2,
+    "projection_scope": "S",
+    "projection_basis": [
+      {
+        "context_atom_or_binding_id": "B-DELTA-S",
+        "exact_scope": "S",
+        "provenance_ref": "PV-DELTA",
+        "reason_used": "SELECTED_CURRENT_BASIS"
+      }
+    ],
+    "context_dependency_refs": [
+      "DEP-S"
+    ],
+    "action_id": "A1",
+    "compiled_rule_id": "CR-1",
+    "source_provenance": [
+      "SRC-1"
+    ],
+    "authority_ref": "AUTH-1",
+    "task_binding": "TASK-1",
+    "current_state_evidence_ids": [
+      "CSE-1"
+    ],
+    "causal_event_ids": [
+      "EV-DELTA-1"
+    ],
+    "validator_predicates": [
+      "ADMIT"
+    ],
+    "aggregation_id": "AGG-1",
+    "aggregation_rule_id": "AGG-R6",
+    "primary_outcome": "AGGREGATE_CLEAR",
+    "secondary_reasons": [
+      {
+        "reason_id": "R1",
+        "predicate_id": "ADMIT",
+        "evidence_ref": "E-1",
+        "scope": "S",
+        "provenance": [
+          "PV-1"
+        ]
+      }
+    ],
+    "effect_decision": "ADMIT",
+    "terminal_class": "PASS",
+    "classified_result_id": "RES-1",
+    "classified_result_state": "PASS",
+    "synthetic_event_or_result_id": "RES-1",
+    "synthetic_event_or_result_type": "RESULT",
+    "synthetic_event_or_result_verification_state": "VERIFIED",
+    "next_gate_class": "CAUSAL_NEXT_GATE",
+    "next_gate_derivation_refs": [
+      "NG-1",
+      "TASK-CONVEYOR-STATE-1"
+    ],
+    "expected_vs_actual": {
+      "oracle_state": "ORACLE_PASS",
+      "mismatches": []
+    }
+  },
+  "base_trace_id": "efadafaafa8577a36bf11cf965bb2a38fa5dacb8ed8dadccb88d95a611c59e73",
+  "identical_canonical_trace_id": "efadafaafa8577a36bf11cf965bb2a38fa5dacb8ed8dadccb88d95a611c59e73",
+  "identical_id_match": true,
+  "changed_recomputed_binding_trace_id": "4890437117c0ebfb0b7adcc20f8a8deb1aa9145c2b4bf306dc85c37899997059",
+  "changed_trace_differs": true,
+  "causal_path_reconstructable": true,
+  "marker": "TRACE_CAUSAL_PATH_RECONSTRUCTABLE=YES"
+}
