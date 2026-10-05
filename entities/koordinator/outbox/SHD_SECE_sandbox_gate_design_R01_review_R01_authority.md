@@ -1,0 +1,11 @@
+# SHD SECE sandbox gate design R01 review R01 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: AUTHORIZE_SHD_SECE_R01_SANDBOX_GATE_DESIGN_R01_REVIEW_R01 = YES
+owner: SHD replacement r0.4
+attempt: SHD_SECE_R01_SANDBOX_GATE_DESIGN_R01_REVIEW_R01_A1
+canonical_gate_commit: 163ba457163aeef4d65781d89fcb62eec3e5d09b
+canonical_gate_blob: 454f9dc6f8ce2d358333810a480725a0da67ba41
+gate_marker_commit: d75df2cc0b2aa7116768ffb7763e5047f02cf2dc
+scope: INDEPENDENT_DESIGN_BOUNDARY_REVIEW_ONLY
+project_time: omitted
