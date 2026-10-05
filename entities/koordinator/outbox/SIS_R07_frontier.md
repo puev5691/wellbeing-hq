@@ -1,0 +1,8 @@
+# SIS R07 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: c2135c1f23e9779f288bf8951603378d81621752
+authority_blob: 321874b989c6cf9f6e0f25e546ab3c4c0927bef2
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+project_time: omitted
