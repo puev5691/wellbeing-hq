@@ -1,0 +1,8 @@
+# KOD R04 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: e9ff86d20f3722557d61718e9cbe444399d145d0
+authority_blob: 5f7d19c58f94de6715dde305f4bc273780d232b5
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+project_time: omitted
