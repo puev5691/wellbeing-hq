@@ -1,0 +1,11 @@
+# SHD R03 R01 descriptor
+
+status: PREPARED_FOR_MANUAL_TRANSFER
+attempt: SHD_SECE_R01_RUNTIME_INTEGRATION_GROUNDING_CORRECTION_R03_REREVIEW_R01_A1
+authority_blob: e3650f326b1a0e25447ff1f7f0f15037f6190bb4
+gate_blob: ff79001d4f7bb3457dfb5611562018805f70cd9b
+result_blob: 7efabc484843c9e16c3e627177168f2dbed2e726
+package_tree: be973adee8a202ca52619fb61bb8c295dea8dd56
+writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+initial_state: INITIAL_NOT_STARTED
+project_time: omitted
