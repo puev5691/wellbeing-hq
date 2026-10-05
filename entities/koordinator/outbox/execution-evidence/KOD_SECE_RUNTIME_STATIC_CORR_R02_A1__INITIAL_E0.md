@@ -1,0 +1,19 @@
+# Initial evidence
+
+status: INITIAL_EXECUTION_EVIDENCE_CANDIDATE
+profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
+execution_attempt_id: KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_STATIC_CORRECTION_R02_A1
+state_version: INITIAL_CANDIDATE_V1
+initial_state: INITIAL_NOT_STARTED
+task_blob: 881fc251e38741c3d8af68e888723d64191f267e
+authority_blob: 05bd1414ed35b2fba329ae5af60b20dbb1e8c7fa
+actor_entity: KOD
+actor_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+input_blob: 9cc219c8bc986d89a69fd3ff6b32087142f1c3da
+task_currentness: CURRENT_AT_CANDIDATE_CREATION
+supersession: NONE_FOUND_AT_CANDIDATE_CREATION
+processing_started: NOT_PROVEN
+initial_state_acceptance: PENDING_CONDITIONAL_ACCEPTANCE
+last_write_wins: FORBIDDEN
+candidate_activation: NO
+project_time: omitted
