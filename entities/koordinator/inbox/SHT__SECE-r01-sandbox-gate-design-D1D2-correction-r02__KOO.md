@@ -1,0 +1,10 @@
+# KOO inbox pointer
+artifact: entities/shtabist/outbox/SHT__SECE-r01-sandbox-gate-design-D1D2-correction-r02__KOO.md
+artifact_commit: 0ff3709612df21ca4e0f8abc914f1831a8ec2657
+artifact_blob: e32ba475182b059709ed97c48973f43c8a071411
+package_tree: 84979101d6bd19fd939f978652f03317f6e524b9
+dispatch_commit: d63f34c5d48e2f760a5195f980c6f5261d42c38b
+terminal: PASS_SHT_SECE_R01_SANDBOX_GATE_DESIGN_D1D2_CORRECTION_R02_READY_FOR_NARROW_REREVIEW
+status: addressed_for_reconciliation
+receipt: null
+acceptance: null
