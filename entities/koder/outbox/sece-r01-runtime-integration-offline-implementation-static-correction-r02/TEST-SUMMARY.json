@@ -1,0 +1,13 @@
+{
+  "status": "STATIC_CORRECTION_IMPLEMENTED_READY_FOR_INDEPENDENT_REVIEW",
+  "attempt": "KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_STATIC_CORRECTION_R02_A1",
+  "candidate_status": "NOT_ACTIVATED",
+  "C1_authoritative_policy_binding": "IMPLEMENTED",
+  "C2_invocation_boundary_revalidation": "IMPLEMENTED",
+  "C3_actor_binding_consistency": "IMPLEMENTED",
+  "runtime_test_methods": 22,
+  "reviewed_baseline_core_changed": false,
+  "kod_package_local_execution": false,
+  "next_gate": "SEPARATE_INDEPENDENT_STATIC_OFFLINE_REVIEW",
+  "SIS_invoked": false
+}
