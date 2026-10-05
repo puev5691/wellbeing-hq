@@ -1,0 +1,12 @@
+# SECE sandbox design review gate marker
+
+status: WAITING_OPERATOR_DECISION
+canonical_gate_commit: 163ba457163aeef4d65781d89fcb62eec3e5d09b
+supplemental_gate_commit: a7bebef449b284588b85904ca7803d2c63d81e81
+classification: COMPATIBLE_DUPLICATE_GATES
+attempt: SHD_SECE_R01_SANDBOX_GATE_DESIGN_R01_REVIEW_R01_A1
+decision: AUTHORIZE_SHD_SECE_R01_SANDBOX_GATE_DESIGN_R01_REVIEW_R01 = YES
+material_conflict: NONE
+G4_execution: NOT_AUTHORIZED
+G5_review: NOT_APPLICABLE_YET
+project_time: omitted
