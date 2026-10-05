@@ -1,0 +1,122 @@
+# CHECKPOINT_DURABLE — SIS_SECE_R01_RUNTIME_INTEGRATION_R04_BURZH_COMBINED_EXEC_R07_A1
+
+status:
+CHECKPOINT_DURABLE
+
+terminal:
+PASS_SIS_SECE_R01_RUNTIME_INTEGRATION_R04_BURZH_COMBINED_EXEC_R07_A1_CHECKPOINT_DURABLE
+
+project_time:
+omitted
+
+attempt:
+SIS_SECE_R01_RUNTIME_INTEGRATION_R04_BURZH_COMBINED_EXEC_R07_A1
+
+authority_registry_blob:
+321874b989c6cf9f6e0f25e546ab3c4c0927bef2
+
+attempt_registry_blob:
+c2135c1f23e9779f288bf8951603378d81621752
+
+accepted_frontier_blob:
+331cb0b3635d53b47226e76974534782389d439b
+
+accepted_state:
+INITIAL_NOT_STARTED_V1
+
+writer_blob:
+285bf0fd28d6b617f582ad10f0dada6cc7e899ff
+
+PROCESSING_STARTED:
+puev5691/wellbeing-hq@f39e5a7370df7180d15a7308382bf4ac7ea62536:
+entities/sisadmin/outbox/execution-evidence/SIS_SECE_R01_RUNTIME_INTEGRATION_R04_BURZH_COMBINED_EXEC_R07_A1__PROCESSING_STARTED_E1.md
+
+processing_started_blob:
+e1f39423ad6d7211f586685abc0846630efb47e2
+
+target:
+burzh / ruvds-xnqc6
+
+device_id:
+dd09a197-f716-4dd6-80bb-7f8e5d8260ff
+
+workspace:
+/tmp/wellbeing-sece-runtime-r04-combined-r07-a1
+
+candidate_commit:
+bb5b66644cd9e6421613e2c3f22d3299549ed374
+
+candidate_tree:
+1158f63954c78bb6023e7a05e2e702c110a5203c
+
+preflight:
+PASS
+
+Python:
+3.12.3
+
+minimal_terminal_process:
+PASS
+
+initial_workspace:
+ABSENT
+
+anonymous_public_source_reachability:
+PASS
+
+interactive_credentials:
+DISABLED
+
+exact_commit_acquisition:
+PASS
+
+resolved_package_tree:
+1158f63954c78bb6023e7a05e2e702c110a5203c
+
+package_materialization:
+PASS
+
+file_composition:
+30/30 PASS
+
+Git_member_blobs:
+30/30 PASS
+
+MANIFEST_blob:
+2c81096886406ea270bd4480bcb39fd17269f90d PASS
+
+README_blob:
+8d8eef1d19d9b9fb3a00d157e6eb04aed3490061 PASS
+
+runtime_integration_blob:
+e0626e3088b7f364604d1fb5e12c2b2b511c3987 PASS
+
+runtime_integration_tests_blob:
+c9e6939566e1411b786056846aeca1720d7f10e1 PASS
+
+run_all_offline_tests_blob:
+12b5ddb8da641cc1ff7c8e7377d5ef0142cdc198 PASS
+
+run_runtime_integration_tests_blob:
+c61a192bebae8dac05dbd01f0f32d7d3b7e58e89 PASS
+
+package_gate_tests_blob:
+789350310e26901bd58e43823f44239c3513c8c4 PASS
+
+sece_simulator_blob:
+e7b89c948c4e672c5b682408ce790670dfcdad5c PASS
+
+reviewed_baseline_core:
+UNCHANGED
+
+candidate_activation:
+NO
+
+python_compile:
+NOT_STARTED
+
+combined_runner:
+NOT_STARTED
+
+R03_R04_R05_R06_workspace_access:
+NONE
