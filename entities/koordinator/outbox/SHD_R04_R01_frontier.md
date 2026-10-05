@@ -1,0 +1,8 @@
+# SHD R04 R01 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: f6f0db64ed54d632ba46d2045bc69aae6927fb64
+authority_blob: 399b6154519dac19055feedc787bd9e0cffcbc04
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+project_time: omitted
