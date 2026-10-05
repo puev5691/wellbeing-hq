@@ -1,0 +1,19 @@
+# Initial evidence
+
+status: INITIAL_EXECUTION_EVIDENCE_CANDIDATE
+profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
+execution_attempt_id: SHD_SECE_R01_RUNTIME_INTEGRATION_STATIC_CORRECTION_R02_REREVIEW_R01_A1
+state_version: INITIAL_CANDIDATE_V1
+initial_state: INITIAL_NOT_STARTED
+task_blob: e25ba2c9eaf0c91ba6bd6a652963dac05474fe30
+authority_blob: 02f90632fb85ab2fea02cff4e9decac8b3995b4e
+actor_entity: SHD
+actor_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+input_blob: d71ddbee37510097dcab386028cc0d8ac39c9036
+package_tree: 4f473559512c1a0c16561e414d870190f1bed3b6
+task_currentness: CURRENT_AT_CANDIDATE_CREATION
+supersession: NONE_FOUND_AT_CANDIDATE_CREATION
+processing_started: NOT_PROVEN
+initial_state_acceptance: PENDING_CONDITIONAL_ACCEPTANCE
+last_write_wins: FORBIDDEN
+project_time: omitted
