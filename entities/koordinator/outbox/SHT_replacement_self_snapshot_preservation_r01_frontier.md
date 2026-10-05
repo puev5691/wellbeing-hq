@@ -1,0 +1,9 @@
+# SHT replacement self-snapshot preservation r01 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: 14c5474f9131cf3893e254bf521e178136df83f1
+authority_blob: a07f590f357ab8cabcca9f87cc2676e952a9f53a
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+project_time: omitted
