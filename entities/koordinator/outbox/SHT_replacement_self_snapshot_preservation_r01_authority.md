@@ -1,0 +1,12 @@
+# SHT replacement self-snapshot preservation r01 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: PREPARE_NEW_SHT_INSTANCE_PRESERVATION = YES
+owner: current SHT writer
+attempt: SHT_REPLACEMENT_SELF_SNAPSHOT_PRESERVATION_R01_A1
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+basis_commit: e6c746fcdd2d5d112f4f13b5cde8136d0c5a034a
+basis_blob: e9d8ad97bb3ebc72353739b4918c3e297a8ce156
+profile_work_continuation: FORBIDDEN
+writer_change: NOT_AUTHORIZED
+project_time: omitted
