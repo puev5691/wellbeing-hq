@@ -1,0 +1,52 @@
+# KOD PROCESSING_STARTED
+
+execution_attempt_id: KOD_SECE_R01_RUNTIME_INTEGRATION_GROUNDING_CORRECTION_R03_A1
+status: PROCESSING_STARTED_PROVEN
+processing_started: YES
+project_time: omitted
+
+accepted_frontier:
+puev5691/wellbeing-hq@f9e2c8b5ffe1ee78fe908fc0141aed45e4b1d36b:
+entities/koordinator/outbox/execution-evidence/KOD_SECE_RUNTIME_GROUNDING_CORR_R03_A1__INITIAL_FRONTIER_ACCEPTED_E1.md
+
+accepted_frontier_blob:
+2b953a8d868f193d0a9888ab9e8299cb90866819
+
+accepted_predecessor_version:
+INITIAL_NOT_STARTED_V1
+
+task_blob:
+6c8da019a8281a6441988a55bd1e2d78b9994238
+
+authority_blob:
+7ba104e55f1bab6cb7e0c1e543b468ab92bcf2e1
+
+writer_blob:
+5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+
+SHD_input_blob:
+770cf3bd1106a020dd007bea34b256a767358e49
+
+input_package_tree:
+4f473559512c1a0c16561e414d870190f1bed3b6
+
+scope:
+C1_R_C3_R_GROUNDING_ONLY
+
+C2:
+PRESERVE_PASS_MINIMAL_DEPENDENCY_PLUMBING_ONLY
+
+reviewed_baseline_core_modification:
+FORBIDDEN
+
+SIS_invocation:
+FORBIDDEN
+
+automatic_SHD_rereview:
+FORBIDDEN
+
+candidate_activation:
+NO
+
+terminal:
+PASS_KOD_SECE_RUNTIME_GROUNDING_CORR_R03_A1_PROCESSING_STARTED_E2
