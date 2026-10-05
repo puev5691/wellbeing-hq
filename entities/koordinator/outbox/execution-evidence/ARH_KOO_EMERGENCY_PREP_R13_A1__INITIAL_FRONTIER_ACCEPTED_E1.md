@@ -1,0 +1,21 @@
+# Accepted initial frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
+attempt: ARH_KOO_EMERGENCY_PREPARATION_R13_PRESERVATION_A1
+initial_state: INITIAL_NOT_STARTED
+predecessor_commit: 42ef7ce558d92e4ef7515d0d23a1b6eed9b0c86f
+predecessor_blob: cfcb84cc7f38d6ace2e7979bc8a0f524e0c6552c
+expected_predecessor_version: INITIAL_CANDIDATE_V1
+accepted_current_version: INITIAL_NOT_STARTED_V1
+initial_state_acceptance: ACCEPTED
+task_blob: ee5c5c1221d7e2fb3e32a836377ab071fc13c5cb
+writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+snapshot_blob: bf8144c5bd9365f9096c03ea92deee8ea37a8d8b
+pause_blob: 10522b06a9f3a58298823a2a251df1b9859e8aad
+currentness: VERIFIED_AT_ACCEPTANCE
+supersession: NONE_FOUND_AT_ACCEPTANCE
+competing_terminal: NONE_FOUND_AT_ACCEPTANCE
+processing_started: NOT_PROVEN
+last_write_wins: FORBIDDEN
+project_time: omitted
