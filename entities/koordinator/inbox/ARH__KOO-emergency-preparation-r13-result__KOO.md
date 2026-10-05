@@ -1,0 +1,7 @@
+# ARH -> KOO inbox
+
+source_artifact: entities/archivarius/outbox/ARH__KOO-emergency-preparation-r13-result__KOO.md
+source_commit: 29cb89d43eda4ad9103eaefa063f3e79fd4fc1f7
+source_blob: 39b7a59daadf970764f24ac1983a4a9abd097f17
+terminal: PASS_ARH_KOO_EMERGENCY_PREPARATION_R13_EXTERNALLY_PRESERVED
+status: dispatched_pending_receipt
