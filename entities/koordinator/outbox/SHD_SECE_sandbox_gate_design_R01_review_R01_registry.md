@@ -1,0 +1,10 @@
+# SHD SECE sandbox gate design R01 review R01 registry
+
+attempt: SHD_SECE_R01_SANDBOX_GATE_DESIGN_R01_REVIEW_R01_A1
+authority_blob: fdb3fa2e8339f7031cccedefb24a34f59ab1900a
+writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+sht_result_blob: 3ff6d05645098c128ef374ec20869471658fa8c2
+design_package_tree: e5f875af2322f460a2d02af4d47c56e8d2ae2ce9
+state: INITIAL_NOT_STARTED
+scope: INDEPENDENT_DESIGN_BOUNDARY_REVIEW_ONLY
+project_time: omitted
