@@ -1,8 +1,8 @@
 # SHT SECE sandbox gate design R01 frontier
 
 status: INITIAL_FRONTIER_ACCEPTED
-registry_blob: c38a20761d98e053fa9579dc9614b67aecd0647b
-authority_blob: f34e8e71c81d22c850c0d3ad36103b4a0520186b
+registry_blob: e59dc9926d71b772479b04d7854e44a05a222e50
+authority_blob: 893a039f72165ad65821424f3da4b556b100e5e6
 accepted_state: INITIAL_NOT_STARTED_V1
 start_proven: NO
 scope: DESIGN_ONLY
