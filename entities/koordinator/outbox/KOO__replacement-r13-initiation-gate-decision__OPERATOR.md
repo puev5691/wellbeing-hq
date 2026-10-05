@@ -6,78 +6,50 @@ WAITING_OPERATOR_DECISION
 project_time:
 omitted
 
-## Verified preparation result
+Preservation r13 is independently verified and accepted.
 
-puev5691/wellbeing-hq@29cb89d43eda4ad9103eaefa063f3e79fd4fc1f7:
-entities/archivarius/outbox/ARH__KOO-emergency-preparation-r13-result__KOO.md
-
+Current authoritative writer remains:
+KOO r1.2
 blob:
-39b7a59daadf970764f24ac1983a4a9abd097f17
+b68e1dd2e79781f4ea8fab7e48e7456fada14c80
 
-terminal:
-PASS_ARH_KOO_EMERGENCY_PREPARATION_R13_EXTERNALLY_PRESERVED
-
-External recovery successor:
-
+Exact external recovery:
 puev5691/wellbeing-entity-bootstrap@896b33f99551092bf50f7bef2657e3276d850fc3:
 entities/koo/recovery/versions/koo-recovery-r13
 
 package tree:
 1aecd76c7cabe55d047eea6ea79700fed643d98d
 
-composition:
-5/5 PASS
-
-Prepared cold-start PROMPT:
-
+Exact prepared cold-start PROMPT:
 puev5691/wellbeing-hq@c695ce40ca04e6a1ebda36b6f5d31a590d0d90a7:
 entities/archivarius/outbox/PROMPT__KOO__replacement-r13-cold-start__OPERATOR.md
 
 blob:
 229e46a247f8381c46569f7e7c9fd0a000849124
 
-status:
-PREPARED_NOT_ACTIVATED
+scope:
+Initiation Gate only
 
-## Current controlling state
-
-Current authoritative writer:
-KOO r1.2
-
-writer blob:
-b68e1dd2e79781f4ea8fab7e48e7456fada14c80
-
-Global pause:
-
-entities/koordinator/current/KOO__global-pause-emergency-initiation-preparation-r13.md
-
-blob:
-10522b06a9f3a58298823a2a251df1b9859e8aad
-
-status:
+Global pause remains:
 GLOBAL_PROFILE_TASK_PAUSE_ACTIVE
 
-The pause remains controlling.
+This decision, if approved, authorizes only manual activation/transfer of the exact prepared cold-start PROMPT to a genuinely NEW KOO r1.3 chat for Initiation Gate.
 
-## Proposed next step
-
-Authorize only the Initiation Gate of one genuinely NEW KOO r1.3 instance using the exact prepared cold-start PROMPT and exact external recovery r13.
-
-This authorization does NOT:
+It does NOT:
 - establish current-writer;
-- perform Writer Gate;
+- authorize Writer Gate;
 - retire/freeze KOO r1.2;
-- resume any paused profile task;
-- replay historical PROMPT/task/queue;
-- authorize SECE/KOD/SHD/SIS work;
-- authorize Project Source/canon mutation;
-- authorize runtime/host/provider/live/production effects.
+- resume SECE/KOD/SHD/SIS;
+- resume pending decision gates;
+- replay historical tasks/prompts/queues;
+- remove the global pause;
+- authorize production/live effects.
 
-## Exact OPERATOR decision
+Exact OPERATOR decision:
 
 AUTHORIZE_KOO_R13_REPLACEMENT_INITIATION_GATE = YES
 
-If approved, OPERATOR may transfer the exact prepared cold-start PROMPT to one genuinely NEW KOO chat.
+If approved:
+KOO may return the exact prepared cold-start PROMPT for manual transfer to a genuinely NEW KOO chat.
 
-That new instance performs Initiation Gate only and must STOP before Writer Gate.
-
+STOP at OPERATOR decision gate.
