@@ -1,0 +1,9 @@
+# SHT replacement self-snapshot preservation r01 registry
+
+attempt: SHT_REPLACEMENT_SELF_SNAPSHOT_PRESERVATION_R01_A1
+authority_blob: a07f590f357ab8cabcca9f87cc2676e952a9f53a
+writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+current_attempt_terminal_blob: e32ba475182b059709ed97c48973f43c8a071411
+state: INITIAL_NOT_STARTED
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+project_time: omitted
