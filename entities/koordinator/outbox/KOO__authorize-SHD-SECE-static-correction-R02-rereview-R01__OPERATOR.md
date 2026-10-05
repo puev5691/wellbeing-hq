@@ -1,0 +1,10 @@
+# KOO authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: AUTHORIZE_SHD_SECE_R01_RUNTIME_INTEGRATION_STATIC_CORRECTION_R02_REREVIEW_R01 = YES
+owner: SHD r0.4
+attempt: SHD_SECE_R01_RUNTIME_INTEGRATION_STATIC_CORRECTION_R02_REREVIEW_R01_A1
+basis_commit: 2c781253ed49317d63c6f7b6253c7335f11c4e68
+basis_path: entities/koordinator/outbox/KOO__SECE-runtime-integration-static-correction-R02-rereview-decision__OPERATOR.md
+basis_blob: cb2f9dbcf84b2328518dee1d817f66a16ec685cd
+project_time: omitted
