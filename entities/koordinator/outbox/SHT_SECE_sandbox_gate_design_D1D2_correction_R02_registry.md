@@ -1,0 +1,10 @@
+# SHT SECE sandbox gate design D1D2 correction R02 registry
+
+attempt: SHT_SECE_R01_SANDBOX_GATE_DESIGN_D1D2_CORRECTION_R02_A1
+authority_blob: 87ce1458c58493d87fd4568c698562feb67c0313
+writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+predecessor_design_tree: e5f875af2322f460a2d02af4d47c56e8d2ae2ce9
+shd_review_blob: 4ed270080598fbca66c74551a40a37d0b984ef51
+state: INITIAL_NOT_STARTED
+scope: DESIGN_CORRECTION_D1_D2_ONLY
+project_time: omitted
