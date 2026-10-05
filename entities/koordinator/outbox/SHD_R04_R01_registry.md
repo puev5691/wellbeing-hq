@@ -1,0 +1,9 @@
+# SHD R04 R01 registry
+
+attempt: SHD_SECE_R01_RUNTIME_INTEGRATION_TASK_GROUNDING_CORRECTION_R04_REREVIEW_R01_A1
+authority_blob: 399b6154519dac19055feedc787bd9e0cffcbc04
+writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+input_result_blob: 2814edd2655eaca0011a7553f1d81e829eef1481
+input_package_tree: 1158f63954c78bb6023e7a05e2e702c110a5203c
+state: INITIAL_NOT_STARTED
+project_time: omitted
