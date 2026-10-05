@@ -1,0 +1,8 @@
+# SHD R03 R01 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+source_descriptor_blob: fe14254feeccbd85b810ceead07d2cd5f773f55c
+source_authority_blob: e3650f326b1a0e25447ff1f7f0f15037f6190bb4
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+project_time: omitted
