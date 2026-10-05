@@ -1,0 +1,10 @@
+# KOO authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+decision: AUTHORIZE_KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_STATIC_CORRECTION_R02 = YES
+owner: KOD v0.7
+attempt: KOD_SECE_R01_RUNTIME_INTEGRATION_OFFLINE_IMPLEMENTATION_STATIC_CORRECTION_R02_A1
+basis_commit: 4dca3383d1e7ab2d6996f68a827f3d8a5ae49c3f
+basis_path: entities/koordinator/outbox/KOO__SECE-runtime-integration-static-correction-R02-decision__OPERATOR.md
+basis_blob: 590e5c0e9c7295641844c897165146213bf2a533
+project_time: omitted
