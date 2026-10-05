@@ -1,0 +1,13 @@
+{
+  "status": "STATIC_GROUNDING_CORRECTION_IMPLEMENTED_READY_FOR_INDEPENDENT_REREVIEW",
+  "attempt": "KOD_SECE_R01_RUNTIME_INTEGRATION_GROUNDING_CORRECTION_R03_A1",
+  "candidate_status": "NOT_ACTIVATED",
+  "C1_R_policy_dependency_chain": "IMPLEMENTED",
+  "C3_R_evidence_derived_actor_binding": "IMPLEMENTED",
+  "C2": "PRESERVED_PASS_MINIMAL_DEPENDENCY_PLUMBING_ONLY",
+  "runtime_test_methods": 27,
+  "package_local_execution": false,
+  "reviewed_baseline_core_changed": false,
+  "SIS_invoked": false,
+  "SHD_rereview_invoked": false
+}
