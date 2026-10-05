@@ -1,0 +1,18 @@
+# Initial evidence
+
+status: INITIAL_EXECUTION_EVIDENCE_CANDIDATE
+profile_id: CHAT_INFOFIELD_EXECUTION_EVIDENCE_PROFILE_R01
+execution_attempt_id: ARH_KOO_EMERGENCY_PREPARATION_R13_PRESERVATION_A1
+state_version: INITIAL_CANDIDATE_V1
+initial_state: INITIAL_NOT_STARTED
+task_blob: ee5c5c1221d7e2fb3e32a836377ab071fc13c5cb
+actor_entity: ARH
+actor_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+snapshot_blob: bf8144c5bd9365f9096c03ea92deee8ea37a8d8b
+pause_blob: 10522b06a9f3a58298823a2a251df1b9859e8aad
+task_currentness: CURRENT_AT_CANDIDATE_CREATION
+supersession: NONE_FOUND_AT_CANDIDATE_CREATION
+processing_started: NOT_PROVEN
+initial_state_acceptance: PENDING_CONDITIONAL_ACCEPTANCE
+last_write_wins: FORBIDDEN
+project_time: omitted
