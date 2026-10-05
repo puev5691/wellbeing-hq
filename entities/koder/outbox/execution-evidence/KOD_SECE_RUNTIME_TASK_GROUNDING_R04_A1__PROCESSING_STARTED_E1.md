@@ -1,0 +1,66 @@
+# KOD PROCESSING_STARTED
+
+execution_attempt_id: KOD_SECE_R01_RUNTIME_INTEGRATION_TASK_GROUNDING_CORRECTION_R04_A1
+status: PROCESSING_STARTED_PROVEN
+processing_started: YES
+project_time: omitted
+
+accepted_frontier:
+puev5691/wellbeing-hq@809b94dd4620ab535682652eab2d32f189742245:
+entities/koordinator/outbox/KOD_R04_frontier.md
+
+accepted_frontier_blob:
+30f332a0b03b795426bae1e317ec54124cc6b120
+
+accepted_predecessor_version:
+INITIAL_NOT_STARTED_V1
+
+authority:
+puev5691/wellbeing-hq@220f44764e1d7bd10a5e20a7e765798aa910f6fe:
+entities/koordinator/outbox/KOD_R04_task_grounding_authority.md
+
+authority_blob:
+5f7d19c58f94de6715dde305f4bc273780d232b5
+
+registry:
+puev5691/wellbeing-hq@d58f6a48c018d9ce234d8ceed9ffd5ad7c433d4e:
+entities/koordinator/outbox/KOD_R04_registry.md
+
+registry_blob:
+e9ff86d20f3722557d61718e9cbe444399d145d0
+
+writer_blob:
+5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+
+SHD_input_blob:
+64046c99abb20d4a8e9a62b05a533a62a08aabeb
+
+input_package_tree:
+be973adee8a202ca52619fb61bb8c295dea8dd56
+
+selected_architecture:
+VARIANT_B_SEPARATE_TASK_EXECUTION_BINDING
+
+scope:
+C3_R1_TASK_AUTHORITY_CURRENTNESS_GROUNDING_ONLY
+
+C1:
+PRESERVE_PASS
+
+C2:
+PRESERVE_PASS
+
+actor_writer_recovery_grounding:
+PRESERVE_PASS
+
+candidate_activation:
+NO
+
+SHD_rereview:
+FORBIDDEN
+
+SIS_execution:
+FORBIDDEN
+
+terminal:
+PASS_KOD_SECE_RUNTIME_TASK_GROUNDING_R04_A1_PROCESSING_STARTED_E1
