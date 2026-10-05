@@ -1,0 +1,18 @@
+# KOD R03 task descriptor
+
+status: TASK_MATERIALIZED_FOR_MANUAL_TRANSFER
+attempt: KOD_SECE_R01_RUNTIME_INTEGRATION_GROUNDING_CORRECTION_R03_A1
+recipient: KOD v0.7
+authority_commit: 33085d9380de4808458b9f0407c8b5b973f3ec9b
+authority_blob: 7ba104e55f1bab6cb7e0c1e543b468ab92bcf2e1
+specification_commit: 2202cae412eef63443d08ff3bb854c4608279a39
+specification_blob: 5d9f9cdae97671a60b141960c15c8aae8880b692
+review_commit: 703481b8aa19f3b7cf85ae590dd144356970a200
+review_blob: 770cf3bd1106a020dd007bea34b256a767358e49
+input_package_commit: ca7de24d7a03e0ce45859511eeb4ed4d73a98f3b
+input_package_tree: 4f473559512c1a0c16561e414d870190f1bed3b6
+actor_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+initial_state: INITIAL_NOT_STARTED
+manual_transfer_required: YES
+automatic_activation: NO
+project_time: omitted
