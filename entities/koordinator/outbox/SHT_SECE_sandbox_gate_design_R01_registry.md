@@ -1,0 +1,12 @@
+# SHT SECE sandbox gate design R01 registry
+
+attempt: SHT_SECE_R01_SANDBOX_GATE_DESIGN_R01_A1
+authority_blob: f34e8e71c81d22c850c0d3ad36103b4a0520186b
+writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+candidate_commit: bb5b66644cd9e6421613e2c3f22d3299549ed374
+candidate_tree: 1158f63954c78bb6023e7a05e2e702c110a5203c
+shd_pass_blob: 887fdc7523ea5d18541eb8324cc452ef7c327f46
+sis_pass_blob: 5815b818608dd5f95fed59557f142ea31659e5b4
+state: INITIAL_NOT_STARTED
+scope: DESIGN_ONLY
+project_time: omitted
