@@ -1,0 +1,18 @@
+# PROCESSING_STARTED
+
+status: PROCESSING_STARTED
+attempt: SHT_SECE_R01_SANDBOX_GATE_DESIGN_D1D2_CORRECTION_R02_A1
+scope: DESIGN_CORRECTION_D1_D2_ONLY
+accepted_frontier_commit: 24729f0c89d6608a15ef9b8e2a47b8af952ba7ff
+accepted_frontier_blob: 3d7f6717e3ed162464192ecf6f2880591f405d8b
+accepted_predecessor: INITIAL_NOT_STARTED_V1
+authority_blob: 87ce1458c58493d87fd4568c698562feb67c0313
+writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+predecessor_tree: e5f875af2322f460a2d02af4d47c56e8d2ae2ce9
+SHD_review_blob: 4ed270080598fbca66c74551a40a37d0b984ef51
+authority_currentness: VERIFIED
+writer_currentness: VERIFIED
+supersession_conflict: NONE_FOUND
+processing_started: YES
+No implementation, filesystem experiment, target selection/mutation, G4/G5/G6 authority or downstream continuation is created.
+project_time: omitted
