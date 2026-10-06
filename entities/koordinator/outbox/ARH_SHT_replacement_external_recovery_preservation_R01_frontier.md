@@ -1,0 +1,9 @@
+# ARH SHT replacement external recovery preservation r01 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: b6b60b5efa7ee4e98af8a08a4ff3c32b81680360
+authority_blob: ec1ac4f482d108c077fb3acc2aad03b7b1ee6ed2
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+project_time: omitted
