@@ -1,0 +1,12 @@
+# SHT replacement Writer Gate r0.2 A1 registry
+
+attempt: SHT_REPLACEMENT_WRITER_GATE_R02_A1
+authority_blob: 0f4041174a19330061e735ead94bcd4d7e574fad
+instance_binding_id: SHT_R02_WRITER_BOUND_TO_A2_RESULT_7133F0
+a2_result_commit: 7133f0e54aff0f8331fece048284df90b365198b
+a2_result_blob: b7dfda884caaf9ec21bd66d2f3d9fbdccd22494a
+predecessor_writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+state: INITIAL_NOT_STARTED
+scope: WRITER_GATE_ONLY
+profile_work: NOT_AUTHORIZED
+project_time: omitted
