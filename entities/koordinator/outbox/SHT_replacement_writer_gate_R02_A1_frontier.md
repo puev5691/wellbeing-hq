@@ -1,0 +1,11 @@
+# SHT replacement Writer Gate r0.2 A1 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: 7d3ea1c65c8993230ea4f82130d7b2ffc9c8474c
+authority_blob: 0f4041174a19330061e735ead94bcd4d7e574fad
+instance_binding_id: SHT_R02_WRITER_BOUND_TO_A2_RESULT_7133F0
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: WRITER_GATE_ONLY
+profile_work: NOT_AUTHORIZED
+project_time: omitted
