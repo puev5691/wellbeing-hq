@@ -1,0 +1,13 @@
+# SHT replacement Initiation Gate r0.2 registry
+
+attempt: SHT_REPLACEMENT_INITIATION_GATE_R02_A1
+authority_blob: a86a2da93f4a83a7fbc626f6dd6d9f3134f9ca13
+recovery_ref: c23b2304ca0ea4f4b62e9e451e39c69cfb1817c5
+recovery_path: entities/sht/recovery/versions/sht-recovery-r02
+recovery_tree: f561246223a48ac885d7baae383898cc8e89af16
+predecessor_writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+state: INITIAL_NOT_STARTED
+scope: INITIATION_GATE_ONLY
+writer_gate: NOT_AUTHORIZED
+profile_work: NOT_AUTHORIZED
+project_time: omitted
