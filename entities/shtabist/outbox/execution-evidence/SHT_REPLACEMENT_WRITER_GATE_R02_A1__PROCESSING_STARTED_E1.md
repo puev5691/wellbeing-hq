@@ -1,0 +1,15 @@
+# SHT replacement Writer Gate r0.2 A1 PROCESSING_STARTED
+
+status: PROCESSING_STARTED
+processing_started: YES
+attempt: SHT_REPLACEMENT_WRITER_GATE_R02_A1
+scope: WRITER_GATE_ONLY
+instance_binding_id: SHT_R02_WRITER_BOUND_TO_A2_RESULT_7133F0
+A2_result_commit: 7133f0e54aff0f8331fece048284df90b365198b
+A2_result_blob: b7dfda884caaf9ec21bd66d2f3d9fbdccd22494a
+accepted_frontier_commit: 3efe9c28a73aa092d797999bbbfdef7b2f45119b
+accepted_frontier_blob: ee0cb395bd372b399629e06089a1c6f2f67c54ee
+predecessor_writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+accepted_state: INITIAL_NOT_STARTED_V1
+profile_continuation: PAUSED_BY_OPERATOR
+profile_work: NOT_PERFORMED
