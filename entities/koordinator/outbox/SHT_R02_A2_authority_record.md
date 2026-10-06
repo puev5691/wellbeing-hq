@@ -1,0 +1,11 @@
+# SHT R02 A2 authority record
+
+status: OPERATOR_DECISION_RECEIVED
+operator_decision: YES
+attempt: SHT_REPLACEMENT_INITIATION_GATE_R02_A2
+scope: INITIATION_GATE_ONLY
+decision_gate_commit: 09b884d37b89e5ca0d7b1cf96b00c27a2cc90676
+reconciliation_commit: 2fb868bb68567d93de98bfd247f6af3e0394faab
+anchor_commit: e80dd56a6e92284ae875540dcb062114b9837489
+anchor_blob: 144a4e549ee84772e55af6b6b958de313f247abe
+project_time: omitted
