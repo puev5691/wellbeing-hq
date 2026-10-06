@@ -1,0 +1,17 @@
+# ARH SHT replacement external recovery preservation r01 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+recipient: ARH / АРХИВАРИУС
+attempt: ARH_SHT_REPLACEMENT_EXTERNAL_RECOVERY_PRESERVATION_R01_A1
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+decision_basis: explicit OPERATOR instruction in current KOO chat to prepare ARH external preservation/checkpoint task only
+source_snapshot_commit: 71f850f6b539a5b6d0625cae081bb422900e7271
+source_snapshot_blob: d00ce349aebad0fa7e72719cb99d616185b65d93
+source_writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+previous_recovery_ref: b34dd2cda94c2f61acc59a5f066c38bd24fdae0c
+previous_recovery_path: entities/sht/recovery/current
+profile_work_continuation: FORBIDDEN
+writer_transfer: NOT_AUTHORIZED
+initiation_gate: NOT_AUTHORIZED_BY_THIS_TASK
+writer_gate: NOT_AUTHORIZED
+project_time: omitted
