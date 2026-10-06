@@ -1,0 +1,11 @@
+# ARH SHT replacement external recovery preservation r01 registry
+
+attempt: ARH_SHT_REPLACEMENT_EXTERNAL_RECOVERY_PRESERVATION_R01_A1
+authority_blob: ec1ac4f482d108c077fb3acc2aad03b7b1ee6ed2
+arh_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+source_snapshot_blob: d00ce349aebad0fa7e72719cb99d616185b65d93
+source_writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+previous_recovery_ref: b34dd2cda94c2f61acc59a5f066c38bd24fdae0c
+state: INITIAL_NOT_STARTED
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+project_time: omitted
