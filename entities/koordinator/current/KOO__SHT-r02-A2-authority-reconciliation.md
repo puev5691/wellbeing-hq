@@ -1,0 +1,49 @@
+# SHT r02 A2 authority reconciliation
+
+status: A2_AUTHORITY_CURRENT
+
+attempt: SHT_REPLACEMENT_INITIATION_GATE_R02_A2
+
+governing_reconciliation_commit:
+2fb868bb68567d93de98bfd247f6af3e0394faab
+
+detailed_authority_commit:
+0256d7c47dce16356cbc2357cf2f293ca0843557
+
+detailed_authority_blob:
+9c5de02c26ceb5065dc8943a1ebf7c09c2cd32d7
+
+parallel_operator_decision_record_commit:
+3d048164407bce7b9dcca4c84a73e03333606cf7
+
+parallel_record_classification:
+COMPATIBLE_DUPLICATE_RECORD_OF_SAME_OPERATOR_DECISION
+
+additional_attempt_created_by_duplicate:
+NO
+
+instance_binding_id:
+SHT_R02_A2_BOUND_TO_FAIL_RESULT_E80DD56
+
+frontier_commit:
+77a52d38a60a7b9339dd0b2de06b5fffb094cb77
+
+frontier_blob:
+5e6036f58f7355215a70944c2f05633f19e4c075
+
+prompt_commit:
+ead6b7ae3dac4e5a7b6a0ba98c4c69d53cfefa1d
+
+prompt_path:
+entities/koordinator/outbox/KOO__SHT-replacement-initiation-r02-A2-bound__SHT.md
+
+A2_processing_started:
+NO
+
+Writer_Gate:
+NOT_AUTHORIZED
+
+profile_work:
+NOT_AUTHORIZED
+
+project_time: omitted
