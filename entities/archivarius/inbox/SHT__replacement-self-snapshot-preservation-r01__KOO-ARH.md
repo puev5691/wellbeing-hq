@@ -1,0 +1,8 @@
+artifact: entities/shtabist/outbox/SHT__replacement-self-snapshot-preservation-r01__KOO-ARH.md
+artifact_commit: 71f850f6b539a5b6d0625cae081bb422900e7271
+artifact_blob: d00ce349aebad0fa7e72719cb99d616185b65d93
+dispatch_commit: 7eed76a3b9e0151e26d2d21034803251603c9714
+purpose: input for separately authorized external SHT recovery preservation/checkpoint
+external_ARH_preservation: PENDING
+receipt: null
+acceptance: null
