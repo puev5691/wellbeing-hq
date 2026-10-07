@@ -1,0 +1,10 @@
+# SHT r02 post-Writer self-snapshot frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: 50ada4e133093f6bd3e9346088313a7bd1e00642
+authority_blob: f95c7124574e01bf0cd61fa8c00803d8eeaeb683
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+profile_work: NOT_AUTHORIZED
+project_time: omitted
