@@ -1,0 +1,12 @@
+# ARH SHT r02 post-Writer external recovery r03 registry
+
+attempt: ARH_SHT_R02_POST_WRITER_EXTERNAL_RECOVERY_R03_A1
+authority_blob: 3055cad5e47a03be2d6a90d48fa34906896a0fce
+arh_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+source_snapshot_blob: 6d48804adfb190d211ffea7c20f80fbde0135e64
+source_writer_blob: 591a5c474523f46ad84b5c49c62939832b87b15c
+previous_recovery_ref: c23b2304ca0ea4f4b62e9e451e39c69cfb1817c5
+target_path: entities/sht/recovery/versions/sht-recovery-r03
+state: INITIAL_NOT_STARTED
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+project_time: omitted
