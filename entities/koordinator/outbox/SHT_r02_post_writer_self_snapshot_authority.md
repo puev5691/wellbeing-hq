@@ -1,0 +1,12 @@
+# SHT r02 post-Writer self-snapshot authority
+
+status: CANON_TRIGGER_AUTHORITY_RECORDED
+owner: SHT-REPLACEMENT-R02
+attempt: SHT_R02_POST_WRITER_SELF_SNAPSHOT_R01_A1
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+basis_reconciliation_commit: 92df69283ff897abdf2b969746ba59f348f826ab
+basis_reconciliation_blob: dfeb794e3ae8e801f8feeb2a9278cabb7e54c5b2
+recovery_canon_blob: 233117e1c9509d730e1f5ec532b1cabe3f786609
+current_writer_blob: 591a5c474523f46ad84b5c49c62939832b87b15c
+profile_work: NOT_AUTHORIZED
+project_time: omitted
