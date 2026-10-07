@@ -1,0 +1,11 @@
+# SHD SECE D1D2 correction R02 narrow rereview R01 registry
+
+attempt: SHD_SECE_R01_SANDBOX_GATE_DESIGN_D1D2_CORRECTION_R02_REREVIEW_R01_A1
+authority_blob: 522886f78ac7a732ea5d9f7b292b2555ce62f1a7
+shd_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+input_result_blob: e32ba475182b059709ed97c48973f43c8a071411
+corrected_package_tree: 84979101d6bd19fd939f978652f03317f6e524b9
+prior_review_blob: 4ed270080598fbca66c74551a40a37d0b984ef51
+state: INITIAL_NOT_STARTED
+scope: INDEPENDENT_D1_D2_NARROW_REREVIEW_ONLY
+project_time: omitted
