@@ -1,0 +1,9 @@
+# SHD SECE D1D2 correction R02 narrow rereview R01 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: 28e2cdf3bcb79d6ef85e32c0bb14ed912af2379f
+authority_blob: 522886f78ac7a732ea5d9f7b292b2555ce62f1a7
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: INDEPENDENT_D1_D2_NARROW_REREVIEW_ONLY
+project_time: omitted
