@@ -1,0 +1,11 @@
+# KOD v0.7 pre-sandbox-implementation self-snapshot registry
+
+attempt: KOD_V07_PRE_SANDBOX_IMPL_SELF_SNAPSHOT_R01_A1
+authority_blob: ce38b2acd5b2787b7556dd642d4107625819e6b2
+current_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+state: INITIAL_NOT_STARTED
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+profile_work: NOT_AUTHORIZED
+sandbox_implementation: NOT_AUTHORIZED
+G4: NOT_AUTHORIZED
+project_time: omitted
