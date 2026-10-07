@@ -1,0 +1,18 @@
+# Key exact Git blob identities
+
+sandbox_profile.py: aea56717315010a79ff70feb481580350eea77a2
+sandbox_effect.py: 756127d96328951efdbd2212321c63289e9a5829
+sandbox_adapter.py: 9ebaabcc9e7463bc4cde720e667f67baa34d5324
+sandbox_adapter_tests.py: 92d424b21da8a5fe466003f70cd9dd5bbb2b28df
+sandbox_runtime_integration.py: 5176322a22555148ffb7263672ecd72d093bed3b
+run_sandbox_adapter_tests.py: b342587443eacade5d01a4ebbadf793c7c5c0ca3
+run_candidate_tests.py: f62279ef03ea8b1434d5567fb55753ff0423904b
+LINUX-POSIX-PLATFORM-EVIDENCE-PROFILE-R01.json: fb6561336b1e270eb8673c1f2ea7e2caa14e3841
+SECE-SANDBOX-CONFINEMENT-PROFILE-R02-IMPLEMENTATION.json: 7bd015f32b069352eaabbb34ef9b4383613afa6f
+OBJECT-BOUND-CLEANUP-R02-IMPLEMENTATION.json: 85a01ada074092b2c6786418dc65bc01c5562e47
+
+R04 reviewed runtime_integration.py remains:
+e0626e3088b7f364604d1fb5e12c2b2b511c3987
+
+Reviewed baseline core remains:
+e7b89c948c4e672c5b682408ce790670dfcdad5c

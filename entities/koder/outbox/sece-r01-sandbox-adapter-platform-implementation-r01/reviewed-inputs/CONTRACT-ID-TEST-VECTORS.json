@@ -1,0 +1,327 @@
+{
+  "schema_id": "SECE_CONTRACT_ID_TEST_VECTORS_R01",
+  "base_contract": {
+    "contract_id": "7b819fb3ac464c226b83fbc4fe9fddb1a40b90a6b3f5c35c11d5078347e4ab6f",
+    "schema_version": "SECE_EXECUTION_CONTRACT_R01",
+    "derived_event_ref": "EV-1",
+    "ENTITY": "KOD",
+    "INSTANCE": "KOD-v0.6",
+    "ROLE_PROFILE": "KOD-PROFILE",
+    "CAPABILITIES": [
+      "OFFLINE_DESIGN"
+    ],
+    "CURRENT_STATE": {
+      "writer_requirement": "REQUIRED",
+      "writer_state": "CURRENT",
+      "task_currentness": "CURRENT",
+      "supersession_state": "NONE",
+      "blockers": []
+    },
+    "TASK_IDENTITY": {
+      "task_ref": "TASK-1",
+      "task_version": "v1",
+      "task_status": "CURRENT"
+    },
+    "AUTHORITY_BASIS": [
+      {
+        "authority_ref": "AUTH-1",
+        "scope": "S1",
+        "action_classes": [
+          "READ_ONLY"
+        ],
+        "currentness": "CURRENT"
+      }
+    ],
+    "SOURCE_SET": [
+      {
+        "locator": "SRC-1",
+        "version_blob": "blob-1",
+        "active_status": "ACTIVE",
+        "semantic_basis": "RULE-1"
+      }
+    ],
+    "INPUTS": [
+      {
+        "input_id": "IN-1",
+        "exact_identity": "sha-1",
+        "required": true,
+        "verified_state": "VERIFIED"
+      }
+    ],
+    "PROFILE": {
+      "profile_id": "PROF-1",
+      "selection_basis": "ROLE+TASK"
+    },
+    "EXPERIENCE_SET": [
+      {
+        "ref": "EXP-1",
+        "provenance": "ARCHIVE",
+        "applicability": "APPLICABLE",
+        "freshness": "CURRENT",
+        "reason_loaded": "RELEVANT",
+        "advisory_only": true
+      }
+    ],
+    "ALLOWED_ACTIONS": [
+      {
+        "action_id": "A1",
+        "action_class": "READ_ONLY"
+      }
+    ],
+    "FORBIDDEN_ACTIONS": [
+      {
+        "action_id": "A2",
+        "action_class": "MUTATE"
+      }
+    ],
+    "REQUIRED_PRECONDITIONS": [
+      {
+        "predicate_id": "PRE-1",
+        "state": "SATISFIED"
+      }
+    ],
+    "STOP_IF": [
+      {
+        "predicate_id": "STOP-1",
+        "state": "FALSE"
+      }
+    ],
+    "EXPECTED_RESULT": {
+      "result_shape": "R1",
+      "required_fields": [
+        "state"
+      ]
+    },
+    "EXPECTED_TERMINAL": [
+      "PASS",
+      "BLOCKED"
+    ],
+    "NEXT_GATE_RULE": [
+      {
+        "rule_id": "NG-1",
+        "next_gate_class": "CAUSAL_NEXT_GATE"
+      }
+    ],
+    "PROVENANCE": [
+      {
+        "provenance_id": "PV-1",
+        "ref": "SRC-1"
+      }
+    ],
+    "VALIDATION_STATE": {
+      "static_validation": "PENDING",
+      "unresolved_unknowns": [],
+      "conflicts": []
+    },
+    "HUMAN_CAUSAL_VIEW": {
+      "checked": "derived",
+      "known": "derived",
+      "unknown": "derived",
+      "authorized": "derived",
+      "forbidden": "derived",
+      "observed": "derived",
+      "significance": "derived",
+      "next_action": "derived"
+    },
+    "effective_context_id": "CTX-1",
+    "effective_context_version": 1,
+    "selected_scope": "S1",
+    "projection_basis": [
+      {
+        "context_atom_or_binding_id": "B1",
+        "exact_scope": "S1",
+        "provenance_ref": "PV-1",
+        "reason_used": "ACTION_BINDING"
+      }
+    ],
+    "context_dependency_refs": [
+      "DEP-1"
+    ],
+    "projection_created_for_action_id": "A1",
+    "ACTION_INTENT": {
+      "action_id": "A1",
+      "action_class": "READ_ONLY",
+      "selected_scope": "S1",
+      "transition_type": "INSPECT",
+      "target_ref": "OBJ-1",
+      "parameters": {
+        "query_ref": "Q1",
+        "mode": "EXACT"
+      }
+    },
+    "ACTION_AUTHORIZATION_BINDINGS": [
+      {
+        "action_id": "A1",
+        "action_class": "READ_ONLY",
+        "disposition": "ALLOWED",
+        "compiled_rule_id": "CR-1",
+        "source_locator": "SRC-1",
+        "source_version_blob": "blob-1",
+        "authority_ref": "AUTH-1",
+        "authority_scope": "S1",
+        "authority_action_classes": [
+          "READ_ONLY"
+        ],
+        "task_binding": "TASK-1",
+        "task_currentness_requirement": "CURRENT",
+        "writer_requirement": "REQUIRED",
+        "production_or_effect_authority_requirement": "NOT_REQUIRED",
+        "provenance_status": "VERIFIED",
+        "conflict_status": "NONE"
+      }
+    ],
+    "CAUSAL_EVENTS": [
+      {
+        "event_id": "CE-1",
+        "event_type": "DECISION",
+        "evidence_ref": "E-1",
+        "processing_started_state": "NOT_APPLICABLE",
+        "current_decision_state": "CURRENT",
+        "causal_requirement_status": "NOT_REQUIRED"
+      }
+    ],
+    "CURRENT_STATE_EVIDENCE": [
+      {
+        "evidence_id": "CSE-1",
+        "evidence_kind": "TASK",
+        "exact_immutable_identity": "TASK-1",
+        "scope": "S1",
+        "verified_state": "VERIFIED",
+        "currentness_state": "CURRENT",
+        "selected_current_basis": "YES",
+        "unresolved_conflict": "NO"
+      }
+    ]
+  },
+  "base_contract_id": "7b819fb3ac464c226b83fbc4fe9fddb1a40b90a6b3f5c35c11d5078347e4ab6f",
+  "identical_canonical_contract_id": "7b819fb3ac464c226b83fbc4fe9fddb1a40b90a6b3f5c35c11d5078347e4ab6f",
+  "identical_id_match": true,
+  "semantic_mutation_matrix": [
+    {
+      "semantic_field_class": "effective_context_version",
+      "contract_id": "2f419a772b5558525ef8c82e3729c683bc6e9f0802d1f57e4fcaca600f44f5fd",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "selected_scope",
+      "contract_id": "e8bde4fd61ea8f8299640411e675720fe41ccaa22c02306c47324f0799e6dfa8",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "projection_basis",
+      "contract_id": "27e8070e7fc655e81d62a74c8f835a72c35740e6101c6ffee8767e430534f75c",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "context_dependency_refs",
+      "contract_id": "8727d9e8d3b89a12699fd562ac015b705ebf5af0e6a630077f5d752452179053",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "full_ACTION_INTENT",
+      "contract_id": "82ebc462efd3df724668f9a7a9206282a52301f16b9b13dd9cec83bc1fef1673",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "ACTION_AUTHORIZATION_BINDINGS",
+      "contract_id": "644075069c4de50f63ddc7160955c8e15982b3fbe36b4b46a3cd47a23864f9ad",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "CAUSAL_EVENTS",
+      "contract_id": "85a87e5009f40b4405b4a7f1e3638875cdd95c90dd23a9c1e5ce44e5c1c23b7e",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "CURRENT_STATE_EVIDENCE",
+      "contract_id": "1739775af087765197670a740f370f0b0c036e4a62190e4b0c9cc454bf844628",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "ALLOWED_ACTIONS",
+      "contract_id": "3fcdc388665e006567f7cb2089f3e22c3f4cdc1d1f409ed5533d23abe9964940",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "FORBIDDEN_ACTIONS",
+      "contract_id": "35431e10a559b14bfdff0edb0fe9dbc3d99da6aab9e547f37116d5a49f35db95",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "REQUIRED_PRECONDITIONS",
+      "contract_id": "f9bf908153127ec17bb583159ebfa3c5a2929ad4ed6b7141a2630ad221f528a8",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "STOP_IF",
+      "contract_id": "f9c7086389e9331e75150f47ab6eeb8f0604efcbe5a46e761067eb8d9c074881",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "EXPECTED_RESULT",
+      "contract_id": "61fa90331375cd94ce6867a9e020d346bfd880477dcc10ed0e006b54459f7f61",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "EXPECTED_TERMINAL",
+      "contract_id": "a125d9925eecf05b0e015646da348ed3b945b1cfa709623c9eb1b9eec4f1c33d",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "NEXT_GATE_RULE",
+      "contract_id": "0fc3df34850fc9f0da99bf0c45d053edd742f24aca31cfeb4bf7c31a73376e26",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "PROVENANCE",
+      "contract_id": "86bb447e0ec6785902e966e82e9442eb2753d04828e2d9e0bb3bdd1454f2c10d",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "VALIDATION_STATE",
+      "contract_id": "3932116a6e1e05aa3439c97ccae6f88214c4692b8e8e0b84c0666135383c63f0",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "TASK_IDENTITY",
+      "contract_id": "3f0f448dfdea639f8a3c707925605f57216c0b1c396cf111d0ea766cf3799479",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "AUTHORITY_BASIS",
+      "contract_id": "aa4c5835b4a2a98ecaf58bdbe622c34f553d027bfa9e485ad2b7d045064f860b",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "SOURCE_SET",
+      "contract_id": "e8be83c7c7280b2a76b4b718a593c467759f6c211f6ce7fd820c0d62e7030fd8",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "INPUTS",
+      "contract_id": "45426451dbbf47f9bc21b7a18099b72543b356ba2c9ce2c6504bfd92a63b1ac0",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "PROFILE",
+      "contract_id": "ae9c3e880942e38cec28f6a6b0d8ec4a65f873a7e7c9f8b6aec138b94200210c",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "EXPERIENCE_SET",
+      "contract_id": "25e17f7444eb6895844d74ee71c45e5865308ddd2c819de0625e86fb5939a07a",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "CAPABILITIES",
+      "contract_id": "5412c0d5971f9bba19abec71e5ada52a3b2b874ad57b03a4d4a4a98aef55013c",
+      "differs_from_base": true
+    },
+    {
+      "semantic_field_class": "CURRENT_STATE",
+      "contract_id": "df1f72ccb42e638017af4001b03c457a07cbbd6af0027aa571777858b683e786",
+      "differs_from_base": true
+    }
+  ],
+  "marker": "CONTRACT_ID_COLLISION_BY_OMITTED_SEMANTIC_FIELD_PREVENTED=YES"
+}

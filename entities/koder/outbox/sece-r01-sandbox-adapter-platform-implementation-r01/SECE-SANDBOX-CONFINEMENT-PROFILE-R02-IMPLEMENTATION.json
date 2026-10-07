@@ -1,0 +1,13 @@
+{
+  "profile_id": "SECE_SANDBOX_CONFINEMENT_PROFILE_R02",
+  "profile_version": "R02",
+  "design_blob": "3e8e12a95f44db6c18a895d0ed83b69dc4b4ea6e",
+  "status": "IMPLEMENTATION_CANDIDATE_NOT_ACTIVE",
+  "leaf_grammar": "ASCII-safe single basename: ^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$; stricter than design; no traversal/separator/NUL/colon/namespace forms",
+  "anchored_root_identity": "MANDATORY",
+  "exclusive_create": "MANDATORY",
+  "created_object_identity": "MANDATORY",
+  "same_object_continuity": "MANDATORY",
+  "hardlink_replacement_evidence": "MANDATORY",
+  "optimistic_fallback": "FORBIDDEN"
+}

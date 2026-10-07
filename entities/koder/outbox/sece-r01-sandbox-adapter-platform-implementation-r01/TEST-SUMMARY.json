@@ -1,0 +1,13 @@
+{
+  "status": "STATIC_IMPLEMENTATION_VERIFIED_READY_FOR_INDEPENDENT_REREVIEW",
+  "attempt": "KOD_SECE_R01_RUNTIME_INTEGRATION_TASK_GROUNDING_CORRECTION_R04_A1",
+  "architecture_choice": "VARIANT_B_SEPARATE_TASK_EXECUTION_BINDING",
+  "STATIC_IMPLEMENTATION_VERIFIED": true,
+  "PACKAGE_LOCAL_RUNTIME_VERDICT": "NOT_PROVEN",
+  "regression_test_methods": 22,
+  "C1": "PRESERVED_PASS",
+  "C2": "PRESERVED_PASS",
+  "actor_recovery_grounding": "PRESERVED_PASS",
+  "reviewed_baseline_core_changed": false,
+  "candidate": "NOT_ACTIVATED"
+}

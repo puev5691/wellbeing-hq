@@ -1,0 +1,427 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "SECE_OFFLINE_SIMULATOR_TRACE_R01_D3_CLOSED",
+  "title": "SECE r0.1 closed causal trace",
+  "type": "object",
+  "required": [
+    "trace_id",
+    "fixture_id",
+    "input_context_id",
+    "input_context_version",
+    "triggering_event_or_result",
+    "affected_scopes",
+    "invalidated_bindings",
+    "recomputed_bindings",
+    "preserved_bindings",
+    "context_delta_id",
+    "resulting_context_id",
+    "contract_id",
+    "projected_effective_context_id",
+    "projected_effective_context_version",
+    "projection_scope",
+    "projection_basis",
+    "context_dependency_refs",
+    "action_id",
+    "compiled_rule_id",
+    "source_provenance",
+    "authority_ref",
+    "task_binding",
+    "current_state_evidence_ids",
+    "causal_event_ids",
+    "validator_predicates",
+    "aggregation_id",
+    "aggregation_rule_id",
+    "primary_outcome",
+    "secondary_reasons",
+    "effect_decision",
+    "terminal_class",
+    "classified_result_id",
+    "classified_result_state",
+    "synthetic_event_or_result_id",
+    "synthetic_event_or_result_type",
+    "synthetic_event_or_result_verification_state",
+    "next_gate_class",
+    "next_gate_derivation_refs",
+    "expected_vs_actual"
+  ],
+  "properties": {
+    "trace_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "fixture_id": {
+      "type": "string"
+    },
+    "input_context_id": {
+      "type": "string"
+    },
+    "input_context_version": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "triggering_event_or_result": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "verification_state",
+        "parent_context_id",
+        "provenance_ref"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "ACTION_EVENT",
+            "RESULT",
+            "EVENT",
+            "NONE"
+          ]
+        },
+        "verification_state": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "UNKNOWN",
+            "CONFLICT",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "parent_context_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provenance_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "affected_scopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "invalidated_bindings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "recomputed_bindings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "preserved_bindings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "context_delta_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "resulting_context_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "contract_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "projected_effective_context_id": {
+      "type": "string"
+    },
+    "projected_effective_context_version": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "projection_scope": {
+      "type": "string"
+    },
+    "projection_basis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "context_atom_or_binding_id",
+          "exact_scope",
+          "provenance_ref",
+          "reason_used"
+        ],
+        "properties": {
+          "context_atom_or_binding_id": {
+            "type": "string"
+          },
+          "exact_scope": {
+            "type": "string"
+          },
+          "provenance_ref": {
+            "type": "string"
+          },
+          "reason_used": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "context_dependency_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "action_id": {
+      "type": "string"
+    },
+    "compiled_rule_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_provenance": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "authority_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "task_binding": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "current_state_evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "causal_event_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "validator_predicates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "aggregation_id": {
+      "type": "string"
+    },
+    "aggregation_rule_id": {
+      "enum": [
+        "AGG-R1",
+        "AGG-R2",
+        "AGG-R3",
+        "AGG-R4",
+        "AGG-R5",
+        "AGG-R6"
+      ]
+    },
+    "primary_outcome": {
+      "enum": [
+        "AGGREGATE_CLEAR",
+        "AGGREGATE_CONFLICT_STOP",
+        "AGGREGATE_REJECTED",
+        "AGGREGATE_BLOCKED",
+        "AGGREGATE_UNKNOWN",
+        "AGGREGATE_FAIL"
+      ]
+    },
+    "secondary_reasons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "reason_id",
+          "predicate_id",
+          "evidence_ref",
+          "scope",
+          "provenance"
+        ],
+        "properties": {
+          "reason_id": {
+            "type": "string"
+          },
+          "predicate_id": {
+            "type": "string"
+          },
+          "evidence_ref": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "provenance": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "effect_decision": {
+      "enum": [
+        "ADMIT",
+        "REJECT",
+        "STOP",
+        "NO_EFFECT"
+      ]
+    },
+    "terminal_class": {
+      "enum": [
+        "PASS",
+        "BLOCKED",
+        "FAIL",
+        "UNKNOWN"
+      ]
+    },
+    "classified_result_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "classified_result_state": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNKNOWN",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "synthetic_event_or_result_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "synthetic_event_or_result_type": {
+      "enum": [
+        "ACTION_EVENT",
+        "RESULT",
+        "EVENT",
+        "NONE"
+      ]
+    },
+    "synthetic_event_or_result_verification_state": {
+      "enum": [
+        "VERIFIED",
+        "UNVERIFIED",
+        "UNKNOWN",
+        "CONFLICT",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "next_gate_class": {
+      "enum": [
+        "NONE",
+        "STOP",
+        "REQUEST_EVIDENCE",
+        "REQUEST_AUTHORITY",
+        "WRITER_GATE",
+        "CURRENTNESS_RECONCILIATION",
+        "CAUSAL_NEXT_GATE"
+      ]
+    },
+    "next_gate_derivation_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "expected_vs_actual": {
+      "type": "object",
+      "required": [
+        "oracle_state",
+        "mismatches"
+      ],
+      "properties": {
+        "oracle_state": {
+          "enum": [
+            "ORACLE_PASS",
+            "ORACLE_FAIL"
+          ]
+        },
+        "mismatches": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "expected",
+              "actual"
+            ],
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "expected": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "actual": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

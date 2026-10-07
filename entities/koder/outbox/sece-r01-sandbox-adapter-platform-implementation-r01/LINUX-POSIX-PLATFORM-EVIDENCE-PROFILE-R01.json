@@ -1,0 +1,31 @@
+{
+  "profile_id": "LINUX_POSIX_PRIVATE_TMPFS_OPENAT2_STATX_R01",
+  "profile_version": "R01",
+  "status": "IMPLEMENTATION_CANDIDATE_NOT_ACTIVE",
+  "target_binding": "TO_BE_BOUND_AT_LATER_GATE",
+  "filename_encoding": "UTF-8",
+  "namespace_isolation_class": "PRIVATE_ATTEMPT_OWNED_TMPFS_MOUNT_NAMESPACE",
+  "root_identity_class": "DIRFD_STATX_DEV_INO_MNT_ID",
+  "created_object_identity_class": "RETAINED_FD_FSTAT_DEV_INO_MNT_ID",
+  "cleanup_binding_class": "DIRFD_UNLINKAT_PLUS_EXCLUSIVE_NAMESPACE_MUTATION_CONTROL",
+  "required_primitives": [
+    "private mount namespace",
+    "attempt-owned private tmpfs",
+    "anchored directory fd",
+    "openat2 relative to dirfd",
+    "RESOLVE_BENEATH",
+    "RESOLVE_NO_SYMLINKS",
+    "RESOLVE_NO_MAGICLINKS",
+    "RESOLVE_NO_XDEV",
+    "O_CREAT|O_EXCL|O_NOFOLLOW|O_CLOEXEC",
+    "retained created fd",
+    "fstat/statx dev+ino+mount-id evidence",
+    "fd-bound write/readback/hash",
+    "unlinkat relative to anchored dirfd",
+    "exclusive namespace mutation control",
+    "anchored post-cleanup absence proof"
+  ],
+  "faithful_cleanup_condition": "unlinkat is admissible only when exclusive namespace mutation control is independently proven; otherwise cleanup is BLOCKED/UNKNOWN",
+  "unsupported_or_unproven_property_behavior": "BLOCKED",
+  "real_effect_execution": "NOT_EXECUTED"
+}
