@@ -1,0 +1,49 @@
+# SHD SECE D1D2 correction R02 narrow rereview R01 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+project_time: omitted
+
+decision:
+AUTHORIZE_SHD_SECE_R01_SANDBOX_GATE_DESIGN_D1D2_CORRECTION_R02_REREVIEW_R01 = YES
+
+recipient:
+SHD / ШАРДОВИК current writer replacement-r0.4
+
+attempt:
+SHD_SECE_R01_SANDBOX_GATE_DESIGN_D1D2_CORRECTION_R02_REREVIEW_R01_A1
+
+scope:
+INDEPENDENT_D1_D2_NARROW_REREVIEW_ONLY
+
+reconciliation_commit:
+cf215d4fb8d61138d92b2fb679fb1aa06d5a28c5
+
+reconciliation_blob:
+9e770b4eafea7c66e5b8b47e8d5e6d8dcf5f9647
+
+decision_gate_commit:
+a17fa35959ad96f48f753a453f4498969ba5e6ae
+
+decision_gate_blob:
+7feab852fb2f841a2e76dc3a5a7fd66913de886e
+
+input_result_commit:
+0ff3709612df21ca4e0f8abc914f1831a8ec2657
+
+input_result_blob:
+e32ba475182b059709ed97c48973f43c8a071411
+
+corrected_package_tree:
+84979101d6bd19fd939f978652f03317f6e524b9
+
+prior_review_commit:
+2625783e24ded82db905f3abe52f982952f4515c
+
+prior_review_blob:
+4ed270080598fbca66c74551a40a37d0b984ef51
+
+shd_writer_blob:
+34b1b11d3cf2c607a8399e91ce066423ca3277e9
+
+Not authorized:
+G4 implementation/execution; G5; G6; sandbox target selection; filesystem mutation; historical replay; source/canon mutation; production/live effects; automatic downstream continuation.
