@@ -1,0 +1,10 @@
+# SHT r02 post-Writer self-snapshot registry
+
+attempt: SHT_R02_POST_WRITER_SELF_SNAPSHOT_R01_A1
+authority_blob: f95c7124574e01bf0cd61fa8c00803d8eeaeb683
+current_writer_blob: 591a5c474523f46ad84b5c49c62939832b87b15c
+writer_generation: SHT-REPLACEMENT-R02
+state: INITIAL_NOT_STARTED
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+profile_work: NOT_AUTHORIZED
+project_time: omitted
