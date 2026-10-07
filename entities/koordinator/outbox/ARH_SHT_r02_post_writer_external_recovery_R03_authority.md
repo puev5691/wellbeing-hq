@@ -1,0 +1,18 @@
+# ARH SHT r02 post-Writer external recovery r03 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+recipient: ARH / АРХИВАРИУС
+attempt: ARH_SHT_R02_POST_WRITER_EXTERNAL_RECOVERY_R03_A1
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+basis_reconciliation_commit: e7cd0753a672261d223d4b22b80ce915298a808b
+basis_reconciliation_blob: aab906cd1617fa52f3127ce90fafeb01689954d0
+source_snapshot_commit: f0a49469c6b318df0d1b436c011f1f459df29f47
+source_snapshot_blob: 6d48804adfb190d211ffea7c20f80fbde0135e64
+source_writer_commit: 7ed8b5570d3aa610120ab4a541b4d03ca032cf3b
+source_writer_blob: 591a5c474523f46ad84b5c49c62939832b87b15c
+previous_recovery_ref: c23b2304ca0ea4f4b62e9e451e39c69cfb1817c5
+target_version_path: entities/sht/recovery/versions/sht-recovery-r03
+profile_work: NOT_AUTHORIZED
+narrow_rereview: NOT_AUTHORIZED
+writer_mutation: NOT_AUTHORIZED
+project_time: omitted
