@@ -1,0 +1,9 @@
+# KOD SECE sandbox adapter/platform implementation R01 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: c4187fb80ca70ba76ae722ab2b9ee635c9327ddc
+authority_blob: fe249b9defe1f37f5afe5f10d417d3c14a6e08e8
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: OFFLINE_SANDBOX_ADAPTER_AND_PLATFORM_PROFILE_IMPLEMENTATION_ONLY
+project_time: omitted
