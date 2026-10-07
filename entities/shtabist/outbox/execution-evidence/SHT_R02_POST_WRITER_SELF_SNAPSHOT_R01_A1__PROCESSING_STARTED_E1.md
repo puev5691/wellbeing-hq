@@ -1,0 +1,21 @@
+# SHT r02 post-Writer self-snapshot PROCESSING_STARTED
+
+status: PROCESSING_STARTED
+processing_started: YES
+attempt: SHT_R02_POST_WRITER_SELF_SNAPSHOT_R01_A1
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+authority_blob: f95c7124574e01bf0cd61fa8c00803d8eeaeb683
+frontier_commit: ef796a99e892e17bae9be97c36e5fdbdfe8007fd
+frontier_blob: ef53aa3037bb7034fb1b000a0fc15f1988af7d36
+accepted_state: INITIAL_NOT_STARTED_V1
+current_writer_commit: 7ed8b5570d3aa610120ab4a541b4d03ca032cf3b
+current_writer_blob: 591a5c474523f46ad84b5c49c62939832b87b15c
+writer_generation: SHT-REPLACEMENT-R02
+writer_gate_result_commit: 93fdb47de6014e16399614d2a185a95a841ade34
+writer_gate_result_blob: 4ed81c3587ae4d8efeee306b271e7a3ffcac1911
+predecessor_writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+recovery_ref: c23b2304ca0ea4f4b62e9e451e39c69cfb1817c5
+recovery_tree: f561246223a48ac885d7baae383898cc8e89af16
+profile_continuation: PAUSED_BY_OPERATOR
+narrow_rereview: NOT_STARTED / NOT_AUTHORIZED
+profile_work: NOT_PERFORMED
