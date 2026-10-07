@@ -1,0 +1,54 @@
+# KOD SECE sandbox adapter/platform implementation R01 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+project_time: omitted
+
+decision:
+AUTHORIZE_KOD_SECE_R01_SANDBOX_ADAPTER_PLATFORM_IMPLEMENTATION_R01 = YES
+
+recipient:
+KOD / КОДЕР v0.7 current writer
+
+attempt:
+KOD_SECE_R01_SANDBOX_ADAPTER_PLATFORM_IMPLEMENTATION_R01_A1
+
+scope:
+OFFLINE_SANDBOX_ADAPTER_AND_PLATFORM_PROFILE_IMPLEMENTATION_ONLY
+
+basis_reconciliation_commit:
+70f34d7f975229db658151a24fb24bb290630a1e
+
+basis_reconciliation_blob:
+14da4d58678017603b2f85ed9bce828c7cea026f
+
+decision_gate_commit:
+22629e45620623e292481c0e074e5d5e549ae707
+
+decision_gate_blob:
+59e6f552089f59387b46a3190c488b9bd29df0a8
+
+KOD_writer_blob:
+5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+
+KOD_recovery_ref:
+34650c6b255ad204674b778de8d39910a61ba8f1
+
+KOD_recovery_tree:
+70d9ab5f452541c3fd697b40711be4242e0c6969
+
+runtime_baseline_tree:
+1158f63954c78bb6023e7a05e2e702c110a5203c
+
+sandbox_design_tree:
+84979101d6bd19fd939f978652f03317f6e524b9
+
+D1D2_review_blob:
+82a0b19bfe10930f62d738e842519b29935936a3
+
+boundaries:
+OFFLINE_CANDIDATE_ONLY
+NO_G4_G5_G6_AUTHORITY
+NO_ACTIVATION
+NO_DEPLOYMENT
+NO_PROJECT_SOURCE_MUTATION
+NO_HISTORICAL_REPLAY
