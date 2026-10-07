@@ -1,0 +1,14 @@
+# KOD v0.7 pre-sandbox-implementation self-snapshot authority
+
+status: CANON_TRIGGER_AUTHORITY_RECORDED
+owner: KOD v0.7 current writer
+attempt: KOD_V07_PRE_SANDBOX_IMPL_SELF_SNAPSHOT_R01_A1
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+basis_reconciliation_commit: e90136100b59c06260b06216796f225cf4f4c3e7
+basis_reconciliation_blob: 7b9ffd1e77d15dba1b26619fbdf06713a23cdbca
+recovery_canon_blob: 233117e1c9509d730e1f5ec532b1cabe3f786609
+current_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+profile_work: NOT_AUTHORIZED
+sandbox_implementation: NOT_AUTHORIZED
+G4: NOT_AUTHORIZED
+project_time: omitted
