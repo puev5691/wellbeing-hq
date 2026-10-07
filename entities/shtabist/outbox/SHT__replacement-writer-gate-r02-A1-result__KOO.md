@@ -1,0 +1,14 @@
+attempt: SHT_REPLACEMENT_WRITER_GATE_R02_A1
+outcome: WRITER_ESTABLISHED
+terminal: PASS_SHT_REPLACEMENT_CURRENT_WRITER_R02
+current_writer_path: entities/shtabist/current/SHT__replacement-current-writer-r02.md
+current_writer_commit: 7ed8b5570d3aa610120ab4a541b4d03ca032cf3b
+current_writer_blob: 591a5c474523f46ad84b5c49c62939832b87b15c
+writer_generation: SHT-REPLACEMENT-R02
+predecessor_writer_blob: a019c21cffeb99bb7c387b8fa95a4629137dc6da
+predecessor_disposition: PREDECESSOR_WRITER_HISTORY_SUPERSEDED_FOR_NEW_AUTHORITATIVE_CURRENT_STATE_MUTATIONS
+profile_continuation: PAUSED_BY_OPERATOR
+profile_work: NOT_PERFORMED
+narrow_rereview: NOT_AUTHORIZED
+historical_replay: NONE
+project_time: omitted
