@@ -1,0 +1,9 @@
+# ARH SHT r02 post-Writer external recovery r03 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: f6b841ebe9ac29f768a628491a4bc5560ced1fd0
+authority_blob: 3055cad5e47a03be2d6a90d48fa34906896a0fce
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+project_time: omitted
