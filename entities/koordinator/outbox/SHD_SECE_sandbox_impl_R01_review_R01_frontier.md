@@ -1,0 +1,9 @@
+# SHD SECE sandbox implementation R01 independent review frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: 94fdc3171b5b96b4820a36f740c701d6298c7359
+authority_blob: aadfe3ddb22b02fba54bd4c1447d712e6e0135ab
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: INDEPENDENT_STATIC_OFFLINE_REVIEW_ONLY
+project_time: omitted
