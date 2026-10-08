@@ -1,0 +1,12 @@
+# KOD v0.7 post-sandbox-implementation-review pre-correction self-snapshot registry
+
+attempt: KOD_V07_POST_SANDBOX_IMPL_REVIEW_PRE_CORRECTION_SELF_SNAPSHOT_R01_A1
+authority_blob: ba42233fb21d9d72189f0e483ec88fd69ae3bd92
+current_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+previous_recovery_ref: 34650c6b255ad204674b778de8d39910a61ba8f1
+candidate_tree: af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+SHD_review_blob: dcd3cd6432256c4ae26ccecd359b95b2964631ee
+state: INITIAL_NOT_STARTED
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+correction_implementation: NOT_AUTHORIZED
+project_time: omitted
