@@ -1,0 +1,11 @@
+# ARH SHD external recovery r05 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: 1e238b777377d0bbcf6269cb12af06409b5b5b16
+authority_blob: e6d6fe525f5cdd717c97f686ed5db3b66d238a74
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+candidate_review: NOT_AUTHORIZED
+G4_G5_G6: NOT_AUTHORIZED
+project_time: omitted
