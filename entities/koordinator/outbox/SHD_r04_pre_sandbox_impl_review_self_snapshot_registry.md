@@ -1,0 +1,11 @@
+# SHD r0.4 pre-sandbox-implementation-review self-snapshot registry
+
+attempt: SHD_R04_PRE_SANDBOX_IMPL_REVIEW_SELF_SNAPSHOT_R01_A1
+authority_blob: 757fe4faddfbd0411c58f44715483655864b7457
+current_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+previous_recovery_ref: 6a5b09807bb8a6b4525620a1cbd7d6a4561f0817
+candidate_tree: af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+state: INITIAL_NOT_STARTED
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+candidate_review: NOT_AUTHORIZED
+project_time: omitted
