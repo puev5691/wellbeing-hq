@@ -1,0 +1,14 @@
+# ARH SHD external recovery r05 registry
+
+attempt: ARH_SHD_R05_EXTERNAL_RECOVERY_R01_A1
+authority_blob: e6d6fe525f5cdd717c97f686ed5db3b66d238a74
+arh_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+source_snapshot_blob: 3ed8958f993954f432c0b48be3a6d498795dd642
+source_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+previous_recovery_ref: 6a5b09807bb8a6b4525620a1cbd7d6a4561f0817
+target_path: entities/shd/recovery/versions/shd-recovery-r05
+candidate_tree: af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+candidate_review: NOT_AUTHORIZED
+state: INITIAL_NOT_STARTED
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+project_time: omitted
