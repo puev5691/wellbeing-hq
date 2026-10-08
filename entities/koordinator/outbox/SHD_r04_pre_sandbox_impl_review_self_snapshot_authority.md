@@ -1,0 +1,14 @@
+# SHD r0.4 pre-sandbox-implementation-review self-snapshot authority
+
+status: CANON_TRIGGER_AUTHORITY_RECORDED
+owner: SHD replacement-r0.4 current writer
+attempt: SHD_R04_PRE_SANDBOX_IMPL_REVIEW_SELF_SNAPSHOT_R01_A1
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+basis_reconciliation_commit: a95aee54f28d36b504a2baf1429517c526045f4d
+basis_reconciliation_blob: c1281bcb15a6565ecfef22d5969509cdf9bcbd4f
+recovery_canon_blob: 233117e1c9509d730e1f5ec532b1cabe3f786609
+current_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+candidate_tree: af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+candidate_review: NOT_AUTHORIZED
+G4_G5_G6: NOT_AUTHORIZED
+project_time: omitted
