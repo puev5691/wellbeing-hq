@@ -1,0 +1,30 @@
+# ARH_KOD_V08_EXTERNAL_RECOVERY_R01_A1 PROCESSING_STARTED
+
+event_class: PROCESSING_STARTED
+processing_started: YES
+project_time: omitted
+
+attempt: ARH_KOD_V08_EXTERNAL_RECOVERY_R01_A1
+authority_blob: f558be055cc5c5a40249f224e29077f72d1431e8
+frontier_commit: 962c872ceffc3743678668a5f1b08efd4ed52512
+frontier_blob: 7f98785a2c9af21af2a8428acf4be2237aaa3612
+accepted_state: INITIAL_NOT_STARTED_V1
+source_snapshot_commit: 6253f8d01c8c89175cf6d7c9c222c905cae722b1
+source_snapshot_blob: 2f75948fbb8171a0ff59a1c397a8d5936015e963
+source_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+previous_recovery_ref: 34650c6b255ad204674b778de8d39910a61ba8f1
+candidate_tree: af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+SHD_review_blob: dcd3cd6432256c4ae26ccecd359b95b2964631ee
+target_path: entities/kod/recovery/versions/kod-recovery-v08
+ARH_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+
+fresh_checks: PASS
+target_v08_absent: PASS
+competing_v08: NONE_FOUND
+correction_authority_task_result: NOT_CREATED
+G4_authority: NOT_CREATED
+G5_authority: NOT_CREATED
+G6_authority: NOT_CREATED
+sandbox_target: UNKNOWN / NOT_SELECTED
+
+terminal: PASS_ARH_KOD_V08_EXTERNAL_RECOVERY_R01_PROCESSING_STARTED
