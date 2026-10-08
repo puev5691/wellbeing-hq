@@ -1,0 +1,11 @@
+# ARH KOD external recovery v08 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: d0a178b3af72c7a7c8b060761833bdc5d9059b12
+authority_blob: f558be055cc5c5a40249f224e29077f72d1431e8
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+correction_implementation: NOT_AUTHORIZED
+G4_G5_G6: NOT_AUTHORIZED
+project_time: omitted
