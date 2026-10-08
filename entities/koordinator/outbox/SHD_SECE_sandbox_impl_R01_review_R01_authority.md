@@ -1,0 +1,49 @@
+# SHD SECE sandbox implementation R01 independent review authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+project_time: omitted
+
+decision:
+AUTHORIZE_SHD_SECE_R01_SANDBOX_ADAPTER_PLATFORM_IMPLEMENTATION_R01_REVIEW_R01 = YES
+
+recipient:
+SHD / ШАРДОВИК replacement-r0.4
+
+attempt:
+SHD_SECE_R01_SANDBOX_ADAPTER_PLATFORM_IMPLEMENTATION_R01_REVIEW_R01_A1
+
+scope:
+INDEPENDENT_STATIC_OFFLINE_REVIEW_ONLY
+
+SHD_writer_blob:
+34b1b11d3cf2c607a8399e91ce066423ca3277e9
+
+SHD_recovery_ref:
+78cff4d8fc2a7681b9bf10e4cd5f5f014ec2a7e9
+
+SHD_recovery_tree:
+760d44a757a2842b3643306a1fb82272b2032472
+
+candidate_result_commit:
+c7979afefeb7dc7c33ab24d84039aa374112954e
+
+candidate_result_blob:
+69a24ea931db365089393c75d13f1ac151593def
+
+candidate_commit:
+27134205e21ebc44308606de4cb59f7b3b3ed577
+
+candidate_tree:
+af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+
+design_review_blob:
+82a0b19bfe10930f62d738e842519b29935936a3
+
+boundaries:
+NO_REAL_SANDBOX_EFFECT
+NO_G4_G5_G6_AUTHORITY
+NO_ACTIVATION
+NO_DEPLOYMENT
+NO_CANDIDATE_MUTATION
+NO_PROJECT_SOURCE_MUTATION
+NO_HISTORICAL_REPLAY
