@@ -1,0 +1,19 @@
+# ARH SHD external recovery r05 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+recipient: ARH / АРХИВАРИУС
+attempt: ARH_SHD_R05_EXTERNAL_RECOVERY_R01_A1
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+basis_reconciliation_commit: a074ebb497212e6a891ec0c8d2ee193957afd1be
+basis_reconciliation_blob: f902330e1baca1e466f2b29fdf69ef74ffe539ad
+source_snapshot_commit: bb87dec39e8844b71f4a407c2df268b93aa8e839
+source_snapshot_blob: 3ed8958f993954f432c0b48be3a6d498795dd642
+source_writer_commit: 5d83ac00eeebc76fb78cc0b0e376028d5c1a8a4e
+source_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+previous_recovery_ref: 6a5b09807bb8a6b4525620a1cbd7d6a4561f0817
+target_version_path: entities/shd/recovery/versions/shd-recovery-r05
+candidate_tree: af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+candidate_review: NOT_AUTHORIZED
+G4_G5_G6: NOT_AUTHORIZED
+writer_mutation: NOT_AUTHORIZED
+project_time: omitted
