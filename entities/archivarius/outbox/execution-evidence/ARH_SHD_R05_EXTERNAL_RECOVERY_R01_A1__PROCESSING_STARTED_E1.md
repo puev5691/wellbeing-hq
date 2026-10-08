@@ -1,0 +1,30 @@
+# ARH_SHD_R05_EXTERNAL_RECOVERY_R01_A1 PROCESSING_STARTED
+
+event_class: PROCESSING_STARTED
+processing_started: YES
+project_time: omitted
+
+attempt: ARH_SHD_R05_EXTERNAL_RECOVERY_R01_A1
+authority_blob: e6d6fe525f5cdd717c97f686ed5db3b66d238a74
+frontier_commit: fb0fead5cbd8ba93bda062d14deedcce5b4f9c31
+frontier_blob: 577eab0e9494ef67ab9d989c1078c0f7ea6d9e33
+accepted_state: INITIAL_NOT_STARTED_V1
+source_snapshot_commit: bb87dec39e8844b71f4a407c2df268b93aa8e839
+source_snapshot_blob: 3ed8958f993954f432c0b48be3a6d498795dd642
+source_writer_commit: 5d83ac00eeebc76fb78cc0b0e376028d5c1a8a4e
+source_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+previous_recovery_ref: 6a5b09807bb8a6b4525620a1cbd7d6a4561f0817
+pending_KOD_candidate_tree: af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+target_path: entities/shd/recovery/versions/shd-recovery-r05
+ARH_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+
+fresh_checks: PASS
+target_r05_absent: PASS
+competing_r05: NONE_FOUND
+candidate_review: NOT_STARTED / NOT_AUTHORIZED
+G4_authority: NOT_CREATED
+G5_authority: NOT_CREATED
+G6_authority: NOT_CREATED
+sandbox_target: UNKNOWN / NOT_SELECTED
+
+terminal: PASS_ARH_SHD_R05_EXTERNAL_RECOVERY_R01_PROCESSING_STARTED
