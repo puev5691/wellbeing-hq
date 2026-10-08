@@ -1,0 +1,19 @@
+# ARH KOD external recovery v08 authority
+
+status: OPERATOR_TASK_AUTHORITY_RECORDED
+recipient: ARH / АРХИВАРИУС
+attempt: ARH_KOD_V08_EXTERNAL_RECOVERY_R01_A1
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+basis_reconciliation_commit: 331b2d09052bab0e62a7674fafc90312fc117782
+basis_reconciliation_blob: b038e14a2fc7c7436fd5a1732ae8361739822a87
+source_snapshot_commit: 6253f8d01c8c89175cf6d7c9c222c905cae722b1
+source_snapshot_blob: 2f75948fbb8171a0ff59a1c397a8d5936015e963
+source_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+previous_recovery_ref: 34650c6b255ad204674b778de8d39910a61ba8f1
+target_version_path: entities/kod/recovery/versions/kod-recovery-v08
+candidate_tree: af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+SHD_review_blob: dcd3cd6432256c4ae26ccecd359b95b2964631ee
+correction_implementation: NOT_AUTHORIZED
+G4_G5_G6: NOT_AUTHORIZED
+writer_mutation: NOT_AUTHORIZED
+project_time: omitted
