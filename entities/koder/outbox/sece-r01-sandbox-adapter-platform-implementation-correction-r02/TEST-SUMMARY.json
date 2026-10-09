@@ -1,0 +1,22 @@
+{
+  "status": "STATIC_PURE_MOCK_VERIFIED_READY_FOR_INDEPENDENT_REREVIEW",
+  "attempt": "KOD_SECE_R01_SANDBOX_ADAPTER_PLATFORM_IMPLEMENTATION_CORRECTION_R02_A1",
+  "predecessor_attempt": "KOD_SECE_R01_SANDBOX_ADAPTER_PLATFORM_IMPLEMENTATION_R01_A1",
+  "predecessor_tree": "af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2",
+  "syntax_static": "PASS",
+  "pure_mock_tests": "38/38 PASS",
+  "predecessor_relevant_sandbox_tests": "22/22 PRESERVED_PASS",
+  "new_correction_tests": "16/16 PASS",
+  "D1_A": "PASS_STATIC_PURE_MOCK",
+  "D1_B": "PASS_STATIC_PURE_MOCK",
+  "D2_A": "PASS_STATIC_PURE_MOCK",
+  "P1": "PASS_STATIC_PURE_MOCK",
+  "evidence_hygiene": "PASS_R02_SUMMARY_CURRENT",
+  "R04_runtime_blob_unchanged": true,
+  "reviewed_baseline_core_blob_unchanged": true,
+  "real_sandbox_effect": "NOT_EXECUTED",
+  "candidate": "NOT_ACTIVATED",
+  "G4_authority": "NOT_CREATED",
+  "G5_authority": "NOT_CREATED",
+  "G6_authority": "NOT_CREATED"
+}

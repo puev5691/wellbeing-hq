@@ -1,0 +1,28 @@
+# R02 key exact Git blob identities
+
+sandbox_profile.py:
+c96ce58619fff14e9078f2952892acb60329e062
+
+sandbox_effect.py:
+9df3b574a3d562fb6f1c4e6dddf3a1f97738c017
+
+sandbox_runtime_integration.py:
+1899bd7ce5db24e0ef6311479d9de51944a5dfb3
+
+sandbox_adapter_tests.py:
+5635491a6b70682e1d2a6e043e2049ed13bd8ee6
+
+Unchanged R01 sandbox_adapter.py:
+9ebaabcc9e7463bc4cde720e667f67baa34d5324
+
+Unchanged R01 run_sandbox_adapter_tests.py:
+b342587443eacade5d01a4ebbadf793c7c5c0ca3
+
+Exact reviewed R04 runtime_integration.py:
+e0626e3088b7f364604d1fb5e12c2b2b511c3987
+
+Exact reviewed baseline sece_simulator.py:
+e7b89c948c4e672c5b682408ce790670dfcdad5c
+
+R01 predecessor package tree:
+af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2

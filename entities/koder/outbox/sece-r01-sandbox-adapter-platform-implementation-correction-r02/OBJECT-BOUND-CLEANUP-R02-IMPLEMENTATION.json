@@ -1,0 +1,12 @@
+{
+  "profile_id": "OBJECT_BOUND_CLEANUP_R02",
+  "profile_version": "R02",
+  "design_blob": "3dab9da97c5cfb4a055f5d5967791105a657c231",
+  "status": "IMPLEMENTATION_CANDIDATE_NOT_ACTIVE",
+  "file_cleanup": "root/parent/current-leaf identity revalidation + operation/owner/outcome checks + strong platform profile",
+  "unlink_model": "unlinkat relative to anchored dirfd only under independently proven exclusive namespace mutation control",
+  "recursive_cleanup": "FORBIDDEN",
+  "wildcard_cleanup": "FORBIDDEN",
+  "ambiguous_cleanup": "UNKNOWN_AND_NO_DESTRUCTIVE_RETRY",
+  "post_cleanup": "anchored absence proof and root/parent identity unchanged"
+}
