@@ -1,0 +1,39 @@
+# KOO r1.3 — Resume-First: KOD R02 ready for manual activation
+
+status: READY_FOR_MANUAL_ACTIVATION
+project_time: omitted
+
+KOO_writer_blob: 5208fd71173b8258dfc0ef0ccd8dd21f07b6bdb1
+KOD_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+KOD_recovery_ref: 63429caedcf4dd454a4de1f72aa50517fd8d2c42
+KOD_recovery_tree: 5d88470c8b1cf9ea5a1bcc790baab1c52e649105
+
+authority_commit: 0efd64027cb4bb10f68c91a2233091eab6b10b32
+authority_blob: 65a810b1b3c2093aeeb948ec18fd26ac5955d454
+registry_blob: 4cfd08bf27cbd60bc6f1fa89593d51cd9b58470e
+frontier_blob: 6e893e79a96018cbe881fc735babe9e75ade8ec5
+accepted_state: INITIAL_NOT_STARTED_V1
+
+task_commit: cb26b9533d3177b4792ae3fbd7d4b44a99d7c3e4
+task_path: entities/koordinator/outbox/KOO__KOD-SECE-sandbox-implementation-correction-R02__KOD.md
+task_blob: 384801db2cde298d8c05de54f88cca043edc9953
+
+attempt: KOD_SECE_R01_SANDBOX_ADAPTER_PLATFORM_IMPLEMENTATION_CORRECTION_R02_A1
+scope: BOUNDED_OFFLINE_SANDBOX_IMPLEMENTATION_CORRECTION_ONLY
+
+fresh_result_check:
+PROCESSING_STARTED: NOT_FOUND
+terminal_result: NOT_FOUND
+competing_correction: NOT_FOUND
+KOD_writer_conflict: NONE_FOUND
+KOD_recovery_v09: NOT_FOUND
+G4_G5_G6_authority: NOT_CREATED
+
+next_exact_step:
+OPERATOR manually passes the exact materialized task locator to the current authoritative KOD v0.7 chat.
+
+No new authority is required.
+No new recovery is required before start.
+No duplicate task may be created.
+
+terminal: PASS_KOO_R13_RESUME_KOD_R02_READY_FOR_MANUAL_ACTIVATION
