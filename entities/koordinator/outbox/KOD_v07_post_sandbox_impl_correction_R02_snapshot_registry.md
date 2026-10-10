@@ -1,0 +1,12 @@
+# KOD v0.7 post-R02 self-snapshot registry
+
+attempt: KOD_V07_POST_SANDBOX_IMPL_CORRECTION_R02_SELF_SNAPSHOT_R01_A1
+authority_blob: 968b7ff860b8d698599b31d22b14695176252139
+KOD_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+previous_recovery_ref: 63429caedcf4dd454a4de1f72aa50517fd8d2c42
+previous_recovery_tree: 5d88470c8b1cf9ea5a1bcc790baab1c52e649105
+R02_result_blob: bcf282a0e69a2e1272ca885be379798423a76e57
+R02_candidate_tree: 65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+state: INITIAL_NOT_STARTED
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+project_time: omitted
