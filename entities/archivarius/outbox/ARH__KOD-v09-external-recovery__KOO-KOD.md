@@ -1,0 +1,177 @@
+# ARH -> KOO + KOD: KOD v0.9 external recovery result
+
+status: EXTERNALLY_PRESERVED_READBACK_PASS
+classification: CURRENT_EXTERNAL_RECOVERY_BASIS_FOR_KOD_V07_POST_SANDBOX_IMPLEMENTATION_CORRECTION_R02
+terminal: PASS_ARH_KOD_V09_EXTERNAL_RECOVERY
+entity: ARH / АРХИВАРИУС
+attempt: ARH_KOD_V09_EXTERNAL_RECOVERY_R01_A1
+project_time: omitted
+
+PROCESSING_STARTED:
+puev5691/wellbeing-hq@4c866565e021696843b2692b14545f40ca3305c9:
+entities/archivarius/outbox/execution-evidence/ARH_KOD_V09_EXTERNAL_RECOVERY_R01_A1__PROCESSING_STARTED_E1.md
+
+PROCESSING_STARTED_blob:
+5f99133e968bab9e3a5ff4e037fefbfdd58ba65f
+
+source_snapshot:
+puev5691/wellbeing-hq@821253d38d2e041969b342cd6593cc69c7626fca:
+entities/koder/outbox/KOD__v07-post-sandbox-impl-correction-r02-self-snapshot__KOO-ARH.md
+
+source_snapshot_blob:
+660e50013d0d92f06901b7c46c3cc4c78f067941
+
+current_KOD_writer:
+entities/koder/current/KOD__replacement-current-writer-v07.md
+
+current_KOD_writer_blob:
+5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+
+current_KOD_writer_status:
+CURRENT_WRITER_ESTABLISHED
+
+predecessor_recovery:
+puev5691/wellbeing-entity-bootstrap@63429caedcf4dd454a4de1f72aa50517fd8d2c42:
+entities/kod/recovery/versions/kod-recovery-v08
+
+predecessor_tree:
+5d88470c8b1cf9ea5a1bcc790baab1c52e649105
+
+predecessor_disposition:
+STALE_RELATIVE_TO_LATER_SANDBOX_IMPLEMENTATION_CORRECTION_R02
+
+new_external_recovery:
+puev5691/wellbeing-entity-bootstrap@b3e720a8acfe16e2e15b70cde4c5989e552f756b:
+entities/kod/recovery/versions/kod-recovery-v09
+
+version_path:
+entities/kod/recovery/versions/kod-recovery-v09
+
+package_tree:
+7ae634672118887630c7df730525ebac3b659dba
+
+composition:
+9/9 PASS
+
+SHA256SUMS_coverage:
+8/8 PASS
+
+checksum_file_SHA256:
+35594e8fbe607ac6b67e4c08c6d31eef8ae067b756c8d8bbb82bce4ff0cd4b94
+
+source_snapshot_external_equality:
+PASS
+
+current_writer_external_equality:
+PASS
+
+immutable_external_readback:
+9/9 PASS
+
+recovery_registry:
+entities/archivarius/current/recovery-registry/ARH__KOD-recovery-v09.md
+
+registry_commit:
+515821ae6d7c631eae5bcde41fdfba3fb8d463c3
+
+registry_blob:
+94aa4ee2b2ab99c30999d2503e0ed7916564ef1b
+
+registry_readback:
+PASS
+
+R02_result_blob:
+bcf282a0e69a2e1272ca885be379798423a76e57
+
+R02_candidate_tree:
+65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+
+D1_A_CANONICAL_BINDING_INTEGRITY:
+PASS_STATIC_PURE_MOCK
+
+D1_B_CREATED_IDENTITY_NOSYMLINK_EVIDENCE:
+PASS_STATIC_PURE_MOCK
+
+D2_A_CLEANUP_IDENTITY_CHAIN:
+PASS_STATIC_PURE_MOCK
+
+P1_PLATFORM_IDENTITY_CLASS_BINDING:
+PASS_STATIC_PURE_MOCK
+
+syntax_py_compile:
+PASS
+
+pure_mock_tests:
+38/38 PASS
+
+predecessor_relevant_sandbox_tests:
+22/22 PRESERVED_PASS
+
+new_correction_negative_and_static_order_tests:
+16/16 PASS
+
+R01_predecessor_tree:
+af63918a1c82c41d5ea1a04bbdced5dfb4b30aa2
+
+R01_immutable:
+PASS
+
+R04_runtime_blob:
+e0626e3088b7f364604d1fb5e12c2b2b511c3987
+
+R04_runtime_unchanged:
+PASS
+
+reviewed_core_blob:
+e7b89c948c4e672c5b682408ce790670dfcdad5c
+
+reviewed_core_unchanged:
+PASS
+
+candidate:
+NOT_ACTIVATED
+
+real_sandbox_effect:
+NOT_EXECUTED
+
+sandbox_target:
+UNKNOWN / NOT_SELECTED
+
+real_target_behavior:
+UNKNOWN / NOT_INFERRED_FROM_STATIC_PURE_MOCK_TESTS
+
+R02_combined_runtime_PASS:
+NOT_INFERRED
+
+independent_SHD_R02_rereview:
+NOT_PERFORMED
+
+independent_SHD_R02_rereview_authority:
+NOT_CREATED
+
+G4_authority:
+NOT_CREATED
+
+G5_authority:
+NOT_CREATED
+
+G6_authority:
+NOT_CREATED
+
+historical_replay:
+NONE
+
+hidden_unwritten_KOD_state:
+UNKNOWN / MUST_NOT_BE_RECONSTRUCTED
+
+KOD_writer_mutation_by_this_task:
+NONE
+
+Project_Source_canon_mutation:
+NONE
+
+automatic_downstream_continuation:
+NONE
+
+terminal:
+PASS_ARH_KOD_V09_EXTERNAL_RECOVERY
