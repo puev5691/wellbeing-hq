@@ -1,0 +1,14 @@
+# ARH KOD external recovery v09 registry
+
+attempt: ARH_KOD_V09_EXTERNAL_RECOVERY_R01_A1
+authority_blob: b7cbf62e2ee61f94cc83293f8fa250983a3f9d4b
+ARH_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+source_snapshot_blob: 660e50013d0d92f06901b7c46c3cc4c78f067941
+source_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+previous_recovery_ref: 63429caedcf4dd454a4de1f72aa50517fd8d2c42
+target_path: entities/kod/recovery/versions/kod-recovery-v09
+R02_result_blob: bcf282a0e69a2e1272ca885be379798423a76e57
+R02_candidate_tree: 65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+state: INITIAL_NOT_STARTED
+scope: EXTERNAL_RECOVERY_PRESERVATION_AND_READBACK_ONLY
+project_time: omitted
