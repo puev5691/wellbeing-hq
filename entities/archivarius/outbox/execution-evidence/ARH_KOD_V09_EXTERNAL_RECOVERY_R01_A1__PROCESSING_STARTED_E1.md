@@ -1,0 +1,32 @@
+# ARH_KOD_V09_EXTERNAL_RECOVERY_R01_A1 PROCESSING_STARTED
+
+event_class: PROCESSING_STARTED
+processing_started: YES
+project_time: omitted
+
+attempt: ARH_KOD_V09_EXTERNAL_RECOVERY_R01_A1
+authority_blob: b7cbf62e2ee61f94cc83293f8fa250983a3f9d4b
+frontier_commit: 83e7c9549faeb6a8f38016055a6ef61f4e4b6487
+frontier_blob: c4715622b4cd050f114247f7e51de27fb40d309d
+accepted_state: INITIAL_NOT_STARTED_V1
+source_snapshot_commit: 821253d38d2e041969b342cd6593cc69c7626fca
+source_snapshot_blob: 660e50013d0d92f06901b7c46c3cc4c78f067941
+source_writer_blob: 5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+previous_recovery_ref: 63429caedcf4dd454a4de1f72aa50517fd8d2c42
+R02_result_blob: bcf282a0e69a2e1272ca885be379798423a76e57
+R02_candidate_tree: 65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+target_path: entities/kod/recovery/versions/kod-recovery-v09
+ARH_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+
+fresh_checks: PASS
+target_v09_absent: PASS
+competing_v09: NONE_FOUND
+source_set_r07: PASS
+R01_immutable: PASS
+R04_runtime_core_unchanged: PASS
+SHD_R02_rereview_authority_result: NOT_CREATED
+G4_authority: NOT_CREATED
+G5_authority: NOT_CREATED
+G6_authority: NOT_CREATED
+
+terminal: PASS_ARH_KOD_V09_EXTERNAL_RECOVERY_R01_PROCESSING_STARTED
