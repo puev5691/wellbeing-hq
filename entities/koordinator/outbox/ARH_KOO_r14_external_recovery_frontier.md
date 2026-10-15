@@ -1,0 +1,12 @@
+# ARH KOO external recovery r14 frontier
+
+status: INITIAL_FRONTIER_ACCEPTED
+registry_blob: 003e2ea1e282de130961d241031bf4eb760a0987
+authority_blob: 3a92721b8a12ebe3d20632d610130ecccca5cb14
+accepted_state: INITIAL_NOT_STARTED_V1
+start_proven: NO
+scope: EXTERNAL_RECOVERY_PRESERVATION_READBACK_AND_COLD_START_PREPARATION_ONLY
+replacement_initiation_execution: NOT_AUTHORIZED_IN_THIS_TASK
+replacement_writer_gate: NOT_AUTHORIZED
+prepared_SHD_task_activation: NOT_AUTHORIZED
+project_time: omitted
