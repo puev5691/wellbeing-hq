@@ -1,0 +1,13 @@
+# ARH KOO external recovery r14 registry
+
+attempt: ARH_KOO_R14_EXTERNAL_RECOVERY_R01_A1
+authority_blob: 3a92721b8a12ebe3d20632d610130ecccca5cb14
+ARH_writer_blob: 3df64956a5ec4a21e11a4f469abaf91a1e4fd092
+source_snapshot_blob: 8a39b17be502cfa4f356e69fb6f6374fdc2b5029
+source_writer_blob: 5208fd71173b8258dfc0ef0ccd8dd21f07b6bdb1
+previous_recovery_ref: 896b33f99551092bf50f7bef2657e3276d850fc3
+previous_recovery_tree: 1aecd76c7cabe55d047eea6ea79700fed643d98d
+target_path: entities/koo/recovery/versions/koo-recovery-r14
+state: INITIAL_NOT_STARTED
+scope: EXTERNAL_RECOVERY_PRESERVATION_READBACK_AND_COLD_START_PREPARATION_ONLY
+project_time: omitted
