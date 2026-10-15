@@ -1,0 +1,24 @@
+# SHD r0.4 post-R01-review pre-R02-rereview self-snapshot authority
+
+status: CANON_TRIGGER_AUTHORITY_RECORDED
+project_time: omitted
+
+recipient: SHD / ШАРДОВИК replacement-r0.4
+attempt: SHD_R04_POST_R01_REVIEW_PRE_R02_REREVIEW_SELF_SNAPSHOT_R01_A1
+scope: PRESERVATION_SELF_SNAPSHOT_ONLY
+
+basis_reconciliation_commit: 6868dd3dea436dd399dcc79686d4597446b8f3c3
+basis_reconciliation_blob: 3b492ec9d8b356be339895f52823402a5fad8b47
+recovery_canon_blob: 233117e1c9509d730e1f5ec532b1cabe3f786609
+SHD_writer_blob: 34b1b11d3cf2c607a8399e91ce066423ca3277e9
+previous_SHD_recovery_ref: 78cff4d8fc2a7681b9bf10e4cd5f5f014ec2a7e9
+previous_SHD_recovery_tree: 760d44a757a2842b3643306a1fb82272b2032472
+SHD_R01_review_blob: dcd3cd6432256c4ae26ccecd359b95b2964631ee
+KOD_R02_result_blob: bcf282a0e69a2e1272ca885be379798423a76e57
+KOD_R02_tree: 65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+KOD_recovery_v09_ref: b3e720a8acfe16e2e15b70cde4c5989e552f756b
+KOD_recovery_v09_tree: 7ae634672118887630c7df730525ebac3b659dba
+
+SHD_R02_rereview: NOT_AUTHORIZED
+G4_G5_G6: NOT_AUTHORIZED
+sandbox_effect: NOT_AUTHORIZED
