@@ -1,0 +1,38 @@
+# Exact immutable inputs
+
+KOO handoff:
+commit ff3232fa4682a4a0c7227c49268fb113034348ac
+blob f83401ca01c6cd3bd9edcfa95b7ca0e141e7f9e1
+
+KOD writer blob:
+5245ba13c892300dd9d7b7e51cf5aa09ae5ecd9e
+
+KOD recovery v09:
+commit b3e720a8acfe16e2e15b70cde4c5989e552f756b
+tree 7ae634672118887630c7df730525ebac3b659dba
+
+R02 candidate:
+commit 1752adb514e3bfa772ef22e25804f2b8ef7636b8
+tree 65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+recursive blobs 58
+
+Key exact R02 blobs:
+runtime_integration.py e0626e3088b7f364604d1fb5e12c2b2b511c3987
+runtime_integration_tests.py c9e6939566e1411b786056846aeca1720d7f10e1
+sandbox_profile.py c96ce58619fff14e9078f2952892acb60329e062
+sandbox_effect.py 9df3b574a3d562fb6f1c4e6dddf3a1f97738c017
+sandbox_adapter.py 9ebaabcc9e7463bc4cde720e667f67baa34d5324
+sandbox_runtime_integration.py 1899bd7ce5db24e0ef6311479d9de51944a5dfb3
+sandbox_adapter_tests.py 5635491a6b70682e1d2a6e043e2049ed13bd8ee6
+sece_simulator.py e7b89c948c4e672c5b682408ce790670dfcdad5c
+
+Independent SHD R02 static rereview:
+commit 7bc69dc25a1e6c4646f467710bbe4e00284c097e
+blob 59ba58a2cea3b6ae6cc3dad6cd7b760456555f26
+terminal PASS_SHD_SECE_R01_SANDBOX_ADAPTER_PLATFORM_IMPLEMENTATION_R02_REREVIEW_R01
+
+Candidate status:
+NOT_ACTIVATED
+
+Concrete sandbox target:
+NOT_SELECTED
