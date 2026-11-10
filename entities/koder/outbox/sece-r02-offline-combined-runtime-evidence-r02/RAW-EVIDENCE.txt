@@ -1,0 +1,651 @@
+===== FILE: acquisition.log =====
+HOST=ruvds-xnqc6
+USER=pev5691
+PWD=/home/pev5691/.npm/_npx/33231553553510ba/node_modules/@wonderwhy-er/desktop-commander/dist
+KERNEL=Linux 7.0.0-1014-azure
+GIT=git version 2.43.0
+PYTHON=Python 3.12.3
+WORKSPACE=/home/pev5691/kod-sece-r02-offline-r02-a1
+=== CLONE ===
+Cloning into '/home/pev5691/kod-sece-r02-offline-r02-a1/repo'...
+=== COMMIT ===
+ACTUAL_COMMIT=1752adb514e3bfa772ef22e25804f2b8ef7636b8
+=== CANDIDATE TREE ===
+ACTUAL_TREE=65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+EXPECTED_TREE=65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+BLOB_COUNT=58
+=== MATERIALIZE ARCHIVE ===
+ROOT=/home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02
+=== POST-MATERIALIZATION BLOB VERIFY ===
+POST_MATERIALIZATION_BLOBS=58/58_PASS
+R04_RUNTIME_BLOB=e0626e3088b7f364604d1fb5e12c2b2b511c3987
+CORE_BLOB=e7b89c948c4e672c5b682408ce790670dfcdad5c
+4c05b1bb311b24a9ae386ba917070b35309c964ca1597805cb03cf0ac8a359a5  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/candidate-ls-tree.txt
+51c5295a8b2346550e34f083d8478bf0f4a6e91a589485a0d787e7b5150ce7d9  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/materialized-sha256.txt
+ACQUISITION_IDENTITY_PASS=YES
+
+===== END FILE: acquisition.log =====
+
+===== FILE: safety-gate.log =====
+=== SAFETY STATIC SCAN ===
+OFFLINE_GUARD_ACTIVE=YES
+{"file": "sece_simulator.py", "suspicious_calls": ["replace"], "suspicious_imports": []}
+{"file": "runtime_integration.py", "suspicious_calls": [], "suspicious_imports": []}
+{"file": "sandbox_profile.py", "suspicious_calls": [], "suspicious_imports": []}
+{"file": "sandbox_effect.py", "suspicious_calls": [], "suspicious_imports": []}
+{"file": "sandbox_adapter.py", "suspicious_calls": [], "suspicious_imports": []}
+{"file": "sandbox_runtime_integration.py", "suspicious_calls": [], "suspicious_imports": []}
+=== GUARD SELF TEST ===
+OFFLINE_GUARD_ACTIVE=YES
+{'network': 'BLOCKED:OFFLINE_GUARD_BLOCK:socket.getaddrinfo', 'process': 'BLOCKED:OFFLINE_GUARD_BLOCK:subprocess.Popen', 'write_outside_tmp': 'BLOCKED:OFFLINE_GUARD_BLOCK:write_outside_tmp:/home/pev5691/kod-sece-r02-offline-r02-a1/forbidden-write', 'write_inside_tmp': 'PASS'}
+OFFLINE_GUARD_SELFTEST=PASS
+=== WRITABILITY ===
+CANDIDATE_READ_ONLY=YES
+=== TARGET REFERENCES ===
+/home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_adapter_tests.py:8:    d={'sandbox_target_id':'TARGET-CLASS','environment_instance_id':'ENV-1','owner_attempt_id':'A1','explanatory_root_locator':'/not-security','stable_root_object_identity':{'dev':1,'ino':2,'mnt':3},'object_type':'DIRECTORY','ownership_evidence':['O'],'isolation_evidence':['I'],'expected_parent_identity':{'dev':1,'ino':1,'mnt':3},'currentness_evidence_version':'R1','platform_evidence_profile_id':PLATFORM_ID,'verified_state':'VERIFIED','currentness_state':'CURRENT','conflict_state':'NONE','supporting_evidence_versions':{'R1':'v1'}}; d.update(kw); return d
+=== COMBINED WRAPPER REFERENCES ===
+/home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_runtime_integration.py:6:class SandboxBoundEffectIntentEmitter:
+/home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_runtime_integration.py:14:class SandboxBoundPreEffectRevalidator:
+/home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_runtime_integration.py:21:class SandboxBoundEffectBoundaryVerifier:
+
+===== END FILE: safety-gate.log =====
+
+===== FILE: syntax.log =====
+=== SYNTAX COMPILE IN MEMORY ===
+OFFLINE_GUARD_ACTIVE=YES
+SYNTAX_PASS runtime_integration.py
+SYNTAX_PASS runtime_integration_tests.py
+SYNTAX_PASS sandbox_profile.py
+SYNTAX_PASS sandbox_effect.py
+SYNTAX_PASS sandbox_adapter.py
+SYNTAX_PASS sandbox_runtime_integration.py
+SYNTAX_PASS sandbox_adapter_tests.py
+SYNTAX_PASS_TOTAL=7/7
+
+===== END FILE: syntax.log =====
+
+===== FILE: r02-pure-mock.log =====
+=== R02 PURE MOCK ===
+OFFLINE_GUARD_ACTIVE=YES
+test_binding (sandbox_adapter_tests.T.test_binding) ... ok
+test_binding_block_root (sandbox_adapter_tests.T.test_binding_block_root) ... ok
+test_canonical_binding_verdict_pass (sandbox_adapter_tests.T.test_canonical_binding_verdict_pass) ... ok
+test_cleanup_created_root_mismatch_blocked (sandbox_adapter_tests.T.test_cleanup_created_root_mismatch_blocked) ... ok
+test_cleanup_created_target_mismatch_blocked (sandbox_adapter_tests.T.test_cleanup_created_target_mismatch_blocked) ... ok
+test_cleanup_eligible (sandbox_adapter_tests.T.test_cleanup_eligible) ... ok
+test_cleanup_exclusive_block (sandbox_adapter_tests.T.test_cleanup_exclusive_block) ... ok
+test_cleanup_identity_block (sandbox_adapter_tests.T.test_cleanup_identity_block) ... ok
+test_cleanup_operation_key_mismatch_blocked (sandbox_adapter_tests.T.test_cleanup_operation_key_mismatch_blocked) ... ok
+test_cleanup_owner_attempt_mismatch_blocked (sandbox_adapter_tests.T.test_cleanup_owner_attempt_mismatch_blocked) ... ok
+test_cleanup_unresolved (sandbox_adapter_tests.T.test_cleanup_unresolved) ... ok
+test_created_identity_carries_no_symlink_evidence (sandbox_adapter_tests.T.test_created_identity_carries_no_symlink_evidence) ... ok
+test_created_identity_digest_binds_no_symlink_evidence (sandbox_adapter_tests.T.test_created_identity_digest_binds_no_symlink_evidence) ... ok
+test_created_identity_requires_no_symlink_evidence (sandbox_adapter_tests.T.test_created_identity_requires_no_symlink_evidence) ... ok
+test_forged_binding_payload_stale_matching_id_rejected (sandbox_adapter_tests.T.test_forged_binding_payload_stale_matching_id_rejected) ... ok
+test_name_accept (sandbox_adapter_tests.T.test_name_accept) ... ok
+test_name_reject (sandbox_adapter_tests.T.test_name_reject) ... ok
+test_nested_root_mutation_stale_root_id_rejected (sandbox_adapter_tests.T.test_nested_root_mutation_stale_root_id_rejected) ... ok
+test_not_executed (sandbox_adapter_tests.T.test_not_executed) ... ok
+test_outcome_success (sandbox_adapter_tests.T.test_outcome_success) ... ok
+test_outcome_unresolved_identity (sandbox_adapter_tests.T.test_outcome_unresolved_identity) ... ok
+test_plan_openat2 (sandbox_adapter_tests.T.test_plan_openat2) ... ok
+test_platform_block_isolation (sandbox_adapter_tests.T.test_platform_block_isolation) ... ok
+test_platform_block_openat2 (sandbox_adapter_tests.T.test_platform_block_openat2) ... ok
+test_platform_cleanup_binding_class_mismatch_blocked (sandbox_adapter_tests.T.test_platform_cleanup_binding_class_mismatch_blocked) ... ok
+test_platform_created_identity_class_mismatch_blocked (sandbox_adapter_tests.T.test_platform_created_identity_class_mismatch_blocked) ... ok
+test_platform_pass (sandbox_adapter_tests.T.test_platform_pass) ... ok
+test_platform_root_identity_class_mismatch_blocked (sandbox_adapter_tests.T.test_platform_root_identity_class_mismatch_blocked) ... ok
+test_post_cleanup (sandbox_adapter_tests.T.test_post_cleanup) ... ok
+test_pre_effect (sandbox_adapter_tests.T.test_pre_effect) ... ok
+test_prior_unresolved (sandbox_adapter_tests.T.test_prior_unresolved) ... ok
+test_root_platform_profile_mismatch_blocked (sandbox_adapter_tests.T.test_root_platform_profile_mismatch_blocked) ... ok
+test_runtime_binding_pass (sandbox_adapter_tests.T.test_runtime_binding_pass) ... ok
+test_runtime_emitter_canonical_check_precedes_base_intent (sandbox_adapter_tests.T.test_runtime_emitter_canonical_check_precedes_base_intent) ... ok
+test_runtime_evidence_drift (sandbox_adapter_tests.T.test_runtime_evidence_drift) ... ok
+test_runtime_profile_drift (sandbox_adapter_tests.T.test_runtime_profile_drift) ... ok
+test_runtime_root_drift (sandbox_adapter_tests.T.test_runtime_root_drift) ... ok
+test_wrong_exact_binding_constants_rejected (sandbox_adapter_tests.T.test_wrong_exact_binding_constants_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 0.043s
+
+OK
+SANDBOX_ADAPTER_TESTS_PASS=38/38
+REAL_SANDBOX_EFFECT_EXECUTION=NOT_EXECUTED
+
+===== END FILE: r02-pure-mock.log =====
+
+===== FILE: r04-runtime.log =====
+=== R04 RUNTIME ===
+OFFLINE_GUARD_ACTIVE=YES
+test_actor_missing_support_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_actor_missing_support_still_blocks) ... ok
+test_actor_recovery_drift_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_actor_recovery_drift_still_blocks) ... ok
+test_c1_policy_drift_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c1_policy_drift_still_blocks) ... ok
+test_c2_adapter_authority_drift_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c2_adapter_authority_drift_still_blocks) ... ok
+test_c2_mutated_admission_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c2_mutated_admission_still_blocks) ... ok
+test_c2_mutated_intent_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c2_mutated_intent_still_blocks) ... ok
+test_c2_unresolved_prior_effect_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c2_unresolved_prior_effect_still_blocks) ... ok
+test_missing_task_authority_support_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_missing_task_authority_support_blocks) ... ok
+test_missing_task_currentness_support_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_missing_task_currentness_support_blocks) ... ok
+test_no_forbidden_io_imports (runtime_integration_tests.TaskGroundingR04Tests.test_no_forbidden_io_imports) ... ok
+test_non_live_boundary_still_no_effect (runtime_integration_tests.TaskGroundingR04Tests.test_non_live_boundary_still_no_effect) ... ok
+test_task_authority_version_drift_before_admission_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_authority_version_drift_before_admission_blocks) ... ok
+test_task_binding_flows_resolution_contract_intent_admission (runtime_integration_tests.TaskGroundingR04Tests.test_task_binding_flows_resolution_contract_intent_admission) ... ok
+test_task_conflict_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_conflict_blocks) ... ok
+test_task_currentness_drift_after_admission_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_currentness_drift_after_admission_blocks) ... ok
+test_task_currentness_unknown_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_currentness_unknown_blocks) ... ok
+test_task_evidence_version_drift_after_admission_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_evidence_version_drift_after_admission_blocks) ... ok
+test_task_superseded_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_superseded_blocks) ... ok
+test_task_supersession_drift_after_admission_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_supersession_drift_after_admission_blocks) ... ok
+test_unverified_task_authority_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_unverified_task_authority_blocks) ... ok
+test_valid_exact_current_task_path (runtime_integration_tests.TaskGroundingR04Tests.test_valid_exact_current_task_path) ... ok
+test_wrong_task_identity_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_wrong_task_identity_blocks) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.193s
+
+OK
+RUNTIME_INTEGRATION_TESTS_PASS=22/22
+NO_LIVE_EFFECT_TEST_BOUNDARY=YES
+
+===== END FILE: r04-runtime.log =====
+
+===== FILE: r04-full-offline.log =====
+=== R04 FULL OFFLINE ===
+OFFLINE_GUARD_ACTIVE=YES
+BASELINE_CORE_SHA256_MATCH=YES
+REVIEWED_CORE_INTERFACE_BINDING_PASS=YES
+PACKAGE_GATE_EXIT=0
+{
+  "affected_count": 15,
+  "anti_cheat": {
+    "ANTICHEAT_COVERS_STATICVALIDATOR_AND_ORCHESTRATION": true,
+    "NO_FIXTURE_ID_BRANCHING_TEST_PASS": true,
+    "NO_FIXTURE_TRANSFORMATION_PROXY_FOR_CORE_INVARIANTS": true,
+    "NO_HIDDEN_BINDING_MAPPING_TEST_PASS": true,
+    "NO_PROSE_DRIVEN_EXECUTION": true,
+    "ORACLE_SEPARATION_TEST_PASS": true,
+    "fixture_id_branches": [],
+    "hardcoded_fixture_binding_ids": []
+  },
+  "architecture_assertions": {
+    "A1": true,
+    "A10": true,
+    "A11": true,
+    "A12": true,
+    "A13": true,
+    "A2": true,
+    "A3": true,
+    "A4": true,
+    "A5": true,
+    "A6": true,
+    "A7": true,
+    "A8": true,
+    "A9": true,
+    "ARCHITECTURE_ASSERTION_TESTS_STRENGTHENED": "13/13"
+  },
+  "contract_mutation_failures": [],
+  "contract_mutations_pass": 25,
+  "correction_tests": {
+    "C1_L6_PROJECTION_BOUNDARY_FIXED": true,
+    "CONTEXT_CORRECTION_ENGINE_FIDELITY_FIXED": true,
+    "EFFECTIVE_CONTEXT_IMPLEMENTATION_FIDELITY_FIXED": true,
+    "L6_PROJECTION_FIREWALL_ENFORCED": true,
+    "NEXT_GATE_RESOLVER_GROUNDING_FIXED": true,
+    "RESULT_CLASSIFIER_FIDELITY_FIXED": true,
+    "c2_downstream_consumes_corrections": true,
+    "c2_explicit_correction": true,
+    "c2_prior_immutable": true,
+    "c2_s2_preserved": true,
+    "c2_unknown_preserved": true,
+    "c2_unresolved_conflict_explicit": true,
+    "c2_verified_refinement_scope_only": true,
+    "c3_deterministic_identity": true,
+    "c3_field_presence_not_authority": true,
+    "c3_full_structure": true,
+    "c4_conflicted_binding_reject_block": true,
+    "c4_missing_binding_reject_block": true,
+    "c4_raw_fact_cannot_bypass": true,
+    "c4_stale_binding_reject": true,
+    "c4_valid_projected_binding_clear": true,
+    "c5_invalid_dependency_rejected": true,
+    "c5_invented_item_rejected": true,
+    "c5_missing_basis_rejected": true,
+    "c5_valid_projection": true,
+    "c6_fail": true,
+    "c6_pass": true,
+    "c6_unknown_missing": true,
+    "c6_unknown_unverified": true,
+    "c7_class_without_rule_no_route": true,
+    "c7_conflicted_rule_no_route": true,
+    "c7_grounded_candidate": true,
+    "c7_historical_rule_no_route": true,
+    "c7_incomplete_rule_no_route": true,
+    "c7_terminal_alone_no_route": true
+  },
+  "d1d2_tests": {
+    "ANTICHEAT_COVERS_STATICVALIDATOR_AND_ORCHESTRATION": true,
+    "NEXT_GATE_RULE_END_TO_END_PIPELINE_FIXED": true,
+    "STATICVALIDATOR_TRANSFORMATION_PROXY_REMOVED": true,
+    "d1_ambiguous_stop": true,
+    "d1_grounded": true,
+    "d1_inactive_no_route": true,
+    "d1_missing_no_route": true,
+    "d1_post_build_metadata_cannot_inject": true,
+    "d1_superseded_no_route": true,
+    "d2_label_independent_predicates": true,
+    "d2_label_removed_before_core": true,
+    "d2_mutator_no_label_proxy": true,
+    "d2_simulator_no_label_proxy": true,
+    "d2_static_no_label_proxy": true
+  },
+  "family_counts": {
+    "CXT": 10,
+    "MUTATION": 12,
+    "O": 10,
+    "P": 7,
+    "T": 15
+  },
+  "fixture_failures": [],
+  "markers": {
+    "ANTICHEAT_COVERS_STATICVALIDATOR_AND_ORCHESTRATION": true,
+    "ARCHITECTURE_ASSERTION_TESTS_STRENGTHENED": "13/13",
+    "BINDING_DERIVATION_PASS": "15/15",
+    "C1_L6_PROJECTION_BOUNDARY_FIXED": true,
+    "CONTEXT_CORRECTION_ENGINE_FIDELITY_FIXED": true,
+    "CONTRACT_ID_TEST_VECTORS_PASS": true,
+    "CXT_FIXTURES_PASS": "10/10",
+    "DESIGN_INTERFACE_MAPPING_COMPLETE": "22/22",
+    "DETERMINISM_TESTS_PASS": true,
+    "EFFECTIVE_CONTEXT_IMPLEMENTATION_FIDELITY_FIXED": true,
+    "FIXTURE_CATALOG_54_OF_54_VALID": true,
+    "IMPLEMENTATION_CANDIDATE_CREATED": true,
+    "INPUT_COMPLETENESS_EXECUTION_PASS": "15/15",
+    "L6_PROJECTION_FIREWALL_ENFORCED": true,
+    "NEXT_GATE_RESOLVER_GROUNDING_FIXED": true,
+    "NEXT_GATE_RULE_END_TO_END_PIPELINE_FIXED": true,
+    "NO_FIXTURE_ID_BRANCHING_TEST_PASS": true,
+    "NO_FIXTURE_TRANSFORMATION_PROXY_FOR_CORE_INVARIANTS": true,
+    "NO_HIDDEN_BINDING_MAPPING_TEST_PASS": true,
+    "NO_SIDE_EFFECT_TESTS_PASS": true,
+    "ORACLE_SEPARATION_TEST_PASS": true,
+    "O_FIXTURES_PASS": "10/10",
+    "POSITIVE_CONTROLS_PASS": "7/7",
+    "PROPERTY_FIXTURES_PASS": "12/12",
+    "RESULT_CLASSIFIER_FIDELITY_FIXED": true,
+    "REVIEWED_SCHEMA_MINIMUM_SUPPORT_FIXED": true,
+    "SCHEMA_VALIDATION_PASS": true,
+    "STATICVALIDATOR_TRANSFORMATION_PROXY_REMOVED": true,
+    "TOTAL_FIXTURES_PASS": "54/54",
+    "TRACE_ID_TEST_VECTORS_PASS": true,
+    "TRACE_SCHEMA_PASS": true,
+    "T_FIXTURES_PASS": "15/15"
+  },
+  "runtime": "Python 3.12+ stdlib only",
+  "schema_minimum_tests": {
+    "REVIEWED_SCHEMA_MINIMUM_SUPPORT_FIXED": true,
+    "below_minimum_rejected": true,
+    "exact_minimum_accepted": true
+  },
+  "status": "PASS"
+}
+BASELINE_OFFLINE_EXIT=0
+{"family": "T", "fixture_id": "T1", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "c3801d2ee2d07abebbc431bd29c1c2b17e29a0a7c5f1807cbcdacc9668e8284d"}
+{"family": "T", "fixture_id": "T2", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "2e5e0a51b0241fe4c107d8c402610730981e91d9fc455559b2f117a43893d76b"}
+{"family": "T", "fixture_id": "T3", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "3ced644c26378305e7b9d233c2c70a93fa992a4bae3de4c582dafe721405adbc"}
+{"family": "T", "fixture_id": "T4", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "4977e577eee28b3a54d8743c0334a38dfd0d56261dbb52d59d35ef332bf358e5"}
+{"family": "T", "fixture_id": "T5", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "138650cec08f6222b402c4c65a670faa81a8f55c353ac8ba532751896754d37f"}
+{"family": "T", "fixture_id": "T6", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "3fc58aa82c3e1f489a1344e51547a7caa10f290a1bc3058fbcda7adc9668ba09"}
+{"family": "T", "fixture_id": "T7", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "a062a7b7986b803a40a03b49b0654dce620b40a65649634b31a6021bab46bb76"}
+{"family": "T", "fixture_id": "T8", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "54b5a91140d74eb5e5bef44ed6f8eb22629933463ed842a62d3cd38c72b2842b"}
+{"family": "T", "fixture_id": "T9", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "b16200331b4b31519cece089eb3ccedb6d6e15a1e915f8429227dfbb6b2852ed"}
+{"family": "T", "fixture_id": "T10", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "c7b241360c1c9dd99e150c00aa5e2490a5a3ab3372993d23abd07bdd1725d95a"}
+{"family": "T", "fixture_id": "T11", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "852298c97f1e7121532a5ab69fd90591f1a178d2044fb7082dd1d4bc63ca66b2"}
+{"family": "T", "fixture_id": "T12", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "fe31fef7a47072a078a7d89eb8aba782a13d1979896cf13be0077855dfa1a424"}
+{"family": "T", "fixture_id": "T13", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "e9678b45f614d1012e6dd56cda8aa8f0a11bd0133eb44946810d4d46faf36fea"}
+{"family": "T", "fixture_id": "T14", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "48455ac396f2c6d3f472f84969af6be6593be575b615e9cbebc77dbc16af342c"}
+{"family": "T", "fixture_id": "T15", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "cc082595fdc410cfcff553f7622e97295ba71c2d19130fcbe56c004dd3c523f1"}
+{"family": "CXT", "fixture_id": "CXT1", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "4fb084c6e17d2521191f4de006861ca36aa85bcd3897eb313c424900e735e940"}
+{"family": "CXT", "fixture_id": "CXT2", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "91d102093b1cf2fc1229fdabec1c1004bc3b47b9bd8c281633609f4d9feae157"}
+{"family": "CXT", "fixture_id": "CXT3", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "82deb605de98827126ff673ee6a752aab5befbd9a8cf8d905bd25ad059ffce7a"}
+{"family": "CXT", "fixture_id": "CXT4", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "abed13b19d22f290ffbe287a88742e12f87d67af41244c067543b160dc2578d3"}
+{"family": "CXT", "fixture_id": "CXT5", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "f4ae3aeae14dd7a340476489e53c8799c9a6da1418a09ab4cc617a03a5d44bfc"}
+{"family": "CXT", "fixture_id": "CXT6", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "61dff4c8424b77d9e330919136bb9ac7a519ed25828c21a3c3eb142d5277e516"}test_actor_missing_support_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_actor_missing_support_still_blocks) ... ok
+test_actor_recovery_drift_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_actor_recovery_drift_still_blocks) ... ok
+test_c1_policy_drift_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c1_policy_drift_still_blocks) ... ok
+test_c2_adapter_authority_drift_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c2_adapter_authority_drift_still_blocks) ... ok
+test_c2_mutated_admission_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c2_mutated_admission_still_blocks) ... ok
+test_c2_mutated_intent_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c2_mutated_intent_still_blocks) ... ok
+test_c2_unresolved_prior_effect_still_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_c2_unresolved_prior_effect_still_blocks) ... ok
+test_missing_task_authority_support_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_missing_task_authority_support_blocks) ... ok
+test_missing_task_currentness_support_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_missing_task_currentness_support_blocks) ... ok
+test_no_forbidden_io_imports (runtime_integration_tests.TaskGroundingR04Tests.test_no_forbidden_io_imports) ... ok
+test_non_live_boundary_still_no_effect (runtime_integration_tests.TaskGroundingR04Tests.test_non_live_boundary_still_no_effect) ... ok
+test_task_authority_version_drift_before_admission_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_authority_version_drift_before_admission_blocks) ... ok
+test_task_binding_flows_resolution_contract_intent_admission (runtime_integration_tests.TaskGroundingR04Tests.test_task_binding_flows_resolution_contract_intent_admission) ... ok
+test_task_conflict_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_conflict_blocks) ... ok
+test_task_currentness_drift_after_admission_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_currentness_drift_after_admission_blocks) ... ok
+test_task_currentness_unknown_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_currentness_unknown_blocks) ... ok
+test_task_evidence_version_drift_after_admission_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_evidence_version_drift_after_admission_blocks) ... ok
+test_task_superseded_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_superseded_blocks) ... ok
+test_task_supersession_drift_after_admission_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_task_supersession_drift_after_admission_blocks) ... ok
+test_unverified_task_authority_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_unverified_task_authority_blocks) ... ok
+test_valid_exact_current_task_path (runtime_integration_tests.TaskGroundingR04Tests.test_valid_exact_current_task_path) ... ok
+test_wrong_task_identity_blocks (runtime_integration_tests.TaskGroundingR04Tests.test_wrong_task_identity_blocks) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.396s
+
+OK
+
+{"family": "CXT", "fixture_id": "CXT7", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "5f53ec73547e97739d7b3d62ca4f6a538f6174593f4a9bf70bfb38d8cc7459e3"}
+{"family": "CXT", "fixture_id": "CXT8", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "447b8aafc0e6e9d2f9b7e71afabd0df9cd84c9f4e94b87acc9f7f067844d43a5"}
+{"family": "CXT", "fixture_id": "CXT9", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "f6c1d74aeb23568ab7d9bb97d3cca8efa555d24c2a533addb79b83d93278f1b6"}
+{"family": "CXT", "fixture_id": "CXT10", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "99014ba5c27f1749b2d61683cf55d06acb7cb0f07647214ef60eda08ccd0a8be"}
+{"family": "O", "fixture_id": "O1", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "d7bef6a1487234a4a7a999573d3ecfa3866b9a17751d2d45c7c908505c9c3b68"}
+{"family": "O", "fixture_id": "O2", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "9fe939654dc989a5f01d121d60bbc3b0931a6ccd02f741b0c664c4b04cf1d60d"}
+{"family": "O", "fixture_id": "O3", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "de096e1f21ff6540471343692fe02640b8999ec92ee4a906bffc4a22c554292d"}
+{"family": "O", "fixture_id": "O4", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "495f80c7b6f526435387db9dd404f0c6f57b3505869cb57fbdd6b390330c9747"}
+{"family": "O", "fixture_id": "O5", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "97caa31df430758abf86943d8108b455fe52b68c0da3cd7d192b71bf41adbfc2"}
+{"family": "O", "fixture_id": "O6", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "10f901e7d35325bddd22fe901afd766923318f80ac44d95f92aa3c2cb3b13c84"}
+{"family": "O", "fixture_id": "O7", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "57c523a0261139e82080c5bc4c82f21be66e85f0ef135019a99bd121e4aa4195"}
+{"family": "O", "fixture_id": "O8", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "c1ed9a113938de37210cd9fd92389be20b516691b5ab6a135c80af6f71d554a8"}
+{"family": "O", "fixture_id": "O9", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "0a505db90dece1e03bd764e24e9230f6eedf7a82f35528c20ea72e0c677459f9"}
+{"family": "O", "fixture_id": "O10", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "738cbc4b6fd37a12e29577fa74f84f1e64fe0a46757745ce2dc1aa50b0da550a"}
+{"family": "P", "fixture_id": "P1", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "6872c00e00e4ab924c98d159fa181ee78b384edf4a840464223fa50c8e8d84cd"}
+{"family": "P", "fixture_id": "P2", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "3e96ca1a360dfbdf88c3977fa3921f1ae744a4324c61de8506cb1dd927bc958a"}
+{"family": "P", "fixture_id": "P3", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "730b79c60e540588b7fa3617ce2556736d7344246309df2e7f391a99f5a0f27e"}
+{"family": "P", "fixture_id": "P4", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "fafe030de6b3527aa2ab2efeccd0d010f6a2b19e8f5399c900477ae7c1387c0d"}
+{"family": "P", "fixture_id": "P5", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "86b2bc3bb1239b0883ca4da57ace0168727d289efc3871dea7b54067fd37038b"}
+{"family": "P", "fixture_id": "P6", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "a9f342f8a3cb7b5c18b81bb560c6b1894210020eef1c152ddaf86c3b60f42352"}
+{"family": "P", "fixture_id": "P7", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "a306847392eea22aaeb9dcf3aed60dd3a69f54b430e8b9442e4b2324b2ace51b"}
+{"family": "MUTATION", "fixture_id": "M1", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "f227adc347eb504ea128dec64bdd69065b8fed589eb3f95e4767ed690399918d"}
+{"family": "MUTATION", "fixture_id": "M2", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "c8e8031303c18063f381d1e1f3056c887871144bd3dd25cf96122b49ee0146f3"}
+{"family": "MUTATION", "fixture_id": "M3", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "42d3fa5bcdada0b391f0c7c279614789bf7a2871f752092f0ef5b96bd5486ec0"}
+{"family": "MUTATION", "fixture_id": "M4", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "147fbace0a458342afe540c384a08cffe620316271a7192d121ea88df733472c"}
+{"family": "MUTATION", "fixture_id": "M5", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "b487a514f664652434fd84d4c6b24d86d090bcc778b5f7303087fcb66deaffaa"}
+{"family": "MUTATION", "fixture_id": "M6", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "5a630f5067c89e723783cabda198a8162038cafe7b81914312f535e24c2951e3"}
+{"family": "MUTATION", "fixture_id": "M7", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "05bc10bd005afcec3edad408da1e74d91ee79152052cf97fe28e9de184b7c81a"}
+{"family": "MUTATION", "fixture_id": "M8", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "2a2113e00f6df4865ad4ea3bd97f8ca524f88cea4d326622198857e5d3a42bc7"}
+{"family": "MUTATION", "fixture_id": "M9", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "1921b795402c5c78867e1f000f666dcf5d9876f16b15bc0d74d9fe629d22662d"}
+{"family": "MUTATION", "fixture_id": "M10", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "8a6ecd1114148a5a98b59ec053c0b963b81fbd125406f2f95d9ca80a8181ac4a"}
+{"family": "MUTATION", "fixture_id": "M11", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "e9d4acb00a8c8e348d30f13035f894cc003100ad0520e73a182baecc9874a153"}
+{"family": "MUTATION", "fixture_id": "M12", "mismatches": [], "oracle_state": "ORACLE_PASS", "trace_id": "2867dee1f858f5ef98bbd55773eef48b70197829a7edca7878c20e7709029b42"}
+BASELINE_FIXTURES_EXIT=0
+RUNTIME_INTEGRATION_TESTS_PASS=22/22
+NO_LIVE_EFFECT_TEST_BOUNDARY=YES
+RUNTIME_INTEGRATION_EXIT=0
+ALL_OFFLINE_INTEGRATION_GATES_PASS=YES
+
+===== END FILE: r04-full-offline.log =====
+
+===== FILE: combined-r04-r02.log =====
+=== COMBINED R04+R02 ===
+OFFLINE_GUARD_ACTIVE=YES
+test_01_happy_path_binding_admission_and_boundary (__main__.CombinedR04R02.test_01_happy_path_binding_admission_and_boundary) ... ok
+test_02_forged_binding_is_rejected_before_intent (__main__.CombinedR04R02.test_02_forged_binding_is_rejected_before_intent) ... ok
+test_03_current_binding_drift_blocks_before_admission (__main__.CombinedR04R02.test_03_current_binding_drift_blocks_before_admission) ... ok
+test_04_invocation_binding_drift_fails_closed (__main__.CombinedR04R02.test_04_invocation_binding_drift_fails_closed) ... ok
+test_05_cleanup_identity_mismatch_blocks (__main__.CombinedR04R02.test_05_cleanup_identity_mismatch_blocks) ... ok
+test_06_no_effect_outcome_remains_not_executed (__main__.CombinedR04R02.test_06_no_effect_outcome_remains_not_executed) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.080s
+
+OK
+COMBINED_R04_R02_PROBE_PASS=6/6
+REAL_SANDBOX_EFFECT_EXECUTION=NOT_EXECUTED
+CONCRETE_SANDBOX_TARGET_SELECTION=NOT_PERFORMED
+
+===== END FILE: combined-r04-r02.log =====
+
+===== FILE: post-exec-integrity.log =====
+=== POST EXECUTION INTEGRITY ===
+TREE=65c8e7c9061bd81f6a0d2e9722d2fa60281c0ade
+POST_EXEC_BLOB_COUNT=58
+POST_EXECUTION_BLOBS=58/58_PASS
+CANDIDATE_READ_ONLY_AFTER_EXEC=YES
+GUARD_BLOCKS_IN_TEST_LOGS=0
+
+===== END FILE: post-exec-integrity.log =====
+
+===== FILE: combined_r04_r02_probe.py =====
+import copy, unittest
+import runtime_integration_tests as rit
+from runtime_integration import ContractCompilerFacade
+from sandbox_adapter import ADAPTER_ID, EphemeralFileSandboxEffectAdapterR01, ObjectBoundCleanupR02
+from sandbox_adapter_tests import bind, created, cstate, platform
+from sandbox_runtime_integration import SandboxBoundEffectIntentEmitter, SandboxBoundPreEffectRevalidator, SandboxBoundEffectBoundaryVerifier
+
+def combined():
+    env,p,resolution,actor,task,frontier,pdep = rit.bundle()
+    compiled=ContractCompilerFacade(rit.FakeCore()).compile(env,resolution,actor)
+    b=bind()
+    frontier=dict(frontier)
+    frontier.update({str(k):str(v) for k,v in b["supporting_evidence_versions"].items()})
+    authority=rit.adapter_authority()
+    authority["adapter_class"]=ADAPTER_ID
+    intent=SandboxBoundEffectIntentEmitter().emit(
+        env,resolution,compiled,actor,
+        sandbox_effect_binding=b,
+        required_outcome_evidence_mode="EXACT_RESULT",
+    )
+    admission=SandboxBoundPreEffectRevalidator().revalidate(
+        intent,compiled,actor,
+        current_evidence_versions=frontier,
+        expected_evidence_versions={},
+        adapter_authority=authority,
+        prior_effect_state="NONE",
+        current_trust_policy_dependency=pdep,
+        current_task_execution_binding=task,
+        current_sandbox_effect_binding=copy.deepcopy(b),
+    )
+    invocation=rit.invocation(actor,task,frontier,pdep,authority)
+    invocation["sandbox_effect_binding"]=copy.deepcopy(b)
+    return env,resolution,actor,task,frontier,pdep,compiled,b,authority,intent,admission,invocation
+
+class CombinedR04R02(unittest.TestCase):
+    def test_01_happy_path_binding_admission_and_boundary(self):
+        *_, b, authority, intent, admission, invocation = combined()[7:]
+        self.assertIsNotNone(intent)
+        self.assertEqual(admission["revalidation_verdict"],"ADMIT_EFFECT_NOW")
+        ok,reasons=SandboxBoundEffectBoundaryVerifier().verify(intent,admission,invocation)
+        self.assertTrue(ok,reasons)
+        self.assertEqual(intent["sandbox_binding_id"],b["binding_id"])
+        self.assertFalse(bool(EphemeralFileSandboxEffectAdapterR01().pre_effect(b,b,b["supporting_evidence_versions"])["real_effect_executed"]))
+
+    def test_02_forged_binding_is_rejected_before_intent(self):
+        env,p,resolution,actor,task,frontier,pdep=rit.bundle()
+        compiled=ContractCompilerFacade(rit.FakeCore()).compile(env,resolution,actor)
+        b=bind(); b["exact_leaf_name"]="forged.bin"
+        intent=SandboxBoundEffectIntentEmitter().emit(
+            env,resolution,compiled,actor,
+            sandbox_effect_binding=b,
+            required_outcome_evidence_mode="EXACT_RESULT")
+        self.assertIsNone(intent)
+
+    def test_03_current_binding_drift_blocks_before_admission(self):
+        env,resolution,actor,task,frontier,pdep,compiled,b,authority,intent,_,_=combined()
+        current=copy.deepcopy(b); current["root_identity_id"]="WRONG"
+        admission=SandboxBoundPreEffectRevalidator().revalidate(
+            intent,compiled,actor,
+            current_evidence_versions=frontier,
+            expected_evidence_versions={},
+            adapter_authority=authority,
+            prior_effect_state="NONE",
+            current_trust_policy_dependency=pdep,
+            current_task_execution_binding=task,
+            current_sandbox_effect_binding=current)
+        self.assertNotEqual(admission["revalidation_verdict"],"ADMIT_EFFECT_NOW")
+        self.assertTrue(admission["revalidation_reason_ids"])
+
+    def test_04_invocation_binding_drift_fails_closed(self):
+        env,resolution,actor,task,frontier,pdep,compiled,b,authority,intent,admission,invocation=combined()
+        invocation=copy.deepcopy(invocation)
+        invocation["sandbox_effect_binding"]["root_identity_id"]="WRONG"
+        ok,reasons=SandboxBoundEffectBoundaryVerifier().verify(intent,admission,invocation)
+        self.assertFalse(ok)
+        self.assertTrue(reasons)
+
+    def test_05_cleanup_identity_mismatch_blocks(self):
+        b=bind(); c=created(b); s=cstate(b,c); s["operation_key"]="WRONG"
+        out=ObjectBoundCleanupR02().eligibility(binding=b,created=c,state=s,platform=platform())
+        self.assertEqual(out["classification"],"BLOCKED")
+
+    def test_06_no_effect_outcome_remains_not_executed(self):
+        b=bind()
+        pre=EphemeralFileSandboxEffectAdapterR01().pre_effect(b,b,b["supporting_evidence_versions"])
+        self.assertEqual(pre["classification"],"READY_FOR_PRIMITIVE_INVOCATION")
+        self.assertFalse(pre["real_effect_executed"])
+        self.assertEqual(EphemeralFileSandboxEffectAdapterR01().classify({"effect_attempted":False,"mutation_possible":False}),"NOT_EXECUTED")
+
+if __name__=="__main__":
+    suite=unittest.defaultTestLoader.loadTestsFromTestCase(CombinedR04R02)
+    result=unittest.TextTestRunner(verbosity=2).run(suite)
+    passed=result.testsRun-len(result.failures)-len(result.errors)
+    print(f"COMBINED_R04_R02_PROBE_PASS={passed}/{result.testsRun}")
+    print("REAL_SANDBOX_EFFECT_EXECUTION=NOT_EXECUTED")
+    print("CONCRETE_SANDBOX_TARGET_SELECTION=NOT_PERFORMED")
+    raise SystemExit(0 if result.wasSuccessful() else 1)
+
+===== END FILE: combined_r04_r02_probe.py =====
+
+===== FILE: candidate-ls-tree.txt =====
+100644 blob 6432a603132211061e4f866fa0102cded45e5a6c	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/ARCHITECTURE-BASIS.md
+100644 blob 6f92b57b62cbacbc2f526768894aca924b93dbcf	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/CORRECTION-MAP.md
+100644 blob 5e0bf5d7d1c45f163cc68ad10d1419a9fda5145f	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/DESIGN-BINDING.md
+100644 blob d361393d89eeeefbb75cd658c1e137921db20790	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/IMPLEMENTATION-MAP.md
+100644 blob fb6561336b1e270eb8673c1f2ea7e2caa14e3841	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/LINUX-POSIX-PLATFORM-EVIDENCE-PROFILE-R01.json
+100644 blob 7273cd83c259cc8b9be5974a4a2a433071935919	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/MANIFEST.md
+100644 blob fe76fdb45dab31bae1ec7ef9ee34f2dd3b84adc1	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/NEW-FILES-SHA256SUMS
+100644 blob 85a01ada074092b2c6786418dc65bc01c5562e47	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/OBJECT-BOUND-CLEANUP-R02-IMPLEMENTATION.json
+100644 blob 2a10093101597f7df4473a7174df6769accac965	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/PACKAGE-IDENTITIES.md
+100644 blob 24fc51b9f26e15fa1dab9163a2ae9ec3589dcf82	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/PLATFORM-EVIDENCE-PROFILE.md
+100644 blob 868c04944dcc46c2205090103866ba942d596a0b	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/README.md
+100644 blob 2ef8bd945c91cc7e08d61e9c7a23fcb1fe04aec8	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/RUNTIME-INTEGRATION-MAP.md
+100644 blob 7bd015f32b069352eaabbb34ef9b4383613afa6f	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/SECE-SANDBOX-CONFINEMENT-PROFILE-R02-IMPLEMENTATION.json
+100644 blob 4e91df7528044a794c37cea2787857f0808a9b8e	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/SECURITY-BOUNDARY.md
+100644 blob dd2b0cd23a95cae049128cd1932a3e72cda77143	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/TEST-RESULTS.md
+100644 blob 92f2346211c7ab51a080e19c830741d38be17fa5	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/TEST-SUMMARY.json
+100644 blob 29ab8609955d22c8785004332df4a0a9c5d3856d	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/anti_cheat_regression_tests.py
+100644 blob 6e24ba6424e99659e36c8385df34c30b608558ca	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/architecture_tests.py
+100644 blob 97bc502437a06ec441eeb2cb782ddd4866173e07	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/correction_tests.py
+100644 blob e4858197c67b4a2f8aaa275642610e5005605b92	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/d1d2_tests.py
+100644 blob ac2ebdd920db5747888945736d0d8cdec31b5618	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/fixture_runner.py
+100644 blob 789350310e26901bd58e43823f44239c3513c8c4	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/package_gate_tests.py
+100644 blob 5efa3127e538140f2d041b181115675c5a61cb88	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/AUTHORITY-MODEL.md
+100644 blob 776301e1e33055f99a4854621edb40636869c373	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/G5-REVIEW.md
+100644 blob 7bbf8e1f0a0bbcb7d3bffd4eda0cfb808596a3e0	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/G6-TRANSITION.md
+100644 blob 3f9f932410c37e56528cacfb81c6bfc0e1457fc2	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/SANDBOX-GATE.md
+100644 blob f77bf23ef0fbbaa962c814004626212954fd3fe2	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/UNRESOLVED-EFFECT.md
+100644 blob 3dab9da97c5cfb4a055f5d5967791105a657c231	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/CLEANUP-IDENTITY.md
+100644 blob 3e8e12a95f44db6c18a895d0ed83b69dc4b4ea6e	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/CONFINEMENT-PROFILE.md
+100644 blob aa3b2bac844173430d07aeb70999158c97e87753	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/G4-AUTHORITY-SHAPE.md
+100644 blob 330a9c1c968a9fa2f1aa78bc0f2b63b6f598b04f	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/MANIFEST.md
+100644 blob 6e5ad629e775d0ad17082ad88e8a376298eaea3e	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/OUTCOME-EVIDENCE.md
+100644 blob c0926c3767e377e8e6c5cdbd5af0d063f51f629c	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/PRE-EFFECT-ADMISSION.md
+100644 blob d3f116f08ba51322c5eac933cb6a5a413858e608	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/ROLLBACK-CLEANUP.md
+100644 blob 3f9891aa200224d3365d01cfdb3752243e9cf40c	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/SANDBOX-EFFECT-ADAPTER.md
+100644 blob f42f7f76bab51890bd4290b6217246776b90e223	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/SANDBOX-EFFECT-CLASS.md
+100644 blob 8758546a2a1bf62defd4e7b32d5ab3357abba8e2	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/CONTRACT-ID-TEST-VECTORS.json
+100644 blob cdaed663de7027d700278322341260c5974cb01d	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/FIXTURE-CATALOG.json
+100644 blob 2647d0f11719b143cef5543a13218cc28376e2bc	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/FIXTURE-SCHEMA.json
+100644 blob 7339655c132459f87a1943f4f825d45b497108e3	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/IDENTITY-SPEC.md
+100644 blob 0f9d11946b6f271ef03c99c8757e1ed9f032e466	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/INPUT-DERIVATION-SPEC.md
+100644 blob 00eb5487c611ae9e3e1db6c4a00100c419c9a650	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/TRACE-ID-TEST-VECTORS.json
+100644 blob 0876cff31d1e4b54b065933aa74129e591c78e94	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/TRACE-SCHEMA.json
+100644 blob 12b5ddb8da641cc1ff7c8e7377d5ef0142cdc198	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_all_offline_tests.py
+100644 blob f62279ef03ea8b1434d5567fb55753ff0423904b	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_candidate_tests.py
+100644 blob 37b6f9e655e55d9f4be59a87052cc354ff38a328	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_offline_tests.py
+100644 blob c61a192bebae8dac05dbd01f0f32d7d3b7e58e89	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_runtime_integration_tests.py
+100644 blob b342587443eacade5d01a4ebbadf793c7c5c0ca3	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_sandbox_adapter_tests.py
+100644 blob e0626e3088b7f364604d1fb5e12c2b2b511c3987	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/runtime_integration.py
+100644 blob c9e6939566e1411b786056846aeca1720d7f10e1	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/runtime_integration_tests.py
+100644 blob 9ebaabcc9e7463bc4cde720e667f67baa34d5324	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_adapter.py
+100644 blob 5635491a6b70682e1d2a6e043e2049ed13bd8ee6	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_adapter_tests.py
+100644 blob 9df3b574a3d562fb6f1c4e6dddf3a1f97738c017	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_effect.py
+100644 blob c96ce58619fff14e9078f2952892acb60329e062	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_profile.py
+100644 blob 1899bd7ce5db24e0ef6311479d9de51944a5dfb3	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_runtime_integration.py
+100644 blob 4356e428ac51f16b568420f7c6f8df2421dbd346	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/schema_minimum_tests.py
+100644 blob c5100fe0e160b5df0dc139aa05fb8740dab2ebce	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/schema_tools.py
+100644 blob e7b89c948c4e672c5b682408ce790670dfcdad5c	entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sece_simulator.py
+
+===== END FILE: candidate-ls-tree.txt =====
+
+===== FILE: materialized-sha256.txt =====
+3025988987853196f2bdb161af66fa8c3fa61ee63b68761d5dac51abf9a46c55  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/ARCHITECTURE-BASIS.md
+2974b74569209ecc75f8cda444f2ebb78efcafeaceed27a44025a4278cc5d73e  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/CORRECTION-MAP.md
+791cc3246087e12e57906e0dcf12d5d5a584304bd1f1838a87f5e30086101e56  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/DESIGN-BINDING.md
+c366250865650aa7a2269f4dbd895f3be82331101acc56d7bc70c91737b26404  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/IMPLEMENTATION-MAP.md
+59b8792ea1930d89697bc4f7c6fb1a6704d8978f4870b46545ca79e0488f4773  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/LINUX-POSIX-PLATFORM-EVIDENCE-PROFILE-R01.json
+4049a4beb50bc85472334e7bb661fcbc7ad7d3ff842005d9b3eb44428cb975d1  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/MANIFEST.md
+6629da2f6126d36fe99f8483b1cda0c3b4b0dcce6e9bee86f60fbbe3648327b5  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/NEW-FILES-SHA256SUMS
+a4f824215d7db5e34681bd94e343e9336a74744728264a3f3b3d7cb2b7b2a3d9  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/OBJECT-BOUND-CLEANUP-R02-IMPLEMENTATION.json
+36d4f456e6730f43d438d9e24ad1760925eb64c7e20d738d0232ecc84340b9a9  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/PACKAGE-IDENTITIES.md
+42c357208a06e737f45ad22f44fe68e6e8a0eb838f3ba7636766dd6f1aaf1158  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/PLATFORM-EVIDENCE-PROFILE.md
+9380eadb202d6b7bde35695f5065b7e5825cafbb9803e01faf6efa60e48c4562  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/README.md
+6aeccc1f3fd8b2a83eaee3a2275491521a90dee1a64ee20169dc95b38bf75e89  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/RUNTIME-INTEGRATION-MAP.md
+db7dd09589dfc46f568676022affc59e71032d6908ea7d39d1ae8d0358f3cf21  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/SECE-SANDBOX-CONFINEMENT-PROFILE-R02-IMPLEMENTATION.json
+2419de366b299b6f21264a92eee00a40cbe8faf0b3df1401b80c06d1dc31d86d  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/SECURITY-BOUNDARY.md
+80b6f2ae044eacae95ed3281a822b65019666912ada1981874607534cce9c1f5  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/TEST-RESULTS.md
+6356440e7fd1217723896026170ab173326fb31e13a7441c8b8d4dabbe3ce196  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/TEST-SUMMARY.json
+ba2145be757aa5c848385adf601648c3f0aa532efaa4b8b0aafd9afaede1766b  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/anti_cheat_regression_tests.py
+96ae9e80520bfc57952823cfc33f527b41081cc64ca83eedf0a425239152c2d3  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/architecture_tests.py
+352ebbc5a6655329aed580aef0002c902bfcfa7ed3b01076ac562439dc6bac8f  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/correction_tests.py
+387280529ed20e1da19498f083584ff223b8028840ba298ccc0b54bf9329ecfe  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/d1d2_tests.py
+2f23eec5ada5abbd61f50b1ec7d41cb9eeb61245f354f03565cdebfe5d878f34  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/fixture_runner.py
+c5a33bde2f0ad3c162ef55790254ec57769c307dc0adcffdce6a2ff0068e4538  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/package_gate_tests.py
+9edcc1df4afe273d85354cb2b074001c7ce8878703b186f4cf40f560305b1535  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/AUTHORITY-MODEL.md
+b4e6d1a2d7326d735533be2fc6566196ddcdba1ab2c963abba5f9c8e901af087  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/G5-REVIEW.md
+7b624390f5012815a8d2067448780d07fb6ff33d44582b7c46964561124a4228  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/G6-TRANSITION.md
+a83311be4c84e971b4e075d4c9e6ac03f5f035f4ac7829c048edfa6490964f8f  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/SANDBOX-GATE.md
+fcac722e85228dd9f121f4d7a24f7f3324afd28e9e1c3e3f1840f6e7f94e9234  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/carried-r01/UNRESOLVED-EFFECT.md
+f5be6b4de6d4b363588b63a5bc4b75eb7b6a74a4107ac7dd3504f01ab4b00dad  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/CLEANUP-IDENTITY.md
+de74c84f89adbd12e6bbfd481a46bc918647eb74cc48c5f50c2e60000fac755c  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/CONFINEMENT-PROFILE.md
+9706d9837f56ae051b490b28e98d78f70cc8061e9eb523e73b2f9a0a32ece8fa  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/G4-AUTHORITY-SHAPE.md
+ee79bac22c74c1026abe97b7be3db204244a27284ccb2c2be859a9dc3edff152  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/MANIFEST.md
+b5e4c9cf8a7de63e6985a999cc15dc916ea924f773dc7a171e8c56faf3cacc81  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/OUTCOME-EVIDENCE.md
+55ae6dd63506d7cbc6737b70b5d81a79032edc56829dfd3473d0879da0b8f3e4  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/PRE-EFFECT-ADMISSION.md
+5003bae9e8e96765e5e9f41b3d674d33bf6436ef50d61026aa9745783dcf3574  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/ROLLBACK-CLEANUP.md
+15dfc4e33b55ce6f5c233e3b8a224139ec970303937e8d956d7ee6706098ec44  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/SANDBOX-EFFECT-ADAPTER.md
+7d36f5654fd02f9f1ece2d31608204d64d721262ea07b041ca5f6750b024df4b  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-design/r02-overlay/SANDBOX-EFFECT-CLASS.md
+4f2a96c79d8c46f172d078c7317a249cf4a2df2a3606b8ff25621651080343eb  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/CONTRACT-ID-TEST-VECTORS.json
+64c2bfac471d7a0f62bae913a9c164243d83b9afb643b26fd8fc1870d68f10b9  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/FIXTURE-CATALOG.json
+a2ec768fdcd238ceee45cc62589096bba49a1b0df45c9eeb26ec1c841b5d28c6  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/FIXTURE-SCHEMA.json
+9965a608092bd25554614de058203598886df081066fee3c5ebe5198607b3d58  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/IDENTITY-SPEC.md
+0660a4d46dffeaf76eea7757f653417c4e4c91c90cf68007a2ed2130b874f246  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/INPUT-DERIVATION-SPEC.md
+3c8fa9cdf1a3eb709c7edc420c440c10bb849eaf4eb7e84d07b652745b7b4c8d  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/TRACE-ID-TEST-VECTORS.json
+ed70d3d3cb6069fd6e17864ffc481851dcb94da4159dd2e9e0101fa25f9b2a56  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/reviewed-inputs/TRACE-SCHEMA.json
+140631aca188ddfda1919ba9b9981e7d3bc25a6bf500ef6d2b9cf103cdae38b4  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_all_offline_tests.py
+739c9005fc52f6ed321d159c2e74a6d22f72bdd6c0c10efa1d8d8c8546b6b1e5  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_candidate_tests.py
+6f41557a28acacf08487d4a9e6daca26917eb7bfc73b4c6be20ed9154fd5c60d  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_offline_tests.py
+7a4d1c04ec76016546e96003aa5ffe552c5e4bbf1402e9b2f6d0d60958071c06  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_runtime_integration_tests.py
+07860e00943b7e8b44e8f8e42eae6ac6ee609e2a7b25667971e6a5b3116429dd  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/run_sandbox_adapter_tests.py
+a287ee5d107889bbb8ed43f538a2542c5555310be18507c8df0c9e4c7400090b  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/runtime_integration.py
+4baabacf413b624a4ceb1daad4b0a69ccf504fec4ac305f4b469a45742cf3e6d  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/runtime_integration_tests.py
+3b8c36d41e0e8169882acec147db972537c2effd4b3aaee75aa6483d065ab783  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_adapter.py
+8e600e5380c6fe14f1e9edde335ea260526f7cdf502d8c232e3b8e6a742b4346  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_adapter_tests.py
+3d2a54264cf395ac385a0f8e616eee8ccd524bb50e246f8a2d6c9b5d24c05f24  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_effect.py
+a489eb26a7ce6e81ded2c1c98739e5d8aed9dbae11ad8ee1df2b8bdad04b10f5  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_profile.py
+ecee96eb186f75ea30ffc325b6c8f031e8c6d64b28c23a0fc847237189ac423c  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sandbox_runtime_integration.py
+62bcbe4db8bca9c5869050c15939ddf8648daae674a634ab498fe7308d8dfb84  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/schema_minimum_tests.py
+0325f1e16910b8b516a5712f4ae23c0de5621d0b6ab1d3b347046554ac165e24  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/schema_tools.py
+7f254b1df1f0160680caf13e9dd99f0cc7ed93e9944cd4d4ec9d584f7e6c1fed  /home/pev5691/kod-sece-r02-offline-r02-a1/materialized/entities/koder/outbox/sece-r01-sandbox-adapter-platform-implementation-correction-r02/sece_simulator.py
+
+===== END FILE: materialized-sha256.txt =====
+
+===== FILE: evidence-sha256.txt =====
+afa82158439071289fc3dfa494964125e989970e242dc782424f9a57b62deaa2  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/acquisition.log
+e6a5e9dfd3096b4d2795d9c699ec796bc9658266a794e48391fd82350b5ba7d0  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/safety-gate.log
+6a454bcb4c05418f80c6992a586dc4dda007b38a39632b0a4b061a4cfb3bf18e  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/syntax.log
+f112d7e647f6e08d1bbb06e2cb225725bdbded96da2aaf18b7c2c4e300b6c2cc  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/r02-pure-mock.log
+c40e866c1d0b477e9aec7825208525ca93eacaec07c4f443dce1ad6210541a53  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/r04-runtime.log
+1285f5ea89a9782bd6ff2d1c354e7a1c67c71f3d604509d3551b8d580d2a10b7  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/r04-full-offline.log
+42a73d146dc0bf3a21d9b9a1d0052fcdcff4f1a97cb22cb4b22c493906f2d8c9  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/combined-r04-r02.log
+bd6904f02ec70d239261066c1a4c0c0488e98ad0b5a0e4487bd9574964ce0505  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/post-exec-integrity.log
+b1231f43cd78921846788045b8fa5baa1bd7d60e073a8f6d3e2fbb9bbb305682  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/combined_r04_r02_probe.py
+4c05b1bb311b24a9ae386ba917070b35309c964ca1597805cb03cf0ac8a359a5  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/candidate-ls-tree.txt
+51c5295a8b2346550e34f083d8478bf0f4a6e91a589485a0d787e7b5150ce7d9  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/materialized-sha256.txt
+
+===== END FILE: evidence-sha256.txt =====
+

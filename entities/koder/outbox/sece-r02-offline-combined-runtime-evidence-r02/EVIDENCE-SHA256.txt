@@ -1,0 +1,11 @@
+afa82158439071289fc3dfa494964125e989970e242dc782424f9a57b62deaa2  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/acquisition.log
+e6a5e9dfd3096b4d2795d9c699ec796bc9658266a794e48391fd82350b5ba7d0  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/safety-gate.log
+6a454bcb4c05418f80c6992a586dc4dda007b38a39632b0a4b061a4cfb3bf18e  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/syntax.log
+f112d7e647f6e08d1bbb06e2cb225725bdbded96da2aaf18b7c2c4e300b6c2cc  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/r02-pure-mock.log
+c40e866c1d0b477e9aec7825208525ca93eacaec07c4f443dce1ad6210541a53  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/r04-runtime.log
+1285f5ea89a9782bd6ff2d1c354e7a1c67c71f3d604509d3551b8d580d2a10b7  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/r04-full-offline.log
+42a73d146dc0bf3a21d9b9a1d0052fcdcff4f1a97cb22cb4b22c493906f2d8c9  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/combined-r04-r02.log
+bd6904f02ec70d239261066c1a4c0c0488e98ad0b5a0e4487bd9574964ce0505  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/post-exec-integrity.log
+b1231f43cd78921846788045b8fa5baa1bd7d60e073a8f6d3e2fbb9bbb305682  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/combined_r04_r02_probe.py
+4c05b1bb311b24a9ae386ba917070b35309c964ca1597805cb03cf0ac8a359a5  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/candidate-ls-tree.txt
+51c5295a8b2346550e34f083d8478bf0f4a6e91a589485a0d787e7b5150ce7d9  /home/pev5691/kod-sece-r02-offline-r02-a1/evidence/materialized-sha256.txt
